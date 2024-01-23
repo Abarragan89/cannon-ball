@@ -1,17 +1,40 @@
-import { Text, View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Link } from "expo-router";
+import Title from "../Components/UI/Title";
+import MainButton from "../Components/UI/MainButton";
 
 const Home = () => {
   return (
-    <View>
-    <Text>Home Page</Text>
+    <View style={styles.rootContainer}>
+      <Title>Cannon Ball!</Title>
+      <View style={styles.buttonContainer}>
 
-    <Link href="/CampaignOverviewScreen">Campagin</Link>
+        <MainButton route="/CampaignOverviewScreen">
+          Campaign
+        </MainButton>
 
-    <Link href="/StoreScreen">Store</Link>
-    <Link href="SettingScreen">Settings</Link>
+        <MainButton route="/StoreScreen">
+            Store
+        </MainButton>
+
+        <MainButton route="/SettingScreen">
+          Settings
+        </MainButton>
+      </View>
     </View>
   )
 }
 
 export default Home;
+
+const styles = StyleSheet.create({
+  rootContainer: {
+    margin: 24,
+    marginTop: 10
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 25
+  }
+})
