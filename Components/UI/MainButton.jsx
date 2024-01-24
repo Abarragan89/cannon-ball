@@ -1,13 +1,19 @@
-import { Link } from 'expo-router';
-import { View, StyleSheet } from 'react-native';
+import { Link, router } from 'expo-router';
+import { View, StyleSheet, Pressable, Text } from 'react-native';
+import colors from '../../constants/colors';
 
 const MainButton = ({ children, route }) => {
+
+    function changeRouteHandler() {
+        router.navigate(route)
+    }
+
     return (
-        <View style={styles.container}>
-            <Link style={styles.linkEl} href={route}>
+        <Pressable onPress={changeRouteHandler} style={({ pressed }) => [styles.container, pressed && styles.pressed]}>
+            <Text style={styles.text} href={route}>
                 {children}
-            </Link>
-        </View>
+            </Text>
+        </Pressable>
     )
 }
 
@@ -18,9 +24,13 @@ const styles = StyleSheet.create({
         margin: 10,
         borderWidth: 1, 
         paddingVertical: 5,
-        paddingHorizontal: 25
+        paddingHorizontal: 25,
+        backgroundColor: colors.primaryYellow
     },
-    linkEl: {
+    text: {
         fontSize: 16
+    },
+    pressed: {
+        opacity: 0.7
     }
 })
