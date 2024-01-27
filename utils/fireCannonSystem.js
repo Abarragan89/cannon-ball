@@ -8,32 +8,28 @@ const fireCannonSystem = (entities, { touches }) => {
   let isBallMoving = false;
   touches.forEach(t => {
     if (t.type === "long-press" && !isBallMoving) {
-
       isBallMoving = true;
-
-      const GRAVITY = .01
+      const GRAVITY = .05
       let ANGLE = entities.angleMeter.angleLevel;
       let POWER = entities.powerMeter.powerLevel
 
+      // Create the velocity for X and Y that create the arc.
       const angleInRadians = (ANGLE * Math.PI) / 180;
       entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
       entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
       const animateMovement = () => {
         if (isBallMoving) {
+          // Update the X and Y based on the arc velocity
           entities.cannonBall.position[0] += entities.cannonBall.velocity[0]
           entities.cannonBall.position[1] += entities.cannonBall.velocity[1]
+          // Increase gravity to slowly bring ball back down. 
           entities.cannonBall.velocity[1] += GRAVITY
 
           // WALL DETECTION
           // if hits bottom 
           if (entities.cannonBall.position[1] > windowHeight - 34) {
-            // entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
             isBallMoving = false;
           }
-          // if hits top
-          // if (entities.cannonBall.position[1] < 5) {
-          //  entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
-          // }
 
           // if hits right wall
           if (entities.cannonBall.position[0] > windowWidth - 14) {
@@ -45,7 +41,6 @@ const fireCannonSystem = (entities, { touches }) => {
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
           }
         }
-
 
         if (isBallMoving) {
           // Continue the animation
