@@ -2,7 +2,7 @@ import { StyleSheet, View, Text } from "react-native";
 
 const RADIUS = 12
 
-function CannonBall({ position }) {
+function CannonBall({ position, velocity }) {
     const x = position[0] - RADIUS / 2;
     const y = position[1] - RADIUS / 2;
     return (

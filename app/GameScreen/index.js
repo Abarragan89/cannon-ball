@@ -5,6 +5,7 @@ import cannonControlSystem from "../../utils/cannonControlSystem";
 import fireCannonSystem from "../../utils/fireCannonSystem";
 import CannonBall from "../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../Components/GameEngine/ PowerMeter";
+import AngleMeter from "../../Components/GameEngine/AngleMeter";
 import { Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
@@ -12,40 +13,20 @@ const windowHeight = Dimensions.get('window').height;
 
 function BestGameEver() {
 
-    // const [cannonBallArray, setCannonBallArray] = useState([{ id: 1, position: [400, 100], renderer: <FireBtn /> }])
-
-    // function showBallHandler() {
-    //     const newEntity = { id: Math.random(), position: [700, 300], renderer: <FireBtn /> };
-    //     setCannonBallArray((prevEntities) => [...prevEntities, newEntity]);
-    // }
-
     return (
         <>
             <Link href="/CampaignOverviewScreen">Back to Campaign</Link>
-            {/* <Pressable onPress={showBallHandler}>
-                <Text>Press me</Text>
-            </Pressable> */}
-
             <GameEngine
                 style={styles.container}
                 systems={[cannonControlSystem, fireCannonSystem]}
                 entities={{
-                    cannonBall: { position: [30, windowHeight/2], renderer: <CannonBall /> },
-                    powerMeter: { powerLevel: 0, renderer: <PowerMeter /> },
-                    // angleMeter: { angleLevel: 45, renderer: <CannonBall /> }
+                    cannonBall: { position: [20, windowHeight/2], velocity: [1, 1], renderer: <CannonBall /> },
+                    powerMeter: { displayLevel: 1, powerLevel: 0.1, renderer: <PowerMeter /> },
+                    angleMeter: { angleLevel: 45, renderer: <AngleMeter /> }
 
 
                 }}>
-
-                {/* onEvent={(event) => console.log('event in game engine', event)}
-
-                entities={cannonBallArray.reduce((acc, entity) => {
-                    acc[entity.id] = { position: entity.position, renderer: entity.renderer };
-                    return acc;
-                }, {})}> */}
-
                 <StatusBar hidden={true} /> 
-
             </GameEngine>
         </>
     );

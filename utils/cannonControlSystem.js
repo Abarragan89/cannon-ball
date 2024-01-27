@@ -1,43 +1,27 @@
-// class CannonBallBasic {
-//   constructor(ballEntity, posX, posY) {
-//     this.ball = ballEntity;
-//     this.posX = posX;
-//     this.posY = posY;
-//     // this.VY = VY;
-//     // this.VX = VX;
-//     // this.color = color;
-//   }
-
-//   move() {
-//     this.ball.posX += 10
-//   }
-
-// }
-
-const cannonControlSystem = (entities, { touches }) => {
-    // const cannonBall = new CannonBallBasic(entities[1], entities[1].position[0], entities[1].position[1])
-    
+const cannonControlSystem = (entities, { touches }) => {    
     touches.forEach(t => {
-      let currentPower = entities.powerMeter.powerLevel;
+      let currentPower = entities.powerMeter.displayLevel;
+      let currentAngle = entities.angleMeter.angleLevel
       
       if (t.type === "move") {
-        if (t.delta.pageX > 5  && currentPower < 100) {
-          console.log('first')
-          entities.powerMeter.powerLevel += 1
+        // increase power
+        if (t.delta.pageX > 10  && currentPower < 100) {
+          entities.powerMeter.powerLevel += .5
+          entities.powerMeter.displayLevel += 1
         }
-        if (t.delta.pageX < -5 && currentPower > 0) {
-          console.log(t.delta.pageX)
-          console.log('second')
-          entities.powerMeter.powerLevel -= 1
+        // decrease power 
+        if (t.delta.pageX < -10 && currentPower > 1) {
+          entities.powerMeter.powerLevel -= .5
+          entities.powerMeter.displayLevel -= 1
         }
-
-        if (t.delta.pageY > 10) {
-          console.log('third', t.delta.pageY )
-          entities.cannonBall.position[1] += 3;
+        // increase angle
+        if (t.delta.pageY > 10 && currentAngle > 0) {
+          console.log('hey ther in decrease')
+          entities.angleMeter.angleLevel -= 1
         }
-        if (t.delta.pageY < -10) {
-          console.log('fourth', t.delta.pageY )
-          entities.cannonBall.position[1] -= 3
+        // decrease angle
+        if (t.delta.pageY < -10 && currentAngle < 90) {
+          entities.angleMeter.angleLevel += 1
         }
       }
     });
