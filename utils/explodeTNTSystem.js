@@ -4,9 +4,9 @@ const explodeTNTSystem = (entities) => {
     // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
     // did not all the total 30 px length (only added 25)
     const lineX1 = entities.TNT.position[0] + 5;
-    const lineY1 = entities.TNT.position[1] - 8;
+    const lineY1 = entities.TNT.position[1] - 5;
     const lineX2 = entities.TNT.position[0] + 25;
-    const lineY2 = entities.TNT.position[1] - 8;
+    const lineY2 = entities.TNT.position[1] - 5;
     // increase radius to 14 on top so it doesn't interfere with side detection
     // also, handle sticks out
     const radius = 10
@@ -20,41 +20,15 @@ const explodeTNTSystem = (entities) => {
     if (distance1 <= radius || distance2 <= radius) {
         console.log('hit top')
         // Lower TNT handle
-        entities.TNT.handlePosition = -6;
-        // Bounce ball off TNT
+        entities.TNT.handlePosition[0] = -6;
+        // make cannonball go flying
         entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1] * 2
+
+        // trigger explosion animation
+        entities.explosion.startAnimation = true;
+        // make tnt box disappear
+        entities.TNT.display = 'none';
     }
-
-
-//     // Calculate the vector representing the line segment
-//   const lineVectorX = lineX2 - lineX1;
-//   const lineVectorY = lineY2 - lineY1;
-
-//   // Calculate the vector representing the line from one endpoint to the circle center
-//   const circleVectorX = circleX - lineX1;
-//   const circleVectorY = circleY - lineY1;
-
-//   // Calculate the projection of the circle vector onto the line vector
-//   const projection = (circleVectorX * lineVectorX + circleVectorY * lineVectorY) / (lineVectorX * lineVectorX + lineVectorY * lineVectorY);
-
-//   // Check if the projection is within the line segment
-//   if (projection >= 0 && projection <= 1) {
-//     // Find the closest point on the line to the circle center
-//     const closestX = lineX1 + projection * lineVectorX;
-//     const closestY = lineY1 + projection * lineVectorY;
-
-//     // Calculate the distance between the closest point on the line and the circle center
-//     const distanceToLine = Math.sqrt((circleX - closestX) ** 2 + (circleY - closestY) ** 2);
-
-//     // Check if the distance is less than or equal to the radius of the circle
-//     if (distanceToLine <= radius) {
-//         console.log('hit top')
-//         // Lower TNT handle
-//         entities.TNT.handlePosition = -6;
-//         // Bounce ball off TNT
-//         entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1] * 2
-//     };
-//   }
     return entities;
 
 }

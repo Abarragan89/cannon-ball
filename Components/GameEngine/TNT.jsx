@@ -3,18 +3,18 @@ import { StyleSheet, View, Text } from "react-native";
 let WIDTH = 30;
 let HEIGHT = 30;
 
-function TNT({ position, handlePosition }) {
+function TNT({ position, handlePosition, display }) {
     let x = position[0];
     let y = position[1];
 
     return (
         <>
-        <View style={[styles.root, { left: x, top: y }]}>
-            <Text style={[styles.tntHandle, {top: handlePosition}]}>T</Text>
-        <View style={styles.boxStyles}>
-            <Text style={styles.text}>TNT</Text>
-        </View>
-        </View>
+            <View style={[styles.root, { left: x, top: y }]}>
+                <Text style={[styles.tntHandle, { top: handlePosition[0], right: handlePosition[1] }]}>T</Text>
+                <View style={[styles.boxStyles, {display: display}]}>
+                    <Text style={styles.text}>TNT</Text>
+                </View>
+            </View>
         </>
     )
 }
@@ -22,7 +22,8 @@ function TNT({ position, handlePosition }) {
 export default TNT;
 
 const styles = StyleSheet.create({
-    root: {        position: 'absolute',
+    root: {
+        position: 'absolute',
         paddingTop: 5,
     },
     boxStyles: {
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
         borderRadius: 2,
         elevation: 4,
         shadowColor: 'black',
-        shadowOffset: { width: 0, height: 0},
+        shadowOffset: { width: 0, height: 0 },
         shadowRadius: 3,
         shadowOpacity: .5
     },

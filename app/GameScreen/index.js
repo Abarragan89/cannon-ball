@@ -10,9 +10,9 @@ import PowerMeter from "../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../Components/GameEngine/CannonLauncher";
 import AngleMeter from "../../Components/GameEngine/AngleMeter";
 import TNT from "../../Components/GameEngine/TNT";
+import Explosion from "../../Components/GameEngine/Explosion";
 import { Dimensions } from 'react-native';
 
-const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 function BestGameEver() {
@@ -25,11 +25,12 @@ function BestGameEver() {
                 systems={[cannonControlSystem, fireCannonSystem, explodeTNTSystem, cannonBallTNTDetectionSystem]}
                 entities={{
                     // CannonBall starts off Off-Screen then appears once 'long-press' in fireCannonSystem.js
-                    cannonBall: { position: [-100, windowHeight - 200], velocity: [1, 1], renderer: <CannonBall /> },
+                    cannonBall: { position: [-100, 0], velocity: [1, 1], renderer: <CannonBall /> },
                     powerMeter: { displayLevel: 1, powerLevel: 15, renderer: <PowerMeter /> },
                     angleMeter: { angleLevel: 0, renderer: <AngleMeter /> },
                     cannon: { position: [20, windowHeight / 2], rotate: '0deg', renderer: <CannonLauncher />},
-                    TNT: { position: [300, 100], handlePosition: -13, renderer: <TNT />}
+                    TNT: { position: [300, 100], display: 'block', handlePosition: [-13, 0], renderer: <TNT />},
+                    explosion: { position: [315, 115], startAnimation: false, renderer: <Explosion /> }
                 }}>
                 <StatusBar hidden={true} /> 
             </GameEngine>

@@ -1,6 +1,6 @@
 import { Dimensions } from 'react-native';
 import * as Haptics from 'expo-haptics';
-
+import { useEffect } from 'react';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -23,6 +23,10 @@ const fireCannonSystem = (entities, { touches }) => {
       const angleInRadians = (ANGLE * Math.PI) / 180;
       entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
       entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
+
+
+      let animationFrameId;
+
       const animateMovement = () => {
         if (isBallMoving) {
 
@@ -51,12 +55,13 @@ const fireCannonSystem = (entities, { touches }) => {
 
         if (isBallMoving) {
           // Continue the animation
-          requestAnimationFrame(animateMovement);
+          animationFrameId = requestAnimationFrame(animateMovement);
         } else {
           setTimeout(() => {
             entities.cannonBall.position[0] = -100
             entities.cannonBall.position[1] = windowHeight / 2;
-          }, 1000);
+            cancelAnimationFrame(animationFrameId)
+          }, 3000);
         }
       };
       // Start the animation
