@@ -72,3 +72,6 @@ const fireCannonSystem = (entities, { touches }) => {
 };
 
 export default fireCannonSystem;
+
+
+//////////////////// 18 and 69 makes weird glitch

@@ -9,7 +9,6 @@ function Explosion({ position, startAnimation }) {
     useEffect(() => {
         if (startAnimation === true && emmiterEl) {
             emmiterEl.current.start();
-            console.log(emmiterEl)
         }
     }, [startAnimation, emmiterEl])
     

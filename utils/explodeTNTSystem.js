@@ -3,10 +3,10 @@ const explodeTNTSystem = (entities) => {
     // the X1 adn X2 lines are slightly within the TNT box. It needs to appear
     // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
     // did not all the total 30 px length (only added 25)
-    const lineX1 = entities.TNT.position[0] + 5;
-    const lineY1 = entities.TNT.position[1] - 5;
-    const lineX2 = entities.TNT.position[0] + 25;
-    const lineY2 = entities.TNT.position[1] - 5;
+    const lineX1 = entities.TNT.position[0] + 10;
+    const lineY1 = entities.TNT.position[1] - 0;
+    const lineX2 = entities.TNT.position[0] + 20;
+    const lineY2 = entities.TNT.position[1] - 0;
     // increase radius to 14 on top so it doesn't interfere with side detection
     // also, handle sticks out
     const radius = 10
@@ -22,12 +22,18 @@ const explodeTNTSystem = (entities) => {
         // Lower TNT handle
         entities.TNT.handlePosition[0] = -6;
         // make cannonball go flying
-        entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1] * 2
-
+        entities.cannonBall.velocity[1] = entities.cannonBall.velocity[1] * 0.0000001
+        entities.cannonBall.velocity[0] = entities.cannonBall.velocity[0] * 0.0000001
         // trigger explosion animation
-        entities.explosion.startAnimation = true;
         // make tnt box disappear
-        entities.TNT.display = 'none';
+        
+        // make ball go flying after 1 second pause before explosion
+        setTimeout(() => {
+            entities.cannonBall.velocity[1] = -4;
+            entities.cannonBall.velocity[0] = 4;
+            entities.explosion.startAnimation = true;
+            entities.TNT.display = 'none';
+        }, 1000)
     }
     return entities;
 

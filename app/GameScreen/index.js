@@ -28,7 +28,7 @@ function BestGameEver() {
                     cannonBall: { position: [-100, 0], velocity: [1, 1], renderer: <CannonBall /> },
                     powerMeter: { displayLevel: 1, powerLevel: 15, renderer: <PowerMeter /> },
                     angleMeter: { angleLevel: 0, renderer: <AngleMeter /> },
-                    cannon: { position: [20, windowHeight / 2], rotate: '0deg', renderer: <CannonLauncher />},
+                    cannon: { position: [100, 100], rotate: '0deg', renderer: <CannonLauncher />},
                     TNT: { position: [300, 100], display: 'block', handlePosition: [-13, 0], renderer: <TNT />},
                     explosion: { position: [315, 115], startAnimation: false, renderer: <Explosion /> }
                 }}>
