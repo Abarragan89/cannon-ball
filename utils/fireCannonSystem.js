@@ -1,4 +1,5 @@
 import { Dimensions } from 'react-native';
+import * as Haptics from 'expo-haptics';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -9,6 +10,11 @@ const fireCannonSystem = (entities, { touches }) => {
   touches.forEach(t => {
     if (t.type === "long-press" && !isBallMoving) {
       isBallMoving = true;
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+      // set initial coordinates to be where the cannon tip is located
+      entities.cannonBall.position[0] = entities.cannon.position[0] + 25;
+      entities.cannonBall.position[1] = entities.cannon.position[1] + 15;
+
       const GRAVITY = .05
       let ANGLE = entities.angleMeter.angleLevel;
       let POWER = entities.powerMeter.powerLevel
@@ -19,6 +25,7 @@ const fireCannonSystem = (entities, { touches }) => {
       entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
       const animateMovement = () => {
         if (isBallMoving) {
+
           // Update the X and Y based on the arc velocity
           entities.cannonBall.position[0] += entities.cannonBall.velocity[0]
           entities.cannonBall.position[1] += entities.cannonBall.velocity[1]
@@ -47,9 +54,9 @@ const fireCannonSystem = (entities, { touches }) => {
           requestAnimationFrame(animateMovement);
         } else {
           setTimeout(() => {
-            entities.cannonBall.position[0] = 20
+            entities.cannonBall.position[0] = -100
             entities.cannonBall.position[1] = windowHeight / 2;
-          }, 2000);
+          }, 1000);
         }
       };
       // Start the animation

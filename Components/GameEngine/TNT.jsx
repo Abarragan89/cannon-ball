@@ -33,6 +33,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         borderWidth: 1,
         borderColor: 'black',
+        borderRadius: 2,
+        elevation: 4,
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 0},
+        shadowRadius: 3,
+        shadowOpacity: .5
     },
     tntHandle: {
         position: 'absolute',
@@ -41,7 +47,10 @@ const styles = StyleSheet.create({
         zIndex: -1
     },
     text: {
-        color: 'yellow'
+        color: 'yellow',
+        fontSize: 12,
+        paddingTop: 4,
+        fontWeight: 'bold'
     }
 
 })

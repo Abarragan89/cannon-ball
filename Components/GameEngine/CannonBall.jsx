@@ -6,14 +6,14 @@ function CannonBall({ position, velocity }) {
     const x = position[0];
     const y = position[1];
     return (
-        <View style={[styles.fireCannonBtn, { left: x, top: y }]}>
+        <View style={[styles.cannonBall, { left: x, top: y }]}>
         </View>
 
     )
 }
 
 const styles = StyleSheet.create({
-    fireCannonBtn: {
+    cannonBall: {
         borderRadius: RADIUS * 2,
         width: RADIUS * 2,
         height: RADIUS * 2,
