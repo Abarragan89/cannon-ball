@@ -1,3 +1,6 @@
+// helper function to update rotate tranform (angle) of the Cannon image.
+
+
 const cannonControlSystem = (entities, { touches }) => {    
     touches.forEach(t => {
       let currentPower = entities.powerMeter.displayLevel;
@@ -16,12 +19,13 @@ const cannonControlSystem = (entities, { touches }) => {
         }
         // increase angle
         if (t.delta.pageY > 5 && currentAngle > 0) {
-          console.log('hey ther in decrease')
           entities.angleMeter.angleLevel -= 1
+          entities.cannon.rotate = `-${entities.angleMeter.angleLevel}deg`
         }
         // decrease angle
-        if (t.delta.pageY < -5 && currentAngle < 90) {
+        if (t.delta.pageY < -5 && currentAngle < 180) {
           entities.angleMeter.angleLevel += 1
+          entities.cannon.rotate = `-${entities.angleMeter.angleLevel}deg`
         }
       }
     });
