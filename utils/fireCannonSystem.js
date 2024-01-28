@@ -1,4 +1,5 @@
 import { Dimensions } from 'react-native';
+import * as Haptics from 'expo-haptics';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -9,6 +10,7 @@ const fireCannonSystem = (entities, { touches }) => {
   touches.forEach(t => {
     if (t.type === "long-press" && !isBallMoving) {
       isBallMoving = true;
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
       const GRAVITY = .05
       let ANGLE = entities.angleMeter.angleLevel;
       let POWER = entities.powerMeter.powerLevel
@@ -20,8 +22,8 @@ const fireCannonSystem = (entities, { touches }) => {
       const animateMovement = () => {
         if (isBallMoving) {
           // Update the X and Y based on the arc velocity
-          entities.cannonBall.position[0] += entities.cannonBall.velocity[0]
-          entities.cannonBall.position[1] += entities.cannonBall.velocity[1]
+          entities.cannonBall.position[0] += entities.cannonBall.velocity[0] / 2
+          entities.cannonBall.position[1] += entities.cannonBall.velocity[1] / 2
           // Increase gravity to slowly bring ball back down. 
           entities.cannonBall.velocity[1] += GRAVITY
 
@@ -47,7 +49,7 @@ const fireCannonSystem = (entities, { touches }) => {
           requestAnimationFrame(animateMovement);
         } else {
           setTimeout(() => {
-            entities.cannonBall.position[0] = 20
+            entities.cannonBall.position[0] = 600
             entities.cannonBall.position[1] = windowHeight / 2;
           }, 2000);
         }

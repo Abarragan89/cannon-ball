@@ -23,10 +23,10 @@ function BestGameEver() {
                 style={styles.container}
                 systems={[cannonControlSystem, fireCannonSystem, explodeTNTSystem, cannonBallTNTDetectionSystem]}
                 entities={{
-                    cannonBall: { position: [20, windowHeight/2], velocity: [1, 1], renderer: <CannonBall /> },
+                    cannonBall: { position: [600, windowHeight/2], velocity: [1, 1], renderer: <CannonBall /> },
                     powerMeter: { displayLevel: 1, powerLevel: 0.1, renderer: <PowerMeter /> },
                     angleMeter: { angleLevel: 45, renderer: <AngleMeter /> },
-                    TNT: { position: [300, 100], handlePosition: -13, renderer: <TNT />}
+                    TNT: { position: [700, 300], handlePosition: -13, renderer: <TNT />}
                 }}>
                 <StatusBar hidden={true} /> 
             </GameEngine>

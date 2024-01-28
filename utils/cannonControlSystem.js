@@ -5,22 +5,22 @@ const cannonControlSystem = (entities, { touches }) => {
       
       if (t.type === "move") {
         // increase power
-        if (t.delta.pageX > 10  && currentPower < 100) {
+        if (t.delta.pageX > 5  && currentPower < 100) {
           entities.powerMeter.powerLevel += .5
           entities.powerMeter.displayLevel += 1
         }
         // decrease power 
-        if (t.delta.pageX < -10 && currentPower > 1) {
+        if (t.delta.pageX < -5 && currentPower > 1) {
           entities.powerMeter.powerLevel -= .5
           entities.powerMeter.displayLevel -= 1
         }
         // increase angle
-        if (t.delta.pageY > 10 && currentAngle > 0) {
+        if (t.delta.pageY > 5 && currentAngle > 0) {
           console.log('hey ther in decrease')
           entities.angleMeter.angleLevel -= 1
         }
         // decrease angle
-        if (t.delta.pageY < -10 && currentAngle < 90) {
+        if (t.delta.pageY < -5 && currentAngle < 90) {
           entities.angleMeter.angleLevel += 1
         }
       }

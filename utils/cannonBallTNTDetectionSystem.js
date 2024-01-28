@@ -1,4 +1,4 @@
-const cannonBallTNTDetectionSystem = (entities) => {
+const cannonBallTNTDetectionSystem = (entities, { time }) => {
     // Variables to determine collision of Cannon Ball and Top of TNT
     // the X1 adn X2 lines are slightly within the TNT box. It needs to appear
     // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
@@ -8,23 +8,23 @@ const cannonBallTNTDetectionSystem = (entities) => {
     // Need to make this dynamic if i want to rotate it. 
 
     // RIGHT LINE OF TNT BOX
-    // the box is 10 by 10. I'm using 2 and 28 so it
-    // won't get stuck in the corner with the top detection
-    const rightLineX1 = entities.TNT.position[0];
-    const rightLineY1 = entities.TNT.position[1] + 5;
-    const rightLineX2 = entities.TNT.position[0];
-    const rightLineY2 = entities.TNT.position[1] + 25;
-
-    // LEFT LINE OF TNT BOX
-    // the box is 10 by 10. I'm using 2 and 28 so it
-    // won't get stuck in the corner with the top detection
-    const leftLineX1 = entities.TNT.position[0] + 30;
+    // the box is 30 by 30. I added a 5px perimeter around it so it looks like 
+    // it bounces right when the cannon touches it. 
+    const leftLineX1 = entities.TNT.position[0];
     const leftLineY1 = entities.TNT.position[1] + 5;
-    const leftLineX2 = entities.TNT.position[0] + 30;
+    const leftLineX2 = entities.TNT.position[0];
     const leftLineY2 = entities.TNT.position[1] + 25;
 
+    // LEFT LINE OF TNT BOX
+    // the box is 30 by 30. I added a 5px perimeter around it so it looks like 
+    // it bounces right when the cannon touches it. 
+    const rightLineX1 = entities.TNT.position[0] + 20;
+    const rightLineY1 = entities.TNT.position[1] + 5;
+    const rightLineX2 = entities.TNT.position[0] + 20;
+    const rightLineY2 = entities.TNT.position[1] + 25;
+
     // CIRCLE PROPERTIES
-    const radius = 10
+    const radius = 14
     const circleX = entities.cannonBall.position[0] + 5;
     const circleY = entities.cannonBall.position[1] + 5;
 
@@ -33,7 +33,6 @@ const cannonBallTNTDetectionSystem = (entities) => {
     const rightDistance2 = Math.sqrt((rightLineX2 - circleX) ** 2 + (rightLineY2 - circleY) ** 2);
 
     if (rightDistance1 <= radius || rightDistance2 <= radius) {
-        console.log('hit right')
         entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
 
@@ -42,7 +41,6 @@ const cannonBallTNTDetectionSystem = (entities) => {
     const leftDistance2 = Math.sqrt((leftLineX2 - circleX) ** 2 + (leftLineY2 - circleY) ** 2);
 
     if (leftDistance1 <= radius || leftDistance2 <= radius) {
-        console.log('hit left')
         entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
 
