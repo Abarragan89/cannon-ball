@@ -4,9 +4,9 @@ const explodeTNTSystem = (entities) => {
     // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
     // did not all the total 30 px length (only added 25)
     const lineX1 = entities.TNT.position[0] + 3;
-    const lineY1 = entities.TNT.position[1] - 0;
+    const lineY1 = entities.TNT.position[1] - 6;
     const lineX2 = entities.TNT.position[0] + 27;
-    const lineY2 = entities.TNT.position[1] - 0;
+    const lineY2 = entities.TNT.position[1] - 3;
     // increase radius to 14 on top so it doesn't interfere with side detection
     // also, handle sticks out
     const radius = 10
@@ -22,15 +22,15 @@ const explodeTNTSystem = (entities) => {
         // Lower TNT handle
         entities.TNT.handlePosition[0] = -6;
         // make cannonball go flying
-        entities.cannonBall.velocity[1] = entities.cannonBall.velocity[1] * 0.0000001
-        entities.cannonBall.velocity[0] = entities.cannonBall.velocity[0] * 0.0000001
+        entities.cannonBall.velocity[1] = entities.cannonBall.velocity[1] * 0.00001
+        entities.cannonBall.velocity[0] = entities.cannonBall.velocity[0] * 0.00001
         // trigger explosion animation
         // make tnt box disappear
         
         // make ball go flying after 1 second pause before explosion
         setTimeout(() => {
-            entities.cannonBall.velocity[1] = -4;
-            entities.cannonBall.velocity[0] = 4;
+            entities.cannonBall.velocity[1] = -2;
+            entities.cannonBall.velocity[0] = 8;
             entities.explosion.startAnimation = true;
             entities.TNT.display = 'none';
         }, 500)
