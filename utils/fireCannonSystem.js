@@ -1,14 +1,16 @@
 import { Dimensions } from 'react-native';
 import * as Haptics from 'expo-haptics';
-
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const fireCannonSystem = (entities, { touches }) => {
+let isBallMoving = false;
+let animationFrameId;
 
-  let isBallMoving = false;
+const fireCannonSystem = (entities, { touches }) => {
   touches.forEach(t => {
+
     if (t.type === "long-press" && !isBallMoving) {
+      
       isBallMoving = true;
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
       // set initial coordinates to be where the cannon tip is located
@@ -23,9 +25,12 @@ const fireCannonSystem = (entities, { touches }) => {
       const angleInRadians = (ANGLE * Math.PI) / 180;
       entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
       entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
+
+
+
+
       const animateMovement = () => {
         if (isBallMoving) {
-
           // Update the X and Y based on the arc velocity
           entities.cannonBall.position[0] += entities.cannonBall.velocity[0]
           entities.cannonBall.position[1] += entities.cannonBall.velocity[1]
@@ -50,17 +55,21 @@ const fireCannonSystem = (entities, { touches }) => {
         }
 
         if (isBallMoving) {
+          animationFrameId = requestAnimationFrame(animateMovement);
           // Continue the animation
-          requestAnimationFrame(animateMovement);
         } else {
-          setTimeout(() => {
-            entities.cannonBall.position[0] = -100
-            entities.cannonBall.position[1] = windowHeight / 2;
-          }, 1000);
+          entities.cannonBall.position[0] = -100
+          entities.cannonBall.position[1] = windowHeight / 2;
+          isBallMoving = false;
+          cancelAnimationFrame(animationFrameId);
         }
       };
       // Start the animation
       animateMovement();
+    } else if (t.type === 'long-press') {
+      // cancelAnimationFrame(animationFrameId);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+      isBallMoving = false;
     }
   });
   return entities;
