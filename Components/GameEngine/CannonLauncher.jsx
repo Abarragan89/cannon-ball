@@ -24,11 +24,11 @@ const styles = StyleSheet.create({
     cannonContainer: {
         position: 'absolute',
         top: -20,
-        left: -11,
+        left: -13,
     },
     cannonImage: {
-        width: 90,
-        height: 90
+        width: 93,
+        height: 93
     }, 
     standContainer: {
         position: 'absolute',

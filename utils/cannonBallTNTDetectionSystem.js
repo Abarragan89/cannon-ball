@@ -27,9 +27,9 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
     // BOTTOM LINE OF TNT BOX
     // same as bottomLine, I didn't make the coordinate exactly based on the 30px size of tnt
     const bottomLineX1 = entities.TNT.position[0] - 10;
-    const bottomLineY1 = entities.TNT.position[1] + 31;
+    const bottomLineY1 = entities.TNT.position[1] + 32;
     const bottomLineX2 = entities.TNT.position[0] + 20;
-    const bottomLineY2 = entities.TNT.position[1] + 31;
+    const bottomLineY2 = entities.TNT.position[1] + 32;
 
     // CIRCLE PROPERTIES
     const radius = 10;
