@@ -5,11 +5,12 @@ function PowerMeter({ powerLevel, displayLevel }) {
 
     return (
         <View style={styles.root}>
-            <Text>{displayLevel}</Text>
+            <Text style={styles.numberDisplay}>{displayLevel}</Text>
             {/* progress is number from 0 to 1 */}
             <Progress.Bar
                 progress={displayLevel / 100}
                 width={140}
+                height={10}
                 style={styles.slider}
                 animated={true}
                 borderWidth={2}
@@ -31,23 +32,28 @@ const styles = StyleSheet.create({
     root: {
         flex: 1,
     },
+    numberDisplay: {
+        marginTop: 10,
+        marginLeft: 4,
+        opacity: .5
+    },
     slider: {
         opacity: .5,
         transform: [{ rotate: '-90deg' }],
         position: 'absolute',
-        left: -60,
+        left: -55,
         top: 100,
     },
 
     powerTextWrapper: {
         position: 'absolute',
-        left: 5,
+        left: 10,
         top: 60,
+        opacity: .5,
         alignItems: 'center'
     },
     powerText: {
-        fontSize: 14,
-        opacity: .5,
+        fontSize: 12,
     }
 })
 
