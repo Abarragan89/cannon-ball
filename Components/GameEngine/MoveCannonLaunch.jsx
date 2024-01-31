@@ -14,7 +14,7 @@ const MoveCannonLaunch = (entities) => {
     return (
         <View style={styles.root}>
             <Slider
-                style={{ width: screenWidth - 110 }}
+                style={{ width: screenWidth - 127 }}
                 minimumValue={-20}
                 onValueChange={sliderChangeHandler}
                 maximumValue={screenWidth - 180}
@@ -23,7 +23,6 @@ const MoveCannonLaunch = (entities) => {
                 minimumTrackTintColor="transparent"
                 maximumTrackTintColor="transparent"
                 thumbTintColor='#0991bf'
-
             />
         </View>
     )

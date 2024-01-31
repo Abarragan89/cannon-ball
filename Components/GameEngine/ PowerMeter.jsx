@@ -9,7 +9,6 @@ function PowerMeter({ powerLevel, displayLevel }) {
             {/* progress is number from 0 to 1 */}
             <Progress.Bar
                 progress={displayLevel / 100}
-                width={140}
                 height={10}
                 style={styles.slider}
                 animated={true}
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
         transform: [{ rotate: '-90deg' }],
         position: 'absolute',
         left: -55,
-        top: 100,
+        bottom: -100,
     },
 
     powerTextWrapper: {

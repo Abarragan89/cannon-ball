@@ -40,6 +40,7 @@ function BestGameEver() {
                     // CannonBall starts off Off-Screen then appears once 'long-press' in fireCannonSystem.js
                     cannonBall: {
                         position: [-100, 0],
+                        color: '#6fd68ac8',
                         velocity: [1, 1],
                         display: 'block',
                         renderer: <CannonBall />
@@ -67,6 +68,7 @@ function BestGameEver() {
                     explosion: {
                         position: [315, 115],
                         ballPosition: [0, 0],
+                        ballColor: '#6fd68ac8',
                         startAnimation: false,
                         renderer: <Explosion />
                     },

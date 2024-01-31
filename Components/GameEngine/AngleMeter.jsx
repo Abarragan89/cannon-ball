@@ -28,8 +28,11 @@ const styles = StyleSheet.create({
         flex: 1,
         opacity: .5,
         position: 'absolute',
-        right: 55,
-        bottom: -40,
+        right: 20,
+        bottom: 0,
+        height: 68,
+        overflow: 'hidden'
+
     },
     numberDisplay: {
         textAlign: 'center'

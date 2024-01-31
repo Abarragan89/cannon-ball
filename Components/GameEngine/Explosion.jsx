@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useRef, useEffect } from 'react';
 import { Emitter } from 'react-native-particles'
 
-function Explosion({ position, ballPosition, startAnimation }) {
+function Explosion({ position, ballPosition, startAnimation, ballColor }) {
 
     const particle1El = useRef(null)
     const particle2El = useRef(null)
@@ -89,7 +89,7 @@ function Explosion({ position, ballPosition, startAnimation }) {
                 autoStart={false}
                 fromPosition={{ x: ballPosition[0], y: ballPosition[1] }}
             >
-                <View style={styles.particle4}></View>
+                <View style={[styles.cannonBall, {backgroundColor: ballColor}]}></View>
             </Emitter>
 
         </>
@@ -118,10 +118,9 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         backgroundColor: 'orange'
     },
-    particle4: {
+    cannonBall: {
         width: 6,
         height: 6,
         borderRadius: 12,
-        backgroundColor: 'black'
     }
 })
