@@ -13,9 +13,9 @@ function PowerMeter({ powerLevel, displayLevel }) {
                 height={10}
                 style={styles.slider}
                 animated={true}
-                borderWidth={2}
-                borderColor={displayLevel > 50 ? 'red' : 'green'}
-                color={displayLevel > 50 ? 'red' : 'green'}
+                borderWidth={1}
+                borderColor={displayLevel > 80 ? 'red' :  displayLevel > 50 ? 'orange': 'green'}
+                color={displayLevel > 80 ? 'red' :  displayLevel > 50 ? 'orange': 'green'}
             />
             <View style={styles.powerTextWrapper}>
                 <Text style={styles.powerText}>P</Text>

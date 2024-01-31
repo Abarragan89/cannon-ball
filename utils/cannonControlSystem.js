@@ -1,14 +1,7 @@
-const cannonControlSystem = (entities, { touches, events }) => {    
+const cannonControlSystem = (entities, { touches }) => {    
     touches.forEach(t => {
       let currentPower = entities.powerMeter.displayLevel;
       let currentAngle = entities.angleMeter.angleLevel
-
-      // console.log( 'events ', events )
-
-      events.forEach((event) => {
-        console.log(event)
-      })
-
       
       if (t.type === "move") {
         // decrease power
@@ -37,7 +30,3 @@ const cannonControlSystem = (entities, { touches, events }) => {
   };
   
   export default cannonControlSystem ;
-
-
-  // Make two entities for the sliders
-  // one responds to the left and the other the righton

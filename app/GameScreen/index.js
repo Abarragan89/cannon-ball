@@ -26,12 +26,12 @@ function BestGameEver() {
                 systems={[cannonControlSystem, fireCannonSystem, explodeTNTSystem, cannonBallTNTDetectionSystem]}
                 entities={{
                     // CannonBall starts off Off-Screen then appears once 'long-press' in fireCannonSystem.js
-                    cannonBall: { position: [-100, 0], velocity: [1, 1], renderer: <CannonBall /> },
+                    cannonBall: { position: [-100, 0], velocity: [1, 1], display: 'block', renderer: <CannonBall /> },
                     powerMeter: { displayLevel: 1, powerLevel: 15, renderer: <PowerMeter /> },
                     angleMeter: { angleLevel: 90, renderer: <AngleMeter /> },
                     cannon: { position: [400, 300], rotate: '-90deg', renderer: <CannonLauncher /> },
                     TNT: { position: [300, 100], display: 'block', handlePosition: [-13, 0], renderer: <TNT /> },
-                    explosion: { position: [315, 115], startAnimation: false, renderer: <Explosion /> }
+                    explosion: { position: [315, 115], ballPosition: [0, 0], startAnimation: false, renderer: <Explosion /> }
                 }}>
                 <StatusBar hidden={true} />
             </GameEngine>
