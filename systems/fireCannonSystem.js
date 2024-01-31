@@ -7,6 +7,9 @@ let isBallMoving = false;
 export let animationFrameId;
 
 const fireCannonSystem = (entities, { touches }) => {
+
+  entities.cannon.position[0] = entities.moveCannonLaunch.position[0] + 65;
+
   touches.forEach(t => {
 
     if (t.type === "long-press") {
@@ -36,10 +39,6 @@ const fireCannonSystem = (entities, { touches }) => {
           // Update the X and Y based on the arc velocity
           entities.cannonBall.position[0] += entities.cannonBall.velocity[0]
           entities.cannonBall.position[1] += entities.cannonBall.velocity[1]
-
-          // update the position fo the explosion of the cannon ball
-          // entities.explosion.ballPosition[0] = entities.cannonBall.position[0]
-          // entities.explosion.position[1] = entities.cannonBall.position[1]
 
           // Increase gravity to slowly bring ball back down. 
           entities.cannonBall.velocity[1] += GRAVITY

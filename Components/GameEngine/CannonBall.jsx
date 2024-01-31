@@ -14,11 +14,14 @@ function CannonBall({ position, velocity, display }) {
 
 const styles = StyleSheet.create({
     cannonBall: {
+        zIndex: -3,
         borderRadius: RADIUS * 2,
         width: RADIUS * 2,
         height: RADIUS * 2,
-        backgroundColor: "black",
+        backgroundColor: "#6fd68ac8",
         position: "absolute",
+        borderWidth: 1,
+        borderColor: 'black'
     },
 })
 
