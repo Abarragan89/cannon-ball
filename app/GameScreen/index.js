@@ -14,12 +14,7 @@ import AngleMeter from "../../Components/GameEngine/AngleMeter";
 import TNT from "../../Components/GameEngine/TNT";
 import Explosion from "../../Components/GameEngine/Explosion";
 import FollowArrow from "../../Components/GameEngine/FollowArrow";
-import {
-    SafeAreaView,
-    SafeAreaProvider,
-    SafeAreaInsetsContext,
-    useSafeAreaInsets,
-  } from 'react-native-safe-area-context';
+import scoreCalculatorSystem from "../../systems/scoreCalculatorSystem";
 
 function BestGameEver() {
 
@@ -27,7 +22,7 @@ function BestGameEver() {
 
     return (
         <>
-            <Link href="/CampaignOverviewScreen">Back to Campaign</Link>
+            <Link onPress={() => gameEngineRef.current.stop()} href="/CampaignOverviewScreen">Back to Campaign</Link>
             <GameEngine
                 ref={gameEngineRef}
                 style={styles.container}
@@ -37,6 +32,7 @@ function BestGameEver() {
                     fireCannonSystem,
                     explodeTNTSystem,
                     cannonBallTNTDetectionSystem,
+                    scoreCalculatorSystem
                 ]}
                 entities={{
                     // CannonBall starts off Off-Screen then appears once 'long-press' in fireCannonSystem.js
@@ -46,6 +42,11 @@ function BestGameEver() {
                         color: 'rgba(0, 0, 0, 1)',
                         velocity: [1, 1],
                         display: 'block',
+                        airTime: 0,
+                        bounces: 0,
+                        accuracy: 0,
+                        isGameOver: false,
+                        isBallMoving: false,
                         renderer: <CannonBall />
                     },
                     powerMeter: {

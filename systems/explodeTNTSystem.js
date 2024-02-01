@@ -1,9 +1,63 @@
-import { animationFrameId } from './fireCannonSystem' 
+import { animationFrameId } from './fireCannonSystem'
 
+export let isGameOver = false;
 
 const explodeTNTSystem = (entities) => {
+
+    function calculateAccuracy() {
+        // coordinates for the bottom of the ball
+        const ballXCoord = entities.cannonBall.position[0] + 10;
+        const ballYCoord = entities.cannonBall.position[1] + 20;
+
+        // coordinate for the top center of the TNT
+        const tntXCoord = entities.TNT.position[0] + 15;
+        const tntYCoord = entities.TNT.position[1];
+
+        // calculate the length of both sides
+        const triangleASide = Math.abs(ballXCoord - tntXCoord)
+        const triangeBSide = Math.abs(ballYCoord - tntYCoord)
+
+        const accuracyAmount = Math.floor(Math.sqrt(triangleASide ** 2 + triangeBSide ** 2));
+
+        switch (accuracyAmount) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                entities.cannonBall.accuracy = 'Perfect Shot!';
+                break;
+            case 4:
+            case 5:
+            case 6:
+                entities.cannonBall.accuracy = 'Great Shot!'
+                break;
+            case 7:
+            case 8:
+            case 9:
+                entities.cannonBall.accuracy = 'Good Shot.'
+                break;
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+                entities.cannonBall.accuracy = 'Decent Shot.'
+                break;
+            default:
+                entities.cannonBall.accuracy = 'Barely Hit.'
+        }
+
+
+        console.log(entities.cannonBall.accuracy)
+
+
+    }
+
     function endGameHandler() {
-        console.log('hit top')
+        // console.log('hit top')
+        // calculate accuracy to center of box
+        calculateAccuracy();
+        //trigger the boolean to let the air-time counter stop
+        isGameOver = true;
         // Lower TNT handle
         entities.TNT.handlePosition[0] = -6;
         // pause the cannonBall
@@ -44,7 +98,7 @@ const explodeTNTSystem = (entities) => {
     const distance2 = Math.sqrt((lineX2 - circleX) ** 2 + (lineY2 - circleY) ** 2);
 
     if (distance1 <= radius || distance2 <= radius) {
-       endGameHandler();
+        endGameHandler();
     }
 
 

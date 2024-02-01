@@ -3,7 +3,7 @@ import * as Haptics from 'expo-haptics';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-let isBallMoving = false;
+export let isBallMoving = false;
 export let animationFrameId;
 
 const fireCannonSystem = (entities, { touches }) => {
@@ -51,11 +51,13 @@ const fireCannonSystem = (entities, { touches }) => {
 
           // if hits right wall
           if (entities.cannonBall.position[0] > windowWidth - 14) {
+            entities.cannonBall.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
           }
 
           // if hits left wall
           if (entities.cannonBall.position[0] < 0) {
+            entities.cannonBall.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
           }
         }
