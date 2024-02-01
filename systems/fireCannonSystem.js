@@ -13,6 +13,7 @@ const fireCannonSystem = (entities, { touches }) => {
   touches.forEach(t => {
 
     if (t.type === "long-press") {
+      // if ball is already in motion, delete it and start over
       if (isBallMoving) {
         cancelAnimationFrame(animationFrameId)
       }
@@ -30,7 +31,6 @@ const fireCannonSystem = (entities, { touches }) => {
       const angleInRadians = (ANGLE * Math.PI) / 180;
       entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
       entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
-
 
 
 
@@ -58,6 +58,16 @@ const fireCannonSystem = (entities, { touches }) => {
           if (entities.cannonBall.position[0] < 0) {
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
           }
+        }
+
+        // Offscreen Detection
+        // if offscreen, show follow arrow
+        if (entities.cannonBall.position[1] <= -30) {
+          entities.followArrow.displayStatus = 'block';
+          entities.followArrow.leftPosition = entities.cannonBall.position[0] + 5;
+        } else {
+          // if not offscreen, set the display back to none
+          entities.followArrow.displayStatus = 'none'
         }
 
         if (isBallMoving) {

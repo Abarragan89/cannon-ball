@@ -5,9 +5,11 @@ import * as Progress from 'react-native-progress';
 function AngleMeter({ angleLevel }) {
     return (
         <View style={styles.root}>
-            <Text style={styles.numberDisplay}>{angleLevel}</Text>
+
+            {/* <Text style={styles.numberDisplay}>{angleLevel}</Text> */}
+
             {/* progress is number from 0 to 1 */}
-            <Progress.Circle
+            {/* <Progress.Circle
                 progress={angleLevel / 360}
                 size={90}
                 direction="counter-clockwise"
@@ -17,7 +19,7 @@ function AngleMeter({ angleLevel }) {
             />
             <View style={styles.angleTextWrapper}>
                 <Text style={styles.angleText}>Angle</Text>
-            </View>
+            </View> */}
         </View>
     )
 }
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
         opacity: .5,
         position: 'absolute',
         right: 20,
-        bottom: 0,
+        bottom: -19,
         height: 68,
         overflow: 'hidden'
 

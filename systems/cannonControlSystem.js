@@ -7,7 +7,7 @@ const cannonControlSystem = (entities, { touches }) => {
       let currentAngle = entities.angleMeter.angleLevel
 
       // Make sure that the angle doesn't change if you are moving slider
-      let isTouchAboveSlider = t.event.pageY < screenHeight - 50;
+      let isTouchAboveSlider = t.event.pageY < screenHeight - 100;
       
       if (t.type === "move") {
         // decrease power

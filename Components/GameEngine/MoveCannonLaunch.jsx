@@ -10,19 +10,17 @@ const MoveCannonLaunch = (entities) => {
     function sliderChangeHandler(event) {
         entities.position[0] = event
     }
-
+    
     return (
         <View style={styles.root}>
             <Slider
-                style={{ width: screenWidth - 127 }}
-                minimumValue={-20}
+                style={{ width: 670, height: 50}}
                 onValueChange={sliderChangeHandler}
-                maximumValue={screenWidth - 180}
-                upperLimit={screenWidth}
-                value={entities.position[0]}
+                maximumValue={640}
+                value={0}
                 minimumTrackTintColor="transparent"
                 maximumTrackTintColor="transparent"
-                thumbTintColor='#0991bf'
+                thumbTintColor='transparent'
             />
         </View>
     )
@@ -36,6 +34,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative',
-        top: 70
+        top: 50
     }
 })
