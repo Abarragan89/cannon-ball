@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Image, Text } from "react-native";
 
 let WIDTH = 30;
 let HEIGHT = 30;
@@ -12,7 +12,7 @@ function TNT({ position, handlePosition, display }) {
             <View style={[styles.root, { left: x, top: y }]}>
                 <Text style={[styles.tntHandle, { top: handlePosition[0], right: handlePosition[1] }]}>T</Text>
                 <View style={[styles.boxStyles, {display: display}]}>
-                    <Text style={styles.text}>TNT</Text>
+                    <Image style={{ width: WIDTH, height: HEIGHT}} source={require('../../assets/images/TNTBox.png')} />
                 </View>
             </View>
         </>
@@ -27,11 +27,7 @@ const styles = StyleSheet.create({
         paddingTop: 5,
     },
     boxStyles: {
-        paddingLeft: 1,
         fontWeight: 'bold',
-        width: WIDTH,
-        height: HEIGHT,
-        backgroundColor: 'red',
         borderWidth: 1,
         borderColor: 'black',
         borderRadius: 2,
