@@ -11,7 +11,7 @@ const MoveCannonLaunch = (entities) => {
     return (
         <View style={styles.root}>
             <Slider
-                style={{ width: 670, height: 20}}
+                style={{ width: 670, height: 30}}
                 onValueChange={sliderChangeHandler}
                 maximumValue={640}
                 value={0}

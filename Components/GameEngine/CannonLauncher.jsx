@@ -20,7 +20,7 @@ export default CannonLauncher;
 const styles = StyleSheet.create({
     rootContainer: {
         position: 'absolute',
-        zIndex: -1,
+        zIndex: 0,
     },
     cannonContainer: {
         position: 'absolute',

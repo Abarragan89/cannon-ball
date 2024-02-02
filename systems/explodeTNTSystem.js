@@ -1,7 +1,3 @@
-import { animationFrameId } from './fireCannonSystem'
-
-export let isGameOver = false;
-
 const explodeTNTSystem = (entities) => {
 
     function calculateAccuracy() {
@@ -38,10 +34,6 @@ const explodeTNTSystem = (entities) => {
                 float: accuracyAmount
             }
         }
-
-        console.log(entities.cannonBall.accuracy)
-
-
     }
 
     function endGameHandler() {
@@ -49,7 +41,7 @@ const explodeTNTSystem = (entities) => {
         // calculate accuracy to center of box
         calculateAccuracy();
         //trigger the boolean to let the air-time counter stop
-        isGameOver = true;
+        entities.cannonBall.isGameOver = true;
         // Lower TNT handle
         entities.TNT.handlePosition[0] = -6;
         // pause the cannonBall
@@ -59,8 +51,6 @@ const explodeTNTSystem = (entities) => {
             // set the ball explosion coordinates
             entities.explosion.ballPosition[0] = entities.cannonBall.position[0] + 5;
             entities.explosion.ballPosition[1] = entities.cannonBall.position[1] + 5;
-            // cancel the animation so it doesn't overlap with animationFrame from Ball
-            cancelAnimationFrame(animationFrameId)
             // trigger explosion animation
             entities.explosion.startAnimation = true;
             // make tnt box and cannonBall disappear with a slight delay

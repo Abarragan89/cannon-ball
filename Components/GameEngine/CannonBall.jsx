@@ -28,7 +28,7 @@ function CannonBall({ position, display, color, gradientColor }) {
 
 const styles = StyleSheet.create({
     cannonBall: {
-        zIndex: -3,
+        zIndex: 0,
         height: 20,
         position: 'absolute',
         width: 20,

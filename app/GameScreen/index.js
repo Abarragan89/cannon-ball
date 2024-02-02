@@ -1,7 +1,7 @@
 import { Link } from "expo-router";
 import { useRef } from "react";
 import { GameEngine } from "react-native-game-engine"
-import { StyleSheet, StatusBar } from 'react-native';
+import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../systems/cannonControlSystem";
 import fireCannonSystem from "../../systems/fireCannonSystem";
 import explodeTNTSystem from "../../systems/explodeTNTSystem";
@@ -26,7 +26,11 @@ function BestGameEver() {
     const gameEngineRef = useRef(null);
 
     return (
-        
+
+        // <ImageBackground 
+        // style={styles.imageStyle}
+        // source={require('../../assets/images/TNTBox.png')}
+        // >
             <GameEngine
                 ref={gameEngineRef}
                 style={styles.container}
@@ -98,6 +102,7 @@ function BestGameEver() {
                     <Ionicons name="arrow-back" size={35} color="black" />
                 </Link>
             </GameEngine>
+        // </ImageBackground>
         
     );
 }
@@ -114,8 +119,11 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         opacity: .7
     },
-    pressed: {
-        opacity: .2
+    imageStyle: {
+        flex: 1,
+        flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
     }
 });
 

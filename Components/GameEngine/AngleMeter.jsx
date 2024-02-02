@@ -6,7 +6,7 @@ function AngleMeter({ angleLevel }) {
     return (
         <View style={styles.root}>
 
-            <Text style={styles.meter90Deg}>{angleLevel}</Text>
+            {/* <Text style={styles.meter90Deg}>{angleLevel}</Text> */}
             <Text style={styles.meter90Deg}>|</Text>
 
 
@@ -18,7 +18,7 @@ function AngleMeter({ angleLevel }) {
                 style={styles.circleSlider}
                 thickness={7}
                 color={'black'}
-                strokeCap='square'
+                strokeCap='butt'
             />
             <View style={styles.angleTextWrapper}>
                 <Text style={styles.angleText}>Angle</Text>
@@ -35,13 +35,14 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 20,
         bottom: 0,
-        height: 68,
-        overflow: 'hidden'
+        height: 56,
+        overflow: 'hidden',
+        zIndex: 10
 
     },
     meter90Deg: {
         position: 'relative',
-        left: '45%',
+        left: '49%',
         top: 5,
         fontSize: 8,
         color: 'black'
