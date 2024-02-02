@@ -16,6 +16,7 @@ const fireCannonSystem = (entities, { touches }) => {
       // if ball is already in motion, delete it and start over
       if (isBallMoving) {
         cancelAnimationFrame(animationFrameId)
+        entities.headerStats.airTime = 0;
       }
       isBallMoving = true;
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)

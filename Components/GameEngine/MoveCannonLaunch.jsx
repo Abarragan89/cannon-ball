@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative',
-        top: 65
+        top: 60,
+        left: -9
     }
 })

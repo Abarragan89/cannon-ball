@@ -16,7 +16,7 @@ import TNT from "../../Components/GameEngine/TNT";
 import Explosion from "../../Components/GameEngine/Explosion";
 import FollowArrow from "../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../systems/scoreCalculatorSystem";
-
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 
@@ -46,8 +46,6 @@ function BestGameEver() {
                         color: 'rgba(0, 0, 0, 1)',
                         velocity: [1, 1],
                         display: 'block',
-                        airTime: 0,
-                        bounces: 0,
                         accuracy: { name: '', float: 0 },
                         isGameOver: false,
                         isBallMoving: false,
@@ -63,7 +61,7 @@ function BestGameEver() {
                         renderer: <AngleMeter />
                     },
                     cannon: {
-                        position: [400, 300],
+                        position: [400, screenHeight - 90],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
@@ -88,11 +86,17 @@ function BestGameEver() {
                         leftPosition: 300,
                         displayStatus: 'none',
                         renderer: <FollowArrow />
-                    }
+                    },
+                    headerStats: {
+                        airTime: 0,
+                        bounces: 0,
+                        renderer: <HeaderStats />
+                    },
                 }}>
                 <StatusBar hidden={true} />
-                <Link onPress={() => gameEngineRef.current.stop()} href="/CampaignOverviewScreen">Back to Campaign</Link>
-                <HeaderStats />
+                <Link style={styles.backIcon} onPress={() => gameEngineRef.current.stop()} href="/CampaignOverviewScreen">
+                    <Ionicons name="arrow-back" size={35} color="black" />
+                </Link>
             </GameEngine>
         
     );
@@ -104,6 +108,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#31b5ea",
         width: '100%',
         height: screenHeight
+    },
+    backIcon: {
+        marginTop: 5,
+        marginLeft: 5,
+        opacity: .7
+    },
+    pressed: {
+        opacity: .2
     }
 });
 
