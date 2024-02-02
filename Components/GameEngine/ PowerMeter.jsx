@@ -9,7 +9,7 @@ function PowerMeter({ powerLevel, displayLevel }) {
     return (
         <View style={styles.root}>
 
-            <Text style={styles.numberDisplay}>{displayLevel}</Text>
+            {/* <Text style={styles.numberDisplay}>{displayLevel}</Text> */}
 
             {/* progress is number from 0 to 1 */}
             <Progress.Bar
@@ -19,8 +19,10 @@ function PowerMeter({ powerLevel, displayLevel }) {
                 style={[styles.slider]}
                 // animated={true}
                 borderWidth={1}
-                borderColor={displayLevel > 80 ? 'red' :  displayLevel > 43 ? 'orange': 'green'}
-                color={displayLevel > 80 ? 'red' :  displayLevel > 43 ? 'orange': 'green'}
+                // borderColor={displayLevel > 80 ? 'red' :  displayLevel > 43 ? '#ac7207': 'green'}
+                borderColor={'black'}
+
+                color={displayLevel > 80 ? 'red' :  displayLevel > 43 ? 'ac7207': 'green'}
             />
             <View style={styles.powerTextWrapper}>
                 <Text style={styles.powerText}>_</Text>
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
         transform: [{ rotate: '-90deg' }],
         position: 'absolute',
         left: -136,
-        top: 180,
+        top: 200,
     },
 
     powerTextWrapper: {

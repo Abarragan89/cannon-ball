@@ -11,18 +11,22 @@ import PowerMeter from "../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../Components/GameEngine/CannonLauncher";
 import MoveCannonLaunch from "../../Components/GameEngine/MoveCannonLaunch";
 import AngleMeter from "../../Components/GameEngine/AngleMeter";
+import HeaderStats from "../../Components/UI/HeaderStats";
 import TNT from "../../Components/GameEngine/TNT";
 import Explosion from "../../Components/GameEngine/Explosion";
 import FollowArrow from "../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../systems/scoreCalculatorSystem";
+
+import { Dimensions } from 'react-native'
+const screenHeight = Dimensions.get('window').height;
+
 
 function BestGameEver() {
 
     const gameEngineRef = useRef(null);
 
     return (
-        <>
-            <Link onPress={() => gameEngineRef.current.stop()} href="/CampaignOverviewScreen">Back to Campaign</Link>
+        
             <GameEngine
                 ref={gameEngineRef}
                 style={styles.container}
@@ -44,7 +48,7 @@ function BestGameEver() {
                         display: 'block',
                         airTime: 0,
                         bounces: 0,
-                        accuracy: 0,
+                        accuracy: { name: '', float: 0 },
                         isGameOver: false,
                         isBallMoving: false,
                         renderer: <CannonBall />
@@ -87,15 +91,19 @@ function BestGameEver() {
                     }
                 }}>
                 <StatusBar hidden={true} />
+                <Link onPress={() => gameEngineRef.current.stop()} href="/CampaignOverviewScreen">Back to Campaign</Link>
+                <HeaderStats />
             </GameEngine>
-        </>
+        
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white",
+        backgroundColor: "#31b5ea",
+        width: '100%',
+        height: screenHeight
     }
 });
 

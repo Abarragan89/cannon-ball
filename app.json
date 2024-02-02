@@ -3,7 +3,6 @@
     "scheme": "cannonBall",
     "name": "cannonBall",
     "slug": "cannonBall",
-    "backgroundColor": "#1c8bc1",
     "version": "1.0.0",
     "orientation": "landscape",
     "icon": "./assets/icon.png",

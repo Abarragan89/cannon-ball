@@ -1,8 +1,5 @@
 import { View, StyleSheet, Button } from 'react-native';
 import Slider from '@react-native-community/slider';
-import { Dimensions } from 'react-native';
-
-const screenWidth = Dimensions.get('window').width
 
 // they can manipulate themselves by grabbing themselves as entities
 const MoveCannonLaunch = (entities) => {
@@ -14,7 +11,7 @@ const MoveCannonLaunch = (entities) => {
     return (
         <View style={styles.root}>
             <Slider
-                style={{ width: 670, height: 30}}
+                style={{ width: 670, height: 20}}
                 onValueChange={sliderChangeHandler}
                 maximumValue={640}
                 value={0}
@@ -34,6 +31,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative',
-        top: 50
+        top: 65
     }
 })

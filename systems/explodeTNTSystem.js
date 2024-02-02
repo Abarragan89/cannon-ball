@@ -14,38 +14,30 @@ const explodeTNTSystem = (entities) => {
         const tntYCoord = entities.TNT.position[1];
 
         // calculate the length of both sides
-        const triangleASide = Math.abs(ballXCoord - tntXCoord)
-        const triangeBSide = Math.abs(ballYCoord - tntYCoord)
+        const triangleASide = Math.abs(ballXCoord - tntXCoord);
+        const triangeBSide = Math.abs(ballYCoord - tntYCoord);
 
-        const accuracyAmount = Math.floor(Math.sqrt(triangleASide ** 2 + triangeBSide ** 2));
+        const accuracyAmount = (Math.sqrt(triangleASide ** 2 + triangeBSide ** 2)).toFixed(2);
 
-        switch (accuracyAmount) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-                entities.cannonBall.accuracy = 'Perfect Shot!';
-                break;
-            case 4:
-            case 5:
-            case 6:
-                entities.cannonBall.accuracy = 'Great Shot!'
-                break;
-            case 7:
-            case 8:
-            case 9:
-                entities.cannonBall.accuracy = 'Good Shot.'
-                break;
-            case 10:
-            case 11:
-            case 12:
-            case 13:
-                entities.cannonBall.accuracy = 'Decent Shot.'
-                break;
-            default:
-                entities.cannonBall.accuracy = 'Barely Hit.'
+        if (accuracyAmount >= 15) {
+            entities.cannonBall.accuracy = 
+            {
+                name: 'Good Shot',
+                float: accuracyAmount
+            }
+        } else if (accuracyAmount >= 5) {
+            entities.cannonBall.accuracy = 
+            {
+                name: 'Great Shot!',
+                float: accuracyAmount
+            }
+        } else {
+            entities.cannonBall.accuracy = 
+            {
+                name: 'Perfect Shot!!!',
+                float: accuracyAmount
+            }
         }
-
 
         console.log(entities.cannonBall.accuracy)
 
