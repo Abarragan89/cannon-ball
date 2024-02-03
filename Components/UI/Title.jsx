@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
 
-const Title = ({ children }) => {
+const Title = ({ children, color }) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>{children}</Text>
+            <Text style={[styles.text, {color: color}]}>{children}</Text>
         </View>
     )
 }
@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 36,
-        color: 'black'
+        color: 'black',
+        letterSpacing: 2
     }
 })

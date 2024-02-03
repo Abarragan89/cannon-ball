@@ -37,8 +37,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         height: 56,
         overflow: 'hidden',
-        zIndex: 10
-
+        zIndex: 10,
     },
     meter90Deg: {
         position: 'relative',

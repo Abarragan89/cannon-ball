@@ -9,8 +9,6 @@ function scoreCalculatorSystem(entities) {
         entities.headerStats.airTime = 0
         entities.headerStats.bounces = 0
     }
-    // console.log(entities.headerStats.airTime);
-    // console.log(entities.headerStats.bounces)
     return entities;
 }
 

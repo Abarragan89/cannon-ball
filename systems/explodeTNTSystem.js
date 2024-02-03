@@ -37,7 +37,6 @@ const explodeTNTSystem = (entities) => {
     }
 
     function endGameHandler() {
-        // console.log('hit top')
         // calculate accuracy to center of box
         calculateAccuracy();
         //trigger the boolean to let the air-time counter stop
@@ -59,6 +58,9 @@ const explodeTNTSystem = (entities) => {
                 entities.cannonBall.display = 'none'
             }, 200);
         }, 500)
+        setTimeout(() => {
+            entities.endGameModal.display = 'block'
+        }, 1800);
     }
 
     // Variables to determine collision of Cannon Ball and Top of TNT
@@ -109,7 +111,6 @@ const explodeTNTSystem = (entities) => {
             endGameHandler();
         };
     }
-
     return entities;
 
 }

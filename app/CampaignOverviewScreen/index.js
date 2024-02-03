@@ -12,10 +12,7 @@ const CampaignOverview = () => {
                 backgroundColor={colors.primaryBlue}
             />
             <Title>Campaign</Title>
-            <Link href={{
-                pathname: "/GameScreen",
-                params: { level: 1 }
-            }}>Game Screen</Link>
+            <Link href={"/GameScreen/ChapterOne/Level1"}>Game Screen</Link>
             <Link href="/">Back Home</Link>
         </View>
     )

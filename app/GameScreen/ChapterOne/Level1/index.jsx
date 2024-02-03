@@ -2,26 +2,27 @@ import { Link } from "expo-router";
 import { useRef } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
-import cannonControlSystem from "../../systems/cannonControlSystem";
-import fireCannonSystem from "../../systems/fireCannonSystem";
-import explodeTNTSystem from "../../systems/explodeTNTSystem";
-import cannonBallTNTDetectionSystem from "../../systems/cannonBallTNTDetectionSystem";
-import CannonBall from "../../Components/GameEngine/CannonBall";
-import PowerMeter from "../../Components/GameEngine/ PowerMeter";
-import CannonLauncher from "../../Components/GameEngine/CannonLauncher";
-import MoveCannonLaunch from "../../Components/GameEngine/MoveCannonLaunch";
-import AngleMeter from "../../Components/GameEngine/AngleMeter";
-import HeaderStats from "../../Components/UI/HeaderStats";
-import TNT from "../../Components/GameEngine/TNT";
-import Explosion from "../../Components/GameEngine/Explosion";
-import FollowArrow from "../../Components/GameEngine/FollowArrow";
-import scoreCalculatorSystem from "../../systems/scoreCalculatorSystem";
+import cannonControlSystem from "../../../../systems/cannonControlSystem";
+import fireCannonSystem from "../../../../systems/fireCannonSystem";
+import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
+import cannonBallTNTDetectionSystem from "../../../../systems/cannonBallTNTDetectionSystem";
+import CannonBall from "../../../../Components/GameEngine/CannonBall";
+import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
+import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
+import MoveCannonLaunch from "../../../../Components/GameEngine/MoveCannonLaunch";
+import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
+import HeaderStats from "../../../../Components/UI/HeaderStats";
+import TNT from "../../../../Components/GameEngine/TNT";
+import Explosion from "../../../../Components/GameEngine/Explosion";
+import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
+import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Dimensions } from 'react-native'
+import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 
 
-function BestGameEver() {
+function ChatperOneLevelOne() {
 
     const gameEngineRef = useRef(null);
 
@@ -96,6 +97,12 @@ function BestGameEver() {
                         bounces: 0,
                         renderer: <HeaderStats />
                     },
+                    endGameModal: {
+                        display: 'none',
+                        currentLevel: 1,
+                        resetGame: false,
+                        renderer: <EndGameModal />
+                    }
                 }}>
                 <StatusBar hidden={true} />
                 <Link style={styles.backIcon} onPress={() => gameEngineRef.current.stop()} href="/CampaignOverviewScreen">
@@ -122,10 +129,10 @@ const styles = StyleSheet.create({
     imageStyle: {
         flex: 1,
         flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
+        resizeMode: 'cover',
+        justifyContent: 'center',
     }
 });
 
 
-export default BestGameEver;
+export default ChatperOneLevelOne;

@@ -42,7 +42,6 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
     const leftDistance1 = Math.sqrt((leftLineX1 - circleX) ** 2 + (leftLineY1 - circleY) ** 2);
     const leftDistance2 = Math.sqrt((leftLineX2 - circleX) ** 2 + (leftLineY2 - circleY) ** 2);
     if (leftDistance1 <= radius || leftDistance2 <= radius) {
-        console.log('hit left')
         // only change direction if it is not already going in the desired location
         if (entities.cannonBall.velocity[0] > 0) {
             // add to bounce count
@@ -73,7 +72,6 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
         // Check if the distance is less than or equal to the radius of the circle
         if (distanceToLine <= radius) {
             if (entities.cannonBall.velocity[0] > 0) {
-                console.log('hit left')
                 // add to bounce count
                 entities.cannonBall.bounces += 1;
                 entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
@@ -90,7 +88,6 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
     const rightDistance1 = Math.sqrt((rightLineX1 - circleX) ** 2 + (rightLineY1 - circleY) ** 2);
     const rightDistance2 = Math.sqrt((rightLineX2 - circleX) ** 2 + (rightLineY2 - circleY) ** 2);
     if (rightDistance1 <= radius || rightDistance2 <= radius) {
-        console.log('hit right')
         if (entities.cannonBall.velocity[0] < 0) {
             // add to bounce count
             entities.cannonBall.bounces += 1;
@@ -120,7 +117,6 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
         // Check if the distance is less than or equal to the radius of the circle
         if (distanceToLine <= radius) {
             if (entities.cannonBall.velocity[0] < 0) {
-                console.log('hit right')
                 // add to bounce count
                 entities.cannonBall.bounces += 1;
                 entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
@@ -135,7 +131,6 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
     const bottomDistance2 = Math.sqrt((bottomLineX2 - circleX) ** 2 + (bottomLineY2 - circleY) ** 2);
     // checks to see if corners are hit
     if (bottomDistance1 <= radius + 2 || bottomDistance2 <= radius + 2) {
-        console.log('hit bottom')
         if (entities.cannonBall.velocity[1] < 0) {
             // add to bounce count
             entities.cannonBall.bounces += 1;
@@ -166,7 +161,6 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
         // Check if the distance is less than or equal to the radius of the circle
         if (distanceToLine <= radius) {
             if (entities.cannonBall.velocity[1] > 0) {
-                console.log('hit bottom')
                 // add to bounce count
                 entities.cannonBall.bounces += 1;
                 entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
