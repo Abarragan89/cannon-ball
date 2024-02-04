@@ -56,10 +56,6 @@ const fireCannonSystem = (entities, { touches }) => {
   
   touches.forEach(t => {
     if (t.type === "long-press") {
-      // if ball is already in motion, delete it and start over
-      if (entities.cannonBall.isBallMoving) {
-        entities.headerStats.airTime = 0;
-      } else {
         // set isBallMoving to true
         entities.cannonBall.isBallMoving = true;
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
@@ -74,7 +70,7 @@ const fireCannonSystem = (entities, { touches }) => {
         entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
         entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
       }
-    }
+    // }
 
   });
   return entities;

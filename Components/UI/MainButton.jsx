@@ -3,16 +3,11 @@ import { StyleSheet, Pressable, Text } from 'react-native';
 import colors from '../../constants/colors';
 
 const MainButton = ({ children, route, params, runFunc }) => {
-
-    // if runFunc is passed, then we don't want to link to a new page
-    // but run a function
-
-    function changeRouteHandler() {
-        router.navigate(route, params)
-    }
+    // if runFunc is passed, then we don't want to link to a new page, but run a function
+    const onPressHandler = runFunc ? runFunc : () => router.navigate(route, params);
 
     return (
-        <Pressable onPress={runFunc ?  runFunc : changeRouteHandler} style={({ pressed }) => [styles.container, pressed && styles.pressed]}>
+        <Pressable onPress={onPressHandler} style={({ pressed }) => [styles.container, pressed && styles.pressed]}>
             <Text style={styles.text}>
                 {children}
             </Text>

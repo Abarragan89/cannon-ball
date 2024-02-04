@@ -8,7 +8,7 @@ const FollowArrow = ({ leftPosition, displayStatus }) => {
     return (
     <View style={[styles.root, {
         left: leftPosition,
-        top: -5,
+        top: 0,
         display: displayStatus
     }]}>
         <Image style={styles.image} source={require('../../assets/images/followArrow.png')} />

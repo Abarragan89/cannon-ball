@@ -22,7 +22,7 @@ function PowerMeter({ powerLevel, displayLevel }) {
                 // borderColor={displayLevel > 80 ? 'red' :  displayLevel > 43 ? '#ac7207': 'green'}
                 borderColor={'black'}
 
-                color={displayLevel > 80 ? 'red' :  displayLevel > 43 ? 'ac7207': 'green'}
+                color={displayLevel > 80 ? '#ff1c1c' :  displayLevel > 43 ? '#ffcc00': '#00ff08'}
             />
             <View style={styles.powerTextWrapper}>
                 <Text style={styles.powerText}>_</Text>
