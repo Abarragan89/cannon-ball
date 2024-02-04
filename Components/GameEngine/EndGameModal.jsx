@@ -6,9 +6,6 @@ import { Fontisto } from '@expo/vector-icons';
 
 
 const EndGameModal = ( entity ) => {
-
-    const { resetGame } = entity;
-
     return (
         <View style={[styles.root, { display: entity.display }]}>
             <View style={styles.modalMainView}>
@@ -37,7 +34,7 @@ const EndGameModal = ( entity ) => {
                     <Fontisto name="star" size={40} color="#e1ca18" />
                 </View>
                 <View style={styles.buttonContainer}>
-                    <MainButton runFunc={resetGame}>Retry</MainButton>
+                    <MainButton runFunc={entity.resetGame}>Retry</MainButton>
                     <MainButton route="/GameScreen/ChapterOne/Level2">Next Level</MainButton>
                 </View>
             </View>
@@ -45,7 +42,7 @@ const EndGameModal = ( entity ) => {
     )
 }
 
-export default EndGameModal;
+export default EndGameModal;                                                        
 
 const styles = StyleSheet.create({
     root: {

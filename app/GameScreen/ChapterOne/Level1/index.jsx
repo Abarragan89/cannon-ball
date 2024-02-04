@@ -21,10 +21,8 @@ import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 
-
-let isGameResetting = false;
-
 function ChatperOneLevelOne() {
+    const [isGameResetting, setIsGameResetting] = useState(false)
 
     const gameEngineRef = useRef(null);
     // use this variable to refresh the game for 'retry' button on end modal
@@ -84,22 +82,25 @@ function ChatperOneLevelOne() {
         endGameModal: {
             display: 'none',
             currentLevel: 1,
-            resetGame: () => isGameResetting = true,
+            resetGame: () => setIsGameResetting(true),
             renderer: <EndGameModal />
         }
     }
 
     const resetLevel = (entities, { dispatch }) => {
+        console.log('isGameResetting ', isGameResetting)
+        // console.log(entities.endGameModal)
         if (isGameResetting) {
+            setIsGameResetting(false)
             dispatch({ type: "reset-level" });
         }
         return entities;
     }
 
     function triggerRefresh(ev) {
-        isGameResetting = false;
         if (ev.type === "reset-level") { 
-            gameEngineRef.current.swap({...initialGameState})
+            let initialGameStateCopy = {...initialGameState}
+            gameEngineRef.current.swap(initialGameStateCopy)
         }
     }
 
@@ -177,7 +178,7 @@ function ChatperOneLevelOne() {
                 endGameModal: {
                     display: 'none',
                     currentLevel: 1,
-                    resetGame: () => isGameResetting = true,
+                    resetGame: () => setIsGameResetting(true),
                     renderer: <EndGameModal />
                 }
             }}>

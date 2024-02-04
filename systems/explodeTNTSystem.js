@@ -59,7 +59,6 @@ const explodeTNTSystem = (entities) => {
             }, 200);
         }, 500)
         setTimeout(() => {
-            console.log(entities.endGameModal.display)
             entities.endGameModal.display = 'block'
         }, 1800);
     }

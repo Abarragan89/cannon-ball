@@ -99,8 +99,8 @@ function ChatperOneLevelOne() {
                     },
                     endGameModal: {
                         display: 'none',
-                        // currentLevel: 1,
-                        // resetGame: false,
+                        currentLevel: 1,
+                        resetGame: false,
                         renderer: <EndGameModal />
                     }
                 }}>

@@ -1,8 +1,6 @@
 import { StyleSheet, View, Text } from "react-native";
 import * as Progress from 'react-native-progress';
-import { Dimensions, Platform } from "react-native";
-
-const screenHeight = Dimensions.get('window').height
+import { Platform } from "react-native";
 
 function PowerMeter({ powerLevel, displayLevel }) {
 
