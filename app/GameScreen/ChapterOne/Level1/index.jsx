@@ -88,8 +88,6 @@ function ChatperOneLevelOne() {
     }
 
     const resetLevel = (entities, { dispatch }) => {
-        console.log('isGameResetting ', isGameResetting)
-        // console.log(entities.endGameModal)
         if (isGameResetting) {
             setIsGameResetting(false)
             dispatch({ type: "reset-level" });
@@ -97,10 +95,10 @@ function ChatperOneLevelOne() {
         return entities;
     }
 
-    function triggerRefresh(ev) {
+    async function triggerRefresh(ev) {
         if (ev.type === "reset-level") { 
-            let initialGameStateCopy = {...initialGameState}
-            gameEngineRef.current.swap(initialGameStateCopy)
+            sliderResetValue.current = 0;
+            gameEngineRef.current.swap({...initialGameState});
         }
     }
 

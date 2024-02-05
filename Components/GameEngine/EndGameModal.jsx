@@ -34,7 +34,7 @@ const EndGameModal = ( entity ) => {
                     <Fontisto name="star" size={40} color="#e1ca18" />
                 </View>
                 <View style={styles.buttonContainer}>
-                    <MainButton runFunc={entity.resetGame}>Retry</MainButton>
+                    <MainButton route="/CampaignOverviewScreen">Map</MainButton>
                     <MainButton route="/GameScreen/ChapterOne/Level2">Next Level</MainButton>
                 </View>
             </View>
@@ -42,7 +42,7 @@ const EndGameModal = ( entity ) => {
     )
 }
 
-export default EndGameModal;                                                        
+export default EndGameModal;                                           
 
 const styles = StyleSheet.create({
     root: {
