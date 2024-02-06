@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Title from '../UI/Title';
 import ModalDetaiItemContainer from '../UI/ModalDetaiItemContainer';
 import MainButton from '../UI/MainButton';
@@ -6,27 +6,30 @@ import { Fontisto } from '@expo/vector-icons';
 
 
 const EndGameModal = ( entity ) => {
+
+    console.log(entity)
+
     return (
         <View style={[styles.root, { display: entity.display }]}>
             <View style={styles.modalMainView}>
-                <Title color='white'>Perfect Shot!!!</Title>
-                <Text style={styles.pixelText}>(5.8 pixels away!)</Text>
+                <Title color='white'>{entity.accuracyName}</Title>
+                <Text style={styles.pixelText}>({entity.accuracyFloat} pixels away!)</Text>
                 <View style={styles.detailsContainer}>
                     <ModalDetaiItemContainer
                         itemName='Air Time'
-                        itemAmount={9201}
+                        itemAmount={entity.airTime}
                         hasBorder={0}
                     />
                     <ModalDetaiItemContainer
                         itemName='Bounces'
-                        itemAmount={5}
+                        itemAmount={entity.bounces}
                     />
-                    <Text style={styles.totalText}>8128</Text>
+                    <Text style={styles.totalText}>{entity.airTime * entity.bounces}</Text>
                     <ModalDetaiItemContainer
                         itemName='Accuracy'
-                        itemAmount={9}
+                        itemAmount={entity.multiplier}
                     />
-                    <Text style={styles.totalText}>8128</Text>
+                    <Text style={styles.totalText}>{entity.airTime * entity.bounces * entity.multiplier}</Text>
                 </View>
                 <View style={styles.starContainer}>
                     <Fontisto name="star" size={40} color="#d94a4a" />

@@ -19,19 +19,24 @@ const explodeTNTSystem = (entities) => {
             entities.cannonBall.accuracy = 
             {
                 name: 'Good Shot',
-                float: accuracyAmount
+                float: accuracyAmount,
+                multiplier: 2,
+
             }
         } else if (accuracyAmount >= 5) {
             entities.cannonBall.accuracy = 
             {
                 name: 'Great Shot!',
-                float: accuracyAmount
+                float: accuracyAmount,
+                multiplier: 3,
+
             }
         } else {
             entities.cannonBall.accuracy = 
             {
                 name: 'Perfect Shot!!!',
-                float: accuracyAmount
+                float: accuracyAmount,
+                multiplier: 5,
             }
         }
     }
@@ -39,6 +44,8 @@ const explodeTNTSystem = (entities) => {
     function endGameHandler() {
         // calculate accuracy to center of box
         calculateAccuracy();
+        // pass data to end game modal
+        setEndGameModalStats();
         //trigger the boolean to let the air-time counter stop
         entities.cannonBall.isGameOver = true;
         // Lower TNT handle
@@ -61,6 +68,15 @@ const explodeTNTSystem = (entities) => {
         setTimeout(() => {
             entities.endGameModal.display = 'block'
         }, 1800);
+    }
+
+    function setEndGameModalStats() {
+        // pass all the relevant data to end game modal
+        entities.endGameModal.accuracyFloat = entities.cannonBall.accuracy.float;
+        entities.endGameModal.accuracyName = entities.cannonBall.accuracy.name;
+        entities.endGameModal.multiplier = entities.cannonBall.accuracy.multiplier
+        entities.endGameModal.airTime = entities.headerStats.airTime;
+        entities.endGameModal.bounces = entities.headerStats.bounces + 1;
     }
 
     // Variables to determine collision of Cannon Ball and Top of TNT

@@ -20,7 +20,6 @@ const fireCannonSystem = (entities, { touches }) => {
     }
   }
 
-  
   function wallDetection() {
     // if hits bottom
     if (entities.cannonBall.position[1] > windowHeight - 34) {
@@ -56,6 +55,7 @@ const fireCannonSystem = (entities, { touches }) => {
   
   touches.forEach(t => {
     if (t.type === "long-press") {
+        entities.headerStats.airTime = 0;
         // set isBallMoving to true
         entities.cannonBall.isBallMoving = true;
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)

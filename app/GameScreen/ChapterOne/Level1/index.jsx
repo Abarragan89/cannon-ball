@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
-import { useState, useRef } from "react";
-import { GameEngine } from "react-native-game-engine"
+import { useRef } from "react";
+import { GameEngine, GameLoop } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
@@ -22,86 +22,7 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 
 function ChatperOneLevelOne() {
-    const [isGameResetting, setIsGameResetting] = useState(false)
-
     const gameEngineRef = useRef(null);
-    // use this variable to refresh the game for 'retry' button on end modal
-    const initialGameState = {
-        cannonBall: {
-            position: [-100, 0],
-            gradientColor: 'rgba(0, 0, 0, 0.6)',
-            color: 'rgba(0, 0, 0, 1)',
-            velocity: [1, 1],
-            display: 'block',
-            accuracy: { name: '', float: 0 },
-            isGameOver: false,
-            isBallMoving: false,
-            renderer: <CannonBall />
-        },
-        powerMeter: {
-            displayLevel: 1,
-            powerLevel: 15,
-            renderer: <PowerMeter />
-        },
-        angleMeter: {
-            angleLevel: 90,
-            renderer: <AngleMeter />
-        },
-        cannon: {
-            position: [400, screenHeight - 90],
-            rotate: '-90deg',
-            renderer: <CannonLauncher />
-        },
-        TNT: {
-            position: [300, 100],
-            display: 'block',
-            handlePosition: [-13, 0],
-            renderer: <TNT />
-        },
-        explosion: {
-            position: [315, 115],
-            ballPosition: [0, 0],
-            ballColor: '#000000',
-            startAnimation: false,
-            renderer: <Explosion />
-        },
-        moveCannonLaunch: {
-            position: [0, 100],
-            renderer: <MoveCannonLaunch />
-        },
-        followArrow: {
-            leftPosition: 300,
-            displayStatus: 'none',
-            renderer: <FollowArrow />
-        },
-        headerStats: {
-            airTime: 0,
-            bounces: 0,
-            renderer: <HeaderStats />
-        },
-        endGameModal: {
-            display: 'none',
-            currentLevel: 1,
-            resetGame: () => setIsGameResetting(true),
-            renderer: <EndGameModal />
-        }
-    }
-
-    const resetLevel = (entities, { dispatch }) => {
-        if (isGameResetting) {
-            setIsGameResetting(false)
-            dispatch({ type: "reset-level" });
-        }
-        return entities;
-    }
-
-    async function triggerRefresh(ev) {
-        if (ev.type === "reset-level") { 
-            sliderResetValue.current = 0;
-            gameEngineRef.current.swap({...initialGameState});
-        }
-    }
-
     return (
         // <ImageBackground 
         // style={styles.imageStyle}
@@ -110,7 +31,6 @@ function ChatperOneLevelOne() {
         <GameEngine
             ref={gameEngineRef}
             style={styles.container}
-            onEvent={triggerRefresh}
             systems=
             {[
                 cannonControlSystem,
@@ -118,7 +38,6 @@ function ChatperOneLevelOne() {
                 cannonBallTNTDetectionSystem,
                 scoreCalculatorSystem,
                 fireCannonSystem,
-                resetLevel
             ]}
             entities={{
                 cannonBall: {
@@ -127,7 +46,7 @@ function ChatperOneLevelOne() {
                     color: 'rgba(0, 0, 0, 1)',
                     velocity: [1, 1],
                     display: 'block',
-                    accuracy: { name: '', float: 0 },
+                    accuracy: { name: '', float: 0, multiplier: 0 },
                     isGameOver: false,
                     isBallMoving: false,
                     renderer: <CannonBall />
@@ -170,12 +89,17 @@ function ChatperOneLevelOne() {
                 },
                 headerStats: {
                     airTime: 0,
-                    bounces: 0,
+                    bounces: 1,
                     renderer: <HeaderStats />
                 },
                 endGameModal: {
                     display: 'none',
                     currentLevel: 1,
+                    accuracyFloat: 0,
+                    accuracyName: '',
+                    airTime: 0,
+                    bounces: 1,
+                    multiplier: 0,
                     resetGame: () => setIsGameResetting(true),
                     renderer: <EndGameModal />
                 }
