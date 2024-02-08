@@ -5,6 +5,7 @@
     "slug": "cannonBall",
     "version": "1.0.0",
     "orientation": "landscape",
+    "backgroundColor": "#000000",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -29,6 +30,12 @@
       "bundler": "metro"
     },
     "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/titleFont.ttf", "./assets/fonts/textFont.ttf"]
+        }
+      ],
       "expo-router"
     ]
   }

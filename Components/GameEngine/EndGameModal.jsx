@@ -3,11 +3,10 @@ import Title from '../UI/Title';
 import ModalDetaiItemContainer from '../UI/ModalDetaiItemContainer';
 import MainButton from '../UI/MainButton';
 import { Fontisto } from '@expo/vector-icons';
+import colors from '../../constants/colors';
 
-
-const EndGameModal = ( entity ) => {
-
-    console.log(entity)
+const EndGameModal = (entity) => {
+    const finalScore = entity.airTime * entity.bounces * entity.multiplier
 
     return (
         <View style={[styles.root, { display: entity.display }]}>
@@ -29,12 +28,22 @@ const EndGameModal = ( entity ) => {
                         itemName='Accuracy'
                         itemAmount={entity.multiplier}
                     />
-                    <Text style={styles.totalText}>{entity.airTime * entity.bounces * entity.multiplier}</Text>
+                    <Text style={styles.totalText}>{finalScore}</Text>
                 </View>
                 <View style={styles.starContainer}>
-                    <Fontisto name="star" size={40} color="#d94a4a" />
-                    <Fontisto name="star" size={40} color="#a8a8a8" />
-                    <Fontisto name="star" size={40} color="#e1ca18" />
+                    {finalScore > entity.winningScore[0]
+                        &&
+                        <Fontisto name="star" size={40} color={colors.bronzeStar} />
+                    }
+                    {finalScore > entity.winningScore[1]
+                        &&
+                        <Fontisto name="star" size={40} color={colors.silverStar} />
+
+                    }
+                    {finalScore > entity.winningScore[2]
+                        &&
+                        <Fontisto name="star" size={40} color={colors.goldStar} />
+                    }
                 </View>
                 <View style={styles.buttonContainer}>
                     <MainButton route="/CampaignOverviewScreen">Map</MainButton>
@@ -45,7 +54,7 @@ const EndGameModal = ( entity ) => {
     )
 }
 
-export default EndGameModal;                                           
+export default EndGameModal;
 
 const styles = StyleSheet.create({
     root: {

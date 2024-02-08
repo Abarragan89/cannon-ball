@@ -1,19 +1,39 @@
 import { View, StyleSheet } from "react-native";
+import { useCallback } from "react";
 import Title from "../Components/UI/Title";
 import MainButton from "../Components/UI/MainButton";
 import colors from "../constants/colors";
 import { StatusBar } from "expo-status-bar";
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
 
 const Home = () => {
+
+  const [fontsLoaded, fontError] = useFonts({
+    'titleFont': require('../assets/fonts/titleFont.ttf'),
+    'textFont': require('../assets/fonts/textFont.ttf'),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded || fontError) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
   
   return (
     <>
     <StatusBar 
       style="light" 
-      backgroundColor={colors.primaryBlue}  
+      backgroundColor={colors.primaryBlack}  
     />
-    <View style={styles.rootContainer}>
-      <Title>Cannon Ball!</Title>
+    <View style={styles.rootContainer} onLayout={onLayoutRootView}>
+      <Title color={colors.primaryOrange}>Cannon Ball!</Title>
       <View style={styles.buttonContainer}>
         <MainButton route="/CampaignOverviewScreen">
           Campaign

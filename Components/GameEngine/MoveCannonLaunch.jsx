@@ -14,9 +14,9 @@ const MoveCannonLaunch = (entity) => {
                     onValueChange={sliderChangeHandler}
                     maximumValue={640}
                     value={0}
-                    minimumTrackTintColor="black"
-                    maximumTrackTintColor="black"
-                    thumbTintColor='black'
+                    minimumTrackTintColor="transparent"
+                    maximumTrackTintColor="transparent"
+                    thumbTintColor='transparent'
                 />
         </View>
     )

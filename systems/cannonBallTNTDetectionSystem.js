@@ -45,7 +45,7 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
         // only change direction if it is not already going in the desired location
         if (entities.cannonBall.velocity[0] > 0) {
             // add to bounce count
-            entities.cannonBall.bounces += 1;
+            entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
         }
     }
@@ -73,7 +73,7 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
         if (distanceToLine <= radius) {
             if (entities.cannonBall.velocity[0] > 0) {
                 // add to bounce count
-                entities.cannonBall.bounces += 1;
+                entities.headerStats.bounces += 1;
                 entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
             }
         };
@@ -90,7 +90,7 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
     if (rightDistance1 <= radius || rightDistance2 <= radius) {
         if (entities.cannonBall.velocity[0] < 0) {
             // add to bounce count
-            entities.cannonBall.bounces += 1;
+            entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
         }    
     }
@@ -118,7 +118,7 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
         if (distanceToLine <= radius) {
             if (entities.cannonBall.velocity[0] < 0) {
                 // add to bounce count
-                entities.cannonBall.bounces += 1;
+                entities.headerStats.bounces += 1;
                 entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
             }
         };
@@ -133,7 +133,7 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
     if (bottomDistance1 <= radius + 2 || bottomDistance2 <= radius + 2) {
         if (entities.cannonBall.velocity[1] < 0) {
             // add to bounce count
-            entities.cannonBall.bounces += 1;
+            entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
         }
 
@@ -143,17 +143,17 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
     const bottomLineVectorY = bottomLineY2 - bottomLineY1;
 
     // Calculate the vector representing the line from one endpoint to the circle center
-    const leftCircleVectorX = circleX - bottomLineX1;
-    const leftCircleVectorY = circleY - bottomLineY1;
+    const bottomCircleVectorX = circleX - bottomLineX1;
+    const bottomCircleVectorY = circleY - bottomLineY1;
 
     // Calculate the projection of the circle vector onto the line vector
-    const leftProjection = (leftCircleVectorX * bottomLineVectorX + leftCircleVectorY * bottomLineVectorY) / (bottomLineVectorX * bottomLineVectorX + bottomLineVectorY * bottomLineVectorY);
+    const bottomProjection = (bottomCircleVectorX * bottomLineVectorX + bottomCircleVectorY * bottomLineVectorY) / (bottomLineVectorX * bottomLineVectorX + bottomLineVectorY * bottomLineVectorY);
 
-    // Check if the leftProjection is within the line segment
-    if (leftProjection >= 0 && leftProjection <= 1) {
+    // Check if the bottomProjection is within the line segment
+    if (bottomProjection >= 0 && bottomProjection <= 1) {
         // Find the closest point on the line to the circle center
-        const closestX = bottomLineX1 + leftProjection * bottomLineVectorX;
-        const closestY = bottomLineY1 + leftProjection * bottomLineVectorY;
+        const closestX = bottomLineX1 + bottomProjection * bottomLineVectorX;
+        const closestY = bottomLineY1 + bottomProjection * bottomLineVectorY;
 
         // Calculate the distance between the closest point on the line and the circle center
         const distanceToLine = Math.sqrt((circleX - closestX) ** 2 + (circleY - closestY) ** 2);
@@ -162,7 +162,7 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
         if (distanceToLine <= radius) {
             if (entities.cannonBall.velocity[1] > 0) {
                 // add to bounce count
-                entities.cannonBall.bounces += 1;
+                entities.headerStats.bounces += 1;
                 entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
             }
         };

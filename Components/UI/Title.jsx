@@ -13,11 +13,12 @@ export default Title;
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        zIndex: -1
     },
     text: {
-        fontSize: 36,
-        color: 'black',
-        letterSpacing: 2
+        fontSize: 50,
+        letterSpacing: 2,
+        fontFamily: 'titleFont'
     }
 })

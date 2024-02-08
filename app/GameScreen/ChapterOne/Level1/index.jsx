@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
 import { useRef } from "react";
-import { GameEngine, GameLoop } from "react-native-game-engine"
+import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
@@ -11,7 +11,7 @@ import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
 import MoveCannonLaunch from "../../../../Components/GameEngine/MoveCannonLaunch";
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
-import HeaderStats from "../../../../Components/UI/HeaderStats";
+import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
 import Explosion from "../../../../Components/GameEngine/Explosion";
 import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
@@ -20,9 +20,13 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import BackArrow from "../../../../Components/UI/BackArrow";
+
 
 function ChatperOneLevelOne() {
     const gameEngineRef = useRef(null);
+    const insets = useSafeAreaInsets();
     return (
         // <ImageBackground 
         // style={styles.imageStyle}
@@ -97,6 +101,7 @@ function ChatperOneLevelOne() {
                     currentLevel: 1,
                     accuracyFloat: 0,
                     accuracyName: '',
+                    winningScore: [500, 1000, 2000],
                     airTime: 0,
                     bounces: 1,
                     multiplier: 0,
@@ -105,10 +110,9 @@ function ChatperOneLevelOne() {
                 }
             }}>
             <StatusBar hidden={true} />
-            <Link style={styles.backIcon} onPress={() => gameEngineRef.current.stop()} href="/CampaignOverviewScreen">
-                <Ionicons name="arrow-back" size={35} color="black" />
-            </Link>
+            <BackArrow />
         </GameEngine>
+
         // </ImageBackground>
 
     );

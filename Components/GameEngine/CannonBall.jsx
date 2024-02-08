@@ -7,7 +7,6 @@ function CannonBall({ position, display, color, gradientColor }) {
     const x = position[0];
     const y = position[1];
 
-
     return (
 
             <LinearGradient

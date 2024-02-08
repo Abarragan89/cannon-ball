@@ -27,12 +27,12 @@ const fireCannonSystem = (entities, { touches }) => {
     }
     // if hits right wall
     if (entities.cannonBall.position[0] > windowWidth - 14) {
-      entities.cannonBall.bounces += 1;
+      entities.headerStats.bounces += 1;
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
     // if hits left wall
     if (entities.cannonBall.position[0] < 0) {
-      entities.cannonBall.bounces += 1;
+      entities.headerStats.bounces += 1;
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
   }

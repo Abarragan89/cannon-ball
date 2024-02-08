@@ -7,10 +7,6 @@ import colors from "../../constants/colors";
 const StoreScreen = () => {
   return (
     <View style={styles.rootContainer}>
-    <StatusBar 
-      style="light" 
-      backgroundColor={colors.primaryBlue}  
-    />
         <Title>Store</Title>
         <Link href="/">Back To Home</Link>
     </View>

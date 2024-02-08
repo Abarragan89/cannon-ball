@@ -7,10 +7,6 @@ import colors from "../../constants/colors";
 const SettingScreen = () => {
     return (
         <View style={styles.rootContainer}>
-            <StatusBar
-                style="light"
-                backgroundColor={colors.primaryBlue}
-            />
             <Title>Settings Screen</Title>
             <Link href="/">Back To Home</Link>
         </View>
