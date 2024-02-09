@@ -29,11 +29,11 @@ const Home = () => {
   return (
     <>
     <StatusBar 
-      style="light" 
-      backgroundColor={colors.primaryBlack}  
+      style="dark" 
+      backgroundColor={colors.background}  
     />
     <View style={styles.rootContainer} onLayout={onLayoutRootView}>
-      <Title color={colors.primaryOrange}>Cannon Ball!</Title>
+      <Title>Cannon Ball!</Title>
       <View style={styles.buttonContainer}>
         <MainButton route="/CampaignOverviewScreen">
           Campaign

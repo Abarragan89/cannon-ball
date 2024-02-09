@@ -16,6 +16,10 @@ const LevelTile = ({ children, route }) => {
                 <Fontisto style={styles.star} name="star" size={20} color={colors.silverStar} />
                 <Fontisto style={styles.star} name="star" size={20} color={colors.goldStar} />
             </View>
+            <View style={styles.bestAccuracyContainer}>
+                <Text>Accuracy:</Text>
+                <Text>91.02 pixels</Text>
+            </View>
         </Pressable>
     )
 }
@@ -24,19 +28,20 @@ export default LevelTile;
 
 const styles = StyleSheet.create({
     container: {
-        margin: 20,
         borderWidth: 1,
         backgroundColor: colors.primaryBrown,
-        borderRadius: 100,
-        padding: 30,
-
+        borderRadius: 10,
+        padding: 20,
+        height: 150,
+        justifyContent: 'space-between',
+        marginHorizontal: 10,
+        marginBottom: 20
     },
     text: {
         textAlign: 'center',
         fontSize: 24,
         fontFamily: 'textFont',
         color: 'white',
-        marginBottom: 10
     },
     starContainer: {
         flexDirection: 'row',
@@ -44,7 +49,10 @@ const styles = StyleSheet.create({
     star: {
         marginHorizontal: 5
     },
+    bestAccuracyContainer: {
+        alignItems: 'center'
+    },
     pressed: {
-        opacity: 0.7
+        opacity: 0.9
     }
 })

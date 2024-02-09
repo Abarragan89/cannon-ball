@@ -12,7 +12,7 @@ const CampaignOverview = () => {
             </View>
 
             <View style={styles.headerRoot}>
-                <Title color={colors.primaryOrange}>Campaign Maps</Title>
+                <Title>Campaign Maps</Title>
             </View>
 
             <View style={styles.mapBtnContainer}>

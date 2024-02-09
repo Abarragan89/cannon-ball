@@ -7,7 +7,7 @@ import { router } from 'expo-router';
 const BackArrow = () => {
     return (
         <Pressable onPress={() => router.back()} style={styles.root}>
-                <Ionicons name='arrow-back' size={40} color={colors.primaryYellow} />
+                <Ionicons name='arrow-back' size={40} color={colors.primaryBlack} />
         </Pressable>
     )
 }

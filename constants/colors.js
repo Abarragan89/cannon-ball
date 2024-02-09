@@ -1,5 +1,5 @@
 export default colors = {
-    primaryBlack: '#000',
+    background: '#b9cfd2',
     primaryYellow: '#ddd417',
     primaryOrange: '#ffa500',
     primaryBrown: '#5e2a0e',

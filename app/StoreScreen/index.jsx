@@ -1,7 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import { Link } from "expo-router"
 import Title from "../../Components/UI/Title";
-import { StatusBar } from "expo-status-bar";
 import colors from "../../constants/colors";
 
 const StoreScreen = () => {

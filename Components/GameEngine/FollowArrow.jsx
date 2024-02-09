@@ -1,5 +1,10 @@
-import { View, Text, StyleSheet, Image } from "react-native"
+import { View, StyleSheet, Image } from "react-native"
 import { Dimensions } from "react-native";
+import { Foundation } from '@expo/vector-icons';
+
+
+import colors from "../../constants/colors";
+
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -11,7 +16,7 @@ const FollowArrow = ({ leftPosition, displayStatus }) => {
         top: 0,
         display: displayStatus
     }]}>
-        <Image style={styles.image} source={require('../../assets/images/followArrow.png')} />
+        <Foundation name="arrow-up" size={24} color={colors.primaryBrown} />
     </View>
   )
 }
