@@ -7,16 +7,16 @@ const MainButton = ({ children, route, params, runFunc }) => {
     const onPressHandler = runFunc ? runFunc : () => router.push({ pathname: route, params: params });
 
     return (
-        <ImageBackground
-            style={styles.container}
-            source={require('../../assets/images/btnWoodBg.png')}
-        >
-            <Pressable onPress={onPressHandler} style={({ pressed }) => [pressed && styles.pressed]}>
+        <Pressable onPress={onPressHandler} style={({ pressed }) => [pressed && styles.pressed]}>
+            <ImageBackground
+                style={styles.container}
+                source={require('../../assets/images/btnWoodBg.png')}
+            >
                 <Text style={styles.text}>
                     {children}
                 </Text>
-            </Pressable>
-        </ImageBackground>
+            </ImageBackground>
+        </Pressable>
     )
 }
 

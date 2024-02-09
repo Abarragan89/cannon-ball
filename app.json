@@ -5,7 +5,7 @@
     "slug": "cannonBall",
     "version": "1.0.0",
     "orientation": "landscape",
-    "backgroundColor": "#b9cfd2",
+    "backgroundColor": "#C2B280",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {

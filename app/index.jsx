@@ -5,6 +5,7 @@ import MainButton from "../Components/UI/MainButton";
 import colors from "../constants/colors";
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from 'expo-font';
+import CannonLauncher from "../Components/GameEngine/CannonLauncher";
 import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();

@@ -18,9 +18,12 @@ const styles = StyleSheet.create({
         zIndex: -1
     },
     text: {
-        fontSize: 50,
+        fontSize: 40,
         letterSpacing: 2,
         fontFamily: 'titleFont',
-        color: colors.primaryBrown
+        color: colors.primaryBlack,
+        textShadowColor: 'black',
+        textShadowRadius: 5,
+        textShadowOffset: { width: 1, height: 1},
     }
 })

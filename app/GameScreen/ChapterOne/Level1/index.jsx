@@ -1,7 +1,6 @@
-import { Link } from "expo-router";
 import { useRef } from "react";
 import { GameEngine } from "react-native-game-engine"
-import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
@@ -16,22 +15,15 @@ import TNT from "../../../../Components/GameEngine/TNT";
 import Explosion from "../../../../Components/GameEngine/Explosion";
 import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BackArrow from "../../../../Components/UI/BackArrow";
 
 
 function ChatperOneLevelOne() {
     const gameEngineRef = useRef(null);
-    const insets = useSafeAreaInsets();
     return (
-        // <ImageBackground 
-        // style={styles.imageStyle}
-        // source={require('../../assets/images/TNTBox.png')}
-        // >
         <GameEngine
             ref={gameEngineRef}
             style={styles.container}
@@ -65,7 +57,7 @@ function ChatperOneLevelOne() {
                     renderer: <AngleMeter />
                 },
                 cannon: {
-                    position: [400, screenHeight - 90],
+                    position: [400, screenHeight - 85],
                     rotate: '-90deg',
                     renderer: <CannonLauncher />
                 },
@@ -112,9 +104,6 @@ function ChatperOneLevelOne() {
             <StatusBar hidden={true} />
             <BackArrow />
         </GameEngine>
-
-        // </ImageBackground>
-
     );
 }
 

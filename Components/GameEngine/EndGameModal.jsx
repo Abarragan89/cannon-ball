@@ -33,16 +33,16 @@ const EndGameModal = (entity) => {
                 <View style={styles.starContainer}>
                     {finalScore > entity.winningScore[0]
                         &&
-                        <Fontisto name="star" size={40} color={colors.bronzeStar} />
+                        <Fontisto name="star" size={30} color={colors.bronzeStar} />
                     }
                     {finalScore > entity.winningScore[1]
                         &&
-                        <Fontisto name="star" size={40} color={colors.silverStar} />
+                        <Fontisto name="star" size={30} color={colors.silverStar} />
 
                     }
                     {finalScore > entity.winningScore[2]
                         &&
-                        <Fontisto name="star" size={40} color={colors.goldStar} />
+                        <Fontisto name="star" size={30} color={colors.goldStar} />
                     }
                 </View>
                 <View style={styles.buttonContainer}>
@@ -71,10 +71,8 @@ const styles = StyleSheet.create({
     },
     modalMainView: {
         width: 400,
-        padding: 10,
         borderRadius: 8,
-        margin: '0 auto',
-        backgroundColor: '#1d58d7',
+        backgroundColor: 'black',
         borderColor: 'black',
         borderWidth: 1,
         elevation: 5,
@@ -92,11 +90,11 @@ const styles = StyleSheet.create({
     },
     detailsContainer: {
         alignItems: 'center',
-        paddingTop: 25,
+        paddingTop: 10,
         alignItems: 'flex-end'
     },
     buttonContainer: {
-        marginTop: 10,
+        marginVertical: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: 260,
