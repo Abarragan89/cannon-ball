@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -23,6 +23,13 @@ import BackArrow from "../../../../Components/UI/BackArrow";
 
 function ChatperOneLevelOne() {
     const gameEngineRef = useRef(null);
+
+    const [isGameOver, setIsGameOver] = useState(false);
+    const [angleLevelState, setAngleLevelState] = useState(90);
+    const angleLevel = useRef(90)
+    const [powerLevelState, setPowerLevelState] = useState(0);
+    const powerLevel = useRef(0)
+
     return (
         <GameEngine
             ref={gameEngineRef}
@@ -47,15 +54,24 @@ function ChatperOneLevelOne() {
                     isBallMoving: false,
                     renderer: <CannonBall />
                 },
-                powerMeter: {
-                    displayLevel: 1,
-                    powerLevel: 15,
-                    renderer: <PowerMeter />
+                cannonControls: {
+                    // useRef to update meter
+                    displayPowerLevel: powerLevel,
+                    // powerLevel is only used internally in entities.
+                    powerLevel: 10,
+                    // useState to update meter
+                    setDisplayPowerLevel: setPowerLevelState,
+                    angleLevel: angleLevel,
+                    setAngleLevel: setAngleLevelState
+                    
                 },
-                angleMeter: {
-                    angleLevel: 90,
-                    renderer: <AngleMeter />
-                },
+                // powerMeter: {
+                //     renderer: <PowerMeter />
+                // },
+                // angleMeter: {
+                //     angleLevel: 90,
+                //     renderer: <AngleMeter />
+                // },
                 cannon: {
                     position: [400, screenHeight - 85],
                     rotate: '-90deg',
@@ -103,6 +119,10 @@ function ChatperOneLevelOne() {
             }}>
             <StatusBar hidden={true} />
             <BackArrow />
+
+
+            <AngleMeter angleLevel={angleLevelState} />
+            <PowerMeter displayLevel={powerLevelState}/>
         </GameEngine>
     );
 }

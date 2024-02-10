@@ -3,8 +3,8 @@ const screenHeight = Dimensions.get('window').height;
 
 const cannonControlSystem = (entities, { touches }) => {    
     touches.forEach(t => {
-      let currentPower = entities.powerMeter.displayLevel;
-      let currentAngle = entities.angleMeter.angleLevel
+      let currentPower = entities.cannonControls.displayPowerLevel.current;
+      let currentAngle = entities.cannonControls.angleLevel.current;
 
       // Make sure that the angle doesn't change if you are moving slider
       let isTouchAboveSlider = t.event.pageY < screenHeight - 100;
@@ -12,23 +12,35 @@ const cannonControlSystem = (entities, { touches }) => {
       if (t.type === "move") {
         // decrease power
         if (t.delta.pageY > 5  && currentPower > 0) {
-          entities.powerMeter.powerLevel -= .5
-          entities.powerMeter.displayLevel -= 1
+          // entities.cannonControls.displayLevel -= 1
+          entities.cannonControls.displayPowerLevel.current -= 1;
+          entities.cannonControls.setDisplayPowerLevel(entities.cannonControls.displayPowerLevel.current)
+          
+          entities.cannonControls.powerLevel -= .5
         }
         // increase power 
         if (t.delta.pageY < -5 && currentPower < 100) {
-          entities.powerMeter.powerLevel += .5
-          entities.powerMeter.displayLevel += 1
+          // entities.cannonControls.displayLevel += 1
+          entities.cannonControls.displayPowerLevel.current += 1;
+          entities.cannonControls.setDisplayPowerLevel(entities.cannonControls.displayPowerLevel.current)
+
+          entities.cannonControls.powerLevel += .5
         }
         // decrease angle
         if (t.delta.pageX > 5 && currentAngle > 0 && isTouchAboveSlider) {
-          entities.angleMeter.angleLevel -= 1
-          entities.cannon.rotate = `-${entities.angleMeter.angleLevel}deg`
+          // update ref in order for UI (cannonLauncher) to update view
+          entities.cannonControls.angleLevel.current -= 1;
+          // update state in order for UI (meter) to update
+          entities.cannonControls.setAngleLevel(entities.cannonControls.angleLevel.current)
+          // update view for cannon
+          entities.cannon.rotate = `-${entities.cannonControls.angleLevel.current}deg`
         }
         // increase angle
         if (t.delta.pageX < -5 && currentAngle < 180 && isTouchAboveSlider) {
-          entities.angleMeter.angleLevel += 1
-          entities.cannon.rotate = `-${entities.angleMeter.angleLevel}deg`
+          entities.cannonControls.angleLevel.current += 1;
+          entities.cannonControls.setAngleLevel(entities.cannonControls.angleLevel.current);
+          
+          entities.cannon.rotate = `-${entities.cannonControls.angleLevel.current}deg`
         }
       }
     });

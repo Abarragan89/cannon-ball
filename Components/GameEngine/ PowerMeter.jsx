@@ -2,7 +2,7 @@ import { StyleSheet, View, Text } from "react-native";
 import * as Progress from 'react-native-progress';
 import { Platform } from "react-native";
 
-function PowerMeter({ powerLevel, displayLevel }) {
+function PowerMeter({ displayLevel }) {
 
     return (
         <View style={styles.root}>

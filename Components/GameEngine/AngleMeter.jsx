@@ -3,6 +3,7 @@ import * as Progress from 'react-native-progress';
 
 
 function AngleMeter({ angleLevel }) {
+
     return (
         <View style={styles.root}>
 
