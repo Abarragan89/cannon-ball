@@ -7,7 +7,6 @@ function CannonBall({ position, display, color, gradientColor }) {
     const x = position[0];
     const y = position[1];
 
-
     return (
 
             <LinearGradient
@@ -28,7 +27,7 @@ function CannonBall({ position, display, color, gradientColor }) {
 
 const styles = StyleSheet.create({
     cannonBall: {
-        zIndex: -3,
+        zIndex: 0,
         height: 20,
         position: 'absolute',
         width: 20,

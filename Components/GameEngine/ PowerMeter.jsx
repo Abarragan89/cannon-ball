@@ -1,8 +1,6 @@
 import { StyleSheet, View, Text } from "react-native";
 import * as Progress from 'react-native-progress';
-import { Dimensions, Platform } from "react-native";
-
-const screenHeight = Dimensions.get('window').height
+import { Platform } from "react-native";
 
 function PowerMeter({ powerLevel, displayLevel }) {
 
@@ -19,8 +17,10 @@ function PowerMeter({ powerLevel, displayLevel }) {
                 style={[styles.slider]}
                 // animated={true}
                 borderWidth={1}
-                borderColor={displayLevel > 80 ? 'red' :  displayLevel > 43 ? 'orange': 'green'}
-                color={displayLevel > 80 ? 'red' :  displayLevel > 43 ? 'orange': 'green'}
+                // borderColor={displayLevel > 80 ? 'red' :  displayLevel > 43 ? '#ac7207': 'green'}
+                borderColor={'black'}
+
+                color={displayLevel > 80 ? '#ff1c1c' :  displayLevel > 43 ? '#ffcc00': '#00ff08'}
             />
             <View style={styles.powerTextWrapper}>
                 <Text style={styles.powerText}>_</Text>
@@ -42,17 +42,17 @@ const styles = StyleSheet.create({
     root: {
         flex: 1,
     },
-    // numberDisplay: {
-    //     marginTop: 10,
-    //     marginLeft: 5,
-    //     opacity: .5
-    // },
+    numberDisplay: {
+        marginTop: 10,
+        marginLeft: 5,
+        opacity: .5
+    },
     slider: {
         opacity: .5,
         transform: [{ rotate: '-90deg' }],
         position: 'absolute',
         left: -136,
-        top: 180,
+        top: 200,
     },
 
     powerTextWrapper: {

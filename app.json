@@ -3,9 +3,9 @@
     "scheme": "cannonBall",
     "name": "cannonBall",
     "slug": "cannonBall",
-    "backgroundColor": "#1c8bc1",
     "version": "1.0.0",
     "orientation": "landscape",
+    "backgroundColor": "#C2B280",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -30,6 +30,12 @@
       "bundler": "metro"
     },
     "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/titleFont.ttf", "./assets/fonts/textFont.ttf"]
+        }
+      ],
       "expo-router"
     ]
   }

@@ -22,7 +22,7 @@ function Explosion({ position, ballPosition, startAnimation, ballColor }) {
             particle2El.current.start();
             particle3El.current.start();
             cannonBallEl.current.start();
-        }
+        } 
     }, [startAnimation, particle1El, particle2El, particle3El, cannonBallEl])
 
 

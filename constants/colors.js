@@ -1,7 +1,10 @@
 export default colors = {
-    primaryBlue: '#1c8bc1',
+    background: '#C2B280',
     primaryYellow: '#ddd417',
-    primaryMaroon: '#760a0a',
+    primaryOrange: '#ffa500',
     primaryBrown: '#5e2a0e',
     primaryBlack: '#000000',
+    bronzeStar: '#d94a4a',
+    silverStar: '#a8a8a8',
+    goldStar: '#e1ca18',
 }

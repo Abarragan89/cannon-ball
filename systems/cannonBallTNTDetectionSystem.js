@@ -18,31 +18,34 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
 
     // Right LINE OF TNT BOX
     // same as rightLine, I didn't make the coordinate exactly based on the 30px size of tnt
-    const rightLineX1 = entities.TNT.position[0] + 33;
+    const rightLineX1 = entities.TNT.position[0] + 30;
     const rightLineY1 = entities.TNT.position[1] - 3;
-    const rightLineX2 = entities.TNT.position[0] + 33;
+    const rightLineX2 = entities.TNT.position[0] + 30;
     const rightLineY2 = entities.TNT.position[1] + 20;
 
 
     // BOTTOM LINE OF TNT BOX
     // same as bottomLine, I didn't make the coordinate exactly based on the 30px size of tnt
-    const bottomLineX1 = entities.TNT.position[0] + 5;
-    const bottomLineY1 = entities.TNT.position[1] + 32;
-    const bottomLineX2 = entities.TNT.position[0] + 20;
-    const bottomLineY2 = entities.TNT.position[1] + 32;
+    const bottomLineX1 = entities.TNT.position[0];
+    const bottomLineY1 = entities.TNT.position[1] + 30;
+    const bottomLineX2 = entities.TNT.position[0] + 27;
+    const bottomLineY2 = entities.TNT.position[1] + 30;
 
     // CIRCLE PROPERTIES
     const radius = 10;
     const circleX = entities.cannonBall.position[0] + 5;
     const circleY = entities.cannonBall.position[1] + 5;
 
+
+
     ///////////// CHECKING FOR LEFT WALL DETECTION ////////////////////////
     const leftDistance1 = Math.sqrt((leftLineX1 - circleX) ** 2 + (leftLineY1 - circleY) ** 2);
     const leftDistance2 = Math.sqrt((leftLineX2 - circleX) ** 2 + (leftLineY2 - circleY) ** 2);
     if (leftDistance1 <= radius || leftDistance2 <= radius) {
-        console.log('hit left')
         // only change direction if it is not already going in the desired location
         if (entities.cannonBall.velocity[0] > 0) {
+            // add to bounce count
+            entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
         }
     }
@@ -69,6 +72,8 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
         // Check if the distance is less than or equal to the radius of the circle
         if (distanceToLine <= radius) {
             if (entities.cannonBall.velocity[0] > 0) {
+                // add to bounce count
+                entities.headerStats.bounces += 1;
                 entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
             }
         };
@@ -83,8 +88,9 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
     const rightDistance1 = Math.sqrt((rightLineX1 - circleX) ** 2 + (rightLineY1 - circleY) ** 2);
     const rightDistance2 = Math.sqrt((rightLineX2 - circleX) ** 2 + (rightLineY2 - circleY) ** 2);
     if (rightDistance1 <= radius || rightDistance2 <= radius) {
-        console.log('hit right')
         if (entities.cannonBall.velocity[0] < 0) {
+            // add to bounce count
+            entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
         }    
     }
@@ -111,6 +117,8 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
         // Check if the distance is less than or equal to the radius of the circle
         if (distanceToLine <= radius) {
             if (entities.cannonBall.velocity[0] < 0) {
+                // add to bounce count
+                entities.headerStats.bounces += 1;
                 entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
             }
         };
@@ -118,37 +126,34 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
 
 
 
-
-
     ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
     const bottomDistance1 = Math.sqrt((bottomLineX1 - circleX) ** 2 + (bottomLineY1 - circleY) ** 2);
     const bottomDistance2 = Math.sqrt((bottomLineX2 - circleX) ** 2 + (bottomLineY2 - circleY) ** 2);
-
     // checks to see if corners are hit
     if (bottomDistance1 <= radius + 2 || bottomDistance2 <= radius + 2) {
-        console.log('hit bottom')
         if (entities.cannonBall.velocity[1] < 0) {
+            // add to bounce count
+            entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
         }
 
     }
-
     // Calculate the vector representing the line segment
-    const bottomLineVectorX = leftLineX2 - leftLineX1;
-    const bottomLineVectorY = leftLineY2 - leftLineY1;
+    const bottomLineVectorX = bottomLineX2 - bottomLineX1;
+    const bottomLineVectorY = bottomLineY2 - bottomLineY1;
 
     // Calculate the vector representing the line from one endpoint to the circle center
-    const leftCircleVectorX = circleX - leftLineX1;
-    const leftCircleVectorY = circleY - leftLineY1;
+    const bottomCircleVectorX = circleX - bottomLineX1;
+    const bottomCircleVectorY = circleY - bottomLineY1;
 
     // Calculate the projection of the circle vector onto the line vector
-    const leftProjection = (leftCircleVectorX * bottomLineVectorX + leftCircleVectorY * bottomLineVectorY) / (bottomLineVectorX * bottomLineVectorX + bottomLineVectorY * bottomLineVectorY);
+    const bottomProjection = (bottomCircleVectorX * bottomLineVectorX + bottomCircleVectorY * bottomLineVectorY) / (bottomLineVectorX * bottomLineVectorX + bottomLineVectorY * bottomLineVectorY);
 
-    // Check if the leftProjection is within the line segment
-    if (leftProjection >= 0 && leftProjection <= 1) {
+    // Check if the bottomProjection is within the line segment
+    if (bottomProjection >= 0 && bottomProjection <= 1) {
         // Find the closest point on the line to the circle center
-        const closestX = leftLineX1 + leftProjection * bottomLineVectorX;
-        const closestY = leftLineY1 + leftProjection * bottomLineVectorY;
+        const closestX = bottomLineX1 + bottomProjection * bottomLineVectorX;
+        const closestY = bottomLineY1 + bottomProjection * bottomLineVectorY;
 
         // Calculate the distance between the closest point on the line and the circle center
         const distanceToLine = Math.sqrt((circleX - closestX) ** 2 + (circleY - closestY) ** 2);
@@ -156,6 +161,8 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
         // Check if the distance is less than or equal to the radius of the circle
         if (distanceToLine <= radius) {
             if (entities.cannonBall.velocity[1] > 0) {
+                // add to bounce count
+                entities.headerStats.bounces += 1;
                 entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
             }
         };

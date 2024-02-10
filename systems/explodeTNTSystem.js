@@ -1,9 +1,53 @@
-import { animationFrameId } from './fireCannonSystem' 
-
-
 const explodeTNTSystem = (entities) => {
+
+    function calculateAccuracy() {
+        // coordinates for the bottom of the ball
+        const ballXCoord = entities.cannonBall.position[0] + 10;
+        const ballYCoord = entities.cannonBall.position[1] + 20;
+
+        // coordinate for the top center of the TNT
+        const tntXCoord = entities.TNT.position[0] + 15;
+        const tntYCoord = entities.TNT.position[1];
+
+        // calculate the length of both sides
+        const triangleASide = Math.abs(ballXCoord - tntXCoord);
+        const triangeBSide = Math.abs(ballYCoord - tntYCoord);
+
+        const accuracyAmount = (Math.sqrt(triangleASide ** 2 + triangeBSide ** 2)).toFixed(2);
+
+        if (accuracyAmount >= 15) {
+            entities.cannonBall.accuracy = 
+            {
+                name: 'Good Shot',
+                float: accuracyAmount,
+                multiplier: 2,
+
+            }
+        } else if (accuracyAmount >= 5) {
+            entities.cannonBall.accuracy = 
+            {
+                name: 'Great Shot!',
+                float: accuracyAmount,
+                multiplier: 3,
+
+            }
+        } else {
+            entities.cannonBall.accuracy = 
+            {
+                name: 'Perfect Shot!!!',
+                float: accuracyAmount,
+                multiplier: 5,
+            }
+        }
+    }
+
     function endGameHandler() {
-        console.log('hit top')
+        // calculate accuracy to center of box
+        calculateAccuracy();
+        // pass data to end game modal
+        setEndGameModalStats();
+        //trigger the boolean to let the air-time counter stop
+        entities.cannonBall.isGameOver = true;
         // Lower TNT handle
         entities.TNT.handlePosition[0] = -6;
         // pause the cannonBall
@@ -13,8 +57,6 @@ const explodeTNTSystem = (entities) => {
             // set the ball explosion coordinates
             entities.explosion.ballPosition[0] = entities.cannonBall.position[0] + 5;
             entities.explosion.ballPosition[1] = entities.cannonBall.position[1] + 5;
-            // cancel the animation so it doesn't overlap with animationFrame from Ball
-            cancelAnimationFrame(animationFrameId)
             // trigger explosion animation
             entities.explosion.startAnimation = true;
             // make tnt box and cannonBall disappear with a slight delay
@@ -23,13 +65,25 @@ const explodeTNTSystem = (entities) => {
                 entities.cannonBall.display = 'none'
             }, 200);
         }, 500)
+        setTimeout(() => {
+            entities.endGameModal.display = 'block'
+        }, 1800);
+    }
+
+    function setEndGameModalStats() {
+        // pass all the relevant data to end game modal
+        entities.endGameModal.accuracyFloat = entities.cannonBall.accuracy.float;
+        entities.endGameModal.accuracyName = entities.cannonBall.accuracy.name;
+        entities.endGameModal.multiplier = entities.cannonBall.accuracy.multiplier
+        entities.endGameModal.airTime = entities.headerStats.airTime;
+        entities.endGameModal.bounces = entities.headerStats.bounces + 1;
     }
 
     // Variables to determine collision of Cannon Ball and Top of TNT
     // the X1 adn X2 lines are slightly within the TNT box. It needs to appear
     // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
     // did not all the total 30 px length (only added 25)
-    const lineX1 = entities.TNT.position[0] + 5;
+    const lineX1 = entities.TNT.position[0] + 3;
     const lineY1 = entities.TNT.position[1] - 3;
     const lineX2 = entities.TNT.position[0] + 25;
     const lineY2 = entities.TNT.position[1] - 3;
@@ -44,7 +98,7 @@ const explodeTNTSystem = (entities) => {
     const distance2 = Math.sqrt((lineX2 - circleX) ** 2 + (lineY2 - circleY) ** 2);
 
     if (distance1 <= radius || distance2 <= radius) {
-       endGameHandler();
+        endGameHandler();
     }
 
 
@@ -73,7 +127,6 @@ const explodeTNTSystem = (entities) => {
             endGameHandler();
         };
     }
-
     return entities;
 
 }

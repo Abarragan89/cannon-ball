@@ -6,20 +6,23 @@ function AngleMeter({ angleLevel }) {
     return (
         <View style={styles.root}>
 
-            {/* <Text style={styles.numberDisplay}>{angleLevel}</Text> */}
+            {/* <Text style={styles.meter90Deg}>{angleLevel}</Text> */}
+            <Text style={styles.meter90Deg}>|</Text>
+
 
             {/* progress is number from 0 to 1 */}
-            {/* <Progress.Circle
+            <Progress.Circle
                 progress={angleLevel / 360}
                 size={90}
                 direction="counter-clockwise"
                 style={styles.circleSlider}
                 thickness={7}
-                strokeCap='square'
+                color={'black'}
+                strokeCap='butt'
             />
             <View style={styles.angleTextWrapper}>
                 <Text style={styles.angleText}>Angle</Text>
-            </View> */}
+            </View>
         </View>
     )
 }
@@ -31,13 +34,19 @@ const styles = StyleSheet.create({
         opacity: .5,
         position: 'absolute',
         right: 20,
-        bottom: -19,
-        height: 68,
-        overflow: 'hidden'
-
+        bottom: 0,
+        height: 56,
+        overflow: 'hidden',
+        zIndex: 10,
     },
-    numberDisplay: {
-        textAlign: 'center'
+    meter90Deg: {
+        position: 'relative',
+        left: '49%',
+        top: 5,
+        fontSize: 8,
+        color: 'black'
+
+
     },
     circleSlider: {
         transform: [{ rotate: '90deg' }],
