@@ -5,7 +5,7 @@ const windowHeight = Dimensions.get('window').height;
 
 
 const fireCannonSystem = (entities, { touches }) => {
-  // always have cannon and cannonslider lined upr
+  // always have cannon and cannonslider lined up
   entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0] + 65;
   // set the gravity, angle and power before launch
   const GRAVITY = .05
@@ -61,7 +61,7 @@ const fireCannonSystem = (entities, { touches }) => {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
         // set initial coordinates to be where the cannon tip is located
         entities.cannonBall.position[0] = entities.cannon.position[0] + 25;
-        entities.cannonBall.position[1] = entities.cannon.position[1] + 15;
+        entities.cannonBall.position[1] = entities.cannon.position[1] + 40;
         // set the POWER and ANGLE  settings
         let ANGLE = entities.gameData.angleLevel.current;
         let POWER = entities.gameData.powerLevel;

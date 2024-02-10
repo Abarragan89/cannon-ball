@@ -20,26 +20,31 @@ function CannonLauncher({ position, rotate }) {
                     style={styles.cannonBallBase}
                 />
                 <View
+                
                     // colors={['#383434', '#151010']}
                     // locations={[0.01, 0.75]}
                     // start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonBallBaseScrew}
-                ></View>
+                />
                 <View
                     // colors={['#7d7373', '#383232']}
                     // locations={[0.01, 0.75]}
                     // start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonWheelOne}
-                />
+                >
+                    <View style={styles.innerWheelOne}></View>
+                </View>
                 <View
                     // colors={['#7d7373', '#383232']}
                     // locations={[0.01, 0.75]}
                     // start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonWheelTwo}
-                />
+                > 
+                <View style={styles.innerWheelOne}></View>
+                </View>
+
             </View>
         </View>
-
     )
 }
 
@@ -52,15 +57,16 @@ const styles = StyleSheet.create({
     },
     cannonContainer: {
         position: 'absolute',
-        top: 15,
-        left: 0,
+        top: 40,
+        left: 12,
     },
     cannonBarrel: {
         position: 'relative',
         height: 27,
         width: 70,
         borderRadius: 50,
-        backgroundColor: '#1a1919'
+        backgroundColor: '#1a1919',
+        transformOrigin: '30%'
     },
     cannonTip: {
         position: 'relative',
@@ -72,41 +78,61 @@ const styles = StyleSheet.create({
         backgroundColor: '#0c0c0c',
     },
     cannonBallBase: {
-        position: 'relative',
-        top: 25,
-        left: 16,
-        height: 38,
-        width: 38,
-        backgroundColor: colors.primaryBrown,
-        borderRadius: 10
+        position: 'absolute',
+        top: 6,
+        left: 3,
+        height: 0,
+        width: 0,
+        borderWidth: 32,
+        borderBottomColor: colors.primaryBrown,
+        borderTopColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderLeftColor: 'transparent',
     },
     cannonBallBaseScrew: {
         position: 'relative',
-        top: -8,
-        left: 27,
-        height: 15,
-        width: 15,
-        backgroundColor: colors.primaryBlack,
+        top: 49,
+        left: 28,
+        height: 10,
+        width: 10,
+        backgroundColor: '#0c0c0c',
         borderRadius: 40
     },
     cannonWheelOne: {
-        position: 'relative',
-        top: -5,
-        left: 7,
-        width: 22,
-        height: 22,
+        position: 'absolute',
+        top: 58,
+        left: -1,
+        width: 20,
+        height: 20,
         borderRadius: 40,
         backgroundColor: '#4a4646'
     },
     cannonWheelTwo: {
-        position: 'relative',
-        top: -27,
-        left: 38,
-        width: 22,
-        height: 22,
+        position: 'absolute',
+        top: 58,
+        left: 47,
+        width: 20,
+        height: 20,
         borderRadius: 40,
         backgroundColor: '#4a4646'
     },
+    innerWheelOne: {
+        position: 'absolute',
+        top: 5,
+        left: 5,
+        height: 10,
+        width: 10,
+        backgroundColor: colors.primaryBrown,
+        borderRadius: 10
+    },
+    innerWheelTwo: {
+        position: 'absolute',
+        height: 10,
+        width: 10,
+        backgroundColor: colors.primaryBrown,
+        borderRadius: 10
+    },
+
     // cannonImage: {
     //     width: 105,
     //     height: 105
