@@ -2,10 +2,12 @@ import { View, StyleSheet } from 'react-native';
 import Slider from '@react-native-community/slider';
 
 // they can manipulate themselves by grabbing themselves as entities
-const MoveCannonLaunch = (entity) => {
+const MoveCannonLaunch = ({ position, setPosition, updatePositionRef }) => {
 
     function sliderChangeHandler(event) {
-        entity.position[0] = event
+    //    position[0] = event
+        updatePositionRef.current = [event, updatePositionRef.current[0]]
+       setPosition(prev => [event, prev[1]])
     }
     return (
         <View style={styles.root}>
@@ -13,7 +15,7 @@ const MoveCannonLaunch = (entity) => {
                     style={{ width: 670, height: 30 }}
                     onValueChange={sliderChangeHandler}
                     maximumValue={640}
-                    value={0}
+                    value={position[0]}
                     minimumTrackTintColor="transparent"
                     maximumTrackTintColor="transparent"
                     thumbTintColor='transparent'
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative',
-        top: 60,
+        top: 240,
         zIndex: 10,
         left: -9
     }

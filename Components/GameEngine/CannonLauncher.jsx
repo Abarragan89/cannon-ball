@@ -14,9 +14,9 @@ function CannonLauncher({ position, rotate }) {
             <View style={styles.standContainer}>
 
                 <View
-                    // colors={['#b55454', 'brown']}
-                    // locations={[0.01, 0.75]}
-                    // start={{ x: 0.1, y: 0.3 }}
+                    colors={['#b55454', 'brown']}
+                    locations={[0.01, 0.75]}
+                    start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonBallBase}
                 />
                 <View
@@ -65,12 +65,11 @@ const styles = StyleSheet.create({
     cannonTip: {
         position: 'relative',
         left: 60,
-        top: -1,
+        top: -1.5,
         height: 30,
         width: 10,
         borderRadius: 50,
         backgroundColor: '#0c0c0c',
-
     },
     cannonBallBase: {
         position: 'relative',

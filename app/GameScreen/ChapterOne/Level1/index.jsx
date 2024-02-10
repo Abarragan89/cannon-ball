@@ -22,13 +22,23 @@ import BackArrow from "../../../../Components/UI/BackArrow";
 
 
 function ChatperOneLevelOne() {
+    // The game data accepts refs and state for each aspect of the game
+    // the ref is used to game data state and remain consistent through rerenders
+    // the state is used to manage the components that use that data so rerenders are triggered
+
     const gameEngineRef = useRef(null);
 
     const [isGameOver, setIsGameOver] = useState(false);
+    // Angle Data
     const [angleLevelState, setAngleLevelState] = useState(90);
-    const angleLevel = useRef(90)
+    const angleLevelRef = useRef(90)
+    // Power Data
     const [powerLevelState, setPowerLevelState] = useState(0);
-    const powerLevel = useRef(0)
+    const powerLevelRef = useRef(0)
+    // Cannon Position Data
+    const [cannonPositionState, setCannonPositionState] = useState([0, 100])
+    const cannonPositionRef = useRef([0, 100])
+
 
     return (
         <GameEngine
@@ -54,24 +64,20 @@ function ChatperOneLevelOne() {
                     isBallMoving: false,
                     renderer: <CannonBall />
                 },
-                cannonControls: {
-                    // useRef to update meter
-                    displayPowerLevel: powerLevel,
-                    // powerLevel is only used internally in entities.
+                gameData: {
+                    // internal data for the physics. Not connected to UI
                     powerLevel: 10,
-                    // useState to update meter
+                    // Power Data
                     setDisplayPowerLevel: setPowerLevelState,
-                    angleLevel: angleLevel,
-                    setAngleLevel: setAngleLevelState
-                    
+                    displayPowerLevel: powerLevelRef,
+                    // Angle Data
+                    angleLevel: angleLevelRef,
+                    setAngleLevel: setAngleLevelState,
+                    // Cannon Position Data
+                    cannonLaunchPosition: cannonPositionRef,
+                    setCannonPositionState: setCannonPositionState
+
                 },
-                // powerMeter: {
-                //     renderer: <PowerMeter />
-                // },
-                // angleMeter: {
-                //     angleLevel: 90,
-                //     renderer: <AngleMeter />
-                // },
                 cannon: {
                     position: [400, screenHeight - 85],
                     rotate: '-90deg',
@@ -90,10 +96,10 @@ function ChatperOneLevelOne() {
                     startAnimation: false,
                     renderer: <Explosion />
                 },
-                moveCannonLaunch: {
-                    position: [0, 100],
-                    renderer: <MoveCannonLaunch />
-                },
+                // moveCannonLaunch: {
+                //     position: [0, 100],
+                //     renderer: <MoveCannonLaunch />
+                // },
                 followArrow: {
                     leftPosition: 300,
                     displayStatus: 'none',
@@ -120,9 +126,17 @@ function ChatperOneLevelOne() {
             <StatusBar hidden={true} />
             <BackArrow />
 
-
+            {/* The action is happending in this component
+                I need to change state in this components when 
+                the slider onValueChange function fires
+             */}
+            <MoveCannonLaunch
+                updatePositionRef={cannonPositionRef}
+                setPosition={setCannonPositionState}
+                position={cannonPositionState}
+            />
             <AngleMeter angleLevel={angleLevelState} />
-            <PowerMeter displayLevel={powerLevelState}/>
+            <PowerMeter displayPower={powerLevelState} />
         </GameEngine>
     );
 }
