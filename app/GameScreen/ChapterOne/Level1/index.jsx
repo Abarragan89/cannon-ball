@@ -27,9 +27,7 @@ function ChatperOneLevelOne() {
     // the state is used to manage the components that use that data so rerenders are triggered
 
     const gameEngineRef = useRef(null);
-
     const [isGameOver, setIsGameOver] = useState(false);
-    console.log(isGameOver)
     // Angle Data
     const [angleLevelState, setAngleLevelState] = useState(90);
     const angleLevelRef = useRef(90)

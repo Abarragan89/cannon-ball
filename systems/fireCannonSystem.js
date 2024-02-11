@@ -31,7 +31,8 @@ const fireCannonSystem = (entities, { touches }) => {
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
     // if hits left wall
-    if (entities.cannonBall.position[0] < 0) {
+    // I need to also make sure it is not -100 because that is the starting position off screen
+    if (entities.cannonBall.position[0] < 0 && entities.cannonBall.position[0] !== -100) {
       entities.headerStats.bounces += 1;
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }

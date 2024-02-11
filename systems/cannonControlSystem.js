@@ -11,7 +11,6 @@ const cannonControlSystem = (entities, { touches }) => {
       
       if (t.type === "move") {
         // decrease power
-        console.log('current power ', currentPower)
         if (t.delta.pageY > 5  && currentPower > 0) {
           // set the ref for entity render
           entities.gameData.displayPowerLevel.current -= 1

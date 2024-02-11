@@ -11,25 +11,25 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
     // the box is 30 by 30. I added a 5px perimeter around it so it looks like 
     // it bounces left when the cannon touches it. 
     const leftLineX1 = entities.TNT.position[0] - 3;
-    // minus 5 will raise this higher to cover handle a little bit.
+    // minus 3 will raise this higher to cover handle a little bit.
     const leftLineY1 = entities.TNT.position[1] - 3;
     const leftLineX2 = entities.TNT.position[0] - 3;
-    const leftLineY2 = entities.TNT.position[1] + 20;
+    const leftLineY2 = entities.TNT.position[1] + 27;
 
     // Right LINE OF TNT BOX
     // same as rightLine, I didn't make the coordinate exactly based on the 30px size of tnt
-    const rightLineX1 = entities.TNT.position[0] + 30;
-    const rightLineY1 = entities.TNT.position[1] - 3;
-    const rightLineX2 = entities.TNT.position[0] + 30;
-    const rightLineY2 = entities.TNT.position[1] + 20;
+    const rightLineX1 = entities.TNT.position[0] + 27;
+    const rightLineY1 = entities.TNT.position[1] + 3;
+    const rightLineX2 = entities.TNT.position[0] + 27;
+    const rightLineY2 = entities.TNT.position[1] + 27;
 
 
     // BOTTOM LINE OF TNT BOX
     // same as bottomLine, I didn't make the coordinate exactly based on the 30px size of tnt
-    const bottomLineX1 = entities.TNT.position[0];
-    const bottomLineY1 = entities.TNT.position[1] + 30;
-    const bottomLineX2 = entities.TNT.position[0] + 27;
-    const bottomLineY2 = entities.TNT.position[1] + 30;
+    const bottomLineX1 = entities.TNT.position[0] + 3;
+    const bottomLineY1 = entities.TNT.position[1] + 27;
+    const bottomLineX2 = entities.TNT.position[0] + 25;
+    const bottomLineY2 = entities.TNT.position[1] + 27;
 
     // CIRCLE PROPERTIES
     const radius = 10;
@@ -130,7 +130,7 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
     const bottomDistance1 = Math.sqrt((bottomLineX1 - circleX) ** 2 + (bottomLineY1 - circleY) ** 2);
     const bottomDistance2 = Math.sqrt((bottomLineX2 - circleX) ** 2 + (bottomLineY2 - circleY) ** 2);
     // checks to see if corners are hit
-    if (bottomDistance1 <= radius + 2 || bottomDistance2 <= radius + 2) {
+    if (bottomDistance1 <= radius || bottomDistance2 <= radius) {
         if (entities.cannonBall.velocity[1] < 0) {
             // add to bounce count
             entities.headerStats.bounces += 1;
@@ -160,7 +160,7 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
 
         // Check if the distance is less than or equal to the radius of the circle
         if (distanceToLine <= radius) {
-            if (entities.cannonBall.velocity[1] > 0) {
+            if (entities.cannonBall.velocity[1] < 0) {
                 // add to bounce count
                 entities.headerStats.bounces += 1;
                 entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
