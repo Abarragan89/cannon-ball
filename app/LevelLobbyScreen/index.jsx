@@ -27,7 +27,7 @@ const LevelLobbyScreen = () => {
             {mapName &&
                 <View style={styles.root}>
                     <BackArrow />
-                    <Title>{mapName}</Title>
+                    <Title color={colors.primaryBlack} size={45}>{mapName}</Title>
                     <View style={styles.buttonContainer}>
                         {linkData.map((item, index) => (
                             <LevelTile key={index} route={`/GameScreen/${chapter}/${item.level}`}>

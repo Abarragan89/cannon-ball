@@ -14,9 +14,9 @@ function CannonLauncher({ position, rotate }) {
             <View style={styles.standContainer}>
 
                 <View
-                    colors={['#b55454', 'brown']}
-                    locations={[0.01, 0.75]}
-                    start={{ x: 0.1, y: 0.3 }}
+                    // colors={['#b55454', 'brown']}
+                    // locations={[0.01, 0.75]}
+                    // start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonBallBase}
                 />
                 <View

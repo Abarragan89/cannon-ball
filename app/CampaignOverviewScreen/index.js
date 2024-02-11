@@ -1,8 +1,8 @@
 import { StyleSheet, View } from "react-native";
 import Title from "../../Components/UI/Title";
 import MainButton from "../../Components/UI/MainButton";
-import colors from '../../constants/colors'
 import BackArrow from "../../Components/UI/BackArrow";
+import colors from "../../constants/colors";
 
 const CampaignOverview = () => {
     return (
@@ -12,7 +12,7 @@ const CampaignOverview = () => {
             </View>
 
             <View style={styles.headerRoot}>
-                <Title>Campaign Maps</Title>
+                <Title color={colors.primaryBlack} size={45}>Campaign Maps</Title>
             </View>
 
             <View style={styles.mapBtnContainer}>

@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import Title from '../UI/Title';
 import ModalDetaiItemContainer from '../UI/ModalDetaiItemContainer';
-import MainButton from '../UI/MainButton';
+import SecondaryButton from '../UI/SecondaryButton';
 import { Fontisto } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 
@@ -11,7 +11,7 @@ const EndGameModal = ({ endGameData }) => {
     return (
         <View style={[styles.root,]}>
             <View style={styles.modalMainView}>
-                <Title color='white'>{endGameData.current.accuracyName}</Title>
+                <Title color={colors.skyColor} size={35}>{endGameData.current.accuracyName}</Title>
                 <Text style={styles.pixelText}>({endGameData.current.accuracyFloat} pixels away!)</Text>
                 <View style={styles.detailsContainer}>
                     <ModalDetaiItemContainer
@@ -20,15 +20,18 @@ const EndGameModal = ({ endGameData }) => {
                         hasBorder={0}
                     />
                     <ModalDetaiItemContainer
-                        itemName='Bounces'
+                        itemName='Bounce Bonus'
                         itemAmount={endGameData.current.bounces}
                     />
                     <Text style={styles.totalText}>{endGameData.current.airTime * endGameData.current.bounces}</Text>
                     <ModalDetaiItemContainer
-                        itemName='Accuracy'
+                        itemName='Accuracy Bonus'
                         itemAmount={endGameData.current.multiplier}
                     />
-                    <Text style={styles.totalText}>{finalScore}</Text>
+                    <View style={styles.finalTotalContainer}>
+                        <Text style={styles.totalText}>Total Points</Text>
+                        <Text style={styles.totalText}>{finalScore}</Text>
+                    </View>
                 </View>
                 <View style={styles.starContainer}>
                     {finalScore > endGameData.current.winningScore[0]
@@ -46,8 +49,10 @@ const EndGameModal = ({ endGameData }) => {
                     }
                 </View>
                 <View style={styles.buttonContainer}>
-                    <MainButton route="/CampaignOverviewScreen">Map</MainButton>
-                    <MainButton route="/GameScreen/ChapterOne/Level2">Next Level</MainButton>
+                    {/* <MainButton route="/CampaignOverviewScreen">Map</MainButton>
+                    <MainButton route="/GameScreen/ChapterOne/Level2">Next Level</MainButton> */}
+                    <SecondaryButton>Map</SecondaryButton>
+                    <SecondaryButton>Next Level</SecondaryButton>
                 </View>
             </View>
         </View>
@@ -72,7 +77,7 @@ const styles = StyleSheet.create({
     modalMainView: {
         width: 400,
         borderRadius: 8,
-        backgroundColor: colors.primaryBlue,
+        backgroundColor: colors.sandColor,
         borderColor: 'black',
         borderWidth: 1,
         elevation: 5,
@@ -83,31 +88,36 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     pixelText: {
-        color: 'yellow',
+        color: colors.skyColor,
         textAlign: 'center',
-        fontSize: 13,
-        margin: -5
+        fontSize: 18,
+        fontFamily: 'textFont',
     },
     detailsContainer: {
         alignItems: 'center',
-        paddingTop: 10,
+        marginTop: 10,
         alignItems: 'flex-end'
     },
     buttonContainer: {
         marginVertical: 10,
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: 260,
-        justifyContent: 'center',
+        justifyContent: 'space-around',
+        width: '100%',
         zIndex: 999
     },
+    finalTotalContainer: {
+        marginVertical: 9,
+        width: '60%',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
     totalText: {
-        fontSize: 15,
+        fontSize: 23,
         marginTop: -10,
-        color: 'yellow'
+        color: colors.skyColor,
+        fontFamily: 'textFont'
     },
     starContainer: {
-        marginTop: 10,
         flexDirection: 'row',
         justifyContent: 'space-around',
         width: 260,

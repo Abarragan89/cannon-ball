@@ -7,7 +7,7 @@ const explodeTNTSystem = (entities) => {
 
         // coordinate for the top center of the TNT
         const tntXCoord = entities.TNT.position[0] + 15;
-        const tntYCoord = entities.TNT.position[1];
+        const tntYCoord = entities.TNT.position[1] - 2;
 
         // calculate the length of both sides
         const triangleASide = Math.abs(ballXCoord - tntXCoord);
@@ -83,10 +83,10 @@ const explodeTNTSystem = (entities) => {
     // the X1 adn X2 lines are slightly within the TNT box. It needs to appear
     // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
     // did not all the total 30 px length (only added 25)
-    const lineX1 = entities.TNT.position[0] + 3;
+    const lineX1 = entities.TNT.position[0] - 2;
     const lineY1 = entities.TNT.position[1] - 3;
     const lineX2 = entities.TNT.position[0] + 25;
-    const lineY2 = entities.TNT.position[1] - 3;
+    const lineY2 = entities.TNT.position[1] - 2;
     // increase radius to 14 on top so it doesn't interfere with side detection
     // also, handle sticks out
     const radius = 10
