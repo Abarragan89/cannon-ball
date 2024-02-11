@@ -20,16 +20,17 @@ export default ModalDetaiItemContainer;
 const styles = StyleSheet.create({
     itemContainer: {
         flexDirection: 'row',
-        marginBottom: 15,
+        marginBottom: 10,
         justifyContent: 'space-between',
-        width: 200,
+        width: 250,
     },
     itemContainerUnderline: {
-        borderBottomColor: 'yellow',
+        borderBottomColor: colors.skyColor,
         borderBottomWidth: 1,
     },
     detailText: {
-        fontSize: 15,
-        color: 'white'
+        fontSize: 23,
+        color: 'black',
+        fontFamily: 'textFont'
     },
 })

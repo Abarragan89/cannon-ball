@@ -7,7 +7,7 @@ import colors from "../../constants/colors";
 const SettingScreen = () => {
     return (
         <View style={styles.rootContainer}>
-            <Title>Settings Screen</Title>
+            <Title color={colors.primaryBlack} size={45}>Settings Screen</Title>
             <Link href="/">Back To Home</Link>
         </View>
     )

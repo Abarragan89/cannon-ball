@@ -5,7 +5,6 @@ import MainButton from "../Components/UI/MainButton";
 import colors from "../constants/colors";
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from 'expo-font';
-import CannonLauncher from "../Components/GameEngine/CannonLauncher";
 import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();
@@ -31,10 +30,10 @@ const Home = () => {
     <>
     <StatusBar 
       style="dark" 
-      backgroundColor={colors.background}  
+      backgroundColor={colors.sandColor}  
     />
     <View style={styles.rootContainer} onLayout={onLayoutRootView}>
-      <Title>Cannon Ball!</Title>
+      <Title color={colors.primaryBlack} size={45}>Cannon Ball!</Title>
       <View style={styles.buttonContainer}>
         <MainButton route="/CampaignOverviewScreen">
           Campaign

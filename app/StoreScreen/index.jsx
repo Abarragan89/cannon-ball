@@ -6,7 +6,7 @@ import colors from "../../constants/colors";
 const StoreScreen = () => {
   return (
     <View style={styles.rootContainer}>
-        <Title>Store</Title>
+        <Title color={colors.primaryBlack} size={45}>Store</Title>
         <Link href="/">Back To Home</Link>
     </View>
   )

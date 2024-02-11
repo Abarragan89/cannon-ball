@@ -12,7 +12,7 @@ const MainButton = ({ children, route, params, runFunc }) => {
                 style={styles.container}
                 source={require('../../assets/images/btnWoodBg.png')}
             >
-                <Text style={styles.text}>
+                <Text style={[styles.text]}>
                     {children}
                 </Text>
             </ImageBackground>
@@ -28,17 +28,17 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 50,
         borderRadius: 8,
-        elevation: 5,
+        elevation: 6,
         shadowColor: 'black',
         shadowOffset: { width: 1, height: 1 },
         shadowOpacity: .7,
-        shadowRadius: 3,
+        shadowRadius: 8,
 
     },
     text: {
-        fontSize: 24,
+        fontSize: 30,
         fontFamily: 'textFont',
-        color: colors.background
+        color: colors.sandColor
     },
     pressed: {
         opacity: .9,

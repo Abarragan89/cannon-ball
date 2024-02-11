@@ -21,12 +21,11 @@ import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
+import colors from "../../../../constants/colors";
 
 
 function ChatperOneLevelTwo() {
     const gameEngineRef = useRef(null);
-    const insets = useSafeAreaInsets();
     return (
         // <ImageBackground 
         // style={styles.imageStyle}
@@ -111,7 +110,7 @@ function ChatperOneLevelTwo() {
             }}>
             <StatusBar hidden={true} />
             <Link style={styles.backIcon} onPress={() => gameEngineRef.current.stop()} href="/CampaignOverviewScreen">
-                <Ionicons name="arrow-back" size={35} color="black" />
+                <Ionicons name="arrow-back" size={35} color={colors.primaryBlack} />
             </Link>
         </GameEngine>
 
