@@ -7,7 +7,7 @@ const explodeTNTSystem = (entities) => {
 
         // coordinate for the top center of the TNT
         const tntXCoord = entities.TNT.position[0] + 15;
-        const tntYCoord = entities.TNT.position[1];
+        const tntYCoord = entities.TNT.position[1] - 3;
 
         // calculate the length of both sides
         const triangleASide = Math.abs(ballXCoord - tntXCoord);
