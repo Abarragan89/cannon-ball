@@ -48,7 +48,7 @@ function ChatperOneLevelOne() {
 
     })
     return (
-
+        
         <GameEngine
             ref={gameEngineRef}
             style={styles.container}
@@ -86,7 +86,6 @@ function ChatperOneLevelOne() {
                     cannonLaunchPosition: cannonPositionRef,
                     setCannonPositionState: setCannonPositionState,
                     endGameData: endGameData
-
                 },
                 cannon: {
                     position: [400, screenHeight - 85],
