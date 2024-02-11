@@ -6,9 +6,7 @@ function PowerMeter({ displayPower }) {
 
     return (
         <View style={styles.root}>
-
             {/* <Text style={styles.numberDisplay}>{displayPower}</Text> */}
-
             {/* progress is number from 0 to 1 */}
             <Progress.Bar
                 progress={displayPower / 100}
@@ -52,13 +50,13 @@ const styles = StyleSheet.create({
         transform: [{ rotate: '-90deg' }],
         position: 'absolute',
         left: -136,
-        top: 200,
+        top: 0,
     },
 
     powerTextWrapper: {
         position: 'absolute',
         left: 10,
-        top: 50,
+        top: -140,
         opacity: .5,
         alignItems: 'center'
     },
