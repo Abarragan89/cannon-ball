@@ -29,6 +29,7 @@ function ChatperOneLevelOne() {
     const gameEngineRef = useRef(null);
 
     const [isGameOver, setIsGameOver] = useState(false);
+    console.log(isGameOver)
     // Angle Data
     const [angleLevelState, setAngleLevelState] = useState(90);
     const angleLevelRef = useRef(90)
@@ -39,8 +40,17 @@ function ChatperOneLevelOne() {
     const [cannonPositionState, setCannonPositionState] = useState([0, 100])
     const cannonPositionRef = useRef([0, 100])
 
+    const endGameData = useRef({
+        accuracyFloat: 0,
+        accuracyName: '',
+        winningScore: [500, 1000, 2000],
+        airTime: 0,
+        bounces: 0,
+        multiplier: 0,
 
+    })
     return (
+
         <GameEngine
             ref={gameEngineRef}
             style={styles.container}
@@ -60,13 +70,14 @@ function ChatperOneLevelOne() {
                     velocity: [1, 1],
                     display: 'block',
                     accuracy: { name: '', float: 0, multiplier: 0 },
-                    isGameOver: false,
+                    isGameOver: isGameOver,
+                    setIsGameOver: setIsGameOver,
                     isBallMoving: false,
                     renderer: <CannonBall />
                 },
                 gameData: {
                     // internal data for the physics. Not connected to UI
-                    powerLevel: 10,
+                    powerLevel: 15,
                     // Power Data
                     setDisplayPowerLevel: setPowerLevelState,
                     displayPowerLevel: powerLevelRef,
@@ -75,7 +86,8 @@ function ChatperOneLevelOne() {
                     setAngleLevel: setAngleLevelState,
                     // Cannon Position Data
                     cannonLaunchPosition: cannonPositionRef,
-                    setCannonPositionState: setCannonPositionState
+                    setCannonPositionState: setCannonPositionState,
+                    endGameData: endGameData
 
                 },
                 cannon: {
@@ -96,10 +108,6 @@ function ChatperOneLevelOne() {
                     startAnimation: false,
                     renderer: <Explosion />
                 },
-                // moveCannonLaunch: {
-                //     position: [0, 100],
-                //     renderer: <MoveCannonLaunch />
-                // },
                 followArrow: {
                     leftPosition: 300,
                     displayStatus: 'none',
@@ -107,24 +115,18 @@ function ChatperOneLevelOne() {
                 },
                 headerStats: {
                     airTime: 0,
-                    bounces: 1,
+                    bounces: 0,
                     renderer: <HeaderStats />
                 },
-                endGameModal: {
-                    display: 'none',
-                    currentLevel: 1,
-                    accuracyFloat: 0,
-                    accuracyName: '',
-                    winningScore: [500, 1000, 2000],
-                    airTime: 0,
-                    bounces: 1,
-                    multiplier: 0,
-                    resetGame: () => setIsGameResetting(true),
-                    renderer: <EndGameModal />
-                }
             }}>
             <StatusBar hidden={true} />
             <BackArrow />
+
+            {isGameOver &&
+                <EndGameModal
+                    endGameData={endGameData}
+                />
+            }
 
             {/* The action is happending in this component
                 I need to change state in this components when 

@@ -5,42 +5,42 @@ import MainButton from '../UI/MainButton';
 import { Fontisto } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 
-const EndGameModal = (entity) => {
-    const finalScore = entity.airTime * entity.bounces * entity.multiplier
+const EndGameModal = ({ endGameData }) => {
+    const finalScore = endGameData.current.airTime * endGameData.current.bounces * endGameData.current.multiplier
 
     return (
-        <View style={[styles.root, { display: entity.display }]}>
+        <View style={[styles.root,]}>
             <View style={styles.modalMainView}>
-                <Title color='white'>{entity.accuracyName}</Title>
-                <Text style={styles.pixelText}>({entity.accuracyFloat} pixels away!)</Text>
+                <Title color='white'>{endGameData.current.accuracyName}</Title>
+                <Text style={styles.pixelText}>({endGameData.current.accuracyFloat} pixels away!)</Text>
                 <View style={styles.detailsContainer}>
                     <ModalDetaiItemContainer
                         itemName='Air Time'
-                        itemAmount={entity.airTime}
+                        itemAmount={endGameData.current.airTime}
                         hasBorder={0}
                     />
                     <ModalDetaiItemContainer
                         itemName='Bounces'
-                        itemAmount={entity.bounces}
+                        itemAmount={endGameData.current.bounces}
                     />
-                    <Text style={styles.totalText}>{entity.airTime * entity.bounces}</Text>
+                    <Text style={styles.totalText}>{endGameData.current.airTime * endGameData.current.bounces}</Text>
                     <ModalDetaiItemContainer
                         itemName='Accuracy'
-                        itemAmount={entity.multiplier}
+                        itemAmount={endGameData.current.multiplier}
                     />
                     <Text style={styles.totalText}>{finalScore}</Text>
                 </View>
                 <View style={styles.starContainer}>
-                    {finalScore > entity.winningScore[0]
+                    {finalScore > endGameData.current.winningScore[0]
                         &&
                         <Fontisto name="star" size={30} color={colors.bronzeStar} />
                     }
-                    {finalScore > entity.winningScore[1]
+                    {finalScore > endGameData.current.winningScore[1]
                         &&
                         <Fontisto name="star" size={30} color={colors.silverStar} />
 
                     }
-                    {finalScore > entity.winningScore[2]
+                    {finalScore > endGameData.current.winningScore[2]
                         &&
                         <Fontisto name="star" size={30} color={colors.goldStar} />
                     }
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     modalMainView: {
         width: 400,
         borderRadius: 8,
-        backgroundColor: 'black',
+        backgroundColor: colors.primaryBlue,
         borderColor: 'black',
         borderWidth: 1,
         elevation: 5,

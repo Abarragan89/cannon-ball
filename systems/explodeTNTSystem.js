@@ -66,17 +66,17 @@ const explodeTNTSystem = (entities) => {
             }, 200);
         }, 500)
         setTimeout(() => {
-            entities.endGameModal.display = 'block'
+            entities.cannonBall.setIsGameOver(true)
         }, 1800);
     }
 
     function setEndGameModalStats() {
         // pass all the relevant data to end game modal
-        entities.endGameModal.accuracyFloat = entities.cannonBall.accuracy.float;
-        entities.endGameModal.accuracyName = entities.cannonBall.accuracy.name;
-        entities.endGameModal.multiplier = entities.cannonBall.accuracy.multiplier
-        entities.endGameModal.airTime = entities.headerStats.airTime;
-        entities.endGameModal.bounces = entities.headerStats.bounces + 1;
+        entities.gameData.endGameData.current.accuracyFloat = entities.cannonBall.accuracy.float;
+        entities.gameData.endGameData.current.accuracyName = entities.cannonBall.accuracy.name;
+        entities.gameData.endGameData.current.multiplier = entities.cannonBall.accuracy.multiplier
+        entities.gameData.endGameData.current.airTime = entities.headerStats.airTime;
+        entities.gameData.endGameData.current.bounces = entities.headerStats.bounces + 1;
     }
 
     // Variables to determine collision of Cannon Ball and Top of TNT

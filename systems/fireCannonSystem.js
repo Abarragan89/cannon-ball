@@ -56,6 +56,7 @@ const fireCannonSystem = (entities, { touches }) => {
   touches.forEach(t => {
     if (t.type === "long-press") {
         entities.headerStats.airTime = 0;
+        entities.headerStats.bounces = 0;
         // set isBallMoving to true
         entities.cannonBall.isBallMoving = true;
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
