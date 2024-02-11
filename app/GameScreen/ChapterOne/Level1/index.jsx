@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -22,8 +22,33 @@ import BackArrow from "../../../../Components/UI/BackArrow";
 
 
 function ChatperOneLevelOne() {
+    // The game data accepts refs and state for each aspect of the game
+    // the ref is used to game data state and remain consistent through rerenders
+    // the state is used to manage the components that use that data so rerenders are triggered
+
     const gameEngineRef = useRef(null);
+    const [isGameOver, setIsGameOver] = useState(false);
+    // Angle Data
+    const [angleLevelState, setAngleLevelState] = useState(90);
+    const angleLevelRef = useRef(90)
+    // Power Data
+    const [powerLevelState, setPowerLevelState] = useState(0);
+    const powerLevelRef = useRef(0)
+    // Cannon Position Data
+    const [cannonPositionState, setCannonPositionState] = useState([0, 100])
+    const cannonPositionRef = useRef([0, 100])
+
+    const endGameData = useRef({
+        accuracyFloat: 0,
+        accuracyName: '',
+        winningScore: [500, 1000, 2000],
+        airTime: 0,
+        bounces: 0,
+        multiplier: 0,
+
+    })
     return (
+        
         <GameEngine
             ref={gameEngineRef}
             style={styles.container}
@@ -43,18 +68,24 @@ function ChatperOneLevelOne() {
                     velocity: [1, 1],
                     display: 'block',
                     accuracy: { name: '', float: 0, multiplier: 0 },
-                    isGameOver: false,
+                    isGameOver: isGameOver,
+                    setIsGameOver: setIsGameOver,
                     isBallMoving: false,
                     renderer: <CannonBall />
                 },
-                powerMeter: {
-                    displayLevel: 1,
+                gameData: {
+                    // internal data for the physics. Not connected to UI
                     powerLevel: 15,
-                    renderer: <PowerMeter />
-                },
-                angleMeter: {
-                    angleLevel: 90,
-                    renderer: <AngleMeter />
+                    // Power Data
+                    setDisplayPowerLevel: setPowerLevelState,
+                    displayPowerLevel: powerLevelRef,
+                    // Angle Data
+                    angleLevel: angleLevelRef,
+                    setAngleLevel: setAngleLevelState,
+                    // Cannon Position Data
+                    cannonLaunchPosition: cannonPositionRef,
+                    setCannonPositionState: setCannonPositionState,
+                    endGameData: endGameData
                 },
                 cannon: {
                     position: [400, screenHeight - 85],
@@ -74,10 +105,6 @@ function ChatperOneLevelOne() {
                     startAnimation: false,
                     renderer: <Explosion />
                 },
-                moveCannonLaunch: {
-                    position: [0, 100],
-                    renderer: <MoveCannonLaunch />
-                },
                 followArrow: {
                     leftPosition: 300,
                     displayStatus: 'none',
@@ -85,24 +112,30 @@ function ChatperOneLevelOne() {
                 },
                 headerStats: {
                     airTime: 0,
-                    bounces: 1,
+                    bounces: 0,
                     renderer: <HeaderStats />
                 },
-                endGameModal: {
-                    display: 'none',
-                    currentLevel: 1,
-                    accuracyFloat: 0,
-                    accuracyName: '',
-                    winningScore: [500, 1000, 2000],
-                    airTime: 0,
-                    bounces: 1,
-                    multiplier: 0,
-                    resetGame: () => setIsGameResetting(true),
-                    renderer: <EndGameModal />
-                }
             }}>
             <StatusBar hidden={true} />
             <BackArrow />
+
+            {isGameOver &&
+                <EndGameModal
+                    endGameData={endGameData}
+                />
+            }
+
+            {/* The action is happending in this component
+                I need to change state in this components when 
+                the slider onValueChange function fires
+             */}
+            <MoveCannonLaunch
+                updatePositionRef={cannonPositionRef}
+                setPosition={setCannonPositionState}
+                position={cannonPositionState}
+            />
+            <AngleMeter angleLevel={angleLevelState} />
+            <PowerMeter displayPower={powerLevelState} />
         </GameEngine>
     );
 }

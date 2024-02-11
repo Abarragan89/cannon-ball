@@ -8,8 +8,6 @@ import LevelTile from '../../Components/LevelTile';
 const LevelLobbyScreen = () => {
     const { mapName, chapter } = useLocalSearchParams();
 
-    console.log(mapName, chapter)
-
     const linkData = [
         { level: 'Level1' },
         { level: 'Level2' },

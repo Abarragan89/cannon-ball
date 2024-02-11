@@ -6,7 +6,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const fireCannonSystem = (entities, { touches }) => {
   // always have cannon and cannonslider lined up
-  entities.cannon.position[0] = entities.moveCannonLaunch.position[0] + 65;
+  entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0] + 65;
   // set the gravity, angle and power before launch
   const GRAVITY = .05
 
@@ -31,7 +31,8 @@ const fireCannonSystem = (entities, { touches }) => {
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
     // if hits left wall
-    if (entities.cannonBall.position[0] < 0) {
+    // I need to also make sure it is not -100 because that is the starting position off screen
+    if (entities.cannonBall.position[0] < 0 && entities.cannonBall.position[0] !== -100) {
       entities.headerStats.bounces += 1;
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
@@ -56,15 +57,16 @@ const fireCannonSystem = (entities, { touches }) => {
   touches.forEach(t => {
     if (t.type === "long-press") {
         entities.headerStats.airTime = 0;
+        entities.headerStats.bounces = 0;
         // set isBallMoving to true
         entities.cannonBall.isBallMoving = true;
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
         // set initial coordinates to be where the cannon tip is located
         entities.cannonBall.position[0] = entities.cannon.position[0] + 25;
-        entities.cannonBall.position[1] = entities.cannon.position[1] + 15;
+        entities.cannonBall.position[1] = entities.cannon.position[1] + 40;
         // set the POWER and ANGLE  settings
-        let ANGLE = entities.angleMeter.angleLevel;
-        let POWER = entities.powerMeter.powerLevel;
+        let ANGLE = entities.gameData.angleLevel.current;
+        let POWER = entities.gameData.powerLevel;
         const angleInRadians = (ANGLE * Math.PI) / 180;
         // set the velocity
         entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
