@@ -37,13 +37,13 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 0 },
         shadowRadius: 3,
         shadowOpacity: .5,
-        backgroundColor: '#940f0f'
+        backgroundColor: '#940f0f',
+        zIndex: 2
     },
     tntHandle: {
         position: 'absolute',
         fontSize: 25,
         left: 8,
-        zIndex: -1
     },
     text: {
         color: 'yellow',
