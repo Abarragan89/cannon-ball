@@ -6,7 +6,7 @@ import BackArrow from '../../Components/UI/BackArrow';
 import LevelTile from '../../Components/LevelTile';
 
 const LevelLobbyScreen = () => {
-    const { mapName, chapter } = useLocalSearchParams();
+    const { mapName } = useLocalSearchParams();
 
     const linkData = [
         { level: 'Level1' },
@@ -32,7 +32,7 @@ const LevelLobbyScreen = () => {
                     <Title color={colors.offWhite} size={45}>{mapName}</Title>
                     <View style={styles.buttonContainer}>
                         {linkData.map((item, index) => (
-                            <LevelTile key={index} route={`/GameScreen/${chapter}/${item.level}`}>
+                            <LevelTile key={index} route={`/GameScreen/${mapName}/${item.level}`}>
                                 {item.level}
                             </LevelTile>
                         ))}

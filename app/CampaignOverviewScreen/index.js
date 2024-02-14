@@ -26,7 +26,6 @@ const CampaignOverview = () => {
                             route="/LevelLobbyScreen"
                             params={{
                                 mapName: 'Basics',
-                                chapter: 'ChapterOne'
                             }}
                             imgSrc={mainBtnImgSrc}
                         >Basics
@@ -37,7 +36,6 @@ const CampaignOverview = () => {
                             route="/LevelLobbyScreen"
                             params={{
                                 mapName: 'Marks',
-                                chapter: 'ChapterTwo'
                             }}
                             imgSrc={mainBtnImgSrc}
                         >
@@ -49,7 +47,6 @@ const CampaignOverview = () => {
                             route="/LevelLobbyScreen"
                             params={{
                                 mapName: 'Obstacle',
-                                chapter: 'ChapterThree'
                             }}
                             imgSrc={mainBtnImgSrc}
                         >
@@ -61,7 +58,6 @@ const CampaignOverview = () => {
                             route="/LevelLobbyScreen"
                             params={{
                                 mapName: 'Kraken',
-                                chapter: 'ChapterThree'
                             }}
                             imgSrc={mainBtnImgSrc}
                         >
@@ -72,8 +68,7 @@ const CampaignOverview = () => {
                     <MainButton
                         route="/LevelLobbyScreen"
                         params={{
-                            mapName: 'Map Five',
-                            chapter: 'ChapterThree'
+                            mapName: 'Ghosts',
                         }}
                         imgSrc={mainBtnImgSrc}
                     >

@@ -1,5 +1,4 @@
-import { Link } from "expo-router";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -16,21 +15,44 @@ import TNT from "../../../../Components/GameEngine/TNT";
 import Explosion from "../../../../Components/GameEngine/Explosion";
 import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import colors from "../../../../constants/colors";
+import BackArrow from "../../../../Components/UI/BackArrow";
 
 
-function ChatperOneLevelTwo() {
+function ChatperOneLevelOne() {
+    // The game data accepts refs and state for each aspect of the game
+    // the ref is used to game data state and remain consistent through rerenders
+    // the state is used to manage the components that use that data so rerenders are triggered
+
     const gameEngineRef = useRef(null);
+    const [isGameOver, setIsGameOver] = useState(false);
+    // Angle Data
+    const [angleLevelState, setAngleLevelState] = useState(90);
+    const angleLevelRef = useRef(90)
+    // Power Data
+    const [powerLevelState, setPowerLevelState] = useState(0);
+    const powerLevelRef = useRef(0)
+    // Cannon Position Data
+    const [cannonPositionState, setCannonPositionState] = useState([0, 100])
+    const cannonPositionRef = useRef([0, 100])
+
+    const endGameData = useRef({
+        accuracyFloat: 0,
+        accuracyName: '',
+        winningScore: [500, 1000, 2000],
+        airTime: 0,
+        bounces: 0,
+        multiplier: 0,
+        nextLevel: 'Basics/Level2'
+    })
     return (
-        // <ImageBackground 
-        // style={styles.imageStyle}
-        // source={require('../../assets/images/TNTBox.png')}
-        // >
+        
+        <ImageBackground
+            source={require('../../../../assets/images/basics/level1.png')}
+            style={styles.backgroundImg}
+        >
         <GameEngine
             ref={gameEngineRef}
             style={styles.container}
@@ -45,31 +67,37 @@ function ChatperOneLevelTwo() {
             entities={{
                 cannonBall: {
                     position: [-100, 0],
-                    gradientColor: 'rgba(0, 0, 0, 0.6)',
+                    gradientColor: 'rgba(0, 0, 0, .75)',
                     color: 'rgba(0, 0, 0, 1)',
                     velocity: [1, 1],
                     display: 'block',
                     accuracy: { name: '', float: 0, multiplier: 0 },
-                    isGameOver: false,
+                    isGameOver: isGameOver,
+                    setIsGameOver: setIsGameOver,
                     isBallMoving: false,
                     renderer: <CannonBall />
                 },
-                powerMeter: {
-                    displayLevel: 1,
+                gameData: {
+                    // internal data for the physics. Not connected to UI
                     powerLevel: 15,
-                    renderer: <PowerMeter />
-                },
-                angleMeter: {
-                    angleLevel: 90,
-                    renderer: <AngleMeter />
+                    // Power Data
+                    setDisplayPowerLevel: setPowerLevelState,
+                    displayPowerLevel: powerLevelRef,
+                    // Angle Data
+                    angleLevel: angleLevelRef,
+                    setAngleLevel: setAngleLevelState,
+                    // Cannon Position Data
+                    cannonLaunchPosition: cannonPositionRef,
+                    setCannonPositionState: setCannonPositionState,
+                    endGameData: endGameData
                 },
                 cannon: {
-                    position: [400, screenHeight - 90],
+                    position: [400, screenHeight - 85],
                     rotate: '-90deg',
                     renderer: <CannonLauncher />
                 },
                 TNT: {
-                    position: [200, 50],
+                    position: [300, 100],
                     display: 'block',
                     handlePosition: [-13, 0],
                     renderer: <TNT />
@@ -81,10 +109,6 @@ function ChatperOneLevelTwo() {
                     startAnimation: false,
                     renderer: <Explosion />
                 },
-                moveCannonLaunch: {
-                    position: [0, 100],
-                    renderer: <MoveCannonLaunch />
-                },
                 followArrow: {
                     leftPosition: 300,
                     displayStatus: 'none',
@@ -92,37 +116,47 @@ function ChatperOneLevelTwo() {
                 },
                 headerStats: {
                     airTime: 0,
-                    bounces: 1,
+                    bounces: 0,
                     renderer: <HeaderStats />
                 },
-                endGameModal: {
-                    display: 'none',
-                    currentLevel: 1,
-                    accuracyFloat: 0,
-                    accuracyName: '',
-                    winningScore: [500, 1000, 2000],
-                    airTime: 0,
-                    bounces: 1,
-                    multiplier: 0,
-                    resetGame: () => setIsGameResetting(true),
-                    renderer: <EndGameModal />
-                }
             }}>
             <StatusBar hidden={true} />
-            <Link style={styles.backIcon} onPress={() => gameEngineRef.current.stop()} href="/CampaignOverviewScreen">
-                <Ionicons name="arrow-back" size={35} color={colors.primaryBlack} />
-            </Link>
+            <BackArrow />
+
+            {isGameOver &&
+                <EndGameModal
+                    endGameData={endGameData}
+                />
+            }
+
+            {/* The action is happending in this component
+                I need to change state in this components when 
+                the slider onValueChange function fires
+             */}
+            <MoveCannonLaunch
+                updatePositionRef={cannonPositionRef}
+                setPosition={setCannonPositionState}
+                position={cannonPositionState}
+            />
+            <AngleMeter angleLevel={angleLevelState} />
+            <PowerMeter displayPower={powerLevelState} />
         </GameEngine>
-
-        // </ImageBackground>
-
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
+    backgroundImg: {
+        position: 'absolute',
+        top: -40, 
+        bottom: 0,
+        left: 0, 
+        right: 0
+    },
     container: {
+        position: 'absolute',
+        bottom: 0,
         flex: 1,
-        backgroundColor: "#31b5ea",
         width: '100%',
         height: screenHeight
     },
@@ -140,4 +174,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChatperOneLevelTwo;
+export default ChatperOneLevelOne;

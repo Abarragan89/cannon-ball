@@ -72,15 +72,6 @@ const Home = () => {
           position={[30, height - 100]}
           rotate={'-50deg'}
         />
-         {/* <CannonLauncher 
-          position={[width - 100, height - 100]}
-          rotate={'-130deg'}
-        /> */}
-        {/* <TNT 
-          position={[width - 150, 50]}
-          diplay='block'
-          handlePosition={[-13, 0]}
-        /> */}
       </ImageBackground>
     </>
   )

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { GameEngine } from "react-native-game-engine"
-import { StyleSheet, StatusBar } from 'react-native';
+import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
@@ -21,7 +21,7 @@ const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
 
 
-function ChatperOneLevelOne() {
+function ChatperOneLevelTwo() {
     // The game data accepts refs and state for each aspect of the game
     // the ref is used to game data state and remain consistent through rerenders
     // the state is used to manage the components that use that data so rerenders are triggered
@@ -49,6 +49,10 @@ function ChatperOneLevelOne() {
     })
     return (
         
+        <ImageBackground
+            source={require('../../../../assets/images/basics/level1.png')}
+            style={styles.backgroundImg}
+        >
         <GameEngine
             ref={gameEngineRef}
             style={styles.container}
@@ -63,7 +67,7 @@ function ChatperOneLevelOne() {
             entities={{
                 cannonBall: {
                     position: [-100, 0],
-                    gradientColor: 'rgba(0, 0, 0, 0.6)',
+                    gradientColor: 'rgba(0, 0, 0, .75)',
                     color: 'rgba(0, 0, 0, 1)',
                     velocity: [1, 1],
                     display: 'block',
@@ -93,7 +97,7 @@ function ChatperOneLevelOne() {
                     renderer: <CannonLauncher />
                 },
                 TNT: {
-                    position: [300, 100],
+                    position: [150, 150],
                     display: 'block',
                     handlePosition: [-13, 0],
                     renderer: <TNT />
@@ -137,13 +141,22 @@ function ChatperOneLevelOne() {
             <AngleMeter angleLevel={angleLevelState} />
             <PowerMeter displayPower={powerLevelState} />
         </GameEngine>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
+    backgroundImg: {
+        position: 'absolute',
+        top: -40, 
+        bottom: 0,
+        left: 0, 
+        right: 0
+    },
     container: {
+        position: 'absolute',
+        bottom: 0,
         flex: 1,
-        backgroundColor: "#31b5ea",
         width: '100%',
         height: screenHeight
     },
@@ -161,4 +174,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChatperOneLevelOne;
+export default ChatperOneLevelTwo;
