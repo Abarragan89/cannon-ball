@@ -8,7 +8,10 @@ import CannonLauncher from "../Components/GameEngine/CannonLauncher";
 import * as SplashScreen from 'expo-splash-screen';
 import { Dimensions } from "react-native";
 import TNT from "../Components/GameEngine/TNT";
-const { height, width } = Dimensions.get('window')
+const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
+const bgImage = require('../assets/images/homeScreenImg.png')
+const { height, width } = Dimensions.get('screen')
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,7 +28,7 @@ const Home = () => {
     }
   }, [fontsLoaded, fontError]);
 
-  if (!fontsLoaded && !fontError) {
+  if ((!fontsLoaded && !fontError)) {
     return null;
   }
 
@@ -36,23 +39,32 @@ const Home = () => {
         backgroundColor={colors.sandColor}
       /> */}
       <ImageBackground
-        source={require('../assets/images/homeScreenImg.png')}
-        style={styles.rootContainer}
+        source={bgImage}
+        style={[
+          !mainBtnImgSrc || !bgImage ? {display: 'none '} : {},
+          styles.rootContainer
+          ]}
         onLayout={onLayoutRootView}>
         <Title color={colors.offWhite} size={45}>Cannon Ball!</Title>
         <View style={styles.buttonContainer}>
           <MainButton
-            route="/CampaignOverviewScreen">
+            route="/CampaignOverviewScreen"
+            imgSrc={mainBtnImgSrc}
+            >
             Campaign
           </MainButton>
 
           <MainButton
-            route="/StoreScreen">
+            route="/StoreScreen"
+            imgSrc={mainBtnImgSrc}
+            >
             Store
           </MainButton>
 
           <MainButton
-            route="/SettingScreen">
+            route="/SettingScreen"
+            imgSrc={mainBtnImgSrc}
+            >
             Settings
           </MainButton>
         </View>
@@ -60,15 +72,15 @@ const Home = () => {
           position={[30, height - 100]}
           rotate={'-50deg'}
         />
-         <CannonLauncher 
+         {/* <CannonLauncher 
           position={[width - 100, height - 100]}
           rotate={'-130deg'}
-        />
-        <TNT 
-          position={[Math.floor(width/2) - 20, 50]}
+        /> */}
+        {/* <TNT 
+          position={[width - 150, 50]}
           diplay='block'
           handlePosition={[-13, 0]}
-        />
+        /> */}
       </ImageBackground>
     </>
   )

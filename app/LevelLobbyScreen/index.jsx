@@ -24,10 +24,12 @@ const LevelLobbyScreen = () => {
 
     return (
         <ScrollView>
+            <View style={styles.backIcon}>
+                <BackArrow />
+            </View>
             {mapName &&
                 <View style={styles.root}>
-                    <BackArrow />
-                    <Title color={colors.primaryBlack} size={45}>{mapName}</Title>
+                    <Title color={colors.offWhite} size={45}>{mapName}</Title>
                     <View style={styles.buttonContainer}>
                         {linkData.map((item, index) => (
                             <LevelTile key={index} route={`/GameScreen/${chapter}/${item.level}`}>
@@ -44,6 +46,9 @@ const LevelLobbyScreen = () => {
 export default LevelLobbyScreen;
 
 const styles = StyleSheet.create({
+    backIcon: {
+        zIndex: 2
+    },
     buttonContainer: {
         marginTop: 30,
         alignItems: 'center',

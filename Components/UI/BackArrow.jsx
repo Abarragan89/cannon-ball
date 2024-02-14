@@ -18,5 +18,6 @@ const styles = StyleSheet.create({
     root: {
         position: 'absolute',
         marginLeft: 15,
+        marginTop: 15
     }
 })
