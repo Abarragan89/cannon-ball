@@ -18,6 +18,7 @@ import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 
 
@@ -92,7 +93,7 @@ function ChatperOneLevelOne() {
                     endGameData: endGameData
                 },
                 cannon: {
-                    position: [400, screenHeight - 85],
+                    position: [400, screenHeight - 90],
                     rotate: '-90deg',
                     renderer: <CannonLauncher />
                 },
@@ -128,7 +129,6 @@ function ChatperOneLevelOne() {
                     endGameData={endGameData}
                 />
             }
-
             {/* The action is happending in this component
                 I need to change state in this components when 
                 the slider onValueChange function fires
@@ -148,7 +148,7 @@ function ChatperOneLevelOne() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -40, 
+        top: -120, 
         bottom: 0,
         left: 0, 
         right: 0
@@ -158,7 +158,8 @@ const styles = StyleSheet.create({
         bottom: 0,
         flex: 1,
         width: '100%',
-        height: screenHeight
+        height: screenHeight,
+        zIndex: 16
     },
     backIcon: {
         marginTop: 5,

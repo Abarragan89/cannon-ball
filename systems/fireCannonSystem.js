@@ -6,7 +6,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const fireCannonSystem = (entities, { touches }) => {
   // always have cannon and cannonslider lined up
-  entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0] + 65;
+  entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0];
   // set the gravity, angle and power before launch
   const GRAVITY = .05
 

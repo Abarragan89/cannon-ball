@@ -18,9 +18,9 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
 
     // Right LINE OF TNT BOX
     // same as rightLine, I didn't make the coordinate exactly based on the 30px size of tnt
-    const rightLineX1 = entities.TNT.position[0] + 27;
-    const rightLineY1 = entities.TNT.position[1] + 3;
-    const rightLineX2 = entities.TNT.position[0] + 27;
+    const rightLineX1 = entities.TNT.position[0] + 33;
+    const rightLineY1 = entities.TNT.position[1] - 3;
+    const rightLineX2 = entities.TNT.position[0] + 33;
     const rightLineY2 = entities.TNT.position[1] + 27;
 
 

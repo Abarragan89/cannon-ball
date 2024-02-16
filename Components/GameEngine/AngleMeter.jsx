@@ -1,5 +1,6 @@
 import { StyleSheet, View, Text } from "react-native";
 import * as Progress from 'react-native-progress';
+import colors from "../../constants/colors";
 
 
 function AngleMeter({ angleLevel }) {
@@ -10,7 +11,6 @@ function AngleMeter({ angleLevel }) {
             {/* <Text style={styles.meter90Deg}>{angleLevel}</Text> */}
             <Text style={styles.meter90Deg}>|</Text>
 
-
             {/* progress is number from 0 to 1 */}
             <Progress.Circle
                 progress={angleLevel / 360}
@@ -18,7 +18,7 @@ function AngleMeter({ angleLevel }) {
                 direction="counter-clockwise"
                 style={styles.circleSlider}
                 thickness={7}
-                color={'black'}
+                color={colors.primaryBlack}
                 strokeCap='butt'
             />
             <View style={styles.angleTextWrapper}>
@@ -32,9 +32,9 @@ export default AngleMeter;
 const styles = StyleSheet.create({
     root: {
         flex: 1,
-        opacity: .5,
+        opacity: .75,
         position: 'absolute',
-        right: 20,
+        left: 30,
         bottom: 0,
         height: 56,
         overflow: 'hidden',
@@ -45,8 +45,7 @@ const styles = StyleSheet.create({
         left: '49%',
         top: 5,
         fontSize: 8,
-        color: 'black'
-
+        color: 'black',
 
     },
     circleSlider: {
