@@ -36,8 +36,8 @@ function ChatperOneLevelOne() {
     const [powerLevelState, setPowerLevelState] = useState(0);
     const powerLevelRef = useRef(0)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([0, 100])
-    const cannonPositionRef = useRef([0, 100])
+    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
+    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 100, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -93,18 +93,19 @@ function ChatperOneLevelOne() {
                     endGameData: endGameData
                 },
                 cannon: {
+                    // only the postiion[0] gets updated by ref variables.
                     position: [400, screenHeight - 90],
                     rotate: '-90deg',
                     renderer: <CannonLauncher />
                 },
                 TNT: {
-                    position: [300, 100],
+                    position: [250, 100],
                     display: 'block',
                     handlePosition: [-13, 0],
                     renderer: <TNT />
                 },
                 explosion: {
-                    position: [315, 115],
+                    position: [0,0],
                     ballPosition: [0, 0],
                     ballColor: '#000000',
                     startAnimation: false,
@@ -137,6 +138,8 @@ function ChatperOneLevelOne() {
                 updatePositionRef={cannonPositionRef}
                 setPosition={setCannonPositionState}
                 position={cannonPositionState}
+                upperLimit={screenWidth - 90}
+                lowerLimit={20}
             />
             <AngleMeter angleLevel={angleLevelState} />
             <PowerMeter displayPower={powerLevelState} />
@@ -148,7 +151,7 @@ function ChatperOneLevelOne() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -120, 
+        top: -85, 
         bottom: 0,
         left: 0, 
         right: 0

@@ -16,7 +16,6 @@ const cannonControlSystem = (entities, { touches }) => {
       const powerChange = -deltaY * angleSensitivity;
       entities.gameData.displayPowerLevel.current = Math.max(0, Math.min(75, currentPower + powerChange));
       entities.gameData.setDisplayPowerLevel(entities.gameData.displayPowerLevel.current);
-      // entities.gameData.powerLevel = Math.max(0, Math.min(100, entities.gameData.powerLevel + powerChange));
       entities.gameData.powerLevel = Math.max(0, Math.min(75, entities.gameData.powerLevel + powerChange));
 
 

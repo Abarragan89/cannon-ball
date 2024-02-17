@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     cannonBallBase: {
         position: 'absolute',
         top: 6,
-        left: 3,
+        left: 1,
         height: 0,
         width: 0,
         borderWidth: 32,

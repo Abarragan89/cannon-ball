@@ -24,6 +24,7 @@ const fireCannonSystem = (entities, { touches }) => {
     // if hits bottom
     if (entities.cannonBall.position[1] > windowHeight - 34) {
       entities.cannonBall.isBallMoving = false;
+      entities.headerStats.bounces = 0;
     }
     // if hits right wall
     if (entities.cannonBall.position[0] > windowWidth - 14) {
@@ -62,7 +63,7 @@ const fireCannonSystem = (entities, { touches }) => {
         entities.cannonBall.isBallMoving = true;
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
         // set initial coordinates to be where the cannon tip is located
-        entities.cannonBall.position[0] = entities.cannon.position[0] + 25;
+        entities.cannonBall.position[0] = entities.cannon.position[0] + 23;
         entities.cannonBall.position[1] = entities.cannon.position[1] + 40;
         // set the POWER and ANGLE  settings
         let ANGLE = entities.gameData.angleLevel.current;

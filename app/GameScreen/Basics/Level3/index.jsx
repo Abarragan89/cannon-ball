@@ -1,3 +1,4 @@
+
 import { useRef, useState } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
@@ -22,7 +23,7 @@ const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 
 
-function ChatperOneLevelTwo() {
+function ChatperOneLevelThree() {
     // The game data accepts refs and state for each aspect of the game
     // the ref is used to game data state and remain consistent through rerenders
     // the state is used to manage the components that use that data so rerenders are triggered
@@ -45,7 +46,7 @@ function ChatperOneLevelTwo() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Basics/Level3'
+        nextLevel: 'Basics/Level4'
     })
     return (
         
@@ -93,12 +94,12 @@ function ChatperOneLevelTwo() {
                 },
                 cannon: {
                     // only the postiion[0] gets updated by ref variables.
-                    position: [400, screenHeight - 90],
+                    position: [200, screenHeight - 90],
                     rotate: '-90deg',
                     renderer: <CannonLauncher />
                 },
                 TNT: {
-                    position: [screenWidth - 31, 60],
+                    position: [200, -5],
                     display: 'block',
                     handlePosition: [-13, 0],
                     renderer: <TNT />
@@ -177,4 +178,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChatperOneLevelTwo;
+export default ChatperOneLevelThree;

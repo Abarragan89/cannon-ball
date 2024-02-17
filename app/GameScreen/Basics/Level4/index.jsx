@@ -22,7 +22,7 @@ const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 
 
-function ChatperOneLevelTwo() {
+function ChatperOneLevelFour() {
     // The game data accepts refs and state for each aspect of the game
     // the ref is used to game data state and remain consistent through rerenders
     // the state is used to manage the components that use that data so rerenders are triggered
@@ -35,8 +35,8 @@ function ChatperOneLevelTwo() {
     const [powerLevelState, setPowerLevelState] = useState(0);
     const powerLevelRef = useRef(0)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
-    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 100, 100])
+    const [cannonPositionState, setCannonPositionState] = useState([100, 100])
+    const cannonPositionRef = useRef([100, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -45,12 +45,12 @@ function ChatperOneLevelTwo() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Basics/Level3'
+        nextLevel: 'Basics/Level5'
     })
     return (
         
         <ImageBackground
-            source={require('../../../../assets/images/basics/level1.png')}
+            source={require('../../../../assets/images/basics/short.png')}
             style={styles.backgroundImg}
         >
         <GameEngine
@@ -93,18 +93,18 @@ function ChatperOneLevelTwo() {
                 },
                 cannon: {
                     // only the postiion[0] gets updated by ref variables.
-                    position: [400, screenHeight - 90],
+                    position: [100, screenHeight - 90],
                     rotate: '-90deg',
                     renderer: <CannonLauncher />
                 },
                 TNT: {
-                    position: [screenWidth - 31, 60],
+                    position: [screenWidth - 200, 150],
                     display: 'block',
                     handlePosition: [-13, 0],
                     renderer: <TNT />
                 },
                 explosion: {
-                    position: [0,0],
+                    position: [315, 115],
                     ballPosition: [0, 0],
                     ballColor: '#000000',
                     startAnimation: false,
@@ -137,7 +137,7 @@ function ChatperOneLevelTwo() {
                 updatePositionRef={cannonPositionRef}
                 setPosition={setCannonPositionState}
                 position={cannonPositionState}
-                upperLimit={screenWidth - 90}
+                upperLimit={256}
                 lowerLimit={20}
             />
             <AngleMeter angleLevel={angleLevelState} />
@@ -177,4 +177,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChatperOneLevelTwo;
+export default ChatperOneLevelFour;
