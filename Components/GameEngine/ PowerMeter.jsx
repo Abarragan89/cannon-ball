@@ -3,8 +3,6 @@ import * as Progress from 'react-native-progress';
 import { Platform } from "react-native";
 
 function PowerMeter({ displayPower }) {
-    console.log('hithere', displayPower)
-
     return (
         <View style={styles.root}>
             {/* <Text style={styles.numberDisplay}>{displayPower}</Text> */}

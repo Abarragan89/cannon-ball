@@ -1,4 +1,4 @@
-import { View, StyleSheet, Pressable, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { useRef } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 

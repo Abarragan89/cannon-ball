@@ -14,17 +14,19 @@ const cannonControlSystem = (entities, { touches }) => {
       // Interpolate power changes based on vertical movement
       const powerChange = -deltaY * angleSensitivity;
       entities.gameData.displayPowerLevel.current = Math.max(0, Math.min(75, currentPower + powerChange));
-      entities.gameData.setDisplayPowerLevel(entities.gameData.displayPowerLevel.current);
+      // entities.gameData.setDisplayPowerLevel(entities.gameData.displayPowerLevel.current);
       entities.gameData.powerLevel = Math.max(0, Math.min(75, entities.gameData.powerLevel + powerChange));
 
 
       // Interpolate angle changes based on horizontal movement
       const angleChange = -deltaX * powerSensitiviy;
       entities.gameData.angleLevel.current = Math.max(0, Math.min(180, currentAngle + angleChange));
-      entities.gameData.setAngleLevel(entities.gameData.angleLevel.current);
+      // entities.gameData.setAngleLevel(entities.gameData.angleLevel.current);
 
       // Rotate the cannon
       entities.cannon.rotate = `-${entities.gameData.angleLevel.current}deg`;
+      entities.angleMeter.angleLevel = entities.gameData.angleLevel.current;
+      entities.powerMeter.displayPower = entities.gameData.powerLevel
     }
   });
 
