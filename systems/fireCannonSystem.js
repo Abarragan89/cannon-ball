@@ -66,8 +66,8 @@ const fireCannonSystem = (entities, { touches }) => {
         entities.cannonBall.position[0] = entities.cannon.position[0] + 23;
         entities.cannonBall.position[1] = entities.cannon.position[1] + 40;
         // set the POWER and ANGLE  settings
-        let ANGLE = entities.gameData.angleLevel.current;
-        let POWER = entities.gameData.powerLevel;
+        let ANGLE = entities.angleMeter.angleLevel;
+        let POWER = entities.powerMeter.displayPower;
         const angleInRadians = (ANGLE * Math.PI) / 180;
         // set the velocity
         entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;

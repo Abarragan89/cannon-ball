@@ -1,6 +1,6 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { GameEngine } from "react-native-game-engine"
-import { StyleSheet, StatusBar, ImageBackground, PanResponder } from 'react-native';
+import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
@@ -18,25 +18,18 @@ import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
-import PowerAngleControl from "../../../../Components/GameEngine/PowerAngleControl";
-const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height
 import BackArrow from "../../../../Components/UI/BackArrow";
 
 function ChatperTwoLevelOne() {
-    // The game data accepts refs and state for each aspect of the game
-    // the ref is used to game data state and remain consistent through rerenders
-    // the state is used to manage the components that use that data so rerenders are triggered
-
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data
-    const [angleLevelState, setAngleLevelState] = useState(90);
     const angleLevelRef = useRef(90)
     // Power Data
-    const [powerLevelState, setPowerLevelState] = useState(0);
     // This powerLevel is for Display
-    const powerLevelRef = useRef(0)
+    const powerLevelRef = useRef(15)
     // Cannon Position Data
     const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
     const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 100, 100])
@@ -52,45 +45,8 @@ function ChatperTwoLevelOne() {
         nextLevel: 'Basics/Level2'
     })
 
-    const panResponder = useRef(
-        PanResponder.create({
-            onStartShouldSetPanResponder: () => true,
-            onMoveShouldSetPanResponder: () => true,
-            onStartShouldSetResponderCapture: () => true,
-            onMoveShouldSetResponderCapture: () => true,
-            onPanResponderMove: (event, gestureState) => {
-                // console.log('hey from pan ', gestureState)
-
-                // const deltaY = gestureState.dy;
-                // const deltaX = gestureState.dx;
-
-                // // Define the sensitivity factor for interpolation
-                // const angleSensitivity = 0.008;
-                // const powerSensitiviy = 0.005
-
-                // // Interpolate power changes based on vertical movement
-                // const powerChange = -deltaY * angleSensitivity;
-                // powerLevelRef.current = Math.max(0, Math.min(75, powerLevelRef.current + powerChange));
-                // setPowerLevelState(powerLevelRef.current);
-
-                // // Interpolate angle changes based on horizontal movement
-                // const angleChange = -deltaX * powerSensitiviy;
-                // angleLevelRef.current = Math.max(0, Math.min(180, angleLevelRef.current + angleChange));
-                // setAngleLevelState(angleLevelRef.current);
-                // // Rotate the cannon
-                // rotateDegrees.current = `${angleChange}deg`
-                // entities.cannon.rotate = `-${entities.gameData.angleLevel.current}deg`;
-                // setTriggerRerender( prev => !prev)
-            },
-        })
-    ).current;
-
 
     return (
-        // <View
-        //     style={styles.outterView}
-        //     // {...panResponder.panHandlers}
-        // >
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
@@ -123,13 +79,6 @@ function ChatperTwoLevelOne() {
                     gameData: {
                         // internal data for the physics. Not connected to UI
                         powerLevel: 15,
-                        // Power Data
-                        setDisplayPowerLevel: setPowerLevelState,
-                        displayPowerLevel: powerLevelRef,
-                        // Angle Data
-                        angleLevel: angleLevelRef,
-                        setAngleLevel: setAngleLevelState,
-                        // Cannon Position Data
                         cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
                     },
@@ -193,32 +142,12 @@ function ChatperTwoLevelOne() {
                     upperLimit={screenWidth - 90}
                     lowerLimit={20}
                 />
-                {/* <PowerAngleControl
-                    // Power Data
-                    setDisplayPowerLevel={setPowerLevelState}
-                    displayPowerLevel={powerLevelRef}
-                    powerLevel={powerLevelRef}
-                    // Angle Data
-                    angleLevel={angleLevelRef}
-                    setAngleLevel={setAngleLevelState}
-
-                /> */}
-                {/* <AngleMeter
-                    angleLevel={angleLevelState}
-                /> */}
-                <PowerMeter
-                    displayPower={powerLevelState} />
             </GameEngine>
         </ImageBackground>
-        // </View>
-
     );
 }
 
 const styles = StyleSheet.create({
-    outterView: {
-        flex: 1
-    },
     backgroundImg: {
         position: 'absolute',
         top: -85,

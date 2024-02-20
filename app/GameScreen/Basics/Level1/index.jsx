@@ -30,11 +30,9 @@ function ChatperOneLevelOne() {
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data
-    const [angleLevelState, setAngleLevelState] = useState(90);
     const angleLevelRef = useRef(90)
     // Power Data
-    const [powerLevelState, setPowerLevelState] = useState(0);
-    const powerLevelRef = useRef(0)
+    const powerLevelRef = useRef(15)
     // Cannon Position Data
     const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
     const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 100, 100])
@@ -49,104 +47,100 @@ function ChatperOneLevelOne() {
         nextLevel: 'Basics/Level2'
     })
     return (
-        
+
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
-        <GameEngine
-            ref={gameEngineRef}
-            style={styles.container}
-            systems=
-            {[
-                cannonControlSystem,
-                explodeTNTSystem,
-                cannonBallTNTDetectionSystem,
-                scoreCalculatorSystem,
-                fireCannonSystem,
-            ]}
-            entities={{
-                cannonBall: {
-                    position: [-100, 0],
-                    gradientColor: 'rgba(0, 0, 0, .75)',
-                    color: 'rgba(0, 0, 0, 1)',
-                    velocity: [1, 1],
-                    display: 'block',
-                    accuracy: { name: '', float: 0, multiplier: 0 },
-                    isGameOver: isGameOver,
-                    setIsGameOver: setIsGameOver,
-                    isBallMoving: false,
-                    renderer: <CannonBall />
-                },
-                gameData: {
-                    // internal data for the physics. Not connected to UI
-                    powerLevel: 15,
-                    // Power Data
-                    setDisplayPowerLevel: setPowerLevelState,
-                    displayPowerLevel: powerLevelRef,
-                    // Angle Data
-                    angleLevel: angleLevelRef,
-                    setAngleLevel: setAngleLevelState,
-                    // Cannon Position Data
-                    cannonLaunchPosition: cannonPositionRef,
-                    setCannonPositionState: setCannonPositionState,
-                    endGameData: endGameData
-                },
-                cannon: {
-                    // only the postiion[0] gets updated by ref variables.
-                    position: [400, screenHeight - 90],
-                    rotate: '-90deg',
-                    renderer: <CannonLauncher />
-                },
-                TNT: {
-                    position: [250, 100],
-                    display: 'block',
-                    handlePosition: [-13, 0],
-                    renderer: <TNT />
-                },
-                explosion: {
-                    position: [0,0],
-                    ballPosition: [0, 0],
-                    ballColor: '#000000',
-                    startAnimation: false,
-                    renderer: <Explosion />
-                },
-                followArrow: {
-                    leftPosition: 300,
-                    displayStatus: 'none',
-                    renderer: <FollowArrow />
-                },
-                headerStats: {
-                    airTime: 0,
-                    bounces: 0,
-                    renderer: <HeaderStats />
-                },
-            }}>
-            <StatusBar hidden={true} />
-            <BackArrow 
-                route={'/LevelLobbyScreen'}
-                params={{ mapName: 'Basics'}}
-            />
-
-            {isGameOver &&
-                <EndGameModal
-                    endGameData={endGameData}
+            <GameEngine
+                ref={gameEngineRef}
+                style={styles.container}
+                systems=
+                {[
+                    cannonControlSystem,
+                    explodeTNTSystem,
+                    cannonBallTNTDetectionSystem,
+                    scoreCalculatorSystem,
+                    fireCannonSystem,
+                ]}
+                entities={{
+                    cannonBall: {
+                        position: [-100, 0],
+                        gradientColor: 'rgba(0, 0, 0, .75)',
+                        color: 'rgba(0, 0, 0, 1)',
+                        velocity: [1, 1],
+                        display: 'block',
+                        accuracy: { name: '', float: 0, multiplier: 0 },
+                        isGameOver: isGameOver,
+                        setIsGameOver: setIsGameOver,
+                        isBallMoving: false,
+                        renderer: <CannonBall />
+                    },
+                    gameData: {
+                        cannonLaunchPosition: cannonPositionRef,
+                        endGameData: endGameData,
+                    },
+                    cannon: {
+                        // only the postiion[0] gets updated by ref variables.
+                        position: [400, screenHeight - 90],
+                        rotate: '-90deg',
+                        renderer: <CannonLauncher />
+                    },
+                    TNT: {
+                        position: [250, 100],
+                        display: 'block',
+                        handlePosition: [-13, 0],
+                        renderer: <TNT />
+                    },
+                    explosion: {
+                        position: [0, 0],
+                        ballPosition: [0, 0],
+                        ballColor: '#000000',
+                        startAnimation: false,
+                        renderer: <Explosion />
+                    },
+                    followArrow: {
+                        leftPosition: 300,
+                        displayStatus: 'none',
+                        renderer: <FollowArrow />
+                    },
+                    headerStats: {
+                        airTime: 0,
+                        bounces: 0,
+                        renderer: <HeaderStats />
+                    },
+                    angleMeter: {
+                        angleLevel: angleLevelRef.current,
+                        renderer: <AngleMeter />
+                    },
+                    powerMeter: {
+                        displayPower: powerLevelRef.current,
+                        renderer: <PowerMeter />
+                    }
+                }}>
+                <StatusBar hidden={true} />
+                <BackArrow
+                    route={'/LevelLobbyScreen'}
+                    params={{ mapName: 'Basics' }}
                 />
-            }
-            {/* The action is happending in this component
+
+                {isGameOver &&
+                    <EndGameModal
+                        endGameData={endGameData}
+                    />
+                }
+                {/* The action is happending in this component
                 I need to change state in this components when 
                 the slider onValueChange function fires
              */}
-            <MoveCannonLaunch
-                updatePositionRef={cannonPositionRef}
-                setPosition={setCannonPositionState}
-                position={cannonPositionState}
-                upperLimit={screenWidth - 90}
-                lowerLimit={20}
-            />
-            <AngleMeter angleLevel={angleLevelState} />
-            <PowerMeter displayPower={powerLevelState} />
-        </GameEngine>
+                <MoveCannonLaunch
+                    updatePositionRef={cannonPositionRef}
+                    setPosition={setCannonPositionState}
+                    position={cannonPositionState}
+                    upperLimit={screenWidth - 90}
+                    lowerLimit={20}
+                />
+            </GameEngine>
         </ImageBackground>
     );
 }
@@ -154,9 +148,9 @@ function ChatperOneLevelOne() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85, 
+        top: -85,
         bottom: 0,
-        left: 0, 
+        left: 0,
         right: 0
     },
     container: {
