@@ -14,11 +14,6 @@ const LevelLobbyScreen = () => {
         { level: 'Level3' },
         { level: 'Level4' },
         { level: 'Level5' },
-        { level: 'Level6' },
-        { level: 'Level7' },
-        { level: 'Level8' },
-        { level: 'Level9' },
-        { level: 'Level10' },
     ]
 
 

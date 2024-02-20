@@ -1,6 +1,5 @@
 const cannonControlSystem = (entities, { touches }) => {
   touches.forEach(t => {
-    console.log('touch ', t)
     let currentPower = entities.gameData.displayPowerLevel.current;
     let currentAngle = entities.gameData.angleLevel.current;
 
@@ -23,6 +22,8 @@ const cannonControlSystem = (entities, { touches }) => {
       const angleChange = -deltaX * powerSensitiviy;
       entities.gameData.angleLevel.current = Math.max(0, Math.min(180, currentAngle + angleChange));
       entities.gameData.setAngleLevel(entities.gameData.angleLevel.current);
+
+      // Rotate the cannon
       entities.cannon.rotate = `-${entities.gameData.angleLevel.current}deg`;
     }
   });

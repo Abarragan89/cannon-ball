@@ -73,7 +73,6 @@ const fireCannonSystem = (entities, { touches }) => {
         entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
         entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
       }
-    // }
 
   });
   return entities;

@@ -4,9 +4,14 @@ import colors from "../../constants/colors";
 import { router } from 'expo-router';
 
 
-const BackArrow = () => {
+const BackArrow = ({ route, params }) => {
+
+    // if you need to return to a specifc route, or just go back in history 
+    // if route is not provided.
+    const onPressHandler = route ? () => router.navigate({ pathname: route, params: params}) : () => router.back()
+
     return (
-        <Pressable onPress={() => router.back()} style={styles.root}>
+        <Pressable onPress={onPressHandler} style={styles.root}>
                 <Ionicons name='arrow-back' size={40} color={colors.offWhite} />
         </Pressable>
     )

@@ -122,7 +122,10 @@ function ChatperOneLevelTwo() {
                 },
             }}>
             <StatusBar hidden={true} />
-            <BackArrow />
+            <BackArrow 
+                route={'/LevelLobbyScreen'}
+                params={{ mapName: 'Basics'}}
+            />
 
             {isGameOver &&
                 <EndGameModal

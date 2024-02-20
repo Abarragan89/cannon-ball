@@ -4,6 +4,7 @@ import colors from "../../constants/colors";
 
 
 function AngleMeter({ angleLevel }) {
+    console.log('angle level', angleLevel)
 
     return (
         <View style={styles.root}>

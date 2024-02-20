@@ -1,6 +1,5 @@
 import { View, StyleSheet, Pressable, Text, Dimensions } from 'react-native';
-import { useRef, useEffect } from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import { useRef } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 
 // they can manipulate themselves by grabbing themselves as entities

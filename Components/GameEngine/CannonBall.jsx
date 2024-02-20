@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 
 const RADIUS = 10
@@ -22,15 +22,6 @@ function CannonBall({ position, display, color, gradientColor }) {
                     borderColor: color,
                 }]}
             />
-            // <View
-            //     style={[styles.cannonBall, {
-            //         left: x,
-            //         top: y,
-            //         display: display,
-            //         borderColor: color,
-            //         backgroundColor: color
-            //     }]}
-            // />
     )
 }
 
