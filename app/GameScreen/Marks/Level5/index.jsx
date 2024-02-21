@@ -88,7 +88,7 @@ function ChatperTwoLevelFive() {
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [250, 50],
+                        position: [270, 50],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />

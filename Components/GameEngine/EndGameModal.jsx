@@ -9,8 +9,6 @@ import { router } from 'expo-router';
 const EndGameModal = ({ endGameData }) => {
     const finalScore = endGameData.current.airTime * endGameData.current.bounces * endGameData.current.multiplier
 
-    console.log(endGameData)
-
     return (
         <View style={[styles.root,]}>
             <View style={styles.modalMainView}>

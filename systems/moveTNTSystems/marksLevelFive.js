@@ -2,30 +2,30 @@ import { Dimensions } from "react-native";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
-// ** The TNT starts at (250, 50)
-
+let counter = 0;
 const moveTNTMarksLevelFive = (entities) => {
     if (!entities.cannonBall.isGameOver){
-        const speed = 0.5;
+        const speed = 1;
 
-        // move down
-        if (entities.TNT.position[1] < 250 && entities.TNT.position) {
-            console.log('moving down');
-            entities.TNT.position[1] += speed;
-        // move left
-        } else if (entities.TNT.position[0]) {
-            console.log('moving left');
-            entities.TNT.position[0] -= speed;
-        // move up
-        } else if (entities.TNT.position[1] > 50) {
-            console.log('moving up');
-            entities.TNT.position[1] -= speed;
-        // move right
-        } else if (entities.TNT.position[0] < screenWidth - 50) {
-            console.log('moving right');
+        // moving right
+        if (counter <= 300) {
             entities.TNT.position[0] += speed;
+            counter++;
+        // moving down
+        } else if (counter > 300 && counter <=450) {
+            entities.TNT.position[1] += speed;
+            counter++
+        // moving left
+        } else if (counter > 450 && counter <= 750) {
+            entities.TNT.position[0] -= speed;
+            counter++;
+        // moving up
+        } else if (counter > 750 && counter <=900) {
+            entities.TNT.position[1] -= speed;
+            counter++;
+        } else if (counter > 900) {
+            counter = 0;
         }
-
     }
     return entities;
 }

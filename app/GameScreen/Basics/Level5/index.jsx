@@ -43,7 +43,7 @@ function ChatperOneLevelFive() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Basics/Level5'
+        nextLevel: 'Marks/Level1'
     })
     return (
 
