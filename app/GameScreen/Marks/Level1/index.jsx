@@ -5,7 +5,7 @@ import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
 import cannonBallTNTDetectionSystem from "../../../../systems/cannonBallTNTDetectionSystem";
-import moveTNTSystem from "../../../../systems/moveTNTSystem";
+import moveTNTMarksLevelOne from "../../../../systems/moveTNTSystems/marksLevelOne";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
@@ -34,7 +34,6 @@ function ChatperTwoLevelOne() {
     const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
     const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 100, 100])
 
-
     const endGameData = useRef({
         accuracyFloat: 0,
         accuracyName: '',
@@ -42,9 +41,8 @@ function ChatperTwoLevelOne() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Basics/Level2'
+        nextLevel: 'Marks/Level2'
     })
-
 
     return (
         <ImageBackground
@@ -61,7 +59,7 @@ function ChatperTwoLevelOne() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    moveTNTSystem
+                    moveTNTMarksLevelOne
                 ]}
                 entities={{
                     cannonBall: {
@@ -77,8 +75,6 @@ function ChatperTwoLevelOne() {
                         renderer: <CannonBall />
                     },
                     gameData: {
-                        // internal data for the physics. Not connected to UI
-                        powerLevel: 15,
                         cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
                     },

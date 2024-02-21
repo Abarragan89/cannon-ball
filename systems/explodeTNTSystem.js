@@ -29,7 +29,6 @@ const explodeTNTSystem = (entities) => {
                 name: 'Great Shot!',
                 float: accuracyAmount,
                 multiplier: 3,
-
             }
         } else {
             entities.cannonBall.accuracy = 
