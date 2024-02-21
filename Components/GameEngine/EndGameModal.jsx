@@ -4,6 +4,7 @@ import ModalDetaiItemContainer from '../UI/ModalDetaiItemContainer';
 import SecondaryButton from '../UI/SecondaryButton';
 import { Fontisto } from '@expo/vector-icons';
 import colors from '../../constants/colors';
+import { router } from 'expo-router';
 
 const EndGameModal = ({ endGameData }) => {
     const finalScore = endGameData.current.airTime * endGameData.current.bounces * endGameData.current.multiplier
@@ -51,8 +52,12 @@ const EndGameModal = ({ endGameData }) => {
                 <View style={styles.buttonContainer}>
                     {/* <MainButton route="/CampaignOverviewScreen">Map</MainButton>
                     <MainButton route="/GameScreen/ChapterOne/Level2">Next Level</MainButton> */}
-                    <SecondaryButton>Map</SecondaryButton>
-                    <SecondaryButton>Next Level</SecondaryButton>
+                    <SecondaryButton
+                        runFunc={() => router.back()}
+                    >Back</SecondaryButton>
+                    <SecondaryButton
+                        route={`/GameScreen/${endGameData.current.nextLevel}`}
+                    >Next Level</SecondaryButton>
                 </View>
             </View>
         </View>

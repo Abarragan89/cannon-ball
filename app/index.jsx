@@ -1,11 +1,17 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ImageBackground } from "react-native";
 import { useCallback } from "react";
 import Title from "../Components/UI/Title";
 import MainButton from "../Components/UI/MainButton";
 import colors from "../constants/colors";
-import { StatusBar } from "expo-status-bar";
 import { useFonts } from 'expo-font';
+import CannonLauncher from "../Components/GameEngine/CannonLauncher";
 import * as SplashScreen from 'expo-splash-screen';
+import { Dimensions } from "react-native";
+import TNT from "../Components/GameEngine/TNT";
+const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
+const bgImage = require('../assets/images/homeScreenImg.png')
+const { height, width } = Dimensions.get('screen')
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,32 +28,51 @@ const Home = () => {
     }
   }, [fontsLoaded, fontError]);
 
-  if (!fontsLoaded && !fontError) {
+  if ((!fontsLoaded && !fontError)) {
     return null;
   }
-  
+
   return (
     <>
-    <StatusBar 
-      style="dark" 
-      backgroundColor={colors.sandColor}  
-    />
-    <View style={styles.rootContainer} onLayout={onLayoutRootView}>
-      <Title color={colors.primaryBlack} size={45}>Cannon Ball!</Title>
-      <View style={styles.buttonContainer}>
-        <MainButton route="/CampaignOverviewScreen">
-          Campaign
-        </MainButton>
+      {/* <StatusBar
+        style="dark"
+        backgroundColor={colors.sandColor}
+      /> */}
+      <ImageBackground
+        source={bgImage}
+        style={[
+          !mainBtnImgSrc || !bgImage ? {display: 'none '} : {},
+          styles.rootContainer
+          ]}
+        onLayout={onLayoutRootView}>
+        <Title color={colors.offWhite} size={45}>Cannon Ball!</Title>
+        <View style={styles.buttonContainer}>
+          <MainButton
+            route="/CampaignOverviewScreen"
+            imgSrc={mainBtnImgSrc}
+            >
+            Campaign
+          </MainButton>
 
-        <MainButton route="/StoreScreen">
+          <MainButton
+            route="/StoreScreen"
+            imgSrc={mainBtnImgSrc}
+            >
             Store
-        </MainButton>
+          </MainButton>
 
-        <MainButton route="/SettingScreen">
-          Settings
-        </MainButton>
-      </View>
-    </View>
+          <MainButton
+            route="/SettingScreen"
+            imgSrc={mainBtnImgSrc}
+            >
+            Settings
+          </MainButton>
+        </View>
+        <CannonLauncher 
+          position={[30, height - 100]}
+          rotate={'-50deg'}
+        />
+      </ImageBackground>
     </>
   )
 }
@@ -58,7 +83,12 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0
   },
   buttonContainer: {
     flexDirection: 'row',

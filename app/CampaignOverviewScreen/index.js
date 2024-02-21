@@ -1,66 +1,135 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ImageBackground } from "react-native";
 import Title from "../../Components/UI/Title";
 import MainButton from "../../Components/UI/MainButton";
 import BackArrow from "../../Components/UI/BackArrow";
 import colors from "../../constants/colors";
+const mainBtnImgSrc = require('../../assets/images/btnWoodBg.png')
 
 const CampaignOverview = () => {
     return (
-        <View style={styles.rootContainer}>
+        <>
             <View style={styles.backIcon}>
                 <BackArrow />
             </View>
-
-            <View style={styles.headerRoot}>
-                <Title color={colors.primaryBlack} size={45}>Campaign Maps</Title>
-            </View>
-
-            <View style={styles.mapBtnContainer}>
-                <MainButton
-                    route="/LevelLobbyScreen"
-                    params={{
-                        mapName: 'Map One',
-                        chapter: 'ChapterOne'
-                    }}>
-                    Map 1
-                </MainButton>
-                <MainButton
-                    route="/LevelLobbyScreen"
-                    params={{
-                        mapName: 'Map Two',
-                        chapter: 'ChapterTwo'
-                    }}>
-                    Map 2
-                </MainButton>
-                <MainButton
-                    route="/LevelLobbyScreen"
-                    params={{
-                        mapName: 'Map Three',
-                        chapter: 'ChapterThree'
-                    }}>
-                    Map 3
-                </MainButton>
-            </View>
-        </View>
+            <ImageBackground
+                source={require('../../assets/images/treasureMapBg.png')}
+                style={[
+                    !mainBtnImgSrc ? { display: 'none' } : {},
+                    styles.rootContainer
+                ]}>
+                <View style={styles.headerRoot}>
+                    <Title color={colors.offWhite} size={50}>Campaign</Title>
+                </View>
+                <View style={styles.mapBtnContainer}>
+                    <View style={styles.mapBtnOne}>
+                        <MainButton
+                            route="/LevelLobbyScreen"
+                            params={{
+                                mapName: 'Basics',
+                            }}
+                            imgSrc={mainBtnImgSrc}
+                        >Basics
+                        </MainButton>
+                    </View>
+                    <View style={styles.mapBtnTwo}>
+                        <MainButton
+                            route="/LevelLobbyScreen"
+                            params={{
+                                mapName: 'Marks',
+                            }}
+                            imgSrc={mainBtnImgSrc}
+                        >
+                            Marks
+                        </MainButton>
+                    </View>
+                    <View style={styles.mapBtnThree}>
+                        <MainButton
+                            route="/LevelLobbyScreen"
+                            params={{
+                                mapName: 'Obstacle',
+                            }}
+                            imgSrc={mainBtnImgSrc}
+                        >
+                            Hinderance
+                        </MainButton>
+                    </View>
+                    <View style={styles.mapBtnFour}>
+                        <MainButton
+                            route="/LevelLobbyScreen"
+                            params={{
+                                mapName: 'Kraken',
+                            }}
+                            imgSrc={mainBtnImgSrc}
+                        >
+                            Kraken
+                        </MainButton>
+                    </View>
+                    <View style={styles.mapBtnFive}>
+                    <MainButton
+                        route="/LevelLobbyScreen"
+                        params={{
+                            mapName: 'Ghosts',
+                        }}
+                        imgSrc={mainBtnImgSrc}
+                    >
+                        Ghosts
+                    </MainButton>
+                    </View>
+                </View>
+            </ImageBackground>
+        </>
     )
 }
 
 export default CampaignOverview;
 
 const styles = StyleSheet.create({
-    rootContainer: {
-        flex: 1,
+    backIcon: {
+        zIndex: 2
     },
-
+    rootContainer: {
+        position: 'absolute',
+        paddingTop: 10,
+        right: 0,
+        left: 0,
+        top: 0,
+        bottom: 0
+    },
     headerRoot: {
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 10,
-        zIndex: -1
+        zIndex: 1
     },
     mapBtnContainer: {
-        marginTop: 30,
-        alignItems: 'center',
+        marginTop: 50,
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    mapBtnOne: {
+        position: 'absolute',
+        top: -40,
+        left: 120,
+    },
+    mapBtnTwo: {
+        position: 'absolute',
+        left: 420,
+        top: -10,
+    },
+    mapBtnThree: {
+        position: 'absolute',
+        top: 100,
+        right: 0
+    },
+    mapBtnFour: {
+        position: 'absolute',
+        top: 140,
+        right: 330
+    },
+    mapBtnFive: {
+        position: 'absolute',
+        top: 110,
+        left: 40,
     }
 
 })

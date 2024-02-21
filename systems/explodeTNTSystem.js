@@ -29,7 +29,6 @@ const explodeTNTSystem = (entities) => {
                 name: 'Great Shot!',
                 float: accuracyAmount,
                 multiplier: 3,
-
             }
         } else {
             entities.cannonBall.accuracy = 
@@ -57,6 +56,9 @@ const explodeTNTSystem = (entities) => {
             // set the ball explosion coordinates
             entities.explosion.ballPosition[0] = entities.cannonBall.position[0] + 5;
             entities.explosion.ballPosition[1] = entities.cannonBall.position[1] + 5;
+            // set the firework explosion coordinate
+            entities.explosion.position[0] = entities.TNT.position[0] + 15
+            entities.explosion.position[1] = entities.TNT.position[1] + 15
             // trigger explosion animation
             entities.explosion.startAnimation = true;
             // make tnt box and cannonBall disappear with a slight delay
@@ -83,15 +85,14 @@ const explodeTNTSystem = (entities) => {
     // the X1 adn X2 lines are slightly within the TNT box. It needs to appear
     // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
     // did not all the total 30 px length (only added 25)
-    const lineX1 = entities.TNT.position[0] - 2;
-    const lineY1 = entities.TNT.position[1] - 3;
+    const lineX1 = entities.TNT.position[0] + 5;
+    const lineY1 = entities.TNT.position[1];
     const lineX2 = entities.TNT.position[0] + 25;
-    const lineY2 = entities.TNT.position[1] - 2;
-    // increase radius to 14 on top so it doesn't interfere with side detection
-    // also, handle sticks out
-    const radius = 10
-    const circleX = entities.cannonBall.position[0] + 5;
-    const circleY = entities.cannonBall.position[1] + 5;
+    const lineY2 = entities.TNT.position[1];
+
+    const radius = 6
+    const circleX = entities.cannonBall.position[0] + 10;
+    const circleY = entities.cannonBall.position[1] + 10;
 
     // Check if either endpoint of the line is inside the circle
     const distance1 = Math.sqrt((lineX1 - circleX) ** 2 + (lineY1 - circleY) ** 2);

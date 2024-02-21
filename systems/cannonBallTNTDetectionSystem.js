@@ -10,31 +10,31 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
     // Left LINE OF TNT BOX
     // the box is 30 by 30. I added a 5px perimeter around it so it looks like 
     // it bounces left when the cannon touches it. 
-    const leftLineX1 = entities.TNT.position[0] - 3;
+    const leftLineX1 = entities.TNT.position[0];
     // minus 3 will raise this higher to cover handle a little bit.
     const leftLineY1 = entities.TNT.position[1] - 3;
-    const leftLineX2 = entities.TNT.position[0] - 3;
-    const leftLineY2 = entities.TNT.position[1] + 27;
+    const leftLineX2 = entities.TNT.position[0];
+    const leftLineY2 = entities.TNT.position[1] + 30;
 
     // Right LINE OF TNT BOX
     // same as rightLine, I didn't make the coordinate exactly based on the 30px size of tnt
-    const rightLineX1 = entities.TNT.position[0] + 27;
-    const rightLineY1 = entities.TNT.position[1] + 3;
-    const rightLineX2 = entities.TNT.position[0] + 27;
+    const rightLineX1 = entities.TNT.position[0] + 33;
+    const rightLineY1 = entities.TNT.position[1] - 3;
+    const rightLineX2 = entities.TNT.position[0] + 33;
     const rightLineY2 = entities.TNT.position[1] + 27;
 
 
     // BOTTOM LINE OF TNT BOX
     // same as bottomLine, I didn't make the coordinate exactly based on the 30px size of tnt
     const bottomLineX1 = entities.TNT.position[0] + 3;
-    const bottomLineY1 = entities.TNT.position[1] + 27;
+    const bottomLineY1 = entities.TNT.position[1] + 30;
     const bottomLineX2 = entities.TNT.position[0] + 25;
-    const bottomLineY2 = entities.TNT.position[1] + 27;
+    const bottomLineY2 = entities.TNT.position[1] + 30;
 
     // CIRCLE PROPERTIES
     const radius = 10;
-    const circleX = entities.cannonBall.position[0] + 5;
-    const circleY = entities.cannonBall.position[1] + 5;
+    const circleX = entities.cannonBall.position[0] + 10;
+    const circleY = entities.cannonBall.position[1] + 10;
 
 
 

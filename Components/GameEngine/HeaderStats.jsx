@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     text: {
         paddingHorizontal: 20,
         letterSpacing: 2,
-        fontSize: 13
+        fontSize: 20,
+        fontFamily:'textFont'
     }
 })

@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: RADIUS * 2,
         height: RADIUS * 2,
-
     }
 })
 

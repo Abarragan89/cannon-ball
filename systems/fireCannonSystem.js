@@ -6,7 +6,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const fireCannonSystem = (entities, { touches }) => {
   // always have cannon and cannonslider lined up
-  entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0] + 65;
+  entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0];
   // set the gravity, angle and power before launch
   const GRAVITY = .05
 
@@ -24,6 +24,7 @@ const fireCannonSystem = (entities, { touches }) => {
     // if hits bottom
     if (entities.cannonBall.position[1] > windowHeight - 34) {
       entities.cannonBall.isBallMoving = false;
+      entities.headerStats.bounces = 0;
     }
     // if hits right wall
     if (entities.cannonBall.position[0] > windowWidth - 14) {
@@ -62,17 +63,16 @@ const fireCannonSystem = (entities, { touches }) => {
         entities.cannonBall.isBallMoving = true;
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
         // set initial coordinates to be where the cannon tip is located
-        entities.cannonBall.position[0] = entities.cannon.position[0] + 25;
+        entities.cannonBall.position[0] = entities.cannon.position[0] + 23;
         entities.cannonBall.position[1] = entities.cannon.position[1] + 40;
         // set the POWER and ANGLE  settings
-        let ANGLE = entities.gameData.angleLevel.current;
-        let POWER = entities.gameData.powerLevel;
+        let ANGLE = entities.angleMeter.angleLevel;
+        let POWER = entities.powerMeter.displayPower;
         const angleInRadians = (ANGLE * Math.PI) / 180;
         // set the velocity
         entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
         entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
       }
-    // }
 
   });
   return entities;
