@@ -46,7 +46,7 @@ function ChatperThreeLevelOne() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Basics/Level2'
+        nextLevel: 'Hinderance/Level2'
     })
     return (
 
