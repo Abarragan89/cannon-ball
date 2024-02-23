@@ -1,6 +1,7 @@
 import { View, StyleSheet } from "react-native"
+import colors from "../../../constants/colors";
 
-const Hinderance = ({ position }) => {
+const TallHind = ({ position }) => {
   return (
     <View 
         style={[styles.root, {
@@ -12,14 +13,17 @@ const Hinderance = ({ position }) => {
   )
 }
 
-export default Hinderance;
+export default TallHind;
 
 const styles = StyleSheet.create({
     root: {
         position: 'absolute',
         display: 'block',
-        height: 30,
+        height: 120,
         width: 30,
-        backgroundColor: 'red',
+        backgroundColor: colors.sandColor,
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: colors.primaryBlack
     }
 })

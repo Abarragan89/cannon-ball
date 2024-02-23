@@ -56,7 +56,6 @@ const fireCannonSystem = (entities, { touches }) => {
   wallDetection();
   
   touches.forEach(t => {
-    // console.log('touch ', t)
     if (t.type === "long-press") {
         entities.headerStats.airTime = 0;
         entities.headerStats.bounces = 0;

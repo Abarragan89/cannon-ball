@@ -20,11 +20,11 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
-import longHindOne from "../../../../systems/hinderanceDetection/longHindOne";
-import longHindTwo from "../../../../systems/hinderanceDetection/longHindTwo";
+import tallHindOne from "../../../../systems/hinderanceDetection/TallHindOne";
+import tallHindTwo from "../../../../systems/hinderanceDetection/TallHindTwo";
+import TallHind from "../../../../Components/GameEngine/Hinderances/TallHind";
 
-function ChatperThreeLevelOne() {
+function ChapterThreeLevelTwo() {
     // The game data accepts refs and state for each aspect of the game
     // the ref is used to game data state and remain consistent through rerenders
     // the state is used to manage the components that use that data so rerenders are triggered
@@ -36,8 +36,8 @@ function ChatperThreeLevelOne() {
     // Power Data
     const powerLevelRef = useRef(15)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
-    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 100, 100])
+    const [cannonPositionState, setCannonPositionState] = useState([100, 100])
+    const cannonPositionRef = useRef([100, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -51,7 +51,7 @@ function ChatperThreeLevelOne() {
     return (
 
         <ImageBackground
-            source={require('../../../../assets/images/basics/level1.png')}
+            source={require('../../../../assets/images/basics/short.png')}
             style={styles.backgroundImg}
         >
             <GameEngine
@@ -64,8 +64,8 @@ function ChatperThreeLevelOne() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    longHindOne,
-                    longHindTwo
+                    tallHindOne,
+                    tallHindTwo
                 ]}
                 entities={{
                     cannonBall: {
@@ -91,7 +91,7 @@ function ChatperThreeLevelOne() {
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [screenWidth - 100, 100],
+                        position: [screenWidth - 200, 170],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -122,12 +122,12 @@ function ChatperThreeLevelOne() {
                         renderer: <PowerMeter />
                     },
                     hinderance: {
-                        position: [screenWidth - 210, 60],
-                        renderer: <LongHind />
+                        position: [screenWidth - 173, 70],
+                        renderer: <TallHind />
                     },
                     hinderance2: {
-                        position: [screenWidth - 120, 160],
-                        renderer: <LongHind />
+                        position: [screenWidth - 228, 70],
+                        renderer: <TallHind />
                     }
                 }}>
                 <StatusBar hidden={true} />
@@ -149,14 +149,9 @@ function ChatperThreeLevelOne() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={screenWidth - 90}
+                    upperLimit={250}
                     lowerLimit={20}
                 />
-                {/* <Hinderance
-                    left={screenWidth - 130} 
-                    top={50}
-
-                /> */}
             </GameEngine>
         </ImageBackground>
     );
@@ -192,4 +187,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChatperThreeLevelOne;
+export default ChapterThreeLevelTwo;

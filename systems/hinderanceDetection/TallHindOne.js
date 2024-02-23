@@ -1,4 +1,4 @@
-const hinderanceDetectionSystem = (entities) => {
+const tallHindOne = (entities) => {
     // Variables to determine collision of Cannon Ball and Top of Hinderance
     // the X1 adn X2 lines are slightly within the Hinderance box. It needs to appear
     // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
@@ -15,22 +15,22 @@ const hinderanceDetectionSystem = (entities) => {
     const leftLineX1 = entities.hinderance.position[0];
     const leftLineY1 = entities.hinderance.position[1] + 3;
     const leftLineX2 = entities.hinderance.position[0];
-    const leftLineY2 = entities.hinderance.position[1] + 30;
+    const leftLineY2 = entities.hinderance.position[1] + 117;
 
     // RIGHT LINE OF HINDERANCE BOX
     // same as rightLine, I didn't make the coordinate exactly based on the 30px size of Hinderance
-    const rightLineX1 = entities.hinderance.position[0] + 30;
+    const rightLineX1 = entities.hinderance.position[0] + 27;
     const rightLineY1 = entities.hinderance.position[1] + 3;
-    const rightLineX2 = entities.hinderance.position[0] + 33;
-    const rightLineY2 = entities.hinderance.position[1] + 30;
+    const rightLineX2 = entities.hinderance.position[0] + 27;
+    const rightLineY2 = entities.hinderance.position[1] + 117;
 
 
     // BOTTOM LINE OF HINDERANCE BOX
     // same as bottomLine, I didn't make the coordinate exactly based on the 30px size of Hinderance
     const bottomLineX1 = entities.hinderance.position[0] + 3;
-    const bottomLineY1 = entities.hinderance.position[1] + 30;
+    const bottomLineY1 = entities.hinderance.position[1] + 117;
     const bottomLineX2 = entities.hinderance.position[0] + 27;
-    const bottomLineY2 = entities.hinderance.position[1] + 30;
+    const bottomLineY2 = entities.hinderance.position[1] + 117;
 
     // TOP LINE OF HINDERANCE BOX
     const topLineX1 = entities.hinderance.position[0];
@@ -50,14 +50,9 @@ const hinderanceDetectionSystem = (entities) => {
     const leftDistance1 = Math.sqrt((leftLineX1 - circleX) ** 2 + (leftLineY1 - circleY) ** 2);
     const leftDistance2 = Math.sqrt((leftLineX2 - circleX) ** 2 + (leftLineY2 - circleY) ** 2);
 
-    // console.log('left Distance1 ', leftDistance1)
-    // console.log('left Distance2 ', leftDistance2)
-    // console.log('radius ', radius)
-
     if (leftDistance1 <= radius || leftDistance2 <= radius) {
         // only change direction if it is not already going in the desired location
         if (entities.cannonBall.velocity[0] > 0) {
-            console.log('hit left')
             // add to bounce count
             entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
@@ -142,7 +137,6 @@ const hinderanceDetectionSystem = (entities) => {
     // checks to see if corners are hit
     if (bottomDistance1 <= radius || bottomDistance2 <= radius) {
         if (entities.cannonBall.velocity[1] < 0) {
-            console.log('bottom')
             // add to bounce count
             entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
@@ -183,10 +177,8 @@ const hinderanceDetectionSystem = (entities) => {
      const topDistance1 = Math.sqrt((topLineX1 - circleX) ** 2 + (topLineY1 - circleY) ** 2);
      const topDistance2 = Math.sqrt((topLineX2 - circleX) ** 2 + (topLineY2 - circleY) ** 2);
 
-     console.log(' top distance one', topDistance1)
      // checks to see if corners are hit
      if (topDistance1 <= radius || topDistance2 <= radius) {
-         console.log('top')
          if (entities.cannonBall.velocity[1] > 0) {
 
              // add to bounce count
@@ -217,7 +209,6 @@ const hinderanceDetectionSystem = (entities) => {
  
          // Check if the distance is less than or equal to the radius of the circle
          if (distanceToLine <= radius) {
-             console.log('top')
              if (entities.cannonBall.velocity[1] > 0) {
                  // add to bounce count
                  entities.headerStats.bounces += 1;
@@ -229,4 +220,4 @@ const hinderanceDetectionSystem = (entities) => {
     return entities;
 }
 
-export default hinderanceDetectionSystem;
+export default tallHindOne;
