@@ -135,8 +135,8 @@ function ChatperTwoLevelOne() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={screenWidth - 90}
-                    lowerLimit={20}
+                    upperLimit={screenWidth - 70}
+                    lowerLimit={5}
                 />
             </GameEngine>
         </ImageBackground>

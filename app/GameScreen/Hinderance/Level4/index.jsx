@@ -88,6 +88,7 @@ function ChapterThreeLevelFour() {
                     gameData: {
                         cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
+                        bounceLevel: 0.8
                     },
                     cannon: {
                         // only the postiion[0] gets updated by ref variables.
@@ -131,7 +132,7 @@ function ChapterThreeLevelFour() {
                         renderer: <GiantTallHind />
                     },
                     longHindOne: {
-                        position: [200,200],
+                        position: [210,200],
                         renderer: <LongHind />
                     },
                     squareHindOne: {
@@ -158,7 +159,7 @@ function ChapterThreeLevelFour() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={screenWidth - 90}
+                    upperLimit={screenWidth - 70}
                     lowerLimit={Math.floor(screenWidth / 2) + 75}
                 />
             </GameEngine>

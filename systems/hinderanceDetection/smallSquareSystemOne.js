@@ -27,9 +27,9 @@ const smallSquareSystemOne = (entities) => {
 
     // BOTTOM LINE OF HINDERANCE BOX
     // same as bottomLine, I didn't make the coordinate exactly based on the 40px size of Hinderance
-    const bottomLineX1 = entities.squareHindOne.position[0] + 3;
+    const bottomLineX1 = entities.squareHindOne.position[0];
     const bottomLineY1 = entities.squareHindOne.position[1] + 40;
-    const bottomLineX2 = entities.squareHindOne.position[0] + 37;
+    const bottomLineX2 = entities.squareHindOne.position[0] + 40;
     const bottomLineY2 = entities.squareHindOne.position[1] + 40;
 
     // TOP LINE OF HINDERANCE BOX
@@ -51,12 +51,16 @@ const smallSquareSystemOne = (entities) => {
     const leftDistance2 = Math.sqrt((leftLineX2 - circleX) ** 2 + (leftLineY2 - circleY) ** 2);
 
     if (leftDistance1 <= radius || leftDistance2 <= radius) {
+
+        // I commented this out because it was producing weird effects in level 4.
+        // Conflict may arise if I use this in another level.  
+
         // only change direction if it is not already going in the desired location
-        if (entities.cannonBall.velocity[0] > 0) {
-            // add to bounce count
-            entities.headerStats.bounces += 1;
-            entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
-        }
+        // if (entities.cannonBall.velocity[0] > 0) {
+        //     // add to bounce count
+        //     entities.headerStats.bounces += 1;
+        //     entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
+        // }
     }
     // Calculate the vector representing the line segment
     const lineVectorX = leftLineX2 - leftLineX1;
@@ -183,7 +187,7 @@ const smallSquareSystemOne = (entities) => {
 
              // add to bounce count
              entities.headerStats.bounces += 1;
-             entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
+             entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1] * entities.gameData.bounceLevel
          }
  
      }
@@ -212,7 +216,7 @@ const smallSquareSystemOne = (entities) => {
              if (entities.cannonBall.velocity[1] > 0) {
                  // add to bounce count
                  entities.headerStats.bounces += 1;
-                 entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
+                 entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1] * entities.gameData.bounceLevel
              }
          };
      }

@@ -20,12 +20,12 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import tallHindSystemOne from "../../../../systems/hinderanceDetection/tallHindSystemOne";
-import TallHind from "../../../../Components/GameEngine/Hinderances/TallHind";
 import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
 import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
 import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
 import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
+import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
+import giantTallSystemTwo from "../../../../systems/hinderanceDetection/giantTallSystemTwo";
 
 
 
@@ -69,8 +69,10 @@ function ChapterThreeLevelFive() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    tallHindSystemOne,
-                    giantTallSystemOne
+                    longHindSystemTwo,
+                    giantTallSystemOne,
+                    giantTallSystemTwo,
+                    longHindSystemOne
                 ]}
                 entities={{
                     cannonBall: {
@@ -88,6 +90,9 @@ function ChapterThreeLevelFive() {
                     gameData: {
                         cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
+                        //  this bounce level is multiplied to the velocity when ball 
+                        // hits the top of a hinderance
+                        bounceLevel: 0.8
                     },
                     cannon: {
                         // only the postiion[0] gets updated by ref variables.
@@ -96,7 +101,7 @@ function ChapterThreeLevelFive() {
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [250, 100],
+                        position: [Math.floor(screenWidth / 2), 220],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -126,15 +131,22 @@ function ChapterThreeLevelFive() {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
                     },
-                    tallHindOne: {
-                        position: [100, 200],
-                        renderer: <TallHind />
-                    },
                     giantTallOne: {
-                        position: [200, 250],
+                        position: [Math.floor(screenWidth / 2) - 170, 70],
                         renderer: <GiantTallHind />
-                    }
-                    
+                    },
+                    giantTallTwo: {
+                        position: [Math.floor(screenWidth / 2) + 120, 70],
+                        renderer: <GiantTallHind />
+                    },
+                    longHindOne: {
+                        position: [Math.floor(screenWidth / 2) - 45, 120],
+                        renderer: <LongHind />
+                    },
+                    longHindTwo: {
+                        position: [Math.floor(screenWidth / 2) - 45, 310],
+                        renderer: <LongHind />
+                    },
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
@@ -155,8 +167,8 @@ function ChapterThreeLevelFive() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={screenWidth - 90}
-                    lowerLimit={20}
+                    upperLimit={Math.floor(screenWidth / 2) - 240}
+                    lowerLimit={5}
                 />
             </GameEngine>
         </ImageBackground>

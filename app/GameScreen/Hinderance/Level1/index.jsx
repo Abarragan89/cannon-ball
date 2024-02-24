@@ -83,6 +83,7 @@ function ChatperThreeLevelOne() {
                     gameData: {
                         cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
+                        bounceLevel: 0.8
                     },
                     cannon: {
                         // only the postiion[0] gets updated by ref variables.
@@ -149,8 +150,8 @@ function ChatperThreeLevelOne() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={screenWidth - 90}
-                    lowerLimit={20}
+                    upperLimit={screenWidth - 70}
+                    lowerLimit={5}
                 />
                 {/* <Hinderance
                     left={screenWidth - 130} 

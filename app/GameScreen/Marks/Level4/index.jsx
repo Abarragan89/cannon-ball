@@ -136,7 +136,7 @@ function ChatperTwoLevelFour() {
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
                     upperLimit={250}
-                    lowerLimit={20}
+                    lowerLimit={5}
                 />
             </GameEngine>
         </ImageBackground>

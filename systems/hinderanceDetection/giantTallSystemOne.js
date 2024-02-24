@@ -180,10 +180,9 @@ const giantTallSystemOne = (entities) => {
      // checks to see if corners are hit
      if (topDistance1 <= radius || topDistance2 <= radius) {
          if (entities.cannonBall.velocity[1] > 0) {
-
              // add to bounce count
              entities.headerStats.bounces += 1;
-             entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
+             entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1] * entities.gameData.bounceLevel
          }
  
      }
@@ -212,7 +211,7 @@ const giantTallSystemOne = (entities) => {
              if (entities.cannonBall.velocity[1] > 0) {
                  // add to bounce count
                  entities.headerStats.bounces += 1;
-                 entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
+                 entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1] * entities.gameData.bounceLevel
              }
          };
      }
