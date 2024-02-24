@@ -20,8 +20,8 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import tallHindOne from "../../../../systems/hinderanceDetection/TallHindOne";
-import tallHindTwo from "../../../../systems/hinderanceDetection/TallHindTwo";
+import tallHindSystemOne from "../../../../systems/hinderanceDetection/tallHindSystemOne";
+import tallHindSystemTwo from "../../../../systems/hinderanceDetection/tallHindSystemTwo";
 import TallHind from "../../../../Components/GameEngine/Hinderances/TallHind";
 
 function ChapterThreeLevelTwo() {
@@ -64,8 +64,8 @@ function ChapterThreeLevelTwo() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    tallHindOne,
-                    tallHindTwo
+                    tallHindSystemOne,
+                    tallHindSystemTwo
                 ]}
                 entities={{
                     cannonBall: {

@@ -1,4 +1,4 @@
-const TallHindTwo = (entities) => {
+const tallHindSystemTwo = (entities) => {
     // Variables to determine collision of Cannon Ball and Top of Hinderance
     // the X1 adn X2 lines are slightly within the Hinderance box. It needs to appear
     // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
@@ -220,4 +220,4 @@ const TallHindTwo = (entities) => {
     return entities;
 }
 
-export default TallHindTwo;
+export default tallHindSystemTwo;

@@ -20,7 +20,7 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import tallHindOne from "../../../../systems/hinderanceDetection/TallHindOne";
+import tallHindSystemOne from "../../../../systems/hinderanceDetection/tallHindSystemOne";
 import TallHind from "../../../../Components/GameEngine/Hinderances/TallHind";
 import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
 import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
@@ -69,7 +69,7 @@ function ChapterThreeLevelFive() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    tallHindOne,
+                    tallHindSystemOne,
                     giantTallSystemOne
                 ]}
                 entities={{
@@ -134,6 +134,7 @@ function ChapterThreeLevelFive() {
                         position: [200, 250],
                         renderer: <GiantTallHind />
                     }
+                    
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
