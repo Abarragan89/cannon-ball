@@ -46,7 +46,7 @@ const CampaignOverview = () => {
                         <MainButton
                             route="/LevelLobbyScreen"
                             params={{
-                                mapName: 'Obstacle',
+                                mapName: 'Hinderance',
                             }}
                             imgSrc={mainBtnImgSrc}
                         >
@@ -68,11 +68,11 @@ const CampaignOverview = () => {
                     <MainButton
                         route="/LevelLobbyScreen"
                         params={{
-                            mapName: 'Ghosts',
+                            mapName: 'Ghost',
                         }}
                         imgSrc={mainBtnImgSrc}
                     >
-                        Ghosts
+                        Ghost
                     </MainButton>
                     </View>
                 </View>

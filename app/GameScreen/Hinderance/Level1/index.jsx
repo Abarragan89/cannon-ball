@@ -5,7 +5,6 @@ import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
 import cannonBallTNTDetectionSystem from "../../../../systems/cannonBallTNTDetectionSystem";
-import moveTNTMarksLevelOne from "../../../../systems/moveTNTSystems/marksLevelOne";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
@@ -18,17 +17,23 @@ import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
+const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height
 import BackArrow from "../../../../Components/UI/BackArrow";
+import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
+import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
+import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
 
-function ChatperTwoLevelOne() {
+function ChatperThreeLevelOne() {
+    // The game data accepts refs and state for each aspect of the game
+    // the ref is used to game data state and remain consistent through rerenders
+    // the state is used to manage the components that use that data so rerenders are triggered
+
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
-    // This powerLevel is for Display
     const powerLevelRef = useRef(15)
     // Cannon Position Data
     const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
@@ -41,10 +46,10 @@ function ChatperTwoLevelOne() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Marks/Level2'
+        nextLevel: 'Hinderance/Level2'
     })
-
     return (
+
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
@@ -59,7 +64,8 @@ function ChatperTwoLevelOne() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    moveTNTMarksLevelOne
+                    longHindSystemOne,
+                    longHindSystemTwo
                 ]}
                 entities={{
                     cannonBall: {
@@ -77,6 +83,7 @@ function ChatperTwoLevelOne() {
                     gameData: {
                         cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
+                        bounceLevel: 0.8
                     },
                     cannon: {
                         // only the postiion[0] gets updated by ref variables.
@@ -85,7 +92,7 @@ function ChatperTwoLevelOne() {
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [250, 100],
+                        position: [screenWidth - 100, 100],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -114,12 +121,20 @@ function ChatperTwoLevelOne() {
                     powerMeter: {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
+                    },
+                    longHindOne: {
+                        position: [screenWidth - 210, 60],
+                        renderer: <LongHind />
+                    },
+                    longHindTwo: {
+                        position: [screenWidth - 120, 160],
+                        renderer: <LongHind />
                     }
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
                     route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Marks' }}
+                    params={{ mapName: 'Hinderance' }}
                 />
 
                 {isGameOver &&
@@ -138,6 +153,11 @@ function ChatperTwoLevelOne() {
                     upperLimit={screenWidth - 70}
                     lowerLimit={5}
                 />
+                {/* <Hinderance
+                    left={screenWidth - 130} 
+                    top={50}
+
+                /> */}
             </GameEngine>
         </ImageBackground>
     );
@@ -149,7 +169,7 @@ const styles = StyleSheet.create({
         top: -85,
         bottom: 0,
         left: 0,
-        right: 0,
+        right: 0
     },
     container: {
         position: 'absolute',
@@ -173,4 +193,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChatperTwoLevelOne;
+export default ChatperThreeLevelOne;

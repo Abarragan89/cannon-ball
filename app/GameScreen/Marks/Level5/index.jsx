@@ -44,7 +44,7 @@ function ChatperTwoLevelFive() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Hinderance/Level5'
+        nextLevel: 'Hinderance/Level1'
     })
     return (
 
@@ -138,8 +138,8 @@ function ChatperTwoLevelFive() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={screenWidth - 90}
-                    lowerLimit={20}
+                    upperLimit={-1}
+                    lowerLimit={1000}
                 />
             </GameEngine>
         </ImageBackground>

@@ -1,35 +1,43 @@
-const cannonBallTNTDetectionSystem = (entities, { time }) => {
-    // Variables to determine collision of Cannon Ball and Top of TNT
-    // the X1 adn X2 lines are slightly within the TNT box. It needs to appear
+const longHindSystemTwo = (entities) => {
+    // Variables to determine collision of Cannon Ball and Top of Hinderance
+    // the X1 adn X2 lines are slightly within the Hinderance box. It needs to appear
     // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
     // did not all the total 30 px length (only added 25)
 
-    // ** This only works if the TNT box is right side up. 
+    // ** This only works if the Hinderance box is right side up. 
     // Need to make this dynamic if i want to rotate it. 
 
-    // Left LINE OF TNT BOX
+    // Left LINE OF Hinderance BOX
     // the box is 30 by 30. I added a 5px perimeter around it so it looks like 
     // it bounces left when the cannon touches it. 
-    const leftLineX1 = entities.TNT.position[0];
     // minus 3 will raise this higher to cover handle a little bit.
-    const leftLineY1 = entities.TNT.position[1] - 3;
-    const leftLineX2 = entities.TNT.position[0];
-    const leftLineY2 = entities.TNT.position[1] + 30;
+    // LEFT LINE OF HINDERANCE BOX
+    const leftLineX1 = entities.longHindTwo.position[0];
+    const leftLineY1 = entities.longHindTwo.position[1] + 3;
+    const leftLineX2 = entities.longHindTwo.position[0];
+    const leftLineY2 = entities.longHindTwo.position[1] + 30;
 
-    // Right LINE OF TNT BOX
-    // same as rightLine, I didn't make the coordinate exactly based on the 30px size of tnt
-    const rightLineX1 = entities.TNT.position[0] + 33;
-    const rightLineY1 = entities.TNT.position[1] - 3;
-    const rightLineX2 = entities.TNT.position[0] + 33;
-    const rightLineY2 = entities.TNT.position[1] + 27;
+    // RIGHT LINE OF HINDERANCE BOX
+    // same as rightLine, I didn't make the coordinate exactly based on the 30px size of Hinderance
+    const rightLineX1 = entities.longHindTwo.position[0] + 117;
+    const rightLineY1 = entities.longHindTwo.position[1] + 3;
+    const rightLineX2 = entities.longHindTwo.position[0] + 117;
+    const rightLineY2 = entities.longHindTwo.position[1] + 30;
 
 
-    // BOTTOM LINE OF TNT BOX
-    // same as bottomLine, I didn't make the coordinate exactly based on the 30px size of tnt
-    const bottomLineX1 = entities.TNT.position[0] + 3;
-    const bottomLineY1 = entities.TNT.position[1] + 30;
-    const bottomLineX2 = entities.TNT.position[0] + 25;
-    const bottomLineY2 = entities.TNT.position[1] + 30;
+    // BOTTOM LINE OF HINDERANCE BOX
+    // same as bottomLine, I didn't make the coordinate exactly based on the 30px size of Hinderance
+    const bottomLineX1 = entities.longHindTwo.position[0] + 3;
+    const bottomLineY1 = entities.longHindTwo.position[1] + 30;
+    const bottomLineX2 = entities.longHindTwo.position[0] + 117;
+    const bottomLineY2 = entities.longHindTwo.position[1] + 30;
+
+    // TOP LINE OF HINDERANCE BOX
+    const topLineX1 = entities.longHindTwo.position[0];
+    const topLineY1 = entities.longHindTwo.position[1];
+    const topLineX2 = entities.longHindTwo.position[0] + 117;
+    const topLineY2 = entities.longHindTwo.position[1];
+
 
     // CIRCLE PROPERTIES
     const radius = 10;
@@ -79,10 +87,6 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
             }
         };
     }
-
-
-
-
 
 
     ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
@@ -169,7 +173,50 @@ const cannonBallTNTDetectionSystem = (entities, { time }) => {
         };
     }
 
+     ////////////////// CHECKING FOR TOP WALL DETECTION /////////////////
+     const topDistance1 = Math.sqrt((topLineX1 - circleX) ** 2 + (topLineY1 - circleY) ** 2);
+     const topDistance2 = Math.sqrt((topLineX2 - circleX) ** 2 + (topLineY2 - circleY) ** 2);
+
+     // checks to see if corners are hit
+     if (topDistance1 <= radius || topDistance2 <= radius) {
+         if (entities.cannonBall.velocity[1] > 0) {
+             // add to bounce count
+             entities.headerStats.bounces += 1;
+             entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1] * entities.gameData.bounceLevel
+         }
+ 
+     }
+     // Calculate the vector representing the line segment
+     const topLineVectorX = topLineX2 - topLineX1;
+     const topLineVectorY = topLineY2 - topLineY1;
+ 
+     // Calculate the vector representing the line from one endpoint to the circle center
+     const topCircleVectorX = circleX - topLineX1;
+     const topCircleVectorY = circleY - topLineY1;
+ 
+     // Calculate the projection of the circle vector onto the line vector
+     const topProjection = (topCircleVectorX * topLineVectorX + topCircleVectorY * topLineVectorY) / (topLineVectorX * topLineVectorX + topLineVectorY * topLineVectorY);
+ 
+     // Check if the topProjection is within the line segment
+     if (topProjection >= 0 && topProjection <= 1) {
+         // Find the closest point on the line to the circle center
+         const closestX = topLineX1 + topProjection * topLineVectorX;
+         const closestY = topLineY1 + topProjection * topLineVectorY;
+ 
+         // Calculate the distance between the closest point on the line and the circle center
+         const distanceToLine = Math.sqrt((circleX - closestX) ** 2 + (circleY - closestY) ** 2);
+ 
+         // Check if the distance is less than or equal to the radius of the circle
+         if (distanceToLine <= radius) {
+             if (entities.cannonBall.velocity[1] > 0) {
+                 // add to bounce count
+                 entities.headerStats.bounces += 1;
+                 entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1] * entities.gameData.bounceLevel
+             }
+         };
+     }
+
     return entities;
 }
 
-export default cannonBallTNTDetectionSystem;
+export default longHindSystemTwo;

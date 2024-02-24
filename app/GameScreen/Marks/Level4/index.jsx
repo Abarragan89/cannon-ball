@@ -41,7 +41,7 @@ function ChatperTwoLevelFour() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Marks/Level2'
+        nextLevel: 'Marks/Level5'
     })
 
     return (
@@ -136,7 +136,7 @@ function ChatperTwoLevelFour() {
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
                     upperLimit={250}
-                    lowerLimit={20}
+                    lowerLimit={5}
                 />
             </GameEngine>
         </ImageBackground>

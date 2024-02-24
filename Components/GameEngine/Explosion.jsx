@@ -23,6 +23,12 @@ function Explosion({ position, ballPosition, startAnimation, ballColor }) {
             particle3El.current.start();
             cannonBallEl.current.start();
         } 
+        // return () => {
+        //     particle1El.current.stop();
+        //     particle2El.current.stop();
+        //     particle3El.current.stop();
+        //     cannonBallEl.current.stop();
+        // }
     }, [startAnimation, particle1El, particle2El, particle3El, cannonBallEl])
 
 

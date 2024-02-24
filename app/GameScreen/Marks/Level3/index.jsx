@@ -41,7 +41,7 @@ function ChatperTwoLevelThree() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Marks/Level2'
+        nextLevel: 'Marks/Level4'
     })
 
     return (
@@ -135,8 +135,8 @@ function ChatperTwoLevelThree() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={screenWidth - 90}
-                    lowerLimit={20}
+                    upperLimit={screenWidth - 70}
+                    lowerLimit={5}
                 />
             </GameEngine>
         </ImageBackground>
