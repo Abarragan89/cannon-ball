@@ -21,8 +21,8 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
-import longHindOne from "../../../../systems/hinderanceDetection/longHindOne";
-import longHindTwo from "../../../../systems/hinderanceDetection/longHindTwo";
+import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
+import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
 
 function ChatperThreeLevelOne() {
     // The game data accepts refs and state for each aspect of the game
@@ -64,8 +64,8 @@ function ChatperThreeLevelOne() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    longHindOne,
-                    longHindTwo
+                    longHindSystemOne,
+                    longHindSystemTwo
                 ]}
                 entities={{
                     cannonBall: {
@@ -121,11 +121,11 @@ function ChatperThreeLevelOne() {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
                     },
-                    hinderance: {
+                    longHindOne: {
                         position: [screenWidth - 210, 60],
                         renderer: <LongHind />
                     },
-                    hinderance2: {
+                    longHindTwo: {
                         position: [screenWidth - 120, 160],
                         renderer: <LongHind />
                     }

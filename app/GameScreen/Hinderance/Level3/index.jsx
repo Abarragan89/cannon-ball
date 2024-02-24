@@ -18,10 +18,9 @@ import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
-const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
-import GiantTallOne from "../../../../systems/hinderanceDetection/GiantTallOne";
+import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
 
 
 function ChatperThreeLevelThree() {
@@ -64,7 +63,7 @@ function ChatperThreeLevelThree() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    GiantTallOne
+                    giantTallSystemOne
                 ]}
                 entities={{
                     cannonBall: {
@@ -120,7 +119,7 @@ function ChatperThreeLevelThree() {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
                     },
-                    giantHinderance: {
+                    giantTallOne: {
                         position: [250, 75],
                         renderer: <GiantTallHind />
                     }

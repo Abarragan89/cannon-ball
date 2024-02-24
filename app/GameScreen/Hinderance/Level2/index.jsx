@@ -121,11 +121,11 @@ function ChapterThreeLevelTwo() {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
                     },
-                    hinderance: {
+                    tallHindOne: {
                         position: [screenWidth - 173, 70],
                         renderer: <TallHind />
                     },
-                    hinderance2: {
+                    tallHindTwo: {
                         position: [screenWidth - 228, 70],
                         renderer: <TallHind />
                     }

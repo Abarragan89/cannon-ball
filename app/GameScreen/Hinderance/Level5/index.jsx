@@ -20,6 +20,14 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
+import tallHindOne from "../../../../systems/hinderanceDetection/TallHindOne";
+import TallHind from "../../../../Components/GameEngine/Hinderances/TallHind";
+import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
+import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
+import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
+import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
+
+
 
 
 function ChapterThreeLevelFive() {
@@ -34,8 +42,8 @@ function ChapterThreeLevelFive() {
     // Power Data
     const powerLevelRef = useRef(15)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
-    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 100, 100])
+    const [cannonPositionState, setCannonPositionState] = useState([100, 100])
+    const cannonPositionRef = useRef([100, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -61,6 +69,8 @@ function ChapterThreeLevelFive() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
+                    tallHindOne,
+                    giantTallSystemOne
                 ]}
                 entities={{
                     cannonBall: {
@@ -115,6 +125,14 @@ function ChapterThreeLevelFive() {
                     powerMeter: {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
+                    },
+                    tallHindOne: {
+                        position: [100, 200],
+                        renderer: <TallHind />
+                    },
+                    giantTallOne: {
+                        position: [200, 250],
+                        renderer: <GiantTallHind />
                     }
                 }}>
                 <StatusBar hidden={true} />

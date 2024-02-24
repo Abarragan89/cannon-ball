@@ -1,4 +1,4 @@
-const GiantTallOne = (entities) => {
+const giantTallSystemOne = (entities) => {
     // Variables to determine collision of Cannon Ball and Top of Hinderance
     // the X1 adn X2 lines are slightly within the Hinderance box. It needs to appear
     // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
@@ -12,31 +12,31 @@ const GiantTallOne = (entities) => {
     // it bounces left when the cannon touches it. 
     // minus 3 will raise this higher to cover handle a little bit.
     // LEFT LINE OF HINDERANCE BOX
-    const leftLineX1 = entities.giantHinderance.position[0];
-    const leftLineY1 = entities.giantHinderance.position[1] + 3;
-    const leftLineX2 = entities.giantHinderance.position[0];
-    const leftLineY2 = entities.giantHinderance.position[1] + 300;
+    const leftLineX1 = entities.giantTallOne.position[0];
+    const leftLineY1 = entities.giantTallOne.position[1] + 3;
+    const leftLineX2 = entities.giantTallOne.position[0];
+    const leftLineY2 = entities.giantTallOne.position[1] + 300;
 
     // RIGHT LINE OF HINDERANCE BOX
     // same as rightLine, I didn't make the coordinate exactly based on the 30px size of Hinderance
-    const rightLineX1 = entities.giantHinderance.position[0] + 67;
-    const rightLineY1 = entities.giantHinderance.position[1] + 3;
-    const rightLineX2 = entities.giantHinderance.position[0] + 67;
-    const rightLineY2 = entities.giantHinderance.position[1] + 300;
+    const rightLineX1 = entities.giantTallOne.position[0] + 67;
+    const rightLineY1 = entities.giantTallOne.position[1] + 3;
+    const rightLineX2 = entities.giantTallOne.position[0] + 67;
+    const rightLineY2 = entities.giantTallOne.position[1] + 300;
 
 
     // BOTTOM LINE OF HINDERANCE BOX
     // same as bottomLine, I didn't make the coordinate exactly based on the 30px size of Hinderance
-    const bottomLineX1 = entities.giantHinderance.position[0] + 3;
-    const bottomLineY1 = entities.giantHinderance.position[1] + 300;
-    const bottomLineX2 = entities.giantHinderance.position[0] + 67;
-    const bottomLineY2 = entities.giantHinderance.position[1] + 300;
+    const bottomLineX1 = entities.giantTallOne.position[0] + 3;
+    const bottomLineY1 = entities.giantTallOne.position[1] + 300;
+    const bottomLineX2 = entities.giantTallOne.position[0] + 67;
+    const bottomLineY2 = entities.giantTallOne.position[1] + 300;
 
     // TOP LINE OF HINDERANCE BOX
-    const topLineX1 = entities.giantHinderance.position[0];
-    const topLineY1 = entities.giantHinderance.position[1];
-    const topLineX2 = entities.giantHinderance.position[0] + 67;
-    const topLineY2 = entities.giantHinderance.position[1];
+    const topLineX1 = entities.giantTallOne.position[0];
+    const topLineY1 = entities.giantTallOne.position[1];
+    const topLineX2 = entities.giantTallOne.position[0] + 67;
+    const topLineY2 = entities.giantTallOne.position[1];
 
 
     // CIRCLE PROPERTIES
@@ -220,4 +220,4 @@ const GiantTallOne = (entities) => {
     return entities;
 }
 
-export default GiantTallOne;
+export default giantTallSystemOne;

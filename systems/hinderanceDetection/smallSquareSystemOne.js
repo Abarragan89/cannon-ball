@@ -1,4 +1,4 @@
-const smallSquareHindSys = (entities) => {
+const smallSquareSystemOne = (entities) => {
     // Variables to determine collision of Cannon Ball and Top of Hinderance
     // the X1 adn X2 lines are slightly within the Hinderance box. It needs to appear
     // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
@@ -12,31 +12,31 @@ const smallSquareHindSys = (entities) => {
     // it bounces left when the cannon touches it. 
     // minus 3 will raise this higher to cover handle a little bit.
     // LEFT LINE OF HINDERANCE BOX
-    const leftLineX1 = entities.squareHinderance.position[0];
-    const leftLineY1 = entities.squareHinderance.position[1];
-    const leftLineX2 = entities.squareHinderance.position[0];
-    const leftLineY2 = entities.squareHinderance.position[1] + 40;
+    const leftLineX1 = entities.squareHindOne.position[0];
+    const leftLineY1 = entities.squareHindOne.position[1];
+    const leftLineX2 = entities.squareHindOne.position[0];
+    const leftLineY2 = entities.squareHindOne.position[1] + 40;
 
     // RIGHT LINE OF HINDERANCE BOX
     // same as rightLine, I didn't make the coordinate exactly based on the 40px size of Hinderance
-    const rightLineX1 = entities.squareHinderance.position[0] + 40;
-    const rightLineY1 = entities.squareHinderance.position[1];
-    const rightLineX2 = entities.squareHinderance.position[0] + 40;
-    const rightLineY2 = entities.squareHinderance.position[1] + 40;
+    const rightLineX1 = entities.squareHindOne.position[0] + 40;
+    const rightLineY1 = entities.squareHindOne.position[1];
+    const rightLineX2 = entities.squareHindOne.position[0] + 40;
+    const rightLineY2 = entities.squareHindOne.position[1] + 40;
 
 
     // BOTTOM LINE OF HINDERANCE BOX
     // same as bottomLine, I didn't make the coordinate exactly based on the 40px size of Hinderance
-    const bottomLineX1 = entities.squareHinderance.position[0] + 3;
-    const bottomLineY1 = entities.squareHinderance.position[1] + 40;
-    const bottomLineX2 = entities.squareHinderance.position[0] + 37;
-    const bottomLineY2 = entities.squareHinderance.position[1] + 40;
+    const bottomLineX1 = entities.squareHindOne.position[0] + 3;
+    const bottomLineY1 = entities.squareHindOne.position[1] + 40;
+    const bottomLineX2 = entities.squareHindOne.position[0] + 37;
+    const bottomLineY2 = entities.squareHindOne.position[1] + 40;
 
     // TOP LINE OF HINDERANCE BOX
-    const topLineX1 = entities.squareHinderance.position[0];
-    const topLineY1 = entities.squareHinderance.position[1];
-    const topLineX2 = entities.squareHinderance.position[0] + 40;
-    const topLineY2 = entities.squareHinderance.position[1];
+    const topLineX1 = entities.squareHindOne.position[0];
+    const topLineY1 = entities.squareHindOne.position[1];
+    const topLineX2 = entities.squareHindOne.position[0] + 40;
+    const topLineY2 = entities.squareHindOne.position[1];
 
 
     // CIRCLE PROPERTIES
@@ -220,4 +220,4 @@ const smallSquareHindSys = (entities) => {
     return entities;
 }
 
-export default smallSquareHindSys;
+export default smallSquareSystemOne;

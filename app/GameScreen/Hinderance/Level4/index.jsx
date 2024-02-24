@@ -21,11 +21,11 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
-import GiantTallOne from "../../../../systems/hinderanceDetection/GiantTallOne";
+import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
 import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
-import longHindOne from "../../../../systems/hinderanceDetection/longHindOne";
+import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
 import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
-import smallSquareHindSys from "../../../../systems/hinderanceDetection/smallSquareHindSys";
+import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
 
 
 function ChapterThreeLevelFour() {
@@ -68,9 +68,9 @@ function ChapterThreeLevelFour() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    GiantTallOne,
-                    longHindOne,
-                    smallSquareHindSys
+                    giantTallSystemOne,
+                    longHindSystemOne,
+                    smallSquareSystemOne
                 ]}
                 entities={{
                     cannonBall: {
@@ -126,15 +126,15 @@ function ChapterThreeLevelFour() {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
                     },
-                    giantHinderance: {
+                    giantTallOne: {
                         position: [Math.floor(screenWidth / 2), 75],
                         renderer: <GiantTallHind />
                     },
-                    hinderance: {
+                    longHindOne: {
                         position: [200,200],
                         renderer: <LongHind />
                     },
-                    squareHinderance: {
+                    squareHindOne: {
                         position: [345, 60],
                         renderer: <SmallSquareHind />
                     }
