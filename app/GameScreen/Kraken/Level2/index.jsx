@@ -20,6 +20,12 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
+import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
+import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
+import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
+import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
+import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
+import krakenLevelTwo from "../../../../systems/krakenMovementSystems/krakenLevelTwo";
 
 
 function ChapterFourLevelTwo() {
@@ -34,8 +40,8 @@ function ChapterFourLevelTwo() {
     // Power Data
     const powerLevelRef = useRef(15)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
-    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 100, 100])
+    const [cannonPositionState, setCannonPositionState] = useState([screenWidth - 150, 100])
+    const cannonPositionRef = useRef([screenWidth - 150, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -62,6 +68,10 @@ function ChapterFourLevelTwo() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
+                    giantTallSystemOne,
+                    smallSquareSystemOne,
+                    smallSquareSystemTwo,
+                    krakenLevelTwo
                 ]}
                 entities={{
                     cannonBall: {
@@ -79,6 +89,7 @@ function ChapterFourLevelTwo() {
                     gameData: {
                         cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
+                        bounceLevel: 0.8
                     },
                     cannon: {
                         // only the postiion[0] gets updated by ref variables.
@@ -87,7 +98,7 @@ function ChapterFourLevelTwo() {
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [250, 100],
+                        position: [250, screenHeight - 110],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -116,6 +127,18 @@ function ChapterFourLevelTwo() {
                     powerMeter: {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
+                    },
+                    giantTallOne: {
+                        position: [Math.floor(screenWidth / 2 ), screenHeight - 315],
+                        renderer: <GiantTallHind />
+                    },
+                    squareHindOne: {
+                        position: [100, screenHeight - 200],
+                        renderer: <SmallSquareHind />
+                    },
+                    squareHindTwo: {
+                        position: [350, screenHeight - 300],
+                        renderer: <SmallSquareHind />
                     }
                 }}>
                 <StatusBar hidden={true} />
@@ -138,7 +161,7 @@ function ChapterFourLevelTwo() {
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
                     upperLimit={screenWidth - 70}
-                    lowerLimit={5}
+                    lowerLimit={Math.floor(screenWidth / 2) + 75}
                 />
             </GameEngine>
         </ImageBackground>

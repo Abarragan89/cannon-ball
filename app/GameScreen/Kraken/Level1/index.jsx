@@ -22,7 +22,7 @@ const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
-import krakenLevelOne from "../../../../systems/moveHinderanceSystems/krakenLevelOne";
+import krakenLevelOne from "../../../../systems/krakenMovementSystems/krakenLevelOne";
 
 function ChapterFourLevelOne() {
     // The game data accepts refs and state for each aspect of the game
