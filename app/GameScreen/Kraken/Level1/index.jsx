@@ -20,15 +20,11 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
-import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
 import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
+import krakenLevelOne from "../../../../systems/moveHinderanceSystems/krakenLevelOne";
 
-
-function ChapterThreeLevelFour() {
+function ChapterFourLevelOne() {
     // The game data accepts refs and state for each aspect of the game
     // the ref is used to game data state and remain consistent through rerenders
     // the state is used to manage the components that use that data so rerenders are triggered
@@ -40,8 +36,8 @@ function ChapterThreeLevelFour() {
     // Power Data
     const powerLevelRef = useRef(15)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([screenWidth - 200, 100])
-    const cannonPositionRef = useRef([screenWidth - 200, 100])
+    const [cannonPositionState, setCannonPositionState] = useState([100, 100])
+    const cannonPositionRef = useRef([100, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -50,12 +46,12 @@ function ChapterThreeLevelFour() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Hinderance/Level5'
+        nextLevel: 'Kraken/Level2'
     })
     return (
 
         <ImageBackground
-            source={require('../../../../assets/images/basics/level1.png')}
+            source={require('../../../../assets/images/basics/short.png')}
             style={styles.backgroundImg}
         >
             <GameEngine
@@ -68,9 +64,8 @@ function ChapterThreeLevelFour() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    giantTallSystemOne,
-                    longHindSystemOne,
-                    smallSquareSystemOne
+                    smallSquareSystemOne,
+                    krakenLevelOne
                 ]}
                 entities={{
                     cannonBall: {
@@ -92,12 +87,12 @@ function ChapterThreeLevelFour() {
                     },
                     cannon: {
                         // only the postiion[0] gets updated by ref variables.
-                        position: [0, screenHeight - 90],
+                        position: [400, screenHeight - 90],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [350, 150],
+                        position: [screenWidth / 2 + 170, screenHeight / 2 - 20],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -127,23 +122,15 @@ function ChapterThreeLevelFour() {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
                     },
-                    giantTallOne: {
-                        position: [Math.floor(screenWidth / 2), screenHeight - 315],
-                        renderer: <GiantTallHind />
-                    },
-                    longHindOne: {
-                        position: [210,200],
-                        renderer: <LongHind />
-                    },
                     squareHindOne: {
-                        position: [345, 60],
+                        position: [100, 100],
                         renderer: <SmallSquareHind />
                     }
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
                     route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Hinderance' }}
+                    params={{ mapName: 'Kraken' }}
                 />
 
                 {isGameOver &&
@@ -159,8 +146,8 @@ function ChapterThreeLevelFour() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={screenWidth - 70}
-                    lowerLimit={Math.floor(screenWidth / 2) + 75}
+                    upperLimit={250}
+                    lowerLimit={5}
                 />
             </GameEngine>
         </ImageBackground>
@@ -197,4 +184,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChapterThreeLevelFour;
+export default ChapterFourLevelOne;

@@ -45,7 +45,7 @@ function ChatperThreeLevelThree() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Hinderance/Level2'
+        nextLevel: 'Hinderance/Level4'
     })
     return (
 
@@ -121,7 +121,7 @@ function ChatperThreeLevelThree() {
                         renderer: <PowerMeter />
                     },
                     giantTallOne: {
-                        position: [250, 75],
+                        position: [250, screenHeight - 315],
                         renderer: <GiantTallHind />
                     }
                 }}>

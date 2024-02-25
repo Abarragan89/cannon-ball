@@ -132,11 +132,11 @@ function ChapterThreeLevelFive() {
                         renderer: <PowerMeter />
                     },
                     giantTallOne: {
-                        position: [Math.floor(screenWidth / 2) - 170, 70],
+                        position: [Math.floor(screenWidth / 2) - 170, screenHeight - 315],
                         renderer: <GiantTallHind />
                     },
                     giantTallTwo: {
-                        position: [Math.floor(screenWidth / 2) + 120, 70],
+                        position: [Math.floor(screenWidth / 2) + 120, screenHeight - 315],
                         renderer: <GiantTallHind />
                     },
                     longHindOne: {
