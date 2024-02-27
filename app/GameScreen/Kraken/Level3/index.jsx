@@ -20,13 +20,14 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
+import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
+import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
+import krakenLevelThree from "../../../../systems/krakenMovementSystems/krakenLevelThree";
 
-
-function ChapterFourLevelThree() {
+function ChatperFourLevelThree() {
     // The game data accepts refs and state for each aspect of the game
     // the ref is used to game data state and remain consistent through rerenders
     // the state is used to manage the components that use that data so rerenders are triggered
-
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data
@@ -34,8 +35,8 @@ function ChapterFourLevelThree() {
     // Power Data
     const powerLevelRef = useRef(15)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
-    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 100, 100])
+    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 30, 100])
+    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 30, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -49,7 +50,7 @@ function ChapterFourLevelThree() {
     return (
 
         <ImageBackground
-            source={require('../../../../assets/images/basics/level1.png')}
+            source={require('../../../../assets/images/basics/stuck.png')}
             style={styles.backgroundImg}
         >
             <GameEngine
@@ -62,6 +63,8 @@ function ChapterFourLevelThree() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
+                    longHindSystemOne,
+                    krakenLevelThree
                 ]}
                 entities={{
                     cannonBall: {
@@ -79,15 +82,17 @@ function ChapterFourLevelThree() {
                     gameData: {
                         cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
+                        // there is no reduction in Y movement when bouncing
+                        bounceLevel: 1
                     },
                     cannon: {
                         // only the postiion[0] gets updated by ref variables.
-                        position: [400, screenHeight - 90],
+                        position: [400, screenHeight - 120],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [250, 100],
+                        position: [Math.floor(screenWidth / 2) - 15, 150],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -116,6 +121,15 @@ function ChapterFourLevelThree() {
                     powerMeter: {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
+                    },
+                    longHindOne: {
+                        position: [50, 200],
+                        renderer: <LongHind />
+                    },
+                    longHindTwo: {
+                        rotate: '0deg',
+                        position: [50, screenWidth - 100], 
+                        renderer: <LongHind />
                     }
                 }}>
                 <StatusBar hidden={true} />
@@ -137,8 +151,8 @@ function ChapterFourLevelThree() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={screenWidth - 70}
-                    lowerLimit={5}
+                    upperLimit={-1}
+                    lowerLimit={1000}
                 />
             </GameEngine>
         </ImageBackground>
@@ -175,4 +189,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChapterFourLevelThree;
+export default ChatperFourLevelThree;

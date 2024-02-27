@@ -1,12 +1,13 @@
 import { View, StyleSheet } from "react-native"
 import colors from "../../../constants/colors";
 
-const LongHind = ({ position }) => {
+const LongHind = ({ position, rotate='0deg' }) => {
   return (
     <View 
         style={[styles.root, {
             left: position[0],
             top: position[1],
+            transform: [{ rotate: rotate }]
         }]}
         
     />

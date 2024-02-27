@@ -1,9 +1,9 @@
 import { Dimensions } from "react-native";
-const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 let squareOneDirection = 'left';
 let squareTwoDirection = 'right';
+let squareThreeDirection = 'left';
 let tntDirection = 'left'
 
 const krakenLevelTwo = (entities) => {
@@ -33,6 +33,20 @@ const krakenLevelTwo = (entities) => {
         } else if (squareTwoDirection === 'left') {
             entities.squareHindTwo.position[0] -= 2;
         }
+
+        // Move the third square entity
+        if (entities.squareHindThree.position[0] > (Math.floor(screenWidth) / 2) - 40) {
+            squareThreeDirection = 'left';
+        }
+        if (entities.squareHindThree.position[0] <= 0) {
+            squareThreeDirection = 'right';
+        }
+        if (squareThreeDirection === 'right') {
+            entities.squareHindThree.position[0] += 2;
+        } else if (squareThreeDirection === 'left') {
+            entities.squareHindThree.position[0] -= 2;
+        }
+
 
         // Move the TNT
         // Move the first square entity

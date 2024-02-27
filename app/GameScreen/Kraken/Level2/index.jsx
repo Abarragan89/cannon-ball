@@ -25,6 +25,7 @@ import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTal
 import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
 import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
+import smallSquareSystemThree from "../../../../systems/hinderanceDetection/smallSquareSystemThree";
 import krakenLevelTwo from "../../../../systems/krakenMovementSystems/krakenLevelTwo";
 
 
@@ -71,6 +72,7 @@ function ChapterFourLevelTwo() {
                     giantTallSystemOne,
                     smallSquareSystemOne,
                     smallSquareSystemTwo,
+                    smallSquareSystemThree,
                     krakenLevelTwo
                 ]}
                 entities={{
@@ -133,11 +135,15 @@ function ChapterFourLevelTwo() {
                         renderer: <GiantTallHind />
                     },
                     squareHindOne: {
-                        position: [100, screenHeight - 200],
+                        position: [0, screenHeight - 200],
                         renderer: <SmallSquareHind />
                     },
                     squareHindTwo: {
-                        position: [350, screenHeight - 300],
+                        position: [Math.floor(screenWidth / 4 ) - 10, screenHeight - 250],
+                        renderer: <SmallSquareHind />
+                    },
+                    squareHindThree: {
+                        position: [Math.floor(screenWidth / 2 ) - 50, screenHeight - 300],
                         renderer: <SmallSquareHind />
                     }
                 }}>
