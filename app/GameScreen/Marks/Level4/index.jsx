@@ -114,7 +114,7 @@ function ChatperTwoLevelFour() {
                     powerMeter: {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
-                    }
+                    },
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow

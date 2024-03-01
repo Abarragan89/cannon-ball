@@ -18,7 +18,7 @@ const moveTNTMarksLevelFour = (entities) => {
         const tntX = centerX + radius * Math.cos(angle);
         const tntY = centerY + radius * Math.sin(angle);
     
-        entities.smallSquareHind.position[0] = tntX;
+        entities.TNT.position[0] = tntX;
         entities.TNT.position[1] = tntY;
     }
     return entities;

@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native"
 import colors from "../../../constants/colors";
 
-const LongHind = ({ position }) => {
+const ExtraLongHind = ({ position }) => {
   return (
     <View 
         style={[styles.root, {
@@ -13,14 +13,14 @@ const LongHind = ({ position }) => {
   )
 }
 
-export default LongHind;
+export default ExtraLongHind;
 
 const styles = StyleSheet.create({
     root: {
         position: 'absolute',
         display: 'block',
         height: 30,
-        width: 120,
+        width: 270,
         backgroundColor: colors.sandColor,
         borderRadius: 4,
         borderWidth: 1,

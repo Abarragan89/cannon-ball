@@ -21,7 +21,9 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
+import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLongHind";
 import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
+import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
 import krakenLevelThree from "../../../../systems/krakenMovementSystems/krakenLevelThree";
 
 function ChatperFourLevelThree() {
@@ -64,6 +66,7 @@ function ChatperFourLevelThree() {
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     longHindSystemOne,
+                    longHindSystemTwo,
                     krakenLevelThree
                 ]}
                 entities={{
@@ -127,9 +130,12 @@ function ChatperFourLevelThree() {
                         renderer: <LongHind />
                     },
                     longHindTwo: {
-                        rotate: '0deg',
-                        position: [50, screenWidth - 100], 
+                        position: [screenWidth - 200, 200], 
                         renderer: <LongHind />
+                    },
+                    extraLongHindOne: {
+                        position: [100, 100],
+                        renderer: <ExtraLongHind />
                     }
                 }}>
                 <StatusBar hidden={true} />
