@@ -20,6 +20,17 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
+import CannonStand from "../../../../Components/GameEngine/Hinderances/CannonStand";
+import krakenLevelFour from "../../../../systems/krakenMovementSystems/krakenLevelFour";
+import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
+import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
+import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
+import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
+import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
+import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
+import longHindSystemThree from "../../../../systems/hinderanceDetection/longHindSystemThree";
+import longHindSystemFour from "../../../../systems/hinderanceDetection/longHindSystemFour";
+import cannonDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
 
 
 function ChapterFourLevelFour() {
@@ -34,8 +45,8 @@ function ChapterFourLevelFour() {
     // Power Data
     const powerLevelRef = useRef(15)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
-    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 100, 100])
+    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 34, 100])
+    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 34, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -62,6 +73,14 @@ function ChapterFourLevelFour() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
+                    cannonDetectionSystem,
+                    krakenLevelFour,
+                    smallSquareSystemOne,
+                    smallSquareSystemTwo,
+                    longHindSystemOne,
+                    longHindSystemTwo,
+                    longHindSystemThree,
+                    longHindSystemFour
                 ]}
                 entities={{
                     cannonBall: {
@@ -79,15 +98,16 @@ function ChapterFourLevelFour() {
                     gameData: {
                         cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
+                        bounceLevel: .9
                     },
                     cannon: {
                         // only the postiion[0] gets updated by ref variables.
-                        position: [400, screenHeight - 90],
+                        position: [400, -2],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [250, 100],
+                        position: [250, screenHeight - 40],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -116,7 +136,36 @@ function ChapterFourLevelFour() {
                     powerMeter: {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
+                    },
+                    cannonStand: {
+                        position: [Math.floor(screenWidth / 2) - 35, 75], 
+                        renderer: <CannonStand />
+                    },
+                    squareHindOne: {
+                        position: [0, 100],
+                        renderer: <SmallSquareHind />
+                    },
+                    squareHindTwo: {
+                        position: [screenWidth - 40, 100],
+                        renderer: <SmallSquareHind />
+                    },
+                    longHindOne: {
+                        position: [Math.floor(screenWidth/2) - 120, 180],
+                        renderer: <LongHind />
+                    },
+                    longHindTwo: {
+                        position: [Math.floor(screenWidth/2), 180],
+                        renderer: <LongHind />
+                    },
+                    longHindThree: {
+                        position: [0, 260],
+                        renderer: <LongHind />
+                    },
+                    longHindFour: {
+                        position: [screenWidth - 120, 260],
+                        renderer: <LongHind />
                     }
+
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
@@ -137,8 +186,8 @@ function ChapterFourLevelFour() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={screenWidth - 70}
-                    lowerLimit={5}
+                    upperLimit={-1}
+                    lowerLimit={1000}
                 />
             </GameEngine>
         </ImageBackground>

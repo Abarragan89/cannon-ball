@@ -25,7 +25,6 @@ const krakenLevelOne = (entities) => {
 
     }
 
-
     // Move TNT 
     if (TNTMovementCounter >= 200) {
         TNTDirection = 'up';
