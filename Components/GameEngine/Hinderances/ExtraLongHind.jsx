@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         display: 'block',
         height: 30,
-        width: 270,
+        width: 300,
         backgroundColor: colors.sandColor,
         borderRadius: 4,
         borderWidth: 1,

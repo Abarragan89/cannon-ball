@@ -21,9 +21,12 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
-import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLongHind";
 import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
 import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
+import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLongHind";
+import extraLongHindSystemOne from "../../../../systems/hinderanceDetection/extraLongHindSystemOne";
+import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
+import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
 import krakenLevelThree from "../../../../systems/krakenMovementSystems/krakenLevelThree";
 
 function ChatperFourLevelThree() {
@@ -37,8 +40,8 @@ function ChatperFourLevelThree() {
     // Power Data
     const powerLevelRef = useRef(15)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 30, 100])
-    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 30, 100])
+    const [cannonPositionState, setCannonPositionState] = useState([20, 100])
+    const cannonPositionRef = useRef([20, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -52,7 +55,7 @@ function ChatperFourLevelThree() {
     return (
 
         <ImageBackground
-            source={require('../../../../assets/images/basics/stuck.png')}
+            source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
             <GameEngine
@@ -67,6 +70,8 @@ function ChatperFourLevelThree() {
                     fireCannonSystem,
                     longHindSystemOne,
                     longHindSystemTwo,
+                    extraLongHindSystemOne,
+                    smallSquareSystemOne,
                     krakenLevelThree
                 ]}
                 entities={{
@@ -86,16 +91,16 @@ function ChatperFourLevelThree() {
                         cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
                         // there is no reduction in Y movement when bouncing
-                        bounceLevel: 1
+                        bounceLevel: 0.5
                     },
                     cannon: {
                         // only the postiion[0] gets updated by ref variables.
-                        position: [400, screenHeight - 120],
+                        position: [400, 43],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 2) - 15, 150],
+                        position: [50, screenHeight - 200],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -125,18 +130,27 @@ function ChatperFourLevelThree() {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
                     },
+                    // This is the cannon Base
                     longHindOne: {
-                        position: [50, 200],
+                        position: [0, 120],
                         renderer: <LongHind />
                     },
                     longHindTwo: {
-                        position: [screenWidth - 200, 200], 
+                        position: [screenWidth - 270, 200], 
                         renderer: <LongHind />
                     },
+                    squareHindOne: {
+                        position: [screenWidth - 500, 300],
+                        renderer: <SmallSquareHind />
+                    },
                     extraLongHindOne: {
-                        position: [100, 100],
+                        position: [-3, 0],
                         renderer: <ExtraLongHind />
-                    }
+                    },
+                    // extraLongHindTwo: {
+                    //     position: [screenWidth - 400, 100],
+                    //     renderer: <ExtraLongHind />
+                    // }
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
@@ -157,8 +171,8 @@ function ChatperFourLevelThree() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={-1}
-                    lowerLimit={1000}
+                    upperLimit={50}
+                    lowerLimit={5}
                 />
             </GameEngine>
         </ImageBackground>

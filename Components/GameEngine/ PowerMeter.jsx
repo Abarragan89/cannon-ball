@@ -35,8 +35,8 @@ function PowerMeter({ displayPower }) {
 
 const styles = StyleSheet.create({
     root: {
-        // flex: 1,
-        // zIndex: -1
+        flex: 1,
+        zIndex: 10
     },
     // numberDisplay: {
     //     marginTop: 10,
