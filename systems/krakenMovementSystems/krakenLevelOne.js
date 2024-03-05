@@ -1,11 +1,10 @@
 import { Dimensions } from "react-native";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
+import moveObstacleUpAndDown from "../../utils/moveObstacles/moveObstaclesUpAndDown";
 
 let angle = 0;
-const radius = 100// Adjust the radius as needed
-let TNTDirection = 'up';
-let TNTMovementCounter = 0;
+const radius = 100
 
 const krakenLevelOne = (entities) => {
 
@@ -24,21 +23,8 @@ const krakenLevelOne = (entities) => {
         entities.squareHindOne.position[1] = hinderanceY;
 
     }
-
     // Move TNT 
-    if (TNTMovementCounter >= 200) {
-        TNTDirection = 'up';
-    }
-    if (TNTMovementCounter <= -200) {
-        TNTDirection = 'down';
-    }
-    if (TNTDirection === 'down') {
-        entities.TNT.position[1] += .2;
-        TNTMovementCounter += 1
-    } else if (TNTDirection === 'up') {
-        entities.TNT.position[1] -= .2;
-        TNTMovementCounter -= 1
-    }
+    moveObstacleUpAndDown(entities.TNT, 130, 150, .6)
     return entities;
 }
 

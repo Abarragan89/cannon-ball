@@ -25,12 +25,12 @@ import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/Small
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
 import LongHind from '../../../../Components/GameEngine/Hinderances/LongHind';
 import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
 import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
 import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
 import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLongHind";
 import extraLongHindSystemOne from "../../../../systems/hinderanceDetection/extraLongHindSystemOne";
 import krakenLevelFiveSystems from "../../../../systems/krakenMovementSystems/krakenLevelFive";
+import cannonStandDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
 
 function ChapterFourLevelFive() {
     // The game data accepts refs and state for each aspect of the game
@@ -82,9 +82,9 @@ function ChapterFourLevelFive() {
                     fireCannonSystem,
                     smallSquareSystemOne,
                     longHindSystemOne,
-                    longHindSystemTwo,
                     giantTallSystemOne,
                     extraLongHindSystemOne,
+                    cannonStandDetectionSystem,
                     krakenLevelFiveSystems
                 ]}
                 entities={{
@@ -147,11 +147,7 @@ function ChapterFourLevelFive() {
                         renderer: <ExtraLongHind />
                     },
                     longHindOne: {
-                        position: [Math.floor(screenWidth / 2) - 200, screenHeight - 50],
-                        renderer: <LongHind />
-                    },
-                    longHindTwo: {
-                        position: [Math.floor(screenWidth / 2) - 200, 50],
+                        position: [Math.floor(screenWidth / 2) - 180, screenHeight - 50],
                         renderer: <LongHind />
                     },
                     // this is the square closest to the cannon
