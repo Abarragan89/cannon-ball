@@ -1,6 +1,6 @@
 // import hinderanceDetection from '../../utils/detectionFunction';
 
-const cannonDetectionSystem = (entities) => {
+const cannonStandDetectionSystem = (entities) => {
     // LEFT LINE OF HINDERANCE BOX
     const leftLineX1 = entities.cannonStand.position[0];
     const leftLineY1 = entities.cannonStand.position[1] + 3;
@@ -206,4 +206,4 @@ const cannonDetectionSystem = (entities) => {
     return entities;
 }
 
-export default cannonDetectionSystem;
+export default cannonStandDetectionSystem;

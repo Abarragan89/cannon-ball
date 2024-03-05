@@ -1,5 +1,3 @@
-// import hinderanceDetection from '../../utils/detectionFunction';
-
 const extraLongHindSystemTwo = (entities) => {
     // LEFT LINE OF HINDERANCE BOX
     const leftLineX1 = entities.extraLongHindTwo.position[0];
