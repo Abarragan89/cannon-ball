@@ -68,11 +68,11 @@ const CampaignOverview = () => {
                     <MainButton
                         route="/LevelLobbyScreen"
                         params={{
-                            mapName: 'Ghost',
+                            mapName: 'Hatch',
                         }}
                         imgSrc={mainBtnImgSrc}
                     >
-                        Ghost
+                        Hatch
                     </MainButton>
                     </View>
                 </View>

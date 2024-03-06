@@ -144,13 +144,9 @@ function ChatperFourLevelThree() {
                         renderer: <SmallSquareHind />
                     },
                     extraLongHindOne: {
-                        position: [-3, 0],
+                        position: [-3, -2],
                         renderer: <ExtraLongHind />
                     },
-                    // extraLongHindTwo: {
-                    //     position: [screenWidth - 400, 100],
-                    //     renderer: <ExtraLongHind />
-                    // }
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow

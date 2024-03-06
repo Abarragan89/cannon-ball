@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -20,19 +20,12 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import CannonStand from "../../../../Components/GameEngine/Hinderances/CannonStand";
-import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
-import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
-import LongHind from '../../../../Components/GameEngine/Hinderances/LongHind';
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
-import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLongHind";
-import extraLongHindSystemOne from "../../../../systems/hinderanceDetection/extraLongHindSystemOne";
-import krakenLevelFiveSystems from "../../../../systems/krakenMovementSystems/krakenLevelFive";
-import cannonStandDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
+import HatchBtnBottom from '../../../../Components/GameEngine/HatchButtons/HatchBtnBottom'
+import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
+import hatchLevelOneSystem from "../../../../systems/hatchDetectionSystems/hatchLevelOneSystem";
+import colors from "../../../../constants/colors";
 
-function ChapterFourLevelFive() {
+function ChapterFiveLevelOne() {
     // The game data accepts refs and state for each aspect of the game
     // the ref is used to game data state and remain consistent through rerenders
     // the state is used to manage the components that use that data so rerenders are triggered
@@ -44,8 +37,8 @@ function ChapterFourLevelFive() {
     // Power Data
     const powerLevelRef = useRef(15)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([screenWidth - 80, 150])
-    const cannonPositionRef = useRef([screenWidth - 80, 150])
+    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
+    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 100, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -54,16 +47,8 @@ function ChapterFourLevelFive() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Hatch/Level1'
+        nextLevel: 'Hatch/Level2'
     })
-
-    useEffect(() => {
-        return () => {
-            if (gameEngineRef.current && gameEngineRef.current.stop) {
-                gameEngineRef.current.stop();
-            }
-        }
-    }, [gameEngineRef.current])
     return (
 
         <ImageBackground
@@ -80,12 +65,8 @@ function ChapterFourLevelFive() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    smallSquareSystemOne,
-                    longHindSystemOne,
-                    giantTallSystemOne,
-                    extraLongHindSystemOne,
-                    cannonStandDetectionSystem,
-                    krakenLevelFiveSystems
+                    hatchBtnDetectionSystem,
+                    hatchLevelOneSystem
                 ]}
                 entities={{
                     cannonBall: {
@@ -103,16 +84,16 @@ function ChapterFourLevelFive() {
                     gameData: {
                         cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
-                        bounceLevel: 0.8
+                        bounceLevel: 0.8,
                     },
                     cannon: {
                         // only the postiion[0] gets updated by ref variables.
-                        position: [400, 75],
+                        position: [400, screenHeight - 90],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [250, 150],
+                        position: [250, 100],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -142,33 +123,19 @@ function ChapterFourLevelFive() {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
                     },
-                    extraLongHindOne: {
-                        position: [-5, -2],
-                        renderer: <ExtraLongHind />
-                    },
-                    longHindOne: {
-                        position: [Math.floor(screenWidth / 2) - 180, screenHeight - 50],
-                        renderer: <LongHind />
-                    },
-                    // this is the square closest to the cannon
-                    squareHindOne: {
-                        position: [Math.floor(screenWidth / 2), screenHeight - 50],
-                        renderer: <SmallSquareHind />
-                    },
-                    giantTallOne: {
-                        position: [Math.floor(screenWidth / 2) + 55, -50],
-                        renderer: <GiantTallHind />
-                    },
-                    cannonStand: {
-                        position: [screenWidth - 82, 150],
-                        renderer: <CannonStand />
+                    hatchBtn: {
+                        isHit: false,
+                        topPosition: 33,
+                        color: colors.primaryOrange,
+                        isTriggerOnBottom: true,
+                        position: [250, 200],
+                        renderer: <HatchBtnBottom />
                     }
-
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
                     route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Kraken' }}
+                    params={{ mapName: 'Hatch' }}
                 />
 
                 {isGameOver &&
@@ -222,4 +189,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChapterFourLevelFive;
+export default ChapterFiveLevelOne;
