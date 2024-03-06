@@ -153,11 +153,6 @@ function ChatperThreeLevelOne() {
                     upperLimit={screenWidth - 70}
                     lowerLimit={5}
                 />
-                {/* <Hinderance
-                    left={screenWidth - 130} 
-                    top={50}
-
-                /> */}
             </GameEngine>
         </ImageBackground>
     );

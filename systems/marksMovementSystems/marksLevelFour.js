@@ -20,8 +20,6 @@ const moveTNTMarksLevelFour = (entities) => {
     
         entities.TNT.position[0] = tntX;
         entities.TNT.position[1] = tntY;
-    
-        return entities;
     }
     return entities;
 }

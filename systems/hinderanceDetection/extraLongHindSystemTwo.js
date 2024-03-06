@@ -1,30 +1,28 @@
-// import hinderanceDetection from '../../utils/detectionFunction';
-
-const longHindSystemOne = (entities) => {
+const extraLongHindSystemTwo = (entities) => {
     // LEFT LINE OF HINDERANCE BOX
-    const leftLineX1 = entities.longHindOne.position[0];
-    const leftLineY1 = entities.longHindOne.position[1] + 3;
-    const leftLineX2 = entities.longHindOne.position[0];
-    const leftLineY2 = entities.longHindOne.position[1] + 30;
+    const leftLineX1 = entities.extraLongHindTwo.position[0];
+    const leftLineY1 = entities.extraLongHindTwo.position[1] + 3;
+    const leftLineX2 = entities.extraLongHindTwo.position[0];
+    const leftLineY2 = entities.extraLongHindTwo.position[1] + 30;
     
     // RIGHT LINE OF HINDERANCE BOX
-    const rightLineX1 = entities.longHindOne.position[0] + 117;
-    const rightLineY1 = entities.longHindOne.position[1] + 3;
-    const rightLineX2 = entities.longHindOne.position[0] + 117;
-    const rightLineY2 = entities.longHindOne.position[1] + 30;
+    const rightLineX1 = entities.extraLongHindTwo.position[0] + 297;
+    const rightLineY1 = entities.extraLongHindTwo.position[1] + 3;
+    const rightLineX2 = entities.extraLongHindTwo.position[0] + 297;
+    const rightLineY2 = entities.extraLongHindTwo.position[1] + 30;
     
     
     // BOTTOM LINE OF HINDERANCE BOX
-    const bottomLineX1 = entities.longHindOne.position[0] + 3;
-    const bottomLineY1 = entities.longHindOne.position[1] + 30;
-    const bottomLineX2 = entities.longHindOne.position[0] + 117;
-    const bottomLineY2 = entities.longHindOne.position[1] + 30;
+    const bottomLineX1 = entities.extraLongHindTwo.position[0] + 3;
+    const bottomLineY1 = entities.extraLongHindTwo.position[1] + 30;
+    const bottomLineX2 = entities.extraLongHindTwo.position[0] + 297;
+    const bottomLineY2 = entities.extraLongHindTwo.position[1] + 30;
     
     // TOP LINE OF HINDERANCE BOX
-    const topLineX1 = entities.longHindOne.position[0];
-    const topLineY1 = entities.longHindOne.position[1];
-    const topLineX2 = entities.longHindOne.position[0] + 117;
-    const topLineY2 = entities.longHindOne.position[1];
+    const topLineX1 = entities.extraLongHindTwo.position[0];
+    const topLineY1 = entities.extraLongHindTwo.position[1];
+    const topLineX2 = entities.extraLongHindTwo.position[0] + 297;
+    const topLineY2 = entities.extraLongHindTwo.position[1];
     
     // CIRCLE PROPERTIES
     const radius = 10;
@@ -206,4 +204,4 @@ const longHindSystemOne = (entities) => {
     return entities;
 }
 
-export default longHindSystemOne;
+export default extraLongHindSystemTwo

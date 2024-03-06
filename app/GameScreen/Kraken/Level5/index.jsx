@@ -1,11 +1,10 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
 import cannonBallTNTDetectionSystem from "../../../../systems/cannonBallTNTDetectionSystem";
-import moveTNTMarksLevelFour from "../../../../systems/marksMovementSystems/marksLevelFour";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
@@ -18,21 +17,35 @@ import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
+const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height
 import BackArrow from "../../../../Components/UI/BackArrow";
+import CannonStand from "../../../../Components/GameEngine/Hinderances/CannonStand";
+import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
+import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
+import LongHind from '../../../../Components/GameEngine/Hinderances/LongHind';
+import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
+import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
+import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
+import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLongHind";
+import extraLongHindSystemOne from "../../../../systems/hinderanceDetection/extraLongHindSystemOne";
+import krakenLevelFiveSystems from "../../../../systems/krakenMovementSystems/krakenLevelFive";
+import cannonStandDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
 
-function ChatperTwoLevelFour() {
+function ChapterFourLevelFive() {
+    // The game data accepts refs and state for each aspect of the game
+    // the ref is used to game data state and remain consistent through rerenders
+    // the state is used to manage the components that use that data so rerenders are triggered
+
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
-    // This powerLevel is for Display
     const powerLevelRef = useRef(15)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 200, 100])
-    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 200, 100])
+    const [cannonPositionState, setCannonPositionState] = useState([screenWidth - 80, 150])
+    const cannonPositionRef = useRef([screenWidth - 80, 150])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -41,12 +54,20 @@ function ChatperTwoLevelFour() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Marks/Level5'
+        nextLevel: 'Hatch/Level1'
     })
 
+    useEffect(() => {
+        return () => {
+            if (gameEngineRef.current && gameEngineRef.current.stop) {
+                gameEngineRef.current.stop();
+            }
+        }
+    }, [gameEngineRef.current])
     return (
+
         <ImageBackground
-            source={require('../../../../assets/images/basics/short.png')}
+            source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
             <GameEngine
@@ -59,7 +80,12 @@ function ChatperTwoLevelFour() {
                     cannonBallTNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    moveTNTMarksLevelFour
+                    smallSquareSystemOne,
+                    longHindSystemOne,
+                    giantTallSystemOne,
+                    extraLongHindSystemOne,
+                    cannonStandDetectionSystem,
+                    krakenLevelFiveSystems
                 ]}
                 entities={{
                     cannonBall: {
@@ -77,15 +103,16 @@ function ChatperTwoLevelFour() {
                     gameData: {
                         cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
+                        bounceLevel: 0.8
                     },
                     cannon: {
                         // only the postiion[0] gets updated by ref variables.
-                        position: [400, screenHeight - 90],
+                        position: [400, 75],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth/2), 100],
+                        position: [250, 150],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -115,11 +142,33 @@ function ChatperTwoLevelFour() {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
                     },
+                    extraLongHindOne: {
+                        position: [-5, -2],
+                        renderer: <ExtraLongHind />
+                    },
+                    longHindOne: {
+                        position: [Math.floor(screenWidth / 2) - 180, screenHeight - 50],
+                        renderer: <LongHind />
+                    },
+                    // this is the square closest to the cannon
+                    squareHindOne: {
+                        position: [Math.floor(screenWidth / 2), screenHeight - 50],
+                        renderer: <SmallSquareHind />
+                    },
+                    giantTallOne: {
+                        position: [Math.floor(screenWidth / 2) + 55, -50],
+                        renderer: <GiantTallHind />
+                    },
+                    cannonStand: {
+                        position: [screenWidth - 82, 150],
+                        renderer: <CannonStand />
+                    }
+
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
                     route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Marks' }}
+                    params={{ mapName: 'Kraken' }}
                 />
 
                 {isGameOver &&
@@ -135,7 +184,7 @@ function ChatperTwoLevelFour() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={250}
+                    upperLimit={screenWidth - 70}
                     lowerLimit={5}
                 />
             </GameEngine>
@@ -149,7 +198,7 @@ const styles = StyleSheet.create({
         top: -85,
         bottom: 0,
         left: 0,
-        right: 0,
+        right: 0
     },
     container: {
         position: 'absolute',
@@ -173,4 +222,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChatperTwoLevelFour;
+export default ChapterFourLevelFive;

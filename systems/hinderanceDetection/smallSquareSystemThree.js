@@ -1,48 +1,66 @@
-// import hinderanceDetection from '../../utils/detectionFunction';
+const smallSquareSystemThree = (entities) => {
+    // Variables to determine collision of Cannon Ball and Top of Hinderance
+    // the X1 adn X2 lines are slightly within the Hinderance box. It needs to appear
+    // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
+    // did not all the total 30 px length (only added 25)
 
-const longHindSystemOne = (entities) => {
+    // ** This only works if the Hinderance box is right side up. 
+    // Need to make this dynamic if i want to rotate it. 
+
+    // Left LINE OF Hinderance BOX
+    // the box is 30 by 30. I added a 5px perimeter around it so it looks like 
+    // it bounces left when the cannon touches it. 
+    // minus 3 will raise this higher to cover handle a little bit.
     // LEFT LINE OF HINDERANCE BOX
-    const leftLineX1 = entities.longHindOne.position[0];
-    const leftLineY1 = entities.longHindOne.position[1] + 3;
-    const leftLineX2 = entities.longHindOne.position[0];
-    const leftLineY2 = entities.longHindOne.position[1] + 30;
-    
+    const leftLineX1 = entities.squareHindThree.position[0];
+    const leftLineY1 = entities.squareHindThree.position[1];
+    const leftLineX2 = entities.squareHindThree.position[0];
+    const leftLineY2 = entities.squareHindThree.position[1] + 40;
+
     // RIGHT LINE OF HINDERANCE BOX
-    const rightLineX1 = entities.longHindOne.position[0] + 117;
-    const rightLineY1 = entities.longHindOne.position[1] + 3;
-    const rightLineX2 = entities.longHindOne.position[0] + 117;
-    const rightLineY2 = entities.longHindOne.position[1] + 30;
-    
-    
+    // same as rightLine, I didn't make the coordinate exactly based on the 40px size of Hinderance
+    const rightLineX1 = entities.squareHindThree.position[0] + 40;
+    const rightLineY1 = entities.squareHindThree.position[1];
+    const rightLineX2 = entities.squareHindThree.position[0] + 40;
+    const rightLineY2 = entities.squareHindThree.position[1] + 40;
+
+
     // BOTTOM LINE OF HINDERANCE BOX
-    const bottomLineX1 = entities.longHindOne.position[0] + 3;
-    const bottomLineY1 = entities.longHindOne.position[1] + 30;
-    const bottomLineX2 = entities.longHindOne.position[0] + 117;
-    const bottomLineY2 = entities.longHindOne.position[1] + 30;
-    
+    // same as bottomLine, I didn't make the coordinate exactly based on the 40px size of Hinderance
+    const bottomLineX1 = entities.squareHindThree.position[0];
+    const bottomLineY1 = entities.squareHindThree.position[1] + 40;
+    const bottomLineX2 = entities.squareHindThree.position[0] + 40;
+    const bottomLineY2 = entities.squareHindThree.position[1] + 40;
+
     // TOP LINE OF HINDERANCE BOX
-    const topLineX1 = entities.longHindOne.position[0];
-    const topLineY1 = entities.longHindOne.position[1];
-    const topLineX2 = entities.longHindOne.position[0] + 117;
-    const topLineY2 = entities.longHindOne.position[1];
-    
+    const topLineX1 = entities.squareHindThree.position[0];
+    const topLineY1 = entities.squareHindThree.position[1];
+    const topLineX2 = entities.squareHindThree.position[0] + 40;
+    const topLineY2 = entities.squareHindThree.position[1];
+
+
     // CIRCLE PROPERTIES
     const radius = 10;
     const circleX = entities.cannonBall.position[0] + 10;
     const circleY = entities.cannonBall.position[1] + 10;
 
-    
+
+
     ///////////// CHECKING FOR LEFT WALL DETECTION ////////////////////////
     const leftDistance1 = Math.sqrt((leftLineX1 - circleX) ** 2 + (leftLineY1 - circleY) ** 2);
     const leftDistance2 = Math.sqrt((leftLineX2 - circleX) ** 2 + (leftLineY2 - circleY) ** 2);
-    
+
     if (leftDistance1 <= radius || leftDistance2 <= radius) {
+
+        // I commented this out because it was producing weird effects in level 4.
+        // Conflict may arise if I use this in another level.  
+
         // only change direction if it is not already going in the desired location
-        if (entities.cannonBall.velocity[0] > 0) {
-            // add to bounce count
-            entities.headerStats.bounces += 1;
-            entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
-        }
+        // if (entities.cannonBall.velocity[0] > 0) {
+        //     // add to bounce count
+        //     entities.headerStats.bounces += 1;
+        //     entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
+        // }
     }
     // Calculate the vector representing the line segment
     const lineVectorX = leftLineX2 - leftLineX1;
@@ -166,9 +184,9 @@ const longHindSystemOne = (entities) => {
      // checks to see if corners are hit
      if (topDistance1 <= radius || topDistance2 <= radius) {
          if (entities.cannonBall.velocity[1] > 0) {
+
              // add to bounce count
              entities.headerStats.bounces += 1;
-             // Multiply with the bounce level to create slow-down
              entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1] * entities.gameData.bounceLevel
          }
  
@@ -206,4 +224,4 @@ const longHindSystemOne = (entities) => {
     return entities;
 }
 
-export default longHindSystemOne;
+export default smallSquareSystemThree;

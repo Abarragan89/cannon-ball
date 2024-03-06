@@ -1,30 +1,30 @@
 // import hinderanceDetection from '../../utils/detectionFunction';
 
-const longHindSystemOne = (entities) => {
+const cannonStandDetectionSystem = (entities) => {
     // LEFT LINE OF HINDERANCE BOX
-    const leftLineX1 = entities.longHindOne.position[0];
-    const leftLineY1 = entities.longHindOne.position[1] + 3;
-    const leftLineX2 = entities.longHindOne.position[0];
-    const leftLineY2 = entities.longHindOne.position[1] + 30;
+    const leftLineX1 = entities.cannonStand.position[0];
+    const leftLineY1 = entities.cannonStand.position[1] + 3;
+    const leftLineX2 = entities.cannonStand.position[0];
+    const leftLineY2 = entities.cannonStand.position[1] + 15;
     
     // RIGHT LINE OF HINDERANCE BOX
-    const rightLineX1 = entities.longHindOne.position[0] + 117;
-    const rightLineY1 = entities.longHindOne.position[1] + 3;
-    const rightLineX2 = entities.longHindOne.position[0] + 117;
-    const rightLineY2 = entities.longHindOne.position[1] + 30;
+    const rightLineX1 = entities.cannonStand.position[0] + 67;
+    const rightLineY1 = entities.cannonStand.position[1] + 3;
+    const rightLineX2 = entities.cannonStand.position[0] + 67;
+    const rightLineY2 = entities.cannonStand.position[1] + 15;
     
     
     // BOTTOM LINE OF HINDERANCE BOX
-    const bottomLineX1 = entities.longHindOne.position[0] + 3;
-    const bottomLineY1 = entities.longHindOne.position[1] + 30;
-    const bottomLineX2 = entities.longHindOne.position[0] + 117;
-    const bottomLineY2 = entities.longHindOne.position[1] + 30;
+    const bottomLineX1 = entities.cannonStand.position[0] + 3;
+    const bottomLineY1 = entities.cannonStand.position[1] + 15;
+    const bottomLineX2 = entities.cannonStand.position[0] + 67;
+    const bottomLineY2 = entities.cannonStand.position[1] + 15;
     
     // TOP LINE OF HINDERANCE BOX
-    const topLineX1 = entities.longHindOne.position[0];
-    const topLineY1 = entities.longHindOne.position[1];
-    const topLineX2 = entities.longHindOne.position[0] + 117;
-    const topLineY2 = entities.longHindOne.position[1];
+    const topLineX1 = entities.cannonStand.position[0];
+    const topLineY1 = entities.cannonStand.position[1];
+    const topLineX2 = entities.cannonStand.position[0] + 67;
+    const topLineY2 = entities.cannonStand.position[1];
     
     // CIRCLE PROPERTIES
     const radius = 10;
@@ -206,4 +206,4 @@ const longHindSystemOne = (entities) => {
     return entities;
 }
 
-export default longHindSystemOne;
+export default cannonStandDetectionSystem;

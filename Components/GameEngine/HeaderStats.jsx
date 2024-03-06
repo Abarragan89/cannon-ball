@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
         flex: 1,
         position: 'absolute',
         width: '100%',
-        alignItems: 'flex-end'
-
+        alignItems: 'flex-end',
+        zIndex: 33
     },
     flexRowRoot: {
         flex: 1,
