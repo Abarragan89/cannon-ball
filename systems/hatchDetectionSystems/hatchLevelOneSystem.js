@@ -1,11 +1,9 @@
-import { Dimensions } from "react-native";
-const screenWidth = Dimensions.get('window').width;
-import moveObstacleLeftToRight from "../../utils/moveObstacles/moveObstacleLeftToRight";
+import colors from "../../constants/colors";
 
 const hatchLevelOneSystem = (entities) => {
     if (!entities.cannonBall.isGameOver) {
         if(entities.hatchBtn.isHit) {
-            entities.hatchBtn.color = '#08cf08';
+            entities.hatchBtn.color = colors.limeGreen;
             entities.hatchBtn.topPosition = 28;
         }
     }

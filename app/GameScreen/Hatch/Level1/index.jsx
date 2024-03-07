@@ -24,6 +24,8 @@ import HatchBtnBottom from '../../../../Components/GameEngine/HatchButtons/Hatch
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
 import hatchLevelOneSystem from "../../../../systems/hatchDetectionSystems/hatchLevelOneSystem";
 import colors from "../../../../constants/colors";
+import HatchLid from "../../../../Components/GameEngine/HatchLid";
+import HatchBox from "../../../../Components/GameEngine/HatchBox";
 
 function ChapterFiveLevelOne() {
     // The game data accepts refs and state for each aspect of the game
@@ -93,7 +95,7 @@ function ChapterFiveLevelOne() {
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [250, 100],
+                        position: [screenWidth - 100, screenHeight - 100],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -126,11 +128,20 @@ function ChapterFiveLevelOne() {
                     hatchBtn: {
                         isHit: false,
                         topPosition: 33,
-                        color: colors.primaryOrange,
+                        color: colors.bronzeStar,
                         isTriggerOnBottom: true,
-                        position: [250, 200],
+                        position: [250, 20],
                         renderer: <HatchBtnBottom />
+                    },
+                    hatchLid: {
+                        position: [screenWidth - 114, screenHeight - 123],
+                        renderer: <HatchLid />
+                    },
+                    hatchBox: {
+                        position: [screenWidth - 114, screenHeight - 108],
+                        renderer: <HatchBox />
                     }
+                    
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
@@ -143,7 +154,7 @@ function ChapterFiveLevelOne() {
                         endGameData={endGameData}
                     />
                 }
-                {/* The action is happending in this component
+                {/* The action is happening in this component
                 I need to change state in this components when 
                 the slider onValueChange function fires
              */}
