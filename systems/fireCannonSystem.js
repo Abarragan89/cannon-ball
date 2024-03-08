@@ -1,5 +1,6 @@
 import { Dimensions } from 'react-native';
 import * as Haptics from 'expo-haptics';
+import colors from '../constants/colors';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -38,7 +39,7 @@ const fireCannonSystem = (entities, { touches }) => {
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
   }
-  
+
   function showFollowArrowDetection() {
     // Offscreen Detection
     // if offscreen, show follow arrow
@@ -54,25 +55,28 @@ const fireCannonSystem = (entities, { touches }) => {
   showFollowArrowDetection();
   shootCannonBall();
   wallDetection();
-  
+
   touches.forEach(t => {
     if (t.type === "long-press") {
-        entities.headerStats.airTime = 0;
-        entities.headerStats.bounces = 0;
-        // set isBallMoving to true
-        entities.cannonBall.isBallMoving = true;
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
-        // set initial coordinates to be where the cannon tip is located
-        entities.cannonBall.position[0] = entities.cannon.position[0] + 23;
-        entities.cannonBall.position[1] = entities.cannon.position[1] + 40;
-        // set the POWER and ANGLE  settings
-        let ANGLE = entities.angleMeter.angleLevel;
-        let POWER = entities.powerMeter.displayPower;
-        const angleInRadians = (ANGLE * Math.PI) / 180;
-        // set the velocity
-        entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
-        entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
-      }
+      // don't allow user to shoot in 'Hatch' if ball hasn't stopped moving
+      if (entities.cannonBall.isBallMoving && entities.hatchBtn) return;
+
+      entities.headerStats.airTime = 0;
+      entities.headerStats.bounces = 0;
+      // set isBallMoving to true
+      entities.cannonBall.isBallMoving = true;
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+      // set initial coordinates to be where the cannon tip is located
+      entities.cannonBall.position[0] = entities.cannon.position[0] + 23;
+      entities.cannonBall.position[1] = entities.cannon.position[1] + 40;
+      // set the POWER and ANGLE  settings
+      let ANGLE = entities.angleMeter.angleLevel;
+      let POWER = entities.powerMeter.displayPower;
+      const angleInRadians = (ANGLE * Math.PI) / 180;
+      // set the velocity
+      entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
+      entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
+    }
 
   });
   return entities;

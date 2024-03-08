@@ -26,6 +26,12 @@ import hatchLevelOneSystem from "../../../../systems/hatchDetectionSystems/hatch
 import colors from "../../../../constants/colors";
 import HatchLid from "../../../../Components/GameEngine/HatchLid";
 import HatchBox from "../../../../Components/GameEngine/HatchBox";
+import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
+import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
+import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
+import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
+import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
+import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
 
 function ChapterFiveLevelOne() {
     // The game data accepts refs and state for each aspect of the game
@@ -39,8 +45,8 @@ function ChapterFiveLevelOne() {
     // Power Data
     const powerLevelRef = useRef(15)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
-    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 100, 100])
+    const [cannonPositionState, setCannonPositionState] = useState([200, 100])
+    const cannonPositionRef = useRef([200, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -68,7 +74,11 @@ function ChapterFiveLevelOne() {
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     hatchBtnDetectionSystem,
-                    hatchLevelOneSystem
+                    hatchLevelOneSystem,
+                    hatchBoxDetectionSystem,
+                    hatchLidDetectionSystem,
+                    smallSquareSystemOne,
+                    longHindSystemOne
                 ]}
                 entities={{
                     cannonBall: {
@@ -90,12 +100,12 @@ function ChapterFiveLevelOne() {
                     },
                     cannon: {
                         // only the postiion[0] gets updated by ref variables.
-                        position: [400, screenHeight - 90],
+                        position: [100, screenHeight - 90],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [screenWidth - 100, screenHeight - 100],
+                        position: [screenWidth - 100, screenHeight - 125],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -130,18 +140,25 @@ function ChapterFiveLevelOne() {
                         topPosition: 33,
                         color: colors.bronzeStar,
                         isTriggerOnBottom: true,
-                        position: [250, 20],
+                        position: [350, 20],
                         renderer: <HatchBtnBottom />
                     },
                     hatchLid: {
-                        position: [screenWidth - 114, screenHeight - 123],
+                        position: [screenWidth - 114, screenHeight - 148],
                         renderer: <HatchLid />
                     },
                     hatchBox: {
-                        position: [screenWidth - 114, screenHeight - 108],
+                        position: [screenWidth - 114, screenHeight - 133],
                         renderer: <HatchBox />
-                    }
-                    
+                    },
+                    squareHindOne: {
+                        position: [300, screenHeight - 50],
+                        renderer: <SmallSquareHind />
+                    },
+                    longHindOne: {
+                        position: [380, screenHeight - 50],
+                        renderer: <LongHind />
+                    },        
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
@@ -162,7 +179,7 @@ function ChapterFiveLevelOne() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={screenWidth - 70}
+                    upperLimit={230}
                     lowerLimit={5}
                 />
             </GameEngine>

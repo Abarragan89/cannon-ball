@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
         height: 15,
         width: 57,
         backgroundColor: colors.sandColor,
-        // borderWidth: 1,
         borderColor: colors.primaryBlack
     }
 })
