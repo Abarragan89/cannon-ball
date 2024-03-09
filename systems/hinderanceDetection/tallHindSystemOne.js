@@ -1,28 +1,31 @@
 import lineBallDetection from "../../utils/lineBallDetection";
 
-const giantTallSystemOne = (entities) => {
+const tallHindSystemOne = (entities) => {
     // LEFT LINE OF HINDERANCE BOX
     const leftLineX1 = entities.tallHindOne.position[0];
     const leftLineY1 = entities.tallHindOne.position[1] + 3;
     const leftLineX2 = entities.tallHindOne.position[0];
-    const leftLineY2 = entities.tallHindOne.position[1] + 300;
+    const leftLineY2 = entities.tallHindOne.position[1] + 117;
 
     // RIGHT LINE OF HINDERANCE BOX
-    const rightLineX1 = entities.tallHindOne.position[0] + 67;
+    // same as rightLine, I didn't make the coordinate exactly based on the 30px size of Hinderance
+    const rightLineX1 = entities.tallHindOne.position[0] + 27;
     const rightLineY1 = entities.tallHindOne.position[1] + 3;
-    const rightLineX2 = entities.tallHindOne.position[0] + 67;
-    const rightLineY2 = entities.tallHindOne.position[1] + 300;
+    const rightLineX2 = entities.tallHindOne.position[0] + 27;
+    const rightLineY2 = entities.tallHindOne.position[1] + 117;
+
 
     // BOTTOM LINE OF HINDERANCE BOX
+    // same as bottomLine, I didn't make the coordinate exactly based on the 30px size of Hinderance
     const bottomLineX1 = entities.tallHindOne.position[0] + 3;
-    const bottomLineY1 = entities.tallHindOne.position[1] + 300;
-    const bottomLineX2 = entities.tallHindOne.position[0] + 67;
-    const bottomLineY2 = entities.tallHindOne.position[1] + 300;
+    const bottomLineY1 = entities.tallHindOne.position[1] + 117;
+    const bottomLineX2 = entities.tallHindOne.position[0] + 27;
+    const bottomLineY2 = entities.tallHindOne.position[1] + 117;
 
     // TOP LINE OF HINDERANCE BOX
     const topLineX1 = entities.tallHindOne.position[0];
     const topLineY1 = entities.tallHindOne.position[1];
-    const topLineX2 = entities.tallHindOne.position[0] + 67;
+    const topLineX2 = entities.tallHindOne.position[0] + 30;
     const topLineY2 = entities.tallHindOne.position[1];
 
     // CIRCLE PROPERTIES
@@ -65,4 +68,4 @@ const giantTallSystemOne = (entities) => {
     return entities;
 }
 
-export default giantTallSystemOne;
+export default tallHindSystemOne;

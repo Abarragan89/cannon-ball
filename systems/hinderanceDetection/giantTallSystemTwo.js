@@ -1,6 +1,6 @@
 import lineBallDetection from "../../utils/lineBallDetection";
 
-const giantTallSystemOne = (entities) => {
+const giantTallSystemTwo = (entities) => {
     // LEFT LINE OF HINDERANCE BOX
     const leftLineX1 = entities.giantTallTwo.position[0];
     const leftLineY1 = entities.giantTallTwo.position[1] + 3;
@@ -65,4 +65,4 @@ const giantTallSystemOne = (entities) => {
     return entities;
 }
 
-export default giantTallSystemOne;
+export default giantTallSystemTwo;

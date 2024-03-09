@@ -1,28 +1,31 @@
 import lineBallDetection from "../../utils/lineBallDetection";
 
-const giantTallSystemOne = (entities) => {
+const smallSquareSystemThree = (entities) => {
     // LEFT LINE OF HINDERANCE BOX
     const leftLineX1 = entities.squareHindThree.position[0];
-    const leftLineY1 = entities.squareHindThree.position[1] + 3;
+    const leftLineY1 = entities.squareHindThree.position[1];
     const leftLineX2 = entities.squareHindThree.position[0];
-    const leftLineY2 = entities.squareHindThree.position[1] + 300;
+    const leftLineY2 = entities.squareHindThree.position[1] + 40;
 
     // RIGHT LINE OF HINDERANCE BOX
-    const rightLineX1 = entities.squareHindThree.position[0] + 67;
-    const rightLineY1 = entities.squareHindThree.position[1] + 3;
-    const rightLineX2 = entities.squareHindThree.position[0] + 67;
-    const rightLineY2 = entities.squareHindThree.position[1] + 300;
+    // same as rightLine, I didn't make the coordinate exactly based on the 40px size of Hinderance
+    const rightLineX1 = entities.squareHindThree.position[0] + 40;
+    const rightLineY1 = entities.squareHindThree.position[1];
+    const rightLineX2 = entities.squareHindThree.position[0] + 40;
+    const rightLineY2 = entities.squareHindThree.position[1] + 40;
+
 
     // BOTTOM LINE OF HINDERANCE BOX
-    const bottomLineX1 = entities.squareHindThree.position[0] + 3;
-    const bottomLineY1 = entities.squareHindThree.position[1] + 300;
-    const bottomLineX2 = entities.squareHindThree.position[0] + 67;
-    const bottomLineY2 = entities.squareHindThree.position[1] + 300;
+    // same as bottomLine, I didn't make the coordinate exactly based on the 40px size of Hinderance
+    const bottomLineX1 = entities.squareHindThree.position[0];
+    const bottomLineY1 = entities.squareHindThree.position[1] + 40;
+    const bottomLineX2 = entities.squareHindThree.position[0] + 40;
+    const bottomLineY2 = entities.squareHindThree.position[1] + 40;
 
     // TOP LINE OF HINDERANCE BOX
     const topLineX1 = entities.squareHindThree.position[0];
     const topLineY1 = entities.squareHindThree.position[1];
-    const topLineX2 = entities.squareHindThree.position[0] + 67;
+    const topLineX2 = entities.squareHindThree.position[0] + 40;
     const topLineY2 = entities.squareHindThree.position[1];
 
     // CIRCLE PROPERTIES
@@ -65,4 +68,4 @@ const giantTallSystemOne = (entities) => {
     return entities;
 }
 
-export default giantTallSystemOne;
+export default smallSquareSystemThree;

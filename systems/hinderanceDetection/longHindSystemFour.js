@@ -1,28 +1,29 @@
 import lineBallDetection from "../../utils/lineBallDetection";
 
-const giantTallSystemOne = (entities) => {
+const longHindSystemFour = (entities) => {
     // LEFT LINE OF HINDERANCE BOX
     const leftLineX1 = entities.longHindFour.position[0];
     const leftLineY1 = entities.longHindFour.position[1] + 3;
     const leftLineX2 = entities.longHindFour.position[0];
-    const leftLineY2 = entities.longHindFour.position[1] + 300;
-
+    const leftLineY2 = entities.longHindFour.position[1] + 30;
+    
     // RIGHT LINE OF HINDERANCE BOX
-    const rightLineX1 = entities.longHindFour.position[0] + 67;
+    const rightLineX1 = entities.longHindFour.position[0] + 117;
     const rightLineY1 = entities.longHindFour.position[1] + 3;
-    const rightLineX2 = entities.longHindFour.position[0] + 67;
-    const rightLineY2 = entities.longHindFour.position[1] + 300;
-
+    const rightLineX2 = entities.longHindFour.position[0] + 117;
+    const rightLineY2 = entities.longHindFour.position[1] + 30;
+    
+    
     // BOTTOM LINE OF HINDERANCE BOX
     const bottomLineX1 = entities.longHindFour.position[0] + 3;
-    const bottomLineY1 = entities.longHindFour.position[1] + 300;
-    const bottomLineX2 = entities.longHindFour.position[0] + 67;
-    const bottomLineY2 = entities.longHindFour.position[1] + 300;
-
+    const bottomLineY1 = entities.longHindFour.position[1] + 30;
+    const bottomLineX2 = entities.longHindFour.position[0] + 117;
+    const bottomLineY2 = entities.longHindFour.position[1] + 30;
+    
     // TOP LINE OF HINDERANCE BOX
     const topLineX1 = entities.longHindFour.position[0];
     const topLineY1 = entities.longHindFour.position[1];
-    const topLineX2 = entities.longHindFour.position[0] + 67;
+    const topLineX2 = entities.longHindFour.position[0] + 117;
     const topLineY2 = entities.longHindFour.position[1];
 
     // CIRCLE PROPERTIES
@@ -65,4 +66,4 @@ const giantTallSystemOne = (entities) => {
     return entities;
 }
 
-export default giantTallSystemOne;
+export default longHindSystemFour;
