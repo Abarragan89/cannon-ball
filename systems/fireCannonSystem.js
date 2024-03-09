@@ -58,8 +58,13 @@ const fireCannonSystem = (entities, { touches }) => {
 
   touches.forEach(t => {
     if (t.type === "long-press") {
-      // don't allow user to shoot in 'Hatch' if ball hasn't stopped moving
-      if (entities.cannonBall.isBallMoving && entities.hatchBtn) return;
+      // if user is in hatch world, reset the hatchBtn and cannonball before allowing reshoot
+      if (entities.cannonBall.isBallMoving && entities.hatchBtn) {
+        entities.hatchBtn.isHit = false;
+        entities.cannonBall.isBallMoving = false;
+        entities.cannonBall.position = [-100, 0]
+        return
+      };
 
       entities.headerStats.airTime = 0;
       entities.headerStats.bounces = 0;
