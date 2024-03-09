@@ -1,14 +1,9 @@
-export default hinderanceDetection = (lineX1, lineY1, lineX2, lineY2, circleX, circleY, radius, cannonBall, headerStats, direction) => {
+export default lineBallDetection = (lineX1, lineY1, lineX2, lineY2, circleX, circleY, radius) => {
     const leftDistance1 = Math.sqrt((lineX1 - circleX) ** 2 + (lineY1 - circleY) ** 2);
     const leftDistance2 = Math.sqrt((lineX2 - circleX) ** 2 + (lineY2 - circleY) ** 2);
 
     if (leftDistance1 <= radius || leftDistance2 <= radius) {
-        // only change direction if it is not already going in the desired location
-        if (cannonBall.velocity[direction] +  comparisionOperator +  0) {
-            // add to bounce count
-            headerStats.bounces += 1;
-            cannonBall.velocity[direction] = -cannonBall.velocity[direction]
-        }
+        return true;
     }
     // Calculate the vector representing the line segment
     const lineVectorX = lineX2 - lineX1;
@@ -32,12 +27,9 @@ export default hinderanceDetection = (lineX1, lineY1, lineX2, lineY2, circleX, c
 
         // Check if the distance is less than or equal to the radius of the circle
         if (distanceToLine <= radius) {
-            if (cannonBall.velocity[direction] +  comparisionOperator +  0) {
-                // add to bounce count
-                headerStats.bounces += 1;
-                cannonBall.velocity[direction] = -cannonBall.velocity[direction]
-            }
+            return true
         };
     }
 
+    return false;
 }

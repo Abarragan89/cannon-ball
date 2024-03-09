@@ -3,8 +3,7 @@ import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
-import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
-import cannonBallTNTDetectionSystem from "../../../../systems/cannonBallTNTDetectionSystem";
+import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import moveTNTMarksLevelFive from "../../../../systems/marksMovementSystems/marksLevelFive";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
@@ -58,8 +57,7 @@ function ChatperTwoLevelFive() {
                 systems=
                 {[
                     cannonControlSystem,
-                    explodeTNTSystem,
-                    cannonBallTNTDetectionSystem,
+                    TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     moveTNTMarksLevelFive
