@@ -97,7 +97,7 @@ function ChapterFiveLevelOne() {
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [screenWidth - 100, screenHeight - 125],
+                        position: [screenWidth - 186, 88],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -132,15 +132,15 @@ function ChapterFiveLevelOne() {
                         topPosition: -8,
                         color: colors.bronzeStar,
                         isTriggerOnTop: true,
-                        position: [350, 20],
+                        position: [250, 120],
                         renderer: <HatchBtnTop />
                     },
                     hatchLid: {
-                        position: [screenWidth - 114, screenHeight - 148],
+                        position: [screenWidth - 200, 65],
                         renderer: <HatchLid />
                     },
                     hatchBox: {
-                        position: [screenWidth - 114, screenHeight - 133],
+                        position: [screenWidth - 200, 80],
                         renderer: <HatchBox />
                     }     
                 }}>
@@ -163,7 +163,7 @@ function ChapterFiveLevelOne() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={230}
+                    upperLimit={screenWidth - 70}
                     lowerLimit={5}
                 />
             </GameEngine>

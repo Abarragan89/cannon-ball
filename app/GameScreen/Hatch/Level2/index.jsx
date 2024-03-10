@@ -19,17 +19,14 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import HatchBtnBottom from '../../../../Components/GameEngine/HatchButtons/HatchBtnBottom'
-import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
-import hatchLevelTwoSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/hatchLevelTwoSystem";
 import colors from "../../../../constants/colors";
+import hatchLevelOneSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/hatchLevelOneSystem";
+import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
+import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
 import HatchLid from "../../../../Components/GameEngine/HatchLid";
 import HatchBox from "../../../../Components/GameEngine/HatchBox";
 import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
 import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
-import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
-import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
-import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
 
 function ChapterFiveLevelTwo() {
     // The game data accepts refs and state for each aspect of the game
@@ -71,11 +68,9 @@ function ChapterFiveLevelTwo() {
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     hatchBtnDetectionSystem,
-                    hatchLevelTwoSystem,
                     hatchBoxDetectionSystem,
                     hatchLidDetectionSystem,
-                    smallSquareSystemOne,
-                    smallSquareSystemTwo
+                    hatchLevelOneSystem,
                 ]}
                 entities={{
                     cannonBall: {
@@ -102,7 +97,7 @@ function ChapterFiveLevelTwo() {
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [screenWidth - 100, screenHeight - 125],
+                        position: [Math.floor(screenWidth / 2), screenHeight - 165],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -134,28 +129,20 @@ function ChapterFiveLevelTwo() {
                     },
                     hatchBtn: {
                         isHit: false,
-                        topPosition: 33,
+                        topPosition: -8,
                         color: colors.bronzeStar,
-                        isTriggerOnBottom: true,
-                        position: [350, 20],
-                        renderer: <HatchBtnBottom />
+                        isTriggerOnTop: true,
+                        position: [150, 120],
+                        renderer: <HatchBtnTop />
                     },
                     hatchLid: {
-                        position: [screenWidth - 114, screenHeight - 148],
+                        position: [Math.floor(screenWidth / 2) - 14, screenHeight - 188],
                         renderer: <HatchLid />
                     },
                     hatchBox: {
-                        position: [screenWidth - 114, screenHeight - 133],
+                        position: [Math.floor(screenWidth / 2) - 14, screenHeight - 173],
                         renderer: <HatchBox />
-                    },
-                    squareHindOne: {
-                        position: [300, screenHeight - 50],
-                        renderer: <SmallSquareHind />
-                    },
-                    squareHindTwo: {
-                        position: [420, screenHeight - 50],
-                        renderer: <SmallSquareHind />
-                    },        
+                    }     
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
@@ -176,7 +163,7 @@ function ChapterFiveLevelTwo() {
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
-                    upperLimit={230}
+                    upperLimit={screenWidth - 70}
                     lowerLimit={5}
                 />
             </GameEngine>

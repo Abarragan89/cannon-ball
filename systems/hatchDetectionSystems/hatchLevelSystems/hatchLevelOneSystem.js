@@ -1,15 +1,14 @@
 import colors from "../../../constants/colors";
 import { Dimensions } from "react-native";
-const { width } = Dimensions.get('window');
 
 const hatchLevelOneSystem = (entities) => {
     function openLid() {
-        if (entities.hatchLid.position[0] <= width - 57 && entities.cannonBall.isBallMoving) {
+        if (entities.hatchLid.position[0] <= entities.hatchBox.position[0] + 57 && entities.cannonBall.isBallMoving) {
             entities.hatchLid.position[0] += 1
         }
     }
     function closeLid() {
-        if (entities.hatchLid.position[0] >= width - 113) {
+        if (entities.hatchLid.position[0] > entities.hatchBox.position[0]) {
             entities.hatchBtn.isHit = false;
             entities.hatchLid.position[0] -= 1
         }
