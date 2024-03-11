@@ -37,12 +37,17 @@ const MoveCannonLaunch = ({ position, setPosition, updatePositionRef, upperLimit
 
     return (
         <View style={styles.root}>
-            <Pressable style={({ pressed }) => [styles.pressable, pressed && styles.pressed]} onPressIn={handleMoveLeft} onPressOut={handleRelease}>
+            <Pressable style={({ pressed }) => [styles.pressable, pressed && styles.pressed]} 
+            // onPressIn={handleMoveLeft} onPressOut={handleRelease}
+            >
                 <AntDesign name="caretleft" size={25} color="#000000bd" />
                 {/* this text is just need to trigger a rerender in the UI */}
                 <Text style={{ position: 'absolute', opacity: 0 }}>{position}</Text>
             </Pressable>
-            <Pressable style={({ pressed }) => [styles.pressable, pressed && styles.pressed]} onPressIn={handleMoveRight} onPressOut={handleRelease}>
+            <Text style={({ pressed }) => [styles.pressable, pressed && styles.pressed]}>Fire</Text>
+            <Pressable style={({ pressed }) => [styles.pressable, pressed && styles.pressed]} 
+            // onPressIn={handleMoveRight} onPressOut={handleRelease}
+            >
                 <AntDesign name="caretright" size={25} color="#000000b8" />
             </Pressable>
         </View>
@@ -55,11 +60,13 @@ const styles = StyleSheet.create({
     root: {
         flex: 1,
         width: 200,
+        height: 38,
         flexDirection: 'row',
         justifyContent: 'space-between',
         position: 'absolute',
         bottom: 10,
         right: 50,
+        pointerEvents: 'none'
     },
     pressable: {
         borderWidth: 1,

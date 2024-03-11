@@ -7,7 +7,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const fireCannonSystem = (entities, { touches }) => {
   // always have cannon and cannonslider lined up
-  entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0];
+  // entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0];
   // set the gravity, angle and power before launch
   const GRAVITY = .05
 
@@ -60,12 +60,14 @@ const fireCannonSystem = (entities, { touches }) => {
     if (t.type === "long-press") {
       // if user is in hatch world, reset the hatchBtn and cannonball before allowing reshoot
       if (entities.cannonBall.isBallMoving && entities.hatchBtn) {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
         entities.hatchBtn.isHit = false;
         entities.cannonBall.isBallMoving = false;
         entities.cannonBall.position = [-100, 0]
         return
       };
 
+      // Rest header stats
       entities.headerStats.airTime = 0;
       entities.headerStats.bounces = 0;
       // set isBallMoving to true

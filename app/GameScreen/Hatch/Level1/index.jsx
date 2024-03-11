@@ -40,8 +40,8 @@ function ChapterFiveLevelOne() {
     // Power Data
     const powerLevelRef = useRef(15)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([200, 100])
-    const cannonPositionRef = useRef([200, 100])
+    // const [cannonPositionState, setCannonPositionState] = useState([200, 100])
+    // const cannonPositionRef = useRef([200, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -86,7 +86,7 @@ function ChapterFiveLevelOne() {
                         renderer: <CannonBall />
                     },
                     gameData: {
-                        cannonLaunchPosition: cannonPositionRef,
+                        // cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
                         bounceLevel: 0.8,
                     },
@@ -132,7 +132,7 @@ function ChapterFiveLevelOne() {
                         topPosition: -8,
                         color: colors.bronzeStar,
                         isTriggerOnTop: true,
-                        position: [250, 120],
+                        position: [Math.floor(screenWidth / 2), 120],
                         renderer: <HatchBtnTop />
                     },
                     hatchLid: {
@@ -159,13 +159,13 @@ function ChapterFiveLevelOne() {
                 I need to change state in this components when 
                 the slider onValueChange function fires
              */}
-                <MoveCannonLaunch
+                {/* <MoveCannonLaunch
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
                     upperLimit={screenWidth - 70}
                     lowerLimit={5}
-                />
+                /> */}
             </GameEngine>
         </ImageBackground>
     );

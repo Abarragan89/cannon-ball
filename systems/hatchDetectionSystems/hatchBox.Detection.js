@@ -24,13 +24,13 @@ const hatchBoxDetectionSystem = (entities) => {
     // TOP Left LINE OF HINDERANCE BOX
     const topLeftLineX1 = entities.hatchBox.position[0];
     const topLeftLineY1 = entities.hatchBox.position[1];
-    const topLeftLineX2 = entities.hatchBox.position[0] + 5;
+    const topLeftLineX2 = entities.hatchBox.position[0] + 3;
     const topLeftLineY2 = entities.hatchBox.position[1];
 
     // TOP Right LINE OF HINDERANCE BOX
     const topRightLineX1 = entities.hatchBox.position[0] + 52
     const topRightLineY1 = entities.hatchBox.position[1];
-    const topRightLineX2 = entities.hatchBox.position[0] + 57;
+    const topRightLineX2 = entities.hatchBox.position[0] + 54;
     const topRightLineY2 = entities.hatchBox.position[1];
 
     // CIRCLE PROPERTIES
@@ -45,7 +45,6 @@ const hatchBoxDetectionSystem = (entities) => {
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
         }
     }
-
 
     ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
     if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
