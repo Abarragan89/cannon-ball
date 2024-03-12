@@ -17,38 +17,17 @@ const buttonPosition = {
   // }const buttonLeft = buttonPosition.right - buttonPosition.width;
 }
 
-const leftArrowBtnPos = {
-  // 200 = width, 50 = absolute right
-  leftX: width - (200 + 50),
-  // added 40 because that is the width
-  rightX: width - (200 + 50) + 40, 
-  // height is about 40 and it is 10 from bottom
-  topY: height - 50,
-  bottomY: height - 10
-}
+
 
 const buttonLeft = width - (buttonPosition.left.right + 200);
 const buttonTop = height - buttonPosition.left.bottom - 20;
 console.log('button top ', buttonTop)
 console.log('button left ', buttonLeft)
 
-const cannonControlSystem = (entities, { touches }) => {
+let isLeftButtonPressed = false;
 
+const cannonControlSystem = (entities, { touches }) => {
   touches.forEach(t => {
-    // Control the position of the cannon
-    console.log('location X ', t.event.locationX)
-    console.log('location Y ', t.event.locationY)
-    const { locationX, locationY } = t.event
-    if (
-      locationX >= leftArrowBtnPos.leftX &&
-      locationX <= leftArrowBtnPos.rightX &&
-      locationY >= leftArrowBtnPos.topY &&
-      locationY <= leftArrowBtnPos.bottomY
-    ) {
-      // The button has been pressed
-      console.log('left button pressed')
-     entities.cannon.position[0] -= 1
-    }
 
     // Control the POWER and the ANGLE
     let currentPower = entities.powerMeter.displayPower;

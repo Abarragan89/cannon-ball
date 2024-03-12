@@ -1,17 +1,15 @@
 import { Dimensions } from 'react-native';
 import * as Haptics from 'expo-haptics';
-import colors from '../constants/colors';
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const { width, height } = Dimensions.get('window')
+
 
 
 const fireCannonSystem = (entities, { touches }) => {
   // always have cannon and cannonslider lined up
-  // entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0];
-  // set the gravity, angle and power before launch
-  const GRAVITY = .05
-
+  entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0];
   function shootCannonBall() {
+    // set the gravity, angle and power before launch
+    const GRAVITY = .05;
     if (entities.cannonBall.isBallMoving) {
       // Update the X and Y based on the arc velocity
       entities.cannonBall.position[0] += entities.cannonBall.velocity[0]
@@ -20,15 +18,15 @@ const fireCannonSystem = (entities, { touches }) => {
       entities.cannonBall.velocity[1] += GRAVITY
     }
   }
-
+  
   function wallDetection() {
     // if hits bottom
-    if (entities.cannonBall.position[1] > windowHeight - 34) {
+    if (entities.cannonBall.position[1] > height - 34) {
       entities.cannonBall.isBallMoving = false;
       entities.headerStats.bounces = 0;
     }
     // if hits right wall
-    if (entities.cannonBall.position[0] > windowWidth - 14) {
+    if (entities.cannonBall.position[0] > width - 14) {
       entities.headerStats.bounces += 1;
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
@@ -39,7 +37,7 @@ const fireCannonSystem = (entities, { touches }) => {
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
   }
-
+  
   function showFollowArrowDetection() {
     // Offscreen Detection
     // if offscreen, show follow arrow
@@ -51,14 +49,33 @@ const fireCannonSystem = (entities, { touches }) => {
       entities.followArrow.displayStatus = 'none'
     }
   }
-
+  
   showFollowArrowDetection();
   shootCannonBall();
   wallDetection();
-
+  
+  const fireArrowBtnPos = {
+    // 100 = width, 100 = absolute right
+    leftX: width - (100 + 100),
+    // added 100 because that is the width
+    rightX: width - (100 + 100) + 100,
+    // height is about 40 and it is 10 from bottom
+    topY: height - 50,
+    bottomY: height - 10
+  }
+  
   touches.forEach(t => {
-    if (t.type === "long-press") {
-      // if user is in hatch world, reset the hatchBtn and cannonball before allowing reshoot
+    // Control the position of the cannon
+    const { locationX, locationY } = t.event
+    // Check if the touch occurred within the button's area
+    if (
+      locationX >= fireArrowBtnPos.leftX &&
+      locationX <= fireArrowBtnPos.rightX &&
+      locationY >= fireArrowBtnPos.topY &&
+      locationY <= fireArrowBtnPos.bottomY
+
+    ) {
+      console.log('hit fire button!!!!!!!!!!!!')
       if (entities.cannonBall.isBallMoving && entities.hatchBtn) {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
         entities.hatchBtn.isHit = false;
@@ -85,7 +102,52 @@ const fireCannonSystem = (entities, { touches }) => {
       entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
     }
 
+
+    // // Control the position of the cannon
+    // console.log('location X ', t.event.locationX)
+    // console.log('location Y ', t.event.locationY)
+    // const { locationX, locationY } = t.event
+    // if (
+    //   locationX >= fireArrowBtnPos.leftX &&
+    //   locationX <= fireArrowBtnPos.rightX &&
+    //   locationY >= fireArrowBtnPos.topY &&
+    //   locationY <= fireArrowBtnPos.bottomY
+    //   ) {
+    //     // run Fire Function
+    //     console.log('hit fire function')
+    //   }
+
+
+    // if (t.type === "long-press") {
+    //   // if user is in hatch world, reset the hatchBtn and cannonball before allowing reshoot
+    //   if (entities.cannonBall.isBallMoving && entities.hatchBtn) {
+    //     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+    //     entities.hatchBtn.isHit = false;
+    //     entities.cannonBall.isBallMoving = false;
+    //     entities.cannonBall.position = [-100, 0]
+    //     return
+    //   };
+
+    //   // Rest header stats
+    //   entities.headerStats.airTime = 0;
+    //   entities.headerStats.bounces = 0;
+    //   // set isBallMoving to true
+    //   entities.cannonBall.isBallMoving = true;
+    //   Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+    //   // set initial coordinates to be where the cannon tip is located
+    //   entities.cannonBall.position[0] = entities.cannon.position[0] + 23;
+    //   entities.cannonBall.position[1] = entities.cannon.position[1] + 40;
+    //   // set the POWER and ANGLE  settings
+    //   let ANGLE = entities.angleMeter.angleLevel;
+    //   let POWER = entities.powerMeter.displayPower;
+    //   const angleInRadians = (ANGLE * Math.PI) / 180;
+    //   // set the velocity
+    //   entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
+    //   entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
+    // }
+
   });
+
   return entities;
 }
 

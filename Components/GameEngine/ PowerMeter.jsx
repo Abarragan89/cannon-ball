@@ -5,7 +5,7 @@ import { Platform } from "react-native";
 function PowerMeter({ displayPower }) {
     return (
         <View style={styles.root}>
-            <Text style={styles.numberDisplay}>{Math.floor(displayPower)}</Text>
+            {/* <Text style={styles.numberDisplay}>{Math.floor(displayPower)}</Text> */}
             {/* progress is number from 0 to 1 */}
             <Progress.Bar
                 progress={displayPower / 75}

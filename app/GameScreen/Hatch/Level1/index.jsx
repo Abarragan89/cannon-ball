@@ -10,6 +10,7 @@ import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
 import MoveCannonLaunch from "../../../../Components/GameEngine/MoveCannonLaunch";
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
+import FireBtn from "../../../../Components/GameEngine/FireBtn";
 import TNT from "../../../../Components/GameEngine/TNT";
 import Explosion from "../../../../Components/GameEngine/Explosion";
 import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
@@ -40,8 +41,8 @@ function ChapterFiveLevelOne() {
     // Power Data
     const powerLevelRef = useRef(15)
     // Cannon Position Data
-    // const [cannonPositionState, setCannonPositionState] = useState([200, 100])
-    // const cannonPositionRef = useRef([200, 100])
+    const [cannonPositionState, setCannonPositionState] = useState([200, 100])
+    const cannonPositionRef = useRef([200, 100]);
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -86,7 +87,7 @@ function ChapterFiveLevelOne() {
                         renderer: <CannonBall />
                     },
                     gameData: {
-                        // cannonLaunchPosition: cannonPositionRef,
+                        cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
                         bounceLevel: 0.8,
                     },
@@ -159,13 +160,14 @@ function ChapterFiveLevelOne() {
                 I need to change state in this components when 
                 the slider onValueChange function fires
              */}
-                {/* <MoveCannonLaunch
+                <MoveCannonLaunch
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
                     upperLimit={screenWidth - 70}
                     lowerLimit={5}
-                /> */}
+                />
+                <FireBtn />
             </GameEngine>
         </ImageBackground>
     );
