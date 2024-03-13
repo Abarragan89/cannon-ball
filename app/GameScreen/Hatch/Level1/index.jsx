@@ -143,6 +143,10 @@ function ChapterFiveLevelOne() {
                     hatchBox: {
                         position: [screenWidth - 200, 80],
                         renderer: <HatchBox />
+                    },
+                    fireBtn: {
+                        isShooting: false,
+                        renderer: <FireBtn />
                     }     
                 }}>
                 <StatusBar hidden={true} />
@@ -167,7 +171,7 @@ function ChapterFiveLevelOne() {
                     upperLimit={screenWidth - 70}
                     lowerLimit={5}
                 />
-                <FireBtn />
+                {/* <FireBtn /> */}
             </GameEngine>
         </ImageBackground>
     );

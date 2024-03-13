@@ -115,9 +115,10 @@ function ChatperOneLevelOne() {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
                     },
-                    // fireBtn: {
-                    //     renderer: <FireBtn />
-                    // }
+                    fireBtn: {
+                        isShooting: false,
+                        renderer: <FireBtn />
+                    } 
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
@@ -141,7 +142,6 @@ function ChatperOneLevelOne() {
                     upperLimit={screenWidth - 70}
                     lowerLimit={5}
                 />
-                <FireBtn />
             </GameEngine>
         </ImageBackground>
     );

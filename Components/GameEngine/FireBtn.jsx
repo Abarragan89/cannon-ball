@@ -1,15 +1,15 @@
-import { Text, View, Pressable, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import colors from '../../constants/colors';
 
-const FireBtn = () => {
+const FireBtn = ({ isShooting }) => {
 
     return (
-        <View style={styles.root}>
-            <Pressable 
-            style={({ pressed }) => [styles.pressable, pressed && styles.pressed]}
-            >
-                <Text style={styles.text}>Fire</Text>
-            </Pressable>
+        <View style={[styles.root, isShooting && {
+            backgroundColor: colors.offWhite,
+        }]}>
+                <Text style={[styles.text, isShooting && {
+                    color: colors.primaryBlack
+                }]}>{isShooting ? 'Reset' : 'Fire'}</Text>
         </View>
     )
 }
@@ -26,15 +26,10 @@ const styles = StyleSheet.create({
         bottom: 65,
         right: 70,
         pointerEvents: 'none',
-    },
-    pressable: {
         flex: 1,
         borderWidth: 1,
         borderRadius: 8,
         backgroundColor: '#940f0f'
-    },
-    pressed: {
-        backgroundColor: '#b02b2b8f'
     },
     text: {
         fontSize: 18,
