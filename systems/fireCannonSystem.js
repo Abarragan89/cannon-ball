@@ -56,18 +56,21 @@ const fireCannonSystem = (entities, { touches }) => {
   
   const fireArrowBtnPos = {
     // 100 = width, 100 = absolute right
-    leftX: width - (100 + 100),
+    leftX: width - (80 + 60),
     // added 100 because that is the width
-    rightX: width - (100 + 100) + 100,
+    rightX: width - (80 + 60) + 80,
     // height is about 40 and it is 10 from bottom
-    topY: height - 50,
-    bottomY: height - 10
+    topY: height - 115,
+    bottomY: height - 55
   }
+
   
   touches.forEach(t => {
     // Control the position of the cannon
     const { locationX, locationY } = t.event
     // Check if the touch occurred within the button's area
+
+    console.log('comparision ', locationX, fireArrowBtnPos.leftX)
     if (
       locationX >= fireArrowBtnPos.leftX &&
       locationX <= fireArrowBtnPos.rightX &&
@@ -75,48 +78,36 @@ const fireCannonSystem = (entities, { touches }) => {
       locationY <= fireArrowBtnPos.bottomY
 
     ) {
-      console.log('hit fire button!!!!!!!!!!!!')
-      if (entities.cannonBall.isBallMoving && entities.hatchBtn) {
+      if(t.type === 'start') {
+        console.log('hit fire button!!!!!!!!!!!!')
+        if (entities.cannonBall.isBallMoving && entities.hatchBtn) {
+          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+          entities.hatchBtn.isHit = false;
+          entities.cannonBall.isBallMoving = false;
+          entities.cannonBall.position = [-100, 0]
+          return
+        };
+
+        // Rest header stats
+        entities.headerStats.airTime = 0;
+        entities.headerStats.bounces = 0;
+        // set isBallMoving to true
+        entities.cannonBall.isBallMoving = true;
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
-        entities.hatchBtn.isHit = false;
-        entities.cannonBall.isBallMoving = false;
-        entities.cannonBall.position = [-100, 0]
-        return
-      };
+        // set initial coordinates to be where the cannon tip is located
+        entities.cannonBall.position[0] = entities.cannon.position[0] + 23;
+        entities.cannonBall.position[1] = entities.cannon.position[1] + 40;
+        // set the POWER and ANGLE  settings
+        let ANGLE = entities.angleMeter.angleLevel;
+        let POWER = entities.powerMeter.displayPower;
+        const angleInRadians = (ANGLE * Math.PI) / 180;
+        // set the velocity
+        entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
+        entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
 
-      // Rest header stats
-      entities.headerStats.airTime = 0;
-      entities.headerStats.bounces = 0;
-      // set isBallMoving to true
-      entities.cannonBall.isBallMoving = true;
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
-      // set initial coordinates to be where the cannon tip is located
-      entities.cannonBall.position[0] = entities.cannon.position[0] + 23;
-      entities.cannonBall.position[1] = entities.cannon.position[1] + 40;
-      // set the POWER and ANGLE  settings
-      let ANGLE = entities.angleMeter.angleLevel;
-      let POWER = entities.powerMeter.displayPower;
-      const angleInRadians = (ANGLE * Math.PI) / 180;
-      // set the velocity
-      entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
-      entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
+      }
+
     }
-
-
-    // // Control the position of the cannon
-    // console.log('location X ', t.event.locationX)
-    // console.log('location Y ', t.event.locationY)
-    // const { locationX, locationY } = t.event
-    // if (
-    //   locationX >= fireArrowBtnPos.leftX &&
-    //   locationX <= fireArrowBtnPos.rightX &&
-    //   locationY >= fireArrowBtnPos.topY &&
-    //   locationY <= fireArrowBtnPos.bottomY
-    //   ) {
-    //     // run Fire Function
-    //     console.log('hit fire function')
-    //   }
-
 
     // if (t.type === "long-press") {
     //   // if user is in hatch world, reset the hatchBtn and cannonball before allowing reshoot

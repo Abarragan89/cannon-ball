@@ -19,32 +19,31 @@ export default FireBtn;
 const styles = StyleSheet.create({
     root: {
         flex: 1,
-        width: 100,
-        height: 38,
+        width: 80,
         flexDirection: 'row',
         justifyContent: 'center',
         position: 'absolute',
-        bottom: 10,
-        right: 100,
-        pointerEvents: 'none'
+        bottom: 65,
+        right: 70,
+        pointerEvents: 'none',
     },
     pressable: {
         flex: 1,
         borderWidth: 1,
-        borderColor: 'black',
         borderRadius: 8,
+        backgroundColor: '#940f0f'
     },
     pressed: {
         backgroundColor: '#b02b2b8f'
     },
     text: {
-        fontSize: 34,
-        fontFamily: 'textFont',
+        fontSize: 18,
+        // fontFamily: 'textFont',
+        letterSpacing: 2,
+        fontWeight: 'bold',
         textAlign: 'center',
         padding: 1,
-        color: colors.primaryBlack,
+        color: colors.offWhite,
         opacity: .75
     }
-
-
 })

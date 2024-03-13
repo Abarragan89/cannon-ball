@@ -19,7 +19,7 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-
+import FireBtn from "../../../../Components/GameEngine/FireBtn";
 
 function ChatperOneLevelOne() {
     // The game data accepts refs and state for each aspect of the game
@@ -114,7 +114,10 @@ function ChatperOneLevelOne() {
                     powerMeter: {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
-                    }
+                    },
+                    // fireBtn: {
+                    //     renderer: <FireBtn />
+                    // }
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
@@ -138,6 +141,7 @@ function ChatperOneLevelOne() {
                     upperLimit={screenWidth - 70}
                     lowerLimit={5}
                 />
+                <FireBtn />
             </GameEngine>
         </ImageBackground>
     );

@@ -1,34 +1,6 @@
 // GLOBAL VARIABLES FOR MOVE CANNON CONTROL POSITIONS
-import { Dimensions } from "react-native";
-const { width, height } = Dimensions.get('window')
-
-const buttonPosition = {
-  left: {
-    bottom: 10, // Adjust these values based on your button's actual position and size
-    right: 50,
-    width: 100,
-    height: 20,
-  },
-  // right: {
-  //   bottom: 150, // Adjust these values based on your button's actual position and size
-  //   right: 450,
-  //   width: 100,
-  //   height: 50,
-  // }const buttonLeft = buttonPosition.right - buttonPosition.width;
-}
-
-
-
-const buttonLeft = width - (buttonPosition.left.right + 200);
-const buttonTop = height - buttonPosition.left.bottom - 20;
-console.log('button top ', buttonTop)
-console.log('button left ', buttonLeft)
-
-let isLeftButtonPressed = false;
-
 const cannonControlSystem = (entities, { touches }) => {
   touches.forEach(t => {
-
     // Control the POWER and the ANGLE
     let currentPower = entities.powerMeter.displayPower;
     let currentAngle = entities.angleMeter.angleLevel;
