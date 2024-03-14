@@ -2,12 +2,20 @@ import { Dimensions } from 'react-native';
 import * as Haptics from 'expo-haptics';
 const { width, height } = Dimensions.get('window')
 
+const fireBtnPos = {
+  // 80 = width, 80 = absolute right
+  leftX: width - (80 + 80),
+  // added 80 because that is the width
+  rightX: width - (80 + 80) + 80,
+  // height is about 40 and it is 10 from bottom
+  topY: height - 45,
+  bottomY: height - 17
+}
 
 
 const fireCannonSystem = (entities, { touches }) => {
   // always have cannon and cannonslider lined up
-  entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0];
-
+  // entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0];
 
   function shootCannonBall() {
     // set the gravity, angle and power before launch
@@ -57,16 +65,6 @@ const fireCannonSystem = (entities, { touches }) => {
   showFollowArrowDetection();
   shootCannonBall();
   wallDetection();
-
-  const fireBtnPos = {
-    // 100 = width, 100 = absolute right
-    leftX: width - (80 + 60),
-    // added 100 because that is the width
-    rightX: width - (80 + 60) + 80,
-    // height is about 40 and it is 10 from bottom
-    topY: height - 115,
-    bottomY: height - 55
-  }
 
   touches.forEach(t => {
     // Control the position of the cannon

@@ -37,14 +37,18 @@ const MoveCannonLaunch = ({ position, setPosition, updatePositionRef, upperLimit
     return (
         <View style={styles.root}>
             <Pressable style={({ pressed }) => [styles.pressable, pressed && styles.pressed]} 
-            onPressIn={handleMoveLeft} onPressOut={handleRelease}
+            // onPressIn={handleMoveLeft} onPressOut={handleRelease}
             >
                 <AntDesign name="caretleft" size={30} color="#000000bd" />
                 {/* this text is just need to trigger a rerender in the UI */}
                 <Text style={{ position: 'absolute', opacity: 0 }}>{position}</Text>
             </Pressable>
+
+            {/* this view is used so the fire button can be place in the middle and pointer events can travel through */}
+            <View style={styles.noPointerEvents} />
+
             <Pressable style={({ pressed }) => [styles.pressable, pressed && styles.pressed]} 
-            onPressIn={handleMoveRight} onPressOut={handleRelease}
+            // onPressIn={handleMoveRight} onPressOut={handleRelease}
             >
                 <AntDesign name="caretright" size={30} color="#000000b8" />
             </Pressable>
@@ -57,12 +61,12 @@ export default MoveCannonLaunch;
 const styles = StyleSheet.create({
     root: {
         flex: 1,
-        width: 100,
+        // width: 100,
         flexDirection: 'row',
         justifyContent: 'space-between',
         position: 'absolute',
-        bottom: 20,
-        right: 60,
+        bottom: 15,
+        right: 50,
     },
     pressable: {
         // borderWidth: 1,
@@ -77,4 +81,8 @@ const styles = StyleSheet.create({
         // backgroundColor: '#00000056'
         color: 'white'
     },
+    noPointerEvents: {
+        pointerEvents: 'none',
+        width: 80
+    }
 })

@@ -93,7 +93,9 @@ function ChapterFiveLevelOne() {
                     },
                     cannon: {
                         // only the postiion[0] gets updated by ref variables.
-                        position: [100, screenHeight - 90],
+                        position: [300, screenHeight - 90],
+                        // ADDED: IS MOVING TO LEVEL
+                        isMoving: false,
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
@@ -147,7 +149,16 @@ function ChapterFiveLevelOne() {
                     fireBtn: {
                         isShooting: false,
                         renderer: <FireBtn />
+                    },
+                    moveCannonLaunch: {
+                        updatePositionRef: cannonPositionRef,
+                        setPosition: setCannonPositionState,
+                        position: cannonPositionState,
+                        upperLimit: screenWidth - 70,
+                        lowerLimit: 5,
+                        renderer: <MoveCannonLaunch />
                     }     
+
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
@@ -164,13 +175,13 @@ function ChapterFiveLevelOne() {
                 I need to change state in this components when 
                 the slider onValueChange function fires
              */}
-                <MoveCannonLaunch
+                {/* <MoveCannonLaunch
                     updatePositionRef={cannonPositionRef}
                     setPosition={setCannonPositionState}
                     position={cannonPositionState}
                     upperLimit={screenWidth - 70}
                     lowerLimit={5}
-                />
+                /> */}
                 {/* <FireBtn /> */}
             </GameEngine>
         </ImageBackground>
