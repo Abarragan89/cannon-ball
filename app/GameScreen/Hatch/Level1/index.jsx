@@ -41,8 +41,8 @@ function ChapterFiveLevelOne() {
     // Power Data
     const powerLevelRef = useRef(15)
     // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([200, 100])
-    const cannonPositionRef = useRef([200, 100]);
+    // const [cannonPositionState, setCannonPositionState] = useState([200, 100])
+    // const cannonPositionRef = useRef([200, 100]);
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -87,7 +87,7 @@ function ChapterFiveLevelOne() {
                         renderer: <CannonBall />
                     },
                     gameData: {
-                        cannonLaunchPosition: cannonPositionRef,
+                        // cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
                         bounceLevel: 0.8,
                     },
@@ -151,9 +151,9 @@ function ChapterFiveLevelOne() {
                         renderer: <FireBtn />
                     },
                     moveCannonLaunch: {
-                        updatePositionRef: cannonPositionRef,
-                        setPosition: setCannonPositionState,
-                        position: cannonPositionState,
+                        // updatePositionRef: cannonPositionRef,
+                        // setPosition: setCannonPositionState,
+                        // position: cannonPositionState,
                         upperLimit: screenWidth - 70,
                         lowerLimit: 5,
                         renderer: <MoveCannonLaunch />

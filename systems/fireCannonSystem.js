@@ -65,9 +65,9 @@ const fireCannonSystem = (entities, { touches }) => {
   showFollowArrowDetection();
   shootCannonBall();
   wallDetection();
+  
 
   touches.forEach(t => {
-    // Control the position of the cannon
     const { locationX, locationY } = t.event
     // Check if the touch occurred within the button's area
     if (
