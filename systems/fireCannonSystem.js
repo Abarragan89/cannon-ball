@@ -4,12 +4,13 @@ const { width, height } = Dimensions.get('window')
 
 const fireBtnPos = {
   // 80 = width, 80 = absolute right
-  leftX: width - (80 + 80),
+  leftX: width - (60 + 50),
   // added 80 because that is the width
-  rightX: width - (80 + 80) + 80,
+  rightX: width - (60 + 50) + 60,
   // height is about 40 and it is 10 from bottom
-  topY: height - 45,
-  bottomY: height - 17
+  bottomY: height - 60,
+  // this topY should be bottomY plus the height which is 60
+  topY: height - 120
 }
 
 
@@ -65,7 +66,6 @@ const fireCannonSystem = (entities, { touches }) => {
   showFollowArrowDetection();
   shootCannonBall();
   wallDetection();
-  
 
   touches.forEach(t => {
     const { locationX, locationY } = t.event
@@ -109,8 +109,8 @@ const fireCannonSystem = (entities, { touches }) => {
         let POWER = entities.powerMeter.displayPower;
         const angleInRadians = (ANGLE * Math.PI) / 180;
         // set the velocity
-        entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
-        entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
+        entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.195;
+        entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.195;
       }
     }
   });

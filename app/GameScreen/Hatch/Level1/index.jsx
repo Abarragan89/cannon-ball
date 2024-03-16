@@ -7,7 +7,7 @@ import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-import MoveCannonLaunch from "../../../../Components/GameEngine/MoveCannonLaunch";
+
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import FireBtn from "../../../../Components/GameEngine/FireBtn";
@@ -89,7 +89,7 @@ function ChapterFiveLevelOne() {
                         bounceLevel: 0.8,
                     },
                     cannon: {
-                        position: [300, screenHeight - 90],
+                        position: [300, screenHeight - 100],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
