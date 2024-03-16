@@ -40,9 +40,6 @@ function ChapterFiveLevelOne() {
     const angleLevelRef = useRef(90)
     // Power Data
     const powerLevelRef = useRef(15)
-    // Cannon Position Data
-    // const [cannonPositionState, setCannonPositionState] = useState([200, 100])
-    // const cannonPositionRef = useRef([200, 100]);
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -92,10 +89,7 @@ function ChapterFiveLevelOne() {
                         bounceLevel: 0.8,
                     },
                     cannon: {
-                        // only the postiion[0] gets updated by ref variables.
                         position: [300, screenHeight - 90],
-                        // ADDED: IS MOVING TO LEVEL
-                        isMoving: false,
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
@@ -149,16 +143,7 @@ function ChapterFiveLevelOne() {
                     fireBtn: {
                         isShooting: false,
                         renderer: <FireBtn />
-                    },
-                    moveCannonLaunch: {
-                        // updatePositionRef: cannonPositionRef,
-                        // setPosition: setCannonPositionState,
-                        // position: cannonPositionState,
-                        upperLimit: screenWidth - 70,
-                        lowerLimit: 5,
-                        renderer: <MoveCannonLaunch />
-                    }     
-
+                    }
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
@@ -216,6 +201,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     }
 });
-
 
 export default ChapterFiveLevelOne;
