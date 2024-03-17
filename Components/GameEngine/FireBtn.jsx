@@ -11,9 +11,9 @@ const FireBtn = ({ isShooting }) => {
             <View>
                 {
                     isShooting ?
-                        <FontAwesome name="undo" size={50} color={colors.offWhite} />
+                        <FontAwesome name="undo" size={50} color='#b7b1b1c7' />
                         :
-                        <Feather name="crosshair" size={50} color={colors.bronzeStar} />
+                        <Feather name="crosshair" size={50} color={colors.limeGreen} />
                 }
             </View>
         </View>
@@ -25,12 +25,12 @@ export default FireBtn;
 const styles = StyleSheet.create({
     root: {
         flex: 1,
-        width: 50,
-        height: 50,
+        width: 60,
+        height: 60,
         flexDirection: 'row',
         justifyContent: 'center',
         position: 'absolute',
-        bottom: 60,
+        bottom: 15,
         right: 50,
         pointerEvents: 'none',
         flex: 1,

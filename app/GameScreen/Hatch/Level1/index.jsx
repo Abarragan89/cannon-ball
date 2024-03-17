@@ -7,7 +7,6 @@ import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import FireBtn from "../../../../Components/GameEngine/FireBtn";
@@ -21,7 +20,7 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import colors from "../../../../constants/colors";
-import hatchLevelOneSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/hatchLevelOneSystem";
+import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
 import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
 import HatchLid from "../../../../Components/GameEngine/HatchLid";
@@ -30,10 +29,6 @@ import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/h
 import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
 
 function ChapterFiveLevelOne() {
-    // The game data accepts refs and state for each aspect of the game
-    // the ref is used to game data state and remain consistent through rerenders
-    // the state is used to manage the components that use that data so rerenders are triggered
-
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data
@@ -68,7 +63,7 @@ function ChapterFiveLevelOne() {
                     hatchBtnDetectionSystem,
                     hatchBoxDetectionSystem,
                     hatchLidDetectionSystem,
-                    hatchLevelOneSystem,
+                    hitHatchBtn_OpenHatchSystem
                 ]}
                 entities={{
                     cannonBall: {
@@ -84,7 +79,6 @@ function ChapterFiveLevelOne() {
                         renderer: <CannonBall />
                     },
                     gameData: {
-                        // cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
                         bounceLevel: 0.8,
                     },
@@ -150,7 +144,6 @@ function ChapterFiveLevelOne() {
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Hatch' }}
                 />
-
                 {isGameOver &&
                     <EndGameModal
                         endGameData={endGameData}

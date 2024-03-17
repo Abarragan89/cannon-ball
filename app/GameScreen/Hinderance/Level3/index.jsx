@@ -23,10 +23,6 @@ import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTal
 
 
 function ChatperThreeLevelThree() {
-    // The game data accepts refs and state for each aspect of the game
-    // the ref is used to game data state and remain consistent through rerenders
-    // the state is used to manage the components that use that data so rerenders are triggered
-
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data

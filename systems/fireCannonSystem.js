@@ -8,16 +8,13 @@ const fireBtnPos = {
   // added 80 because that is the width
   rightX: width - (60 + 50) + 60,
   // height is about 40 and it is 10 from bottom
-  bottomY: height - 60,
+  bottomY: height - 20,
   // this topY should be bottomY plus the height which is 60
-  topY: height - 120
+  topY: height - 80
 }
 
 
 const fireCannonSystem = (entities, { touches }) => {
-  // always have cannon and cannonslider lined up
-  // entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0];
-
   function shootCannonBall() {
     // set the gravity, angle and power before launch
     const GRAVITY = .05;

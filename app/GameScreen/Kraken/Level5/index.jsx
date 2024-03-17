@@ -96,7 +96,7 @@ function ChapterFourLevelFive() {
                         bounceLevel: 0.8
                     },
                     cannon: {
-                        position: [screenWidth - 70, 75],
+                        position: [screenWidth - 78, 75],
                         upperTravelLimit: -1,
                         lowerTravelLimit: 1000,
                         rotate: '-90deg',

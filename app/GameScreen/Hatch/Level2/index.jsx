@@ -20,7 +20,7 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import colors from "../../../../constants/colors";
-import hatchLevelOneSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/hatchLevelOneSystem";
+import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
 import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
 import HatchLid from "../../../../Components/GameEngine/HatchLid";
@@ -63,7 +63,7 @@ function ChapterFiveLevelTwo() {
                     hatchBtnDetectionSystem,
                     hatchBoxDetectionSystem,
                     hatchLidDetectionSystem,
-                    hatchLevelOneSystem,
+                    hitHatchBtn_OpenHatchSystem
                 ]}
                 entities={{
                     cannonBall: {

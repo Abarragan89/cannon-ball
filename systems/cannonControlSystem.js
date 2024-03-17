@@ -21,7 +21,6 @@ const cannonControlSystem = (entities, { touches }) => {
           const deltaX = t.delta.pageX;
           // Interpolate power changes based on vertical movement
           const movementChange = deltaX * 1;
-          console.log('movement change ', movementChange)
           // Check for travel limits on certain maps
           const lowerLimit = entities.cannon.lowerTravelLimit ;
           const upperLimit = entities.cannon.upperTravelLimit;

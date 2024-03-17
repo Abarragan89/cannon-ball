@@ -1,7 +1,6 @@
-import colors from "../../../constants/colors";
-import { Dimensions } from "react-native";
+import colors from "../../constants/colors";
 
-const hatchLevelOneSystem = (entities) => {
+const hitHatchBtn_OpenHatchSystem = (entities) => {
     function openLid() {
         if (entities.hatchLid.position[0] <= entities.hatchBox.position[0] + 57 && entities.cannonBall.isBallMoving) {
             entities.hatchLid.position[0] += 1
@@ -15,12 +14,26 @@ const hatchLevelOneSystem = (entities) => {
     }
     function turnHatchBtnOn() {
         entities.hatchBtn.color = colors.limeGreen;
-        entities.hatchBtn.topPosition = -3;
+        // depending on which type of button it is, Lower the switch
+        if (entities.hatchBtn.isTriggerOnTop) {
+            entities.hatchBtn.topPosition = -3;
+        } else if (entities.hatchBtn.isTriggerOnBottom) {
+            entities.hatchBtn.topPosition = 28;
+        } else if (entities.hatchBtn.isTriggerOnLeft) {
+            entities.hatchBtn.leftPosition = -5
+        }
     }
 
     function turnHatchBtnOff() {
         entities.hatchBtn.color = colors.bronzeStar;
-        entities.hatchBtn.topPosition = -8;
+        // depending on which type of button it is, Raise the switch
+        if(entities.hatchBtn.isTriggerOnTop) {
+            entities.hatchBtn.topPosition = -8;
+        } else if (entities.hatchBtn.isTriggerOnBottom) {
+            entities.hatchBtn.topPosition = 33;
+        } else if (entities.hatchBtn.isTriggerOnLeft) {
+            entities.hatchBtn.leftPosition = -11
+        }
     }
     if (!entities.cannonBall.isGameOver) {
         if (entities.hatchBtn.isHit) {
@@ -35,4 +48,4 @@ const hatchLevelOneSystem = (entities) => {
     return entities;
 }
 
-export default hatchLevelOneSystem;
+export default hitHatchBtn_OpenHatchSystem;

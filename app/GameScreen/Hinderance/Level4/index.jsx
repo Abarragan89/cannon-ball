@@ -28,10 +28,6 @@ import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallS
 
 
 function ChapterThreeLevelFour() {
-    // The game data accepts refs and state for each aspect of the game
-    // the ref is used to game data state and remain consistent through rerenders
-    // the state is used to manage the components that use that data so rerenders are triggered
-
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data
@@ -143,7 +139,6 @@ function ChapterThreeLevelFour() {
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Hinderance' }}
                 />
-
                 {isGameOver &&
                     <EndGameModal
                         endGameData={endGameData}
