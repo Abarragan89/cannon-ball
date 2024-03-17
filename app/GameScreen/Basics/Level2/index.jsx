@@ -6,6 +6,7 @@ import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
+import FireBtn from "../../../../Components/GameEngine/FireBtn";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
@@ -73,8 +74,7 @@ function ChatperOneLevelTwo() {
                         endGameData: endGameData,
                     },
                     cannon: {
-                        // only the postiion[0] gets updated by ref variables.
-                        position: [400, screenHeight - 90],
+                        position: [400, screenHeight - 100],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
@@ -108,6 +108,10 @@ function ChatperOneLevelTwo() {
                     powerMeter: {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
+                    },
+                    fireBtn: {
+                        isShooting: false,
+                        renderer: <FireBtn />
                     }
                 }}>
                 <StatusBar hidden={true} />

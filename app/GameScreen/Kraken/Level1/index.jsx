@@ -7,7 +7,7 @@ import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-
+import FireBtn from "../../../../Components/GameEngine/FireBtn";
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
@@ -24,9 +24,6 @@ import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallS
 import krakenLevelOne from "../../../../systems/krakenMovementSystems/krakenLevelOne";
 
 function ChapterFourLevelOne() {
-    // The game data accepts refs and state for each aspect of the game
-    // the ref is used to game data state and remain consistent through rerenders
-    // the state is used to manage the components that use that data so rerenders are triggered
 
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
@@ -34,9 +31,6 @@ function ChapterFourLevelOne() {
     const angleLevelRef = useRef(90)
     // Power Data
     const powerLevelRef = useRef(15)
-    // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([100, 100])
-    const cannonPositionRef = useRef([100, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -79,13 +73,13 @@ function ChapterFourLevelOne() {
                         renderer: <CannonBall />
                     },
                     gameData: {
-                        cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
                         bounceLevel: 0.8
                     },
                     cannon: {
-                        // only the postiion[0] gets updated by ref variables.
-                        position: [400, screenHeight - 90],
+                        position: [180, screenHeight - 100],
+                        upperTravelLimit: Math.floor(screenWidth / 3.3),
+                        lowerTravelLimit: 5, 
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
@@ -123,6 +117,10 @@ function ChapterFourLevelOne() {
                     squareHindOne: {
                         position: [100, 100],
                         renderer: <SmallSquareHind />
+                    },
+                    fireBtn: {
+                        isShooting: false,
+                        renderer: <FireBtn />
                     }
                 }}>
                 <StatusBar hidden={true} />
@@ -136,17 +134,6 @@ function ChapterFourLevelOne() {
                         endGameData={endGameData}
                     />
                 }
-                {/* The action is happending in this component
-                I need to change state in this components when 
-                the slider onValueChange function fires
-             */}
-                <MoveCannonLaunch
-                    updatePositionRef={cannonPositionRef}
-                    setPosition={setCannonPositionState}
-                    position={cannonPositionState}
-                    upperLimit={250}
-                    lowerLimit={5}
-                />
             </GameEngine>
         </ImageBackground>
     );

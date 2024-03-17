@@ -156,18 +156,6 @@ function ChapterFiveLevelOne() {
                         endGameData={endGameData}
                     />
                 }
-                {/* The action is happening in this component
-                I need to change state in this components when 
-                the slider onValueChange function fires
-             */}
-                {/* <MoveCannonLaunch
-                    updatePositionRef={cannonPositionRef}
-                    setPosition={setCannonPositionState}
-                    position={cannonPositionState}
-                    upperLimit={screenWidth - 70}
-                    lowerLimit={5}
-                /> */}
-                {/* <FireBtn /> */}
             </GameEngine>
         </ImageBackground>
     );
