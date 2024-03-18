@@ -7,11 +7,9 @@ import { useFonts } from 'expo-font';
 import CannonLauncher from "../Components/GameEngine/CannonLauncher";
 import * as SplashScreen from 'expo-splash-screen';
 import { Dimensions } from "react-native";
-import TNT from "../Components/GameEngine/TNT";
 const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
 const bgImage = require('../assets/images/homeScreenImg.png')
-const { height, width } = Dimensions.get('screen')
-
+const { height } = Dimensions.get('screen')
 
 SplashScreen.preventAutoHideAsync();
 

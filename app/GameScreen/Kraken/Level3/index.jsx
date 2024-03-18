@@ -3,12 +3,11 @@ import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
-import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
-import cannonBallTNTDetectionSystem from "../../../../systems/cannonBallTNTDetectionSystem";
+import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-import MoveCannonLaunch from "../../../../Components/GameEngine/MoveCannonLaunch";
+import FireBtn from "../../../../Components/GameEngine/FireBtn";
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
@@ -30,18 +29,12 @@ import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallS
 import krakenLevelThree from "../../../../systems/krakenMovementSystems/krakenLevelThree";
 
 function ChatperFourLevelThree() {
-    // The game data accepts refs and state for each aspect of the game
-    // the ref is used to game data state and remain consistent through rerenders
-    // the state is used to manage the components that use that data so rerenders are triggered
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
     const powerLevelRef = useRef(15)
-    // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([20, 100])
-    const cannonPositionRef = useRef([20, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -64,8 +57,7 @@ function ChatperFourLevelThree() {
                 systems=
                 {[
                     cannonControlSystem,
-                    explodeTNTSystem,
-                    cannonBallTNTDetectionSystem,
+                    TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     longHindSystemOne,
@@ -88,14 +80,12 @@ function ChatperFourLevelThree() {
                         renderer: <CannonBall />
                     },
                     gameData: {
-                        cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
-                        // there is no reduction in Y movement when bouncing
                         bounceLevel: 0.5
                     },
                     cannon: {
-                        // only the postiion[0] gets updated by ref variables.
-                        position: [400, 43],
+                        position: [40, 43],
+                        upperTravelLimit: 45,
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
@@ -147,6 +137,10 @@ function ChatperFourLevelThree() {
                         position: [-3, -2],
                         renderer: <ExtraLongHind />
                     },
+                    fireBtn: {
+                        isShooting: false,
+                        renderer: <FireBtn />
+                    }
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
@@ -159,17 +153,6 @@ function ChatperFourLevelThree() {
                         endGameData={endGameData}
                     />
                 }
-                {/* The action is happending in this component
-                I need to change state in this components when 
-                the slider onValueChange function fires
-             */}
-                <MoveCannonLaunch
-                    updatePositionRef={cannonPositionRef}
-                    setPosition={setCannonPositionState}
-                    position={cannonPositionState}
-                    upperLimit={50}
-                    lowerLimit={5}
-                />
             </GameEngine>
         </ImageBackground>
     );

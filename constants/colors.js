@@ -10,4 +10,5 @@ export default colors = {
     bronzeStar: '#d94a4a',
     silverStar: 'gray',
     goldStar: '#e1ca18',
+    limeGreen: '#08cf08'
 }

@@ -1,29 +1,29 @@
 import lineBallDetection from "../../utils/lineBallDetection";
 
-const hatchBtnDetectionSystem = (entities) => {
+const hatchBtnTwoDetectionSystem = (entities) => {
     // LEFT LINE OF HINDERANCE BOX
-    const leftLineX1 = entities.hatchBtn.position[0];
-    const leftLineY1 = entities.hatchBtn.position[1];
-    const leftLineX2 = entities.hatchBtn.position[0];
-    const leftLineY2 = entities.hatchBtn.position[1] + 40;
+    const leftLineX1 = entities.hatchBtnTwo.position[0];
+    const leftLineY1 = entities.hatchBtnTwo.position[1];
+    const leftLineX2 = entities.hatchBtnTwo.position[0];
+    const leftLineY2 = entities.hatchBtnTwo.position[1] + 40;
 
     // RIGHT LINE OF HINDERANCE BOX
-    const rightLineX1 = entities.hatchBtn.position[0] + 40;
-    const rightLineY1 = entities.hatchBtn.position[1];
-    const rightLineX2 = entities.hatchBtn.position[0] + 40;
-    const rightLineY2 = entities.hatchBtn.position[1] + 40;
+    const rightLineX1 = entities.hatchBtnTwo.position[0] + 40;
+    const rightLineY1 = entities.hatchBtnTwo.position[1];
+    const rightLineX2 = entities.hatchBtnTwo.position[0] + 40;
+    const rightLineY2 = entities.hatchBtnTwo.position[1] + 40;
 
     // BOTTOM LINE OF HINDERANCE BOX
-    const bottomLineX1 = entities.hatchBtn.position[0];
-    const bottomLineY1 = entities.hatchBtn.position[1] + 40;
-    const bottomLineX2 = entities.hatchBtn.position[0] + 40;
-    const bottomLineY2 = entities.hatchBtn.position[1] + 40;
+    const bottomLineX1 = entities.hatchBtnTwo.position[0];
+    const bottomLineY1 = entities.hatchBtnTwo.position[1] + 40;
+    const bottomLineX2 = entities.hatchBtnTwo.position[0] + 40;
+    const bottomLineY2 = entities.hatchBtnTwo.position[1] + 40;
 
     // TOP LINE OF HINDERANCE BOX
-    const topLineX1 = entities.hatchBtn.position[0];
-    const topLineY1 = entities.hatchBtn.position[1];
-    const topLineX2 = entities.hatchBtn.position[0] + 40;
-    const topLineY2 = entities.hatchBtn.position[1];
+    const topLineX1 = entities.hatchBtnTwo.position[0];
+    const topLineY1 = entities.hatchBtnTwo.position[1];
+    const topLineX2 = entities.hatchBtnTwo.position[0] + 40;
+    const topLineY2 = entities.hatchBtnTwo.position[1];
 
 
     // CIRCLE PROPERTIES
@@ -37,8 +37,8 @@ const hatchBtnDetectionSystem = (entities) => {
             // add to bounce count
             entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0];
-            if (entities.hatchBtn.isTriggerOnLeft) {
-                entities.hatchBtn.isHit = true;
+            if (entities.hatchBtnTwo.isTriggerOnLeft) {
+                entities.hatchBtnTwo.isHit = true;
             }
         }
     }
@@ -50,8 +50,8 @@ const hatchBtnDetectionSystem = (entities) => {
             // add to bounce count
             entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0];
-            if (entities.hatchBtn.isTriggerOnRight) {
-                entities.hatchBtn.isHit = true;
+            if (entities.hatchBtnTwo.isTriggerOnRight) {
+                entities.hatchBtnTwo.isHit = true;
             }
         }
     }
@@ -62,8 +62,8 @@ const hatchBtnDetectionSystem = (entities) => {
             // add to bounce count
             entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
-            if (entities.hatchBtn.isTriggerOnBottom) {
-                entities.hatchBtn.isHit = true;
+            if (entities.hatchBtnTwo.isTriggerOnBottom) {
+                entities.hatchBtnTwo.isHit = true;
             }
         }
     }
@@ -74,8 +74,8 @@ const hatchBtnDetectionSystem = (entities) => {
             // add to bounce count
             entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1] * entities.gameData.bounceLevel
-            if (entities.hatchBtn.isTriggerOnTop) {
-                entities.hatchBtn.isHit = true;
+            if (entities.hatchBtnTwo.isTriggerOnTop) {
+                entities.hatchBtnTwo.isHit = true;
             }
         }
     }
@@ -83,4 +83,4 @@ const hatchBtnDetectionSystem = (entities) => {
     return entities;
 }
 
-export default hatchBtnDetectionSystem;
+export default hatchBtnTwoDetectionSystem;

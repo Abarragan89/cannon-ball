@@ -1,29 +1,34 @@
 import lineBallDetection from "../../utils/lineBallDetection";
 
-const giantTallSystemOne = (entities) => {
+const hatchLidDetectionSystem = (entities) => {
     // LEFT LINE OF HINDERANCE BOX
-    const leftLineX1 = entities.giantTallOne.position[0];
-    const leftLineY1 = entities.giantTallOne.position[1] + 3;
-    const leftLineX2 = entities.giantTallOne.position[0];
-    const leftLineY2 = entities.giantTallOne.position[1] + 300;
+    const leftLineX1 = entities.hatchLid.position[0];
+    const leftLineY1 = entities.hatchLid.position[1];
+    const leftLineX2 = entities.hatchLid.position[0];
+    const leftLineY2 = entities.hatchLid.position[1] + 15;
 
     // RIGHT LINE OF HINDERANCE BOX
-    const rightLineX1 = entities.giantTallOne.position[0] + 67;
-    const rightLineY1 = entities.giantTallOne.position[1] + 3;
-    const rightLineX2 = entities.giantTallOne.position[0] + 67;
-    const rightLineY2 = entities.giantTallOne.position[1] + 300;
+    // same as rightLine, I didn't make the coordinate exactly based on the 40px size of Hinderance
+    const rightLineX1 = entities.hatchLid.position[0] + 57;
+    const rightLineY1 = entities.hatchLid.position[1];
+    const rightLineX2 = entities.hatchLid.position[0] + 57;
+    const rightLineY2 = entities.hatchLid.position[1] + 15;
+
 
     // BOTTOM LINE OF HINDERANCE BOX
-    const bottomLineX1 = entities.giantTallOne.position[0] + 3;
-    const bottomLineY1 = entities.giantTallOne.position[1] + 300;
-    const bottomLineX2 = entities.giantTallOne.position[0] + 67;
-    const bottomLineY2 = entities.giantTallOne.position[1] + 300;
+    // same as bottomLine, I didn't make the coordinate exactly based on the 40px size of Hinderance
+    const bottomLineX1 = entities.hatchLid.position[0];
+    const bottomLineY1 = entities.hatchLid.position[1] + 15;
+    const bottomLineX2 = entities.hatchLid.position[0] + 57;
+    const bottomLineY2 = entities.hatchLid.position[1] + 15;
 
     // TOP LINE OF HINDERANCE BOX
-    const topLineX1 = entities.giantTallOne.position[0];
-    const topLineY1 = entities.giantTallOne.position[1];
-    const topLineX2 = entities.giantTallOne.position[0] + 67;
-    const topLineY2 = entities.giantTallOne.position[1];
+    const topLineX1 = entities.hatchLid.position[0];
+    const topLineY1 = entities.hatchLid.position[1];
+    const topLineX2 = entities.hatchLid.position[0] + 57;
+    const topLineY2 = entities.hatchLid.position[1];
+
+
 
     // CIRCLE PROPERTIES
     const radius = 10;
@@ -45,7 +50,7 @@ const giantTallSystemOne = (entities) => {
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
         }
     }
-
+    
     ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
     if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[1] < 0) {
@@ -65,4 +70,4 @@ const giantTallSystemOne = (entities) => {
     return entities;
 }
 
-export default giantTallSystemOne;
+export default hatchLidDetectionSystem;

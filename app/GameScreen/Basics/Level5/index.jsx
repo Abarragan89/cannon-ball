@@ -3,12 +3,11 @@ import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
-import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
-import cannonBallTNTDetectionSystem from "../../../../systems/cannonBallTNTDetectionSystem";
+import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
+import FireBtn from "../../../../Components/GameEngine/FireBtn";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-import MoveCannonLaunch from "../../../../Components/GameEngine/MoveCannonLaunch";
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
@@ -32,9 +31,6 @@ function ChatperOneLevelFive() {
     const angleLevelRef = useRef(90)
     // Power Data
     const powerLevelRef = useRef(15)
-    // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 30, 100])
-    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 30, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -57,8 +53,7 @@ function ChatperOneLevelFive() {
                 systems=
                 {[
                     cannonControlSystem,
-                    explodeTNTSystem,
-                    cannonBallTNTDetectionSystem,
+                    TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
                 ]}
@@ -76,12 +71,12 @@ function ChatperOneLevelFive() {
                         renderer: <CannonBall />
                     },
                     gameData: {
-                        cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
                     },
                     cannon: {
-                        // only the postiion[0] gets updated by ref variables.
-                        position: [400, screenHeight - 120],
+                        position: [Math.floor(screenWidth / 2) - 30, screenHeight - 120],
+                        upperTravelLimit: -1,
+                        lowerTravelLimit: 1000,
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
@@ -115,6 +110,10 @@ function ChatperOneLevelFive() {
                     powerMeter: {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
+                    }, 
+                    fireBtn: {
+                        isShooting: false,
+                        renderer: <FireBtn />
                     }
                 }}>
                 <StatusBar hidden={true} />
@@ -122,23 +121,11 @@ function ChatperOneLevelFive() {
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Basics' }}
                 />
-
                 {isGameOver &&
                     <EndGameModal
                         endGameData={endGameData}
                     />
                 }
-                {/* The action is happending in this component
-                I need to change state in this components when 
-                the slider onValueChange function fires
-             */}
-                <MoveCannonLaunch
-                    updatePositionRef={cannonPositionRef}
-                    setPosition={setCannonPositionState}
-                    position={cannonPositionState}
-                    upperLimit={-1}
-                    lowerLimit={1000}
-                />
             </GameEngine>
         </ImageBackground>
     );

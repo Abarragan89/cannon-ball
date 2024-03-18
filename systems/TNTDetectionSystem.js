@@ -1,5 +1,6 @@
-const explodeTNTSystem = (entities) => {
-
+import lineBallDetection from "../utils/lineBallDetection";
+const TNTDetectionSystem = (entities) => {
+    /////////////////// HELPER FUNCTIONS TO END GAME //////////////
     function calculateAccuracy() {
         // coordinates for the bottom of the ball
         const ballXCoord = entities.cannonBall.position[0] + 10;
@@ -16,7 +17,7 @@ const explodeTNTSystem = (entities) => {
         const accuracyAmount = (Math.sqrt(triangleASide ** 2 + triangeBSide ** 2)).toFixed(2);
 
         if (accuracyAmount >= 15) {
-            entities.cannonBall.accuracy = 
+            entities.cannonBall.accuracy =
             {
                 name: 'Good Shot',
                 float: accuracyAmount,
@@ -24,14 +25,14 @@ const explodeTNTSystem = (entities) => {
 
             }
         } else if (accuracyAmount >= 5) {
-            entities.cannonBall.accuracy = 
+            entities.cannonBall.accuracy =
             {
                 name: 'Great Shot!',
                 float: accuracyAmount,
                 multiplier: 3,
             }
         } else {
-            entities.cannonBall.accuracy = 
+            entities.cannonBall.accuracy =
             {
                 name: 'Perfect Shot!!!',
                 float: accuracyAmount,
@@ -81,55 +82,67 @@ const explodeTNTSystem = (entities) => {
         entities.gameData.endGameData.current.bounces = entities.headerStats.bounces + 1;
     }
 
-    // Variables to determine collision of Cannon Ball and Top of TNT
-    // the X1 adn X2 lines are slightly within the TNT box. It needs to appear
-    // as if it is hitting the handle. Therefore, i added 5 to the first X1 and
-    // did not all the total 30 px length (only added 25)
-    const lineX1 = entities.TNT.position[0] + 5;
-    const lineY1 = entities.TNT.position[1];
-    const lineX2 = entities.TNT.position[0] + 25;
-    const lineY2 = entities.TNT.position[1];
+    // Left LINE OF TNT BOX
+    const leftLineX1 = entities.TNT.position[0];
+    const leftLineY1 = entities.TNT.position[1] - 3;
+    const leftLineX2 = entities.TNT.position[0];
+    const leftLineY2 = entities.TNT.position[1] + 30;
 
-    const radius = 6
+    // Right LINE OF TNT BOX
+    const rightLineX1 = entities.TNT.position[0] + 33;
+    const rightLineY1 = entities.TNT.position[1] - 3;
+    const rightLineX2 = entities.TNT.position[0] + 33;
+    const rightLineY2 = entities.TNT.position[1] + 27;
+
+
+    // BOTTOM LINE OF TNT BOX
+    const bottomLineX1 = entities.TNT.position[0] + 3;
+    const bottomLineY1 = entities.TNT.position[1] + 30;
+    const bottomLineX2 = entities.TNT.position[0] + 25;
+    const bottomLineY2 = entities.TNT.position[1] + 30;
+
+    const topLineX1 = entities.TNT.position[0] + 5;
+    const topLineY1 = entities.TNT.position[1];
+    const topLineX2 = entities.TNT.position[0] + 25;
+    const topLineY2 = entities.TNT.position[1];
+
+    // CIRCLE PROPERTIES
+    const radius = 10;
     const circleX = entities.cannonBall.position[0] + 10;
     const circleY = entities.cannonBall.position[1] + 10;
 
-    // Check if either endpoint of the line is inside the circle
-    const distance1 = Math.sqrt((lineX1 - circleX) ** 2 + (lineY1 - circleY) ** 2);
-    const distance2 = Math.sqrt((lineX2 - circleX) ** 2 + (lineY2 - circleY) ** 2);
 
-    if (distance1 <= radius || distance2 <= radius) {
+
+    ///////////// CHECKING FOR LEFT WALL DETECTION ////////////////////////
+    if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
+        if (entities.cannonBall.velocity[0] > 0) {
+            entities.headerStats.bounces += 1;
+            entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
+        }
+    }
+
+    ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
+    if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
+        if (entities.cannonBall.velocity[0] < 0) {
+            entities.headerStats.bounces += 1;
+            entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
+        }
+    }
+
+    ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
+    if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
+        if (entities.cannonBall.velocity[1] < 0) {
+            entities.headerStats.bounces += 1;
+            entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
+        }
+    }
+
+    ////////////////// CHECKING FOR TOP WALL DETECTION /////////////////
+    if (lineBallDetection(topLineX1, topLineY1, topLineX2, topLineY2, circleX, circleY, radius)) {
         endGameHandler();
     }
 
-
-    // Calculate the vector representing the line segment
-    const lineVectorX = lineX2 - lineX1;
-    const lineVectorY = lineY2 - lineY1;
-
-    // Calculate the vector representing the line from one endpoint to the circle center
-    const circleVectorX = circleX - lineX1;
-    const circleVectorY = circleY - lineY1;
-
-    // Calculate the projection of the circle vector onto the line vector
-    const projection = (circleVectorX * lineVectorX + circleVectorY * lineVectorY) / (lineVectorX * lineVectorX + lineVectorY * lineVectorY);
-
-    // Check if the projection is within the line segment
-    if (projection >= 0 && projection <= 1) {
-        // Find the closest point on the line to the circle center
-        const closestX = lineX1 + projection * lineVectorX;
-        const closestY = lineY1 + projection * lineVectorY;
-
-        // Calculate the distance between the closest point on the line and the circle center
-        const distanceToLine = Math.sqrt((circleX - closestX) ** 2 + (circleY - closestY) ** 2);
-
-        // Check if the distance is less than or equal to the radius of the circle
-        if (distanceToLine <= radius) {
-            endGameHandler();
-        };
-    }
     return entities;
-
 }
 
-export default explodeTNTSystem; 
+export default TNTDetectionSystem;

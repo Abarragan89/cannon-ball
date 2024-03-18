@@ -3,12 +3,11 @@ import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
-import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
-import cannonBallTNTDetectionSystem from "../../../../systems/cannonBallTNTDetectionSystem";
+import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-import MoveCannonLaunch from "../../../../Components/GameEngine/MoveCannonLaunch";
+import FireBtn from "../../../../Components/GameEngine/FireBtn";
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
@@ -24,19 +23,12 @@ import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTal
 
 
 function ChatperThreeLevelThree() {
-    // The game data accepts refs and state for each aspect of the game
-    // the ref is used to game data state and remain consistent through rerenders
-    // the state is used to manage the components that use that data so rerenders are triggered
-
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
     const powerLevelRef = useRef(15)
-    // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([100, 100])
-    const cannonPositionRef = useRef([100, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -59,8 +51,7 @@ function ChatperThreeLevelThree() {
                 systems=
                 {[
                     cannonControlSystem,
-                    explodeTNTSystem,
-                    cannonBallTNTDetectionSystem,
+                    TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     giantTallSystemOne
@@ -79,13 +70,12 @@ function ChatperThreeLevelThree() {
                         renderer: <CannonBall />
                     },
                     gameData: {
-                        cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
                         bounceLevel: 0.8
                     },
                     cannon: {
-                        // only the postiion[0] gets updated by ref variables.
-                        position: [100, screenHeight - 90],
+                        upperTravelLimit:180,
+                        position: [100, screenHeight - 100],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
@@ -123,6 +113,10 @@ function ChatperThreeLevelThree() {
                     giantTallOne: {
                         position: [250, screenHeight - 315],
                         renderer: <GiantTallHind />
+                    },
+                    fireBtn: {
+                        isShooting: false,
+                        renderer: <FireBtn />
                     }
                 }}>
                 <StatusBar hidden={true} />
@@ -136,17 +130,6 @@ function ChatperThreeLevelThree() {
                         endGameData={endGameData}
                     />
                 }
-                {/* The action is happending in this component
-                I need to change state in this components when 
-                the slider onValueChange function fires
-             */}
-                <MoveCannonLaunch
-                    updatePositionRef={cannonPositionRef}
-                    setPosition={setCannonPositionState}
-                    position={cannonPositionState}
-                    upperLimit={180}
-                    lowerLimit={5}
-                />
             </GameEngine>
         </ImageBackground>
     );

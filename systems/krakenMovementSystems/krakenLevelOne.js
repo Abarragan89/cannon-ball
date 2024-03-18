@@ -24,7 +24,7 @@ const krakenLevelOne = (entities) => {
 
     }
     // Move TNT 
-    moveObstacleUpAndDown(entities.TNT, 130, 150, .6)
+    moveObstacleUpAndDown(entities.TNT, 160, 165, .6)
     return entities;
 }
 

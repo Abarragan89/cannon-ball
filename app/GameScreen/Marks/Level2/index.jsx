@@ -3,13 +3,12 @@ import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
-import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
-import cannonBallTNTDetectionSystem from "../../../../systems/cannonBallTNTDetectionSystem";
+import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import moveTNTMarksLevelTwo from "../../../../systems/marksMovementSystems/marksLevelTwo";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-import MoveCannonLaunch from "../../../../Components/GameEngine/MoveCannonLaunch";
+import FireBtn from "../../../../Components/GameEngine/FireBtn";
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
@@ -55,8 +54,7 @@ function ChatperTwoLevelTwo() {
                 systems=
                 {[
                     cannonControlSystem,
-                    explodeTNTSystem,
-                    cannonBallTNTDetectionSystem,
+                    TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     moveTNTMarksLevelTwo
@@ -75,12 +73,10 @@ function ChatperTwoLevelTwo() {
                         renderer: <CannonBall />
                     },
                     gameData: {
-                        cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
                     },
                     cannon: {
-                        // only the postiion[0] gets updated by ref variables.
-                        position: [400, screenHeight - 90],
+                        position: [400, screenHeight - 100],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
@@ -114,6 +110,10 @@ function ChatperTwoLevelTwo() {
                     powerMeter: {
                         displayPower: powerLevelRef.current,
                         renderer: <PowerMeter />
+                    },
+                    fireBtn: {
+                        isShooting: false,
+                        renderer: <FireBtn />
                     }
                 }}>
                 <StatusBar hidden={true} />
@@ -127,17 +127,6 @@ function ChatperTwoLevelTwo() {
                         endGameData={endGameData}
                     />
                 }
-                {/* The action is happending in this component
-                I need to change state in this components when 
-                the slider onValueChange function fires
-             */}
-                <MoveCannonLaunch
-                    updatePositionRef={cannonPositionRef}
-                    setPosition={setCannonPositionState}
-                    position={cannonPositionState}
-                    upperLimit={screenWidth - 70}
-                    lowerLimit={5}
-                />
             </GameEngine>
         </ImageBackground>
     );

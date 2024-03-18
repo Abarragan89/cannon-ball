@@ -3,14 +3,13 @@ import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
-import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
-import cannonBallTNTDetectionSystem from "../../../../systems/cannonBallTNTDetectionSystem";
+import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-import MoveCannonLaunch from "../../../../Components/GameEngine/MoveCannonLaunch";
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
+import FireBtn from "../../../../Components/GameEngine/FireBtn";
 import TNT from "../../../../Components/GameEngine/TNT";
 import Explosion from "../../../../Components/GameEngine/Explosion";
 import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
@@ -20,25 +19,22 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import HatchBtnBottom from '../../../../Components/GameEngine/HatchButtons/HatchBtnBottom'
-import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
-import hatchLevelOneSystem from "../../../../systems/hatchDetectionSystems/hatchLevelOneSystem";
 import colors from "../../../../constants/colors";
+import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
+import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
+import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
+import HatchLid from "../../../../Components/GameEngine/HatchLid";
+import HatchBox from "../../../../Components/GameEngine/HatchBox";
+import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
+import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
 
 function ChapterFiveLevelOne() {
-    // The game data accepts refs and state for each aspect of the game
-    // the ref is used to game data state and remain consistent through rerenders
-    // the state is used to manage the components that use that data so rerenders are triggered
-
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
     const powerLevelRef = useRef(15)
-    // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([Math.floor(screenWidth / 2) - 100, 100])
-    const cannonPositionRef = useRef([Math.floor(screenWidth / 2) - 100, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -61,12 +57,13 @@ function ChapterFiveLevelOne() {
                 systems=
                 {[
                     cannonControlSystem,
-                    explodeTNTSystem,
-                    cannonBallTNTDetectionSystem,
+                    TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     hatchBtnDetectionSystem,
-                    hatchLevelOneSystem
+                    hatchBoxDetectionSystem,
+                    hatchLidDetectionSystem,
+                    hitHatchBtn_OpenHatchSystem
                 ]}
                 entities={{
                     cannonBall: {
@@ -82,18 +79,16 @@ function ChapterFiveLevelOne() {
                         renderer: <CannonBall />
                     },
                     gameData: {
-                        cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
                         bounceLevel: 0.8,
                     },
                     cannon: {
-                        // only the postiion[0] gets updated by ref variables.
-                        position: [400, screenHeight - 90],
+                        position: [300, screenHeight - 100],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [250, 100],
+                        position: [screenWidth - 186, 88],
                         display: 'block',
                         handlePosition: [-13, 0],
                         renderer: <TNT />
@@ -125,11 +120,23 @@ function ChapterFiveLevelOne() {
                     },
                     hatchBtn: {
                         isHit: false,
-                        topPosition: 33,
-                        color: colors.primaryOrange,
-                        isTriggerOnBottom: true,
-                        position: [250, 200],
-                        renderer: <HatchBtnBottom />
+                        topPosition: -8,
+                        color: colors.bronzeStar,
+                        isTriggerOnTop: true,
+                        position: [Math.floor(screenWidth / 2), 120],
+                        renderer: <HatchBtnTop />
+                    },
+                    hatchLid: {
+                        position: [screenWidth - 200, 65],
+                        renderer: <HatchLid />
+                    },
+                    hatchBox: {
+                        position: [screenWidth - 200, 80],
+                        renderer: <HatchBox />
+                    },
+                    fireBtn: {
+                        isShooting: false,
+                        renderer: <FireBtn />
                     }
                 }}>
                 <StatusBar hidden={true} />
@@ -137,23 +144,11 @@ function ChapterFiveLevelOne() {
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Hatch' }}
                 />
-
                 {isGameOver &&
                     <EndGameModal
                         endGameData={endGameData}
                     />
                 }
-                {/* The action is happending in this component
-                I need to change state in this components when 
-                the slider onValueChange function fires
-             */}
-                <MoveCannonLaunch
-                    updatePositionRef={cannonPositionRef}
-                    setPosition={setCannonPositionState}
-                    position={cannonPositionState}
-                    upperLimit={screenWidth - 70}
-                    lowerLimit={5}
-                />
             </GameEngine>
         </ImageBackground>
     );
@@ -187,6 +182,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     }
 });
-
 
 export default ChapterFiveLevelOne;

@@ -3,12 +3,11 @@ import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
-import explodeTNTSystem from "../../../../systems/explodeTNTSystem";
-import cannonBallTNTDetectionSystem from "../../../../systems/cannonBallTNTDetectionSystem";
+import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-import MoveCannonLaunch from "../../../../Components/GameEngine/MoveCannonLaunch";
+import FireBtn from "../../../../Components/GameEngine/FireBtn";
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
@@ -29,19 +28,12 @@ import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallS
 
 
 function ChapterThreeLevelFour() {
-    // The game data accepts refs and state for each aspect of the game
-    // the ref is used to game data state and remain consistent through rerenders
-    // the state is used to manage the components that use that data so rerenders are triggered
-
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
     const powerLevelRef = useRef(15)
-    // Cannon Position Data
-    const [cannonPositionState, setCannonPositionState] = useState([screenWidth - 200, 100])
-    const cannonPositionRef = useRef([screenWidth - 200, 100])
 
     const endGameData = useRef({
         accuracyFloat: 0,
@@ -64,8 +56,7 @@ function ChapterThreeLevelFour() {
                 systems=
                 {[
                     cannonControlSystem,
-                    explodeTNTSystem,
-                    cannonBallTNTDetectionSystem,
+                    TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     giantTallSystemOne,
@@ -86,13 +77,12 @@ function ChapterThreeLevelFour() {
                         renderer: <CannonBall />
                     },
                     gameData: {
-                        cannonLaunchPosition: cannonPositionRef,
                         endGameData: endGameData,
                         bounceLevel: 0.8
                     },
                     cannon: {
-                        // only the postiion[0] gets updated by ref variables.
-                        position: [0, screenHeight - 90],
+                        position: [screenWidth - 150, screenHeight - 90],
+                        lowerTravelLimit: Math.floor(screenWidth / 2) + 75,
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
@@ -138,6 +128,10 @@ function ChapterThreeLevelFour() {
                     squareHindOne: {
                         position: [345, 60],
                         renderer: <SmallSquareHind />
+                    },
+                    fireBtn: {
+                        isShooting: false,
+                        renderer: <FireBtn />
                     }
                 }}>
                 <StatusBar hidden={true} />
@@ -145,23 +139,11 @@ function ChapterThreeLevelFour() {
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Hinderance' }}
                 />
-
                 {isGameOver &&
                     <EndGameModal
                         endGameData={endGameData}
                     />
                 }
-                {/* The action is happending in this component
-                I need to change state in this components when 
-                the slider onValueChange function fires
-             */}
-                <MoveCannonLaunch
-                    updatePositionRef={cannonPositionRef}
-                    setPosition={setCannonPositionState}
-                    position={cannonPositionState}
-                    upperLimit={screenWidth - 70}
-                    lowerLimit={Math.floor(screenWidth / 2) + 75}
-                />
             </GameEngine>
         </ImageBackground>
     );

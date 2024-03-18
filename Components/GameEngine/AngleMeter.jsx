@@ -7,6 +7,7 @@ function AngleMeter({ angleLevel }) {
     return (
         <View style={styles.root}>
 
+            {/* <Text style={styles.meter90Deg}>{Math.floor(angleLevel)}</Text> */}
             {/* <Text style={styles.meter90Deg}>{angleLevel}</Text> */}
             <Text style={styles.meter90Deg}>|</Text>
 

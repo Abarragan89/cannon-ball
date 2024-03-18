@@ -1,4 +1,6 @@
 import { View, StyleSheet } from "react-native";
+import { AntDesign } from '@expo/vector-icons';
+import colors from "../../../constants/colors";
 
 const HatchBtnTop = ({ position, color, topPosition }) => {
   return (
@@ -9,7 +11,12 @@ const HatchBtnTop = ({ position, color, topPosition }) => {
       <View style={[styles.box, {
         backgroundColor: color
       }
-      ]} />
+      ]}>
+        <AntDesign style={{
+            paddingLeft: 2,
+            paddingTop: 3
+        }} name="arrowdown" size={33} color={colors.offWhite} />
+      </View>
       <View
         style={[styles.btnTop, {
           top: topPosition
@@ -35,10 +42,12 @@ const styles = StyleSheet.create({
   },
   btnTop: {
     position: 'absolute',
-    left: 4,
+    left: 5,
     height: 15,
     width: 30,
-    backgroundColor: colors.primaryBlack,
+    backgroundColor: colors.silverStar,
+    borderWidth: 1,
+    borderColor: 'black',
     borderRadius: 4,
     zIndex: -1
   }

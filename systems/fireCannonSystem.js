@@ -1,16 +1,23 @@
 import { Dimensions } from 'react-native';
 import * as Haptics from 'expo-haptics';
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const { width, height } = Dimensions.get('window')
+
+const fireBtnPos = {
+  // 80 = width, 80 = absolute right
+  leftX: width - (60 + 50),
+  // added 80 because that is the width
+  rightX: width - (60 + 50) + 60,
+  // height is about 40 and it is 10 from bottom
+  bottomY: height - 20,
+  // this topY should be bottomY plus the height which is 60
+  topY: height - 80
+}
 
 
 const fireCannonSystem = (entities, { touches }) => {
-  // always have cannon and cannonslider lined up
-  entities.cannon.position[0] = entities.gameData.cannonLaunchPosition.current[0];
-  // set the gravity, angle and power before launch
-  const GRAVITY = .05
-
   function shootCannonBall() {
+    // set the gravity, angle and power before launch
+    const GRAVITY = .05;
     if (entities.cannonBall.isBallMoving) {
       // Update the X and Y based on the arc velocity
       entities.cannonBall.position[0] += entities.cannonBall.velocity[0]
@@ -22,12 +29,14 @@ const fireCannonSystem = (entities, { touches }) => {
 
   function wallDetection() {
     // if hits bottom
-    if (entities.cannonBall.position[1] > windowHeight - 34) {
+    if (entities.cannonBall.position[1] > height - 34) {
       entities.cannonBall.isBallMoving = false;
       entities.headerStats.bounces = 0;
+      // reset the fire button UI
+      entities.fireBtn.isShooting = false;
     }
     // if hits right wall
-    if (entities.cannonBall.position[0] > windowWidth - 14) {
+    if (entities.cannonBall.position[0] > width - 14) {
       entities.headerStats.bounces += 1;
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
@@ -38,7 +47,7 @@ const fireCannonSystem = (entities, { touches }) => {
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
   }
-  
+
   function showFollowArrowDetection() {
     // Offscreen Detection
     // if offscreen, show follow arrow
@@ -54,9 +63,36 @@ const fireCannonSystem = (entities, { touches }) => {
   showFollowArrowDetection();
   shootCannonBall();
   wallDetection();
-  
+
   touches.forEach(t => {
-    if (t.type === "long-press") {
+    const { locationX, locationY } = t.event
+    // Check if the touch occurred within the button's area
+    if (
+      locationX >= fireBtnPos.leftX &&
+      locationX <= fireBtnPos.rightX &&
+      locationY >= fireBtnPos.topY &&
+      locationY <= fireBtnPos.bottomY
+
+    ) {
+      if (t.type === 'start') {
+        // Reset values if ball is already moving
+        if (entities.cannonBall.isBallMoving) {
+          // Vibrate for feedback
+          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+          // Reset hatchBtn if in Hatch level
+          if (entities.cannonBall.isBallMoving && entities.hatchBtn) {
+            entities.hatchBtn.isHit = false;
+          };
+          // Reset cannon Ball and fire Button UI
+          entities.cannonBall.isBallMoving = false;
+          entities.cannonBall.position = [-100, 0]
+          entities.fireBtn.isShooting = false;
+          return
+        }
+        // Change the fireBtn UI
+        entities.fireBtn.isShooting = true;
+
+        // Rest header stats
         entities.headerStats.airTime = 0;
         entities.headerStats.bounces = 0;
         // set isBallMoving to true
@@ -70,11 +106,12 @@ const fireCannonSystem = (entities, { touches }) => {
         let POWER = entities.powerMeter.displayPower;
         const angleInRadians = (ANGLE * Math.PI) / 180;
         // set the velocity
-        entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.2;
-        entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.2
+        entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.195;
+        entities.cannonBall.velocity[1] = -POWER * Math.sin(angleInRadians) * 0.195;
       }
-
+    }
   });
+
   return entities;
 }
 
