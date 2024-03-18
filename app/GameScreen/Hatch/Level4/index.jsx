@@ -93,6 +93,7 @@ function ChapterFiveLevelFour() {
                     cannon: {
                         position: [Math.floor(screenWidth / 2), screenHeight - 100],
                         rotate: '-90deg',
+                        lowerTravelLimit: Math.floor(screenWidth / 4) + 75,
                         renderer: <CannonLauncher />
                     },
                     TNT: {
