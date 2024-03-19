@@ -1,4 +1,5 @@
 import lineBallDetection from "../utils/lineBallDetection";
+
 const TNTDetectionSystem = (entities) => {
     /////////////////// HELPER FUNCTIONS TO END GAME //////////////
     function calculateAccuracy() {
@@ -42,12 +43,12 @@ const TNTDetectionSystem = (entities) => {
     }
 
     function endGameHandler() {
+        //trigger the boolean to let the air-time counter stop
+        entities.cannonBall.isGameOver = true;
         // calculate accuracy to center of box
         calculateAccuracy();
         // pass data to end game modal
         setEndGameModalStats();
-        //trigger the boolean to let the air-time counter stop
-        entities.cannonBall.isGameOver = true;
         // Lower TNT handle
         entities.TNT.handlePosition[0] = -6;
         // pause the cannonBall
@@ -64,6 +65,7 @@ const TNTDetectionSystem = (entities) => {
             entities.explosion.startAnimation = true;
             // make tnt box and cannonBall disappear with a slight delay
             setTimeout(() => {
+                entities.gameData.tntExplosionSound();
                 entities.TNT.display = 'none';
                 entities.cannonBall.display = 'none'
             }, 200);
@@ -101,10 +103,11 @@ const TNTDetectionSystem = (entities) => {
     const bottomLineX2 = entities.TNT.position[0] + 25;
     const bottomLineY2 = entities.TNT.position[1] + 30;
 
-    const topLineX1 = entities.TNT.position[0] + 5;
-    const topLineY1 = entities.TNT.position[1];
+    // TOP LINE OF TNT BOX
+    const topLineX1 = entities.TNT.position[0] + 2;
+    const topLineY1 = entities.TNT.position[1] + 5;
     const topLineX2 = entities.TNT.position[0] + 25;
-    const topLineY2 = entities.TNT.position[1];
+    const topLineY2 = entities.TNT.position[1] + 2;
 
     // CIRCLE PROPERTIES
     const radius = 10;

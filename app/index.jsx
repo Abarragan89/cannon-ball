@@ -9,7 +9,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { Dimensions } from "react-native";
 const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
 const bgImage = require('../assets/images/homeScreenImg.png')
-const { height } = Dimensions.get('screen')
+const { height } = Dimensions.get('screen');
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,43 +30,40 @@ const Home = () => {
     return null;
   }
 
+
   return (
     <>
-      {/* <StatusBar
-        style="dark"
-        backgroundColor={colors.sandColor}
-      /> */}
       <ImageBackground
         source={bgImage}
         style={[
-          !mainBtnImgSrc || !bgImage ? {display: 'none '} : {},
+          !mainBtnImgSrc || !bgImage ? { display: 'none ' } : {},
           styles.rootContainer
-          ]}
+        ]}
         onLayout={onLayoutRootView}>
         <Title color={colors.offWhite} size={45}>Cannon Ball!</Title>
         <View style={styles.buttonContainer}>
           <MainButton
             route="/CampaignOverviewScreen"
             imgSrc={mainBtnImgSrc}
-            >
+          >
             Campaign
           </MainButton>
 
           <MainButton
             route="/StoreScreen"
             imgSrc={mainBtnImgSrc}
-            >
+          >
             Store
           </MainButton>
 
           <MainButton
             route="/SettingScreen"
             imgSrc={mainBtnImgSrc}
-            >
+          >
             Settings
           </MainButton>
         </View>
-        <CannonLauncher 
+        <CannonLauncher
           position={[30, height - 100]}
           rotate={'-50deg'}
         />

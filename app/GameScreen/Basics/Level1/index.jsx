@@ -18,6 +18,8 @@ import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
+import { Audio } from 'expo-av';
+
 
 function ChatperOneLevelOne() {
     const gameEngineRef = useRef(null);
@@ -36,6 +38,21 @@ function ChatperOneLevelOne() {
         multiplier: 0,
         nextLevel: 'Basics/Level2'
     })
+
+      // Sounds 
+  async function fireCannonSound() {
+    const { sound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonShot.mp3'));
+    await sound.playAsync();
+    console.log('Playing Sound');
+  }
+
+    async function explodeTNTSound() {
+        const { sound: boom } = await Audio.Sound.createAsync(require('../../../../assets/sounds/hugeExplosion.wav'));
+        // const { sound: fireworks } = await Audio.Sound.createAsync(require('../../../../assets/sounds/fireworks.wav'));
+
+        await boom.playAsync();
+        // await fireworks.playAsync();
+    }
     return (
 
         <ImageBackground
@@ -67,6 +84,8 @@ function ChatperOneLevelOne() {
                     },
                     gameData: {
                         endGameData: endGameData,
+                        shootCannonSound: fireCannonSound,
+                        tntExplosionSound: explodeTNTSound,
                     },
                     cannon: {
                         position: [400, screenHeight - 100],
@@ -107,7 +126,7 @@ function ChatperOneLevelOne() {
                     fireBtn: {
                         isShooting: false,
                         renderer: <FireBtn />
-                    } 
+                    }
                 }}>
                 <StatusBar hidden={true} />
                 <BackArrow
