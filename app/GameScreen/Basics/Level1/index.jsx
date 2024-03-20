@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { GameEngine } from "react-native-game-engine"
-import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
+import { StyleSheet, StatusBar, ImageBackground, Button } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
@@ -39,107 +39,137 @@ function ChatperOneLevelOne() {
         nextLevel: 'Basics/Level2'
     })
 
-      // Sounds 
-  async function fireCannonSound() {
-    const { sound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonShot.mp3'));
-    await sound.playAsync();
-    console.log('Playing Sound');
-  }
+    ///////////////////// CREATE SOUNDS /////////////////////
+    const [cannonBallSound, setCannonBallSound] = useState()
+    const [fireworkSound, setFireworkSound] = useState()
+    const [explosionSound, setExplosionSound] = useState()
 
-    async function explodeTNTSound() {
-        const { sound: boom } = await Audio.Sound.createAsync(require('../../../../assets/sounds/hugeExplosion.wav'));
-        // const { sound: fireworks } = await Audio.Sound.createAsync(require('../../../../assets/sounds/fireworks.wav'));
-
-        await boom.playAsync();
-        // await fireworks.playAsync();
+    ////////////////// I needed to make it async and await the sound noise ////////////
+    async function playCannonShotSound() {
+        console.log('Loading Sound');
+        const { sound: cannonShot } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonShot.mp3'));
+        setCannonBallSound(cannonShot);
+        console.log('Playing Sound');
+        // await cannonBallSound.playAsync();
     }
-    return (
 
+    useEffect(() => {
+        console.log('useeffect')
+        // import sounds and save in state
+        async function createAudio() {
+            const { sound: cannonShot } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonShot.mp3'));
+            // const { sound: explosion } = await Audio.Sound.createAsync(require('../../../../assets/sounds/hugeExplosion.wav'));
+            // const { sound: fireworks } = await Audio.Sound.createAsync(require('../../../../assets/sounds/fireworks.wav'));
+
+            setCannonBallSound(cannonShot);
+            // setExplosionSound(explosion);
+            // setFireworkSound(fireworks)
+        }
+        // createAudio();
+        playCannonShotSound();
+        return () => {
+            console.log('unloading ')
+            if (cannonBallSound) {
+                cannonBallSound.unloadAsync()
+            }
+            if (fireworkSound) {
+                fireworkSound.unloadAsync();
+            }
+            if (explosionSound) {
+                explosionSound.unloadAsync();
+            }
+        }
+    }, [])
+
+
+    return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
-            <GameEngine
-                ref={gameEngineRef}
-                style={styles.container}
-                systems=
-                {[
-                    cannonControlSystem,
-                    TNTDetectionSystem,
-                    scoreCalculatorSystem,
-                    fireCannonSystem,
-                ]}
-                entities={{
-                    cannonBall: {
-                        position: [-100, 0],
-                        gradientColor: 'rgba(0, 0, 0, .75)',
-                        color: 'rgba(0, 0, 0, 1)',
-                        velocity: [1, 1],
-                        display: 'block',
-                        accuracy: { name: '', float: 0, multiplier: 0 },
-                        isGameOver: isGameOver,
-                        setIsGameOver: setIsGameOver,
-                        isBallMoving: false,
-                        renderer: <CannonBall />
-                    },
-                    gameData: {
-                        endGameData: endGameData,
-                        shootCannonSound: fireCannonSound,
-                        tntExplosionSound: explodeTNTSound,
-                    },
-                    cannon: {
-                        position: [400, screenHeight - 100],
-                        rotate: '-90deg',
-                        renderer: <CannonLauncher />
-                    },
-                    TNT: {
-                        position: [250, 100],
-                        display: 'block',
-                        handlePosition: [-13, 0],
-                        renderer: <TNT />
-                    },
-                    explosion: {
-                        position: [0, 0],
-                        ballPosition: [0, 0],
-                        ballColor: '#000000',
-                        startAnimation: false,
-                        renderer: <Explosion />
-                    },
-                    followArrow: {
-                        leftPosition: 300,
-                        displayStatus: 'none',
-                        renderer: <FollowArrow />
-                    },
-                    headerStats: {
-                        airTime: 0,
-                        bounces: 0,
-                        renderer: <HeaderStats />
-                    },
-                    angleMeter: {
-                        angleLevel: angleLevelRef.current,
-                        renderer: <AngleMeter />
-                    },
-                    powerMeter: {
-                        displayPower: powerLevelRef.current,
-                        renderer: <PowerMeter />
-                    },
-                    fireBtn: {
-                        isShooting: false,
-                        renderer: <FireBtn />
-                    }
-                }}>
-                <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Basics' }}
-                />
-
-                {isGameOver &&
-                    <EndGameModal
-                        endGameData={endGameData}
+            {cannonBallSound &&
+                <GameEngine
+                    ref={gameEngineRef}
+                    style={styles.container}
+                    systems=
+                    {[
+                        cannonControlSystem,
+                        TNTDetectionSystem,
+                        scoreCalculatorSystem,
+                        fireCannonSystem,
+                    ]}
+                    entities={{
+                        cannonBall: {
+                            position: [-100, 0],
+                            gradientColor: 'rgba(0, 0, 0, .75)',
+                            color: 'rgba(0, 0, 0, 1)',
+                            velocity: [1, 1],
+                            display: 'block',
+                            accuracy: { name: '', float: 0, multiplier: 0 },
+                            isGameOver: isGameOver,
+                            setIsGameOver: setIsGameOver,
+                            isBallMoving: false,
+                            renderer: <CannonBall />
+                        },
+                        gameData: {
+                            endGameData: endGameData,
+                            shootCannonSound: cannonBallSound,
+                            tntExplosionSound: explosionSound,
+                        },
+                        cannon: {
+                            position: [400, screenHeight - 100],
+                            rotate: '-90deg',
+                            renderer: <CannonLauncher />
+                        },
+                        TNT: {
+                            position: [250, 100],
+                            display: 'block',
+                            handlePosition: [-13, 0],
+                            renderer: <TNT />
+                        },
+                        explosion: {
+                            position: [0, 0],
+                            ballPosition: [0, 0],
+                            ballColor: '#000000',
+                            startAnimation: false,
+                            renderer: <Explosion />
+                        },
+                        followArrow: {
+                            leftPosition: 300,
+                            displayStatus: 'none',
+                            renderer: <FollowArrow />
+                        },
+                        headerStats: {
+                            airTime: 0,
+                            bounces: 0,
+                            renderer: <HeaderStats />
+                        },
+                        angleMeter: {
+                            angleLevel: angleLevelRef.current,
+                            renderer: <AngleMeter />
+                        },
+                        powerMeter: {
+                            displayPower: powerLevelRef.current,
+                            renderer: <PowerMeter />
+                        },
+                        fireBtn: {
+                            isShooting: false,
+                            renderer: <FireBtn />
+                        }
+                    }}>
+                    <StatusBar hidden={true} />
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Basics' }}
                     />
-                }
-            </GameEngine>
+
+                    {isGameOver &&
+                        <EndGameModal
+                            endGameData={endGameData}
+                        />
+                    }
+                </GameEngine>
+            }
         </ImageBackground>
     );
 }

@@ -9,7 +9,7 @@ function PowerMeter({ displayPower }) {
             {/* progress is number from 0 to 1 */}
             <Progress.Bar
                 progress={displayPower / 75}
-                width={220}
+                width={275}
                 height={7}
                 style={[styles.slider]}
                 // animated={true}
@@ -20,6 +20,8 @@ function PowerMeter({ displayPower }) {
                 color={displayPower > 53 ? '#ff1c1c' :  displayPower > 26 ? '#ffcc00': '#00ff08'}
             />
             <View style={styles.powerTextWrapper}>
+                <Text style={styles.powerText}>_</Text>
+                <Text style={styles.powerText}>_</Text>
                 <Text style={styles.powerText}>_</Text>
                 <Text style={styles.powerText}>_</Text>
                 <Text style={styles.powerText}>_</Text>
@@ -47,14 +49,14 @@ const styles = StyleSheet.create({
         opacity: .75,
         transform: [{ rotate: '-90deg' }],
         position: 'absolute',
-        left: -96,
-        top: 180,
+        left: -123,
+        top: 200,
     },
 
     powerTextWrapper: {
         position: 'absolute',
         left: 10,
-        top: 70,
+        top: 64,
         opacity: .75,
         alignItems: 'center'
     },

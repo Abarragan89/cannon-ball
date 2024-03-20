@@ -13,7 +13,6 @@ const fireBtnPos = {
   topY: height - 80
 }
 
-
 const fireCannonSystem = (entities, { touches }) => {
   function shootCannonBall() {
     // set the gravity, angle and power before launch
@@ -90,7 +89,8 @@ const fireCannonSystem = (entities, { touches }) => {
           return
         }
 
-        entities.gameData.shootCannonSound();
+        // Play Cannon Sound
+        entities.gameData.shootCannonSound.replayAsync();
 
         // Change the fireBtn UI
         entities.fireBtn.isShooting = true;
