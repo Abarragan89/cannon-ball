@@ -4,7 +4,7 @@ import moveObstacleLeftToRight from "../../utils/moveObstacles/moveObstacleLeftT
 import moveObstacleUpAndDown from "../../utils/moveObstacles/moveObstaclesUpAndDown";
 
 const krakenLevelThree = (entities) => {
-    if (!entities.cannonBall.isGameOver) {
+    if (!entities.gameData.isGameOver) {
         // Move square Hinderance
         moveObstacleLeftToRight(entities.squareHindOne, 150, Math.floor(screenWidth / 2) - 100, 1)
         moveObstacleUpAndDown(entities.longHindTwo, 50, 170, 1);

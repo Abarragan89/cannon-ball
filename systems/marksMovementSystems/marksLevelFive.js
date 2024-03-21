@@ -4,7 +4,7 @@ const screenWidth = Dimensions.get('window').width;
 
 let counter = 0;
 const moveTNTMarksLevelFive = (entities) => {
-    if (!entities.cannonBall.isGameOver){
+    if (!entities.gameData.isGameOver){
         const speed = 1;
 
         // moving right

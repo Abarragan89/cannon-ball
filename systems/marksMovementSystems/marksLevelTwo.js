@@ -3,7 +3,7 @@ const screenWidth = Dimensions.get('window').width;
 
 let direction = 'left'
 const moveTNTMarksLevelTwo = (entities) => {
-    if (!entities.cannonBall.isGameOver) {
+    if (!entities.gameData.isGameOver) {
         if (entities.TNT.position[0] > screenWidth - 30) {
             direction = 'left';
         } 

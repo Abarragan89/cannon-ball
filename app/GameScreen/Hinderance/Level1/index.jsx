@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -22,12 +22,9 @@ import BackArrow from "../../../../Components/UI/BackArrow";
 import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
 import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
 import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
+import { Audio } from 'expo-av';
 
 function ChatperThreeLevelOne() {
-    // The game data accepts refs and state for each aspect of the game
-    // the ref is used to game data state and remain consistent through rerenders
-    // the state is used to manage the components that use that data so rerenders are triggered
-
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data
@@ -44,102 +41,149 @@ function ChatperThreeLevelOne() {
         multiplier: 0,
         nextLevel: 'Hinderance/Level2'
     })
-    return (
 
+    ///////////////////// CREATE SOUNDS /////////////////////
+    const [cannonBallSound, setCannonBallSound] = useState();
+    const [fireworkSound, setFireworkSound] = useState();
+    const [explosionSound, setExplosionSound] = useState();
+    const [tntHandleClickSound, setTntHandleClickSound] = useState();
+    const [cannonBallBounceSound, setCannonBallBounceSound] = useState();
+    const [isAudioLoaded, setIsAudioLoaded] = useState(false);
+    
+
+    useEffect(() => {
+        // import sounds and save in state
+        async function loadAudio() {
+            const { sound: cannonShot } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonShot.mp3'));
+            const { sound: explosion } = await Audio.Sound.createAsync(require('../../../../assets/sounds/hugeExplosion.wav'));
+            const { sound: fireworks } = await Audio.Sound.createAsync(require('../../../../assets/sounds/fireworks.wav'));
+            const { sound: tntHandleClick } = await Audio.Sound.createAsync(require('../../../../assets/sounds/tntHandleClick.wav'))
+            const { sound: cannonBallBounce } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonBallBounce.wav'))
+
+            setCannonBallSound(cannonShot);
+            setExplosionSound(explosion);
+            setFireworkSound(fireworks);
+            setTntHandleClickSound(tntHandleClick);
+            setCannonBallBounceSound(cannonBallBounce);
+            setIsAudioLoaded(true);
+        }
+        loadAudio();
+        // unload sounds when unmounted
+        return () => {
+            if (cannonBallSound) cannonBallSound.unloadAsync();
+            if (fireworkSound) fireworkSound.unloadAsync();
+            if (explosionSound) explosionSound.unloadAsync();
+            if (tntHandleClickSound) tntHandleClickSound.unloadAsync();
+            if (cannonBallBounceSound) cannonBallBounceSound.unloadAsync();
+        }
+    }, [])
+
+
+    return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
-            <GameEngine
-                ref={gameEngineRef}
-                style={styles.container}
-                systems=
-                {[
-                    cannonControlSystem,
-                    TNTDetectionSystem,
-                    scoreCalculatorSystem,
-                    fireCannonSystem,
-                    longHindSystemOne,
-                    longHindSystemTwo
-                ]}
-                entities={{
-                    cannonBall: {
-                        position: [-100, 0],
-                        gradientColor: 'rgba(0, 0, 0, .75)',
-                        color: 'rgba(0, 0, 0, 1)',
-                        velocity: [1, 1],
-                        display: 'block',
-                        accuracy: { name: '', float: 0, multiplier: 0 },
-                        isGameOver: isGameOver,
-                        setIsGameOver: setIsGameOver,
-                        isBallMoving: false,
-                        renderer: <CannonBall />
-                    },
-                    gameData: {
-                        endGameData: endGameData,
-                        bounceLevel: 0.8
-                    },
-                    cannon: {
-                        position: [400, screenHeight - 100],
-                        rotate: '-90deg',
-                        renderer: <CannonLauncher />
-                    },
-                    TNT: {
-                        position: [screenWidth - 100, 100],
-                        display: 'block',
-                        handlePosition: [-13, 0],
-                        renderer: <TNT />
-                    },
-                    explosion: {
-                        position: [0, 0],
-                        ballPosition: [0, 0],
-                        ballColor: '#000000',
-                        startAnimation: false,
-                        renderer: <Explosion />
-                    },
-                    followArrow: {
-                        leftPosition: 300,
-                        displayStatus: 'none',
-                        renderer: <FollowArrow />
-                    },
-                    headerStats: {
-                        airTime: 0,
-                        bounces: 0,
-                        renderer: <HeaderStats />
-                    },
-                    angleMeter: {
-                        angleLevel: angleLevelRef.current,
-                        renderer: <AngleMeter />
-                    },
-                    powerMeter: {
-                        displayPower: powerLevelRef.current,
-                        renderer: <PowerMeter />
-                    },
-                    longHindOne: {
-                        position: [screenWidth - 210, 60],
-                        renderer: <LongHind />
-                    },
-                    longHindTwo: {
-                        position: [screenWidth - 120, 160],
-                        renderer: <LongHind />
-                    },
-                    fireBtn: {
-                        isShooting: false,
-                        renderer: <FireBtn />
-                    }
-                }}>
-                <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Hinderance' }}
-                />
-
-                {isGameOver &&
-                    <EndGameModal
-                        endGameData={endGameData}
+            {isAudioLoaded &&
+                <GameEngine
+                    ref={gameEngineRef}
+                    style={styles.container}
+                    systems=
+                    {[
+                        cannonControlSystem,
+                        TNTDetectionSystem,
+                        scoreCalculatorSystem,
+                        fireCannonSystem,
+                        longHindSystemOne,
+                        longHindSystemTwo
+                    ]}
+                    entities={{
+                        cannonBall: {
+                            position: [-100, 0],
+                            gradientColor: 'rgba(0, 0, 0, .75)',
+                            color: 'rgba(0, 0, 0, 1)',
+                            velocity: [1, 1],
+                            display: 'block',
+                            accuracy: { name: '', float: 0, multiplier: 0 },
+                            isGameOver: isGameOver,
+                            setIsGameOver: setIsGameOver,
+                            isBallMoving: false,
+                            renderer: <CannonBall />
+                        },
+                        gameData: {
+                            endGameData: endGameData,
+                            isGameOver: isGameOver,
+                            setIsGameOver: setIsGameOver,
+                            bounceLevel: 0.8
+                        },
+                        sounds: {
+                            shootCannonSound: cannonBallSound,
+                            tntExplosionSound: explosionSound,
+                            tntHandleClickSound: tntHandleClickSound,
+                            fireworkSound: fireworkSound
+                        },
+                        cannon: {
+                            position: [400, screenHeight - 100],
+                            rotate: '-90deg',
+                            renderer: <CannonLauncher />
+                        },
+                        TNT: {
+                            position: [screenWidth - 100, 100],
+                            display: 'block',
+                            handlePosition: [-13, 0],
+                            renderer: <TNT />
+                        },
+                        explosion: {
+                            position: [0, 0],
+                            ballPosition: [0, 0],
+                            ballColor: '#000000',
+                            startAnimation: false,
+                            renderer: <Explosion />
+                        },
+                        followArrow: {
+                            leftPosition: 300,
+                            displayStatus: 'none',
+                            renderer: <FollowArrow />
+                        },
+                        headerStats: {
+                            airTime: 0,
+                            bounces: 0,
+                            renderer: <HeaderStats />
+                        },
+                        angleMeter: {
+                            angleLevel: angleLevelRef.current,
+                            renderer: <AngleMeter />
+                        },
+                        powerMeter: {
+                            displayPower: powerLevelRef.current,
+                            renderer: <PowerMeter />
+                        },
+                        longHindOne: {
+                            position: [screenWidth - 210, 60],
+                            renderer: <LongHind />
+                        },
+                        longHindTwo: {
+                            position: [screenWidth - 120, 160],
+                            renderer: <LongHind />
+                        },
+                        fireBtn: {
+                            isShooting: false,
+                            renderer: <FireBtn />
+                        }
+                    }}>
+                    <StatusBar hidden={true} />
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Hinderance' }}
                     />
-                }
-            </GameEngine>
+
+                    {isGameOver &&
+                        <EndGameModal
+                            endGameData={endGameData}
+                        />
+                    }
+                </GameEngine>
+            }
         </ImageBackground>
     );
 }

@@ -35,7 +35,7 @@ const hitHatchBtn_OpenHatchSystem = (entities) => {
             entities.hatchBtn.leftPosition = -11
         }
     }
-    if (!entities.cannonBall.isGameOver) {
+    if (!entities.gameData.isGameOver) {
         if (entities.hatchBtn.isHit) {
             turnHatchBtnOn();
             openLid();

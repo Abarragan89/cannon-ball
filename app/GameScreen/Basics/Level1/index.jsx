@@ -24,6 +24,7 @@ import { Audio } from 'expo-av';
 function ChatperOneLevelOne() {
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
+
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
@@ -40,54 +41,43 @@ function ChatperOneLevelOne() {
     })
 
     ///////////////////// CREATE SOUNDS /////////////////////
-    const [cannonBallSound, setCannonBallSound] = useState()
-    const [fireworkSound, setFireworkSound] = useState()
-    const [explosionSound, setExplosionSound] = useState()
-
-    ////////////////// I needed to make it async and await the sound noise ////////////
-    async function playCannonShotSound() {
-        console.log('Loading Sound');
-        const { sound: cannonShot } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonShot.mp3'));
-        setCannonBallSound(cannonShot);
-        console.log('Playing Sound');
-        // await cannonBallSound.playAsync();
-    }
+    const [cannonBallSound, setCannonBallSound] = useState();
+    const [fireworkSound, setFireworkSound] = useState();
+    const [explosionSound, setExplosionSound] = useState();
+    const [tntHandleClickSound, setTntHandleClickSound] = useState();
+    const [isAudioLoaded, setIsAudioLoaded] = useState(false);
 
     useEffect(() => {
-        console.log('useeffect')
         // import sounds and save in state
-        async function createAudio() {
+        async function loadAudio() {
             const { sound: cannonShot } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonShot.mp3'));
-            // const { sound: explosion } = await Audio.Sound.createAsync(require('../../../../assets/sounds/hugeExplosion.wav'));
-            // const { sound: fireworks } = await Audio.Sound.createAsync(require('../../../../assets/sounds/fireworks.wav'));
+            const { sound: explosion } = await Audio.Sound.createAsync(require('../../../../assets/sounds/hugeExplosion.wav'));
+            const { sound: fireworks } = await Audio.Sound.createAsync(require('../../../../assets/sounds/fireworks.wav'));
+            const { sound: tntHandleClick } = await Audio.Sound.createAsync(require('../../../../assets/sounds/tntHandleClick.wav'))
 
             setCannonBallSound(cannonShot);
-            // setExplosionSound(explosion);
-            // setFireworkSound(fireworks)
+            setExplosionSound(explosion);
+            setFireworkSound(fireworks)
+            setTntHandleClickSound(tntHandleClick)
+            setIsAudioLoaded(true)
         }
-        // createAudio();
-        playCannonShotSound();
+        
+        loadAudio();
+        // unload sounds when unmounted
         return () => {
-            console.log('unloading ')
-            if (cannonBallSound) {
-                cannonBallSound.unloadAsync()
-            }
-            if (fireworkSound) {
-                fireworkSound.unloadAsync();
-            }
-            if (explosionSound) {
-                explosionSound.unloadAsync();
-            }
+            if (cannonBallSound) cannonBallSound.unloadAsync();
+            if (fireworkSound) fireworkSound.unloadAsync();
+            if (explosionSound) explosionSound.unloadAsync();
+            if (tntHandleClickSound) tntHandleClickSound.unloadAsync();
         }
     }, [])
-
 
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
-            {cannonBallSound &&
+            {isAudioLoaded &&
                 <GameEngine
                     ref={gameEngineRef}
                     style={styles.container}
@@ -106,15 +96,19 @@ function ChatperOneLevelOne() {
                             velocity: [1, 1],
                             display: 'block',
                             accuracy: { name: '', float: 0, multiplier: 0 },
-                            isGameOver: isGameOver,
-                            setIsGameOver: setIsGameOver,
                             isBallMoving: false,
                             renderer: <CannonBall />
                         },
                         gameData: {
                             endGameData: endGameData,
+                            isGameOver: isGameOver,
+                            setIsGameOver: setIsGameOver,
+                        },
+                        sounds: {
                             shootCannonSound: cannonBallSound,
                             tntExplosionSound: explosionSound,
+                            tntHandleClickSound: tntHandleClickSound,
+                            fireworkSound: fireworkSound
                         },
                         cannon: {
                             position: [400, screenHeight - 100],

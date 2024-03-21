@@ -43,8 +43,10 @@ const TNTDetectionSystem = (entities) => {
     }
 
     function endGameHandler() {
-        //trigger the boolean to let the air-time counter stop
-        entities.cannonBall.isGameOver = true;
+        // TNT handle click
+        entities.sounds.tntHandleClickSound.playAsync();
+        //trigger the boolean to let the air-time counter stop and game aspects
+        entities.gameData.isGameOver = true;
         // calculate accuracy to center of box
         calculateAccuracy();
         // pass data to end game modal
@@ -61,18 +63,22 @@ const TNTDetectionSystem = (entities) => {
             // set the firework explosion coordinate
             entities.explosion.position[0] = entities.TNT.position[0] + 15
             entities.explosion.position[1] = entities.TNT.position[1] + 15
+            // Play Explosion Sound
+            entities.sounds.tntExplosionSound.playAsync();
             // trigger explosion animation
             entities.explosion.startAnimation = true;
             // make tnt box and cannonBall disappear with a slight delay
             setTimeout(() => {
-                entities.gameData.tntExplosionSound();
                 entities.TNT.display = 'none';
                 entities.cannonBall.display = 'none'
+                setTimeout(() => {
+                    entities.sounds.fireworkSound.playAsync();
+                }, 300);
             }, 200);
-        }, 500)
+        }, 1000)
         setTimeout(() => {
-            entities.cannonBall.setIsGameOver(true)
-        }, 1800);
+            entities.gameData.setIsGameOver(true)
+        }, 3000);
     }
 
     function setEndGameModalStats() {

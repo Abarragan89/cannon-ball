@@ -2,7 +2,7 @@ import { Dimensions } from "react-native";
 const screenWidth = Dimensions.get('window').width;
 import moveObstacleLeftToRight from "../../utils/moveObstacles/moveObstacleLeftToRight";
 const krakenLevelFour = (entities) => {
-    if (!entities.cannonBall.isGameOver) {
+    if (!entities.gameData.isGameOver) {
         // move TNT
         moveObstacleLeftToRight(entities.TNT, 0, 30, 0.8);
         // Move Square One

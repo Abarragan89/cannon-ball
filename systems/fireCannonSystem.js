@@ -36,13 +36,13 @@ const fireCannonSystem = (entities, { touches }) => {
     }
     // if hits right wall
     if (entities.cannonBall.position[0] > width - 14) {
-      if (!entities.cannonBall.isGameOver) entities.headerStats.bounces += 1;
+      if (!entities.gameData.isGameOver) entities.headerStats.bounces += 1;
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
     // if hits left wall
     // I need to also make sure it is not -100 because that is the starting position off screen
     if (entities.cannonBall.position[0] < 0 && entities.cannonBall.position[0] !== -100) {
-      if (!entities.cannonBall.isGameOver) entities.headerStats.bounces += 1;
+      if (!entities.gameData.isGameOver) entities.headerStats.bounces += 1;
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
   }
@@ -88,10 +88,8 @@ const fireCannonSystem = (entities, { touches }) => {
           entities.fireBtn.isShooting = false;
           return
         }
-
         // Play Cannon Sound
-        entities.gameData.shootCannonSound.replayAsync();
-
+        entities.sounds.shootCannonSound.replayAsync();
         // Change the fireBtn UI
         entities.fireBtn.isShooting = true;
         // Rest header stats

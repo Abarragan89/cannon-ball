@@ -1,7 +1,7 @@
 import moveObstacleLeftToRight from "../../../utils/moveObstacles/moveObstacleLeftToRight";
 
 const levelOneHatchSystem = (entities) => {
-    if (!entities.cannonBall.isGameOver) {
+    if (!entities.gameData.isGameOver) {
         moveObstacleLeftToRight(entities.squareHindTwo, 340, 170, 1)
     }
     return entities;
