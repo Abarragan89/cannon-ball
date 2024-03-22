@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { GameEngine } from "react-native-game-engine"
-import { StyleSheet, StatusBar, ImageBackground, Button } from 'react-native';
+import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
@@ -40,7 +40,7 @@ function ChatperOneLevelOne() {
         nextLevel: 'Basics/Level2'
     })
 
-    ///////////////////// CREATE SOUNDS /////////////////////
+    // ///////////////////// CREATE SOUNDS /////////////////////
     const [cannonBallSound, setCannonBallSound] = useState();
     const [fireworkSound, setFireworkSound] = useState();
     const [explosionSound, setExplosionSound] = useState();
@@ -50,18 +50,19 @@ function ChatperOneLevelOne() {
     useEffect(() => {
         // import sounds and save in state
         async function loadAudio() {
+            console.log(' in the audio loading function ');
             const { sound: cannonShot } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonShot.mp3'));
             const { sound: explosion } = await Audio.Sound.createAsync(require('../../../../assets/sounds/hugeExplosion.wav'));
             const { sound: fireworks } = await Audio.Sound.createAsync(require('../../../../assets/sounds/fireworks.wav'));
             const { sound: tntHandleClick } = await Audio.Sound.createAsync(require('../../../../assets/sounds/tntHandleClick.wav'))
-
+            
             setCannonBallSound(cannonShot);
             setExplosionSound(explosion);
             setFireworkSound(fireworks)
-            setTntHandleClickSound(tntHandleClick)
-            setIsAudioLoaded(true)
+            setTntHandleClickSound(tntHandleClick);
+            setIsAudioLoaded(prev => !prev);
         }
-        
+
         loadAudio();
         // unload sounds when unmounted
         return () => {

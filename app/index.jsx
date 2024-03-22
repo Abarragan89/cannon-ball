@@ -10,6 +10,7 @@ import { Dimensions } from "react-native";
 const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
 const bgImage = require('../assets/images/homeScreenImg.png')
 const { height } = Dimensions.get('screen');
+import SoundEffectsProvider from "../store/soundEffects";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -40,29 +41,30 @@ const Home = () => {
           styles.rootContainer
         ]}
         onLayout={onLayoutRootView}>
-        <Title color={colors.offWhite} size={45}>Cannon Ball!</Title>
-        <View style={styles.buttonContainer}>
-          <MainButton
-            route="/CampaignOverviewScreen"
-            imgSrc={mainBtnImgSrc}
-          >
-            Campaign
-          </MainButton>
+        <SoundEffectsProvider>
+          <Title color={colors.offWhite} size={45}>Cannon Ball!</Title>
+          <View style={styles.buttonContainer}>
+            <MainButton
+              route="/CampaignOverviewScreen"
+              imgSrc={mainBtnImgSrc}
+            >
+              Campaign
+            </MainButton>
+            <MainButton
+              route="/StoreScreen"
+              imgSrc={mainBtnImgSrc}
+            >
+              Store
+            </MainButton>
 
-          <MainButton
-            route="/StoreScreen"
-            imgSrc={mainBtnImgSrc}
-          >
-            Store
-          </MainButton>
-
-          <MainButton
-            route="/SettingScreen"
-            imgSrc={mainBtnImgSrc}
-          >
-            Settings
-          </MainButton>
-        </View>
+            <MainButton
+              route="/SettingScreen"
+              imgSrc={mainBtnImgSrc}
+            >
+              Settings
+            </MainButton>
+          </View>
+        </SoundEffectsProvider>
         <CannonLauncher
           position={[30, height - 100]}
           rotate={'-50deg'}

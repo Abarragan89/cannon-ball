@@ -36,7 +36,7 @@ function Explosion({ position, ballPosition, startAnimation, ballColor }) {
         <>
             <Emitter
                 ref={particle1El}
-                numberOfParticles={450}
+                numberOfParticles={250}
                 emissionRate={10}
                 interval={0}
                 particleLife={500}
@@ -52,7 +52,7 @@ function Explosion({ position, ballPosition, startAnimation, ballColor }) {
 
             <Emitter
                 ref={particle2El}
-                numberOfParticles={450}
+                numberOfParticles={250}
                 emissionRate={10}
                 interval={0}
                 particleLife={500}
@@ -68,7 +68,7 @@ function Explosion({ position, ballPosition, startAnimation, ballColor }) {
 
             <Emitter
                 ref={particle3El}
-                numberOfParticles={450}
+                numberOfParticles={250}
                 emissionRate={10}
                 interval={0}
                 particleLife={500}
