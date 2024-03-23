@@ -10,7 +10,7 @@ import { Dimensions } from "react-native";
 const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
 const bgImage = require('../assets/images/homeScreenImg.png')
 const { height } = Dimensions.get('screen');
-import SoundEffectsProvider from "../store/soundEffects";
+// import SoundEffectsProvider from "../store/soundEffects";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -41,7 +41,7 @@ const Home = () => {
           styles.rootContainer
         ]}
         onLayout={onLayoutRootView}>
-        <SoundEffectsProvider>
+        {/* <SoundEffectsProvider> */}
           <Title color={colors.offWhite} size={45}>Cannon Ball!</Title>
           <View style={styles.buttonContainer}>
             <MainButton
@@ -64,7 +64,7 @@ const Home = () => {
               Settings
             </MainButton>
           </View>
-        </SoundEffectsProvider>
+        {/* </SoundEffectsProvider> */}
         <CannonLauncher
           position={[30, height - 100]}
           rotate={'-50deg'}

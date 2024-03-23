@@ -29,6 +29,8 @@ const fireCannonSystem = (entities, { touches }) => {
   function wallDetection() {
     // if hits bottom
     if (entities.cannonBall.position[1] > height - 34) {
+      // only play sound once when isBallMoving is still true
+      if (entities.cannonBall.isBallMoving) entities.sounds.cannonBallHitSandSound.replayAsync();
       entities.cannonBall.isBallMoving = false;
       entities.headerStats.bounces = 0;
       // reset the fire button UI
@@ -37,12 +39,14 @@ const fireCannonSystem = (entities, { touches }) => {
     // if hits right wall
     if (entities.cannonBall.position[0] > width - 14) {
       if (!entities.gameData.isGameOver) entities.headerStats.bounces += 1;
+      entities.sounds.cannonBallBounceSound.replayAsync();
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
     // if hits left wall
     // I need to also make sure it is not -100 because that is the starting position off screen
     if (entities.cannonBall.position[0] < 0 && entities.cannonBall.position[0] !== -100) {
       if (!entities.gameData.isGameOver) entities.headerStats.bounces += 1;
+      entities.sounds.cannonBallBounceSound.replayAsync();
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
   }

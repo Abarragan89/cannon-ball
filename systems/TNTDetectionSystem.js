@@ -125,6 +125,7 @@ const TNTDetectionSystem = (entities) => {
     ///////////// CHECKING FOR LEFT WALL DETECTION ////////////////////////
     if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[0] > 0) {
+            entities.sounds.tntCannonBallHitSound.replayAsync();
             entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
         }
@@ -133,6 +134,7 @@ const TNTDetectionSystem = (entities) => {
     ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
     if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[0] < 0) {
+            entities.sounds.tntCannonBallHitSound.replayAsync();
             entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
         }
@@ -141,6 +143,7 @@ const TNTDetectionSystem = (entities) => {
     ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
     if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[1] < 0) {
+            entities.sounds.tntCannonBallHitSound.replayAsync();
             entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
         }

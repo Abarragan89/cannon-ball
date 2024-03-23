@@ -40,35 +40,59 @@ function ChatperOneLevelOne() {
         nextLevel: 'Basics/Level2'
     })
 
+
     // ///////////////////// CREATE SOUNDS /////////////////////
-    const [cannonBallSound, setCannonBallSound] = useState();
+    const [shootCannonSound, setShootCannonSound] = useState();
     const [fireworkSound, setFireworkSound] = useState();
-    const [explosionSound, setExplosionSound] = useState();
+    const [tntExplosionSound, setTntExplosionSound] = useState();
     const [tntHandleClickSound, setTntHandleClickSound] = useState();
+    const [cannonBallBounceSound, setCannonBallBounceSound] = useState();
+    const [tntCannonBallHitSound, setTntCannonBallHitSound] = useState();
+    const [cannonBallHitSandSound, setCannonBallHitSandSound] = useState();
     const [isAudioLoaded, setIsAudioLoaded] = useState(false);
 
     useEffect(() => {
         // import sounds and save in state
         async function loadAudio() {
-            console.log(' in the audio loading function ');
-            const { sound: cannonShot } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonShot.mp3'));
-            const { sound: explosion } = await Audio.Sound.createAsync(require('../../../../assets/sounds/hugeExplosion.wav'));
-            const { sound: fireworks } = await Audio.Sound.createAsync(require('../../../../assets/sounds/fireworks.wav'));
-            const { sound: tntHandleClick } = await Audio.Sound.createAsync(require('../../../../assets/sounds/tntHandleClick.wav'))
-            
-            setCannonBallSound(cannonShot);
-            setExplosionSound(explosion);
-            setFireworkSound(fireworks)
-            setTntHandleClickSound(tntHandleClick);
-            setIsAudioLoaded(prev => !prev);
+            try {
+                console.log(' in the audio loading function ');
+                const { sound: cannonShot } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonShot.mp3'));
+                console.log(' loaded the first sound (1)');
+                const { sound: explosion } = await Audio.Sound.createAsync(require('../../../../assets/sounds/hugeExplosion.wav'));
+                console.log(' loaded the second sound (2)');
+                const { sound: fireworks } = await Audio.Sound.createAsync(require('../../../../assets/sounds/fireworks.wav'));
+                console.log(' loaded the third sound (3)');
+                const { sound: tntHandleClick } = await Audio.Sound.createAsync(require('../../../../assets/sounds/tntHandleClick.wav'));
+                console.log(' loaded the fourth sound (4)');
+                const { sound: cannonBallBounce } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonBallBounce.wav'));
+                console.log(' loaded the fifth sound (5)');
+
+                // this audio files is causing the component to crash in the android simulator
+                const { sound: tntCannonBallHit } = await Audio.Sound.createAsync(require('../../../../assets/sounds/tntCannonBallHit.wav')); 
+                console.log(' loaded the sixth sound (6)');
+                const { sound: cannonBallHitSand } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonBallHitsBottom.wav')); 
+                console.log(' loaded the seventh sound (7)');
+                
+                setShootCannonSound(cannonShot);
+                setTntExplosionSound(explosion);
+                setFireworkSound(fireworks);
+                setTntHandleClickSound(tntHandleClick);
+                setCannonBallBounceSound(cannonBallBounce);
+                setTntCannonBallHitSound(tntCannonBallHit);
+                setCannonBallHitSandSound(cannonBallHitSand);
+                setIsAudioLoaded(prev => !prev);
+
+            } catch (e) {
+                console.log('error loading music')
+            }
         }
 
         loadAudio();
         // unload sounds when unmounted
         return () => {
-            if (cannonBallSound) cannonBallSound.unloadAsync();
+            if (shootCannonSound) shootCannonSound.unloadAsync();
             if (fireworkSound) fireworkSound.unloadAsync();
-            if (explosionSound) explosionSound.unloadAsync();
+            if (tntExplosionSound) tntExplosionSound.unloadAsync();
             if (tntHandleClickSound) tntHandleClickSound.unloadAsync();
         }
     }, [])
@@ -106,10 +130,13 @@ function ChatperOneLevelOne() {
                             setIsGameOver: setIsGameOver,
                         },
                         sounds: {
-                            shootCannonSound: cannonBallSound,
-                            tntExplosionSound: explosionSound,
+                            shootCannonSound: shootCannonSound,
+                            tntExplosionSound: tntExplosionSound,
                             tntHandleClickSound: tntHandleClickSound,
-                            fireworkSound: fireworkSound
+                            fireworkSound: fireworkSound,
+                            cannonBallBounceSound: cannonBallBounceSound,
+                            tntCannonBallHitSound: tntCannonBallHitSound,
+                            cannonBallHitSandSound: cannonBallHitSandSound
                         },
                         cannon: {
                             position: [400, screenHeight - 100],
