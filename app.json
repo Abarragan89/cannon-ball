@@ -17,12 +17,22 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "This app does not require access to your microphone."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "permissions": [
+          "RECORD_AUDIO",
+          "READ_EXTERNAL_STORAGE",
+          "WRITE_EXTERNAL_STORAGE",
+          "READ_PHONE_STATE",
+          "DETECT_SCREEN_CAPTURE"
+        ]
       }
     },
     "web": {
@@ -33,7 +43,16 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/titleFont.ttf", "./assets/fonts/textFont.ttf"]
+          "fonts": [
+            "./assets/fonts/titleFont.ttf",
+            "./assets/fonts/textFont.ttf"
+          ]
+        }
+      ],
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Allow Cannon Ball to access your microphone."
         }
       ],
       "expo-router"

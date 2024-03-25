@@ -43,6 +43,8 @@ const TNTDetectionSystem = (entities) => {
     }
 
     function endGameHandler() {
+        // stop the background noise
+        // entities.sounds.backgroundWaveSound.isLooping = false;
         // TNT handle click
         entities.sounds.tntHandleClickSound.playAsync();
         //trigger the boolean to let the air-time counter stop and game aspects

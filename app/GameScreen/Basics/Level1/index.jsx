@@ -49,6 +49,7 @@ function ChatperOneLevelOne() {
     const [cannonBallBounceSound, setCannonBallBounceSound] = useState();
     const [tntCannonBallHitSound, setTntCannonBallHitSound] = useState();
     const [cannonBallHitSandSound, setCannonBallHitSandSound] = useState();
+    const [backgroundWaveSound, setBackgroundWaveSound] = useState();
     const [isAudioLoaded, setIsAudioLoaded] = useState(false);
 
     useEffect(() => {
@@ -66,13 +67,16 @@ function ChatperOneLevelOne() {
                 console.log(' loaded the fourth sound (4)');
                 const { sound: cannonBallBounce } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonBallBounce.wav'));
                 console.log(' loaded the fifth sound (5)');
-
-                // this audio files is causing the component to crash in the android simulator
-                const { sound: tntCannonBallHit } = await Audio.Sound.createAsync(require('../../../../assets/sounds/tntCannonBallHit.wav')); 
+                const { sound: tntCannonBallHit } = await Audio.Sound.createAsync(require('../../../../assets/sounds/woodHit.wav'));
                 console.log(' loaded the sixth sound (6)');
-                const { sound: cannonBallHitSand } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonBallHitsBottom.wav')); 
+                const { sound: cannonBallHitSand } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonBallHitsBottom.wav'));
                 console.log(' loaded the seventh sound (7)');
-                
+                const { sound: backgroundWaves } = await Audio.Sound.createAsync(require('../../../../assets/sounds/backgroundWaves.wav'), {
+                    isLooping: true,
+                    volume: 0.15
+                });
+                console.log(' loaded the seventh sound (7)');
+
                 setShootCannonSound(cannonShot);
                 setTntExplosionSound(explosion);
                 setFireworkSound(fireworks);
@@ -80,10 +84,11 @@ function ChatperOneLevelOne() {
                 setCannonBallBounceSound(cannonBallBounce);
                 setTntCannonBallHitSound(tntCannonBallHit);
                 setCannonBallHitSandSound(cannonBallHitSand);
+                setBackgroundWaveSound(backgroundWaves)
                 setIsAudioLoaded(prev => !prev);
 
             } catch (e) {
-                console.log('error loading music')
+                console.log('error loading music', e)
             }
         }
 
@@ -94,6 +99,10 @@ function ChatperOneLevelOne() {
             if (fireworkSound) fireworkSound.unloadAsync();
             if (tntExplosionSound) tntExplosionSound.unloadAsync();
             if (tntHandleClickSound) tntHandleClickSound.unloadAsync();
+            if (cannonBallBounceSound) cannonBallBounceSound.unloadAsync();
+            if (tntCannonBallHitSound) tntCannonBallHitSound.unloadAsync();
+            if (cannonBallHitSandSound) cannonBallHitSandSound.unloadAsync();
+            if (backgroundWaveSound) backgroundWaveSound.unloadAsync();
         }
     }, [])
 
@@ -130,13 +139,14 @@ function ChatperOneLevelOne() {
                             setIsGameOver: setIsGameOver,
                         },
                         sounds: {
-                            shootCannonSound: shootCannonSound,
-                            tntExplosionSound: tntExplosionSound,
-                            tntHandleClickSound: tntHandleClickSound,
-                            fireworkSound: fireworkSound,
-                            cannonBallBounceSound: cannonBallBounceSound,
-                            tntCannonBallHitSound: tntCannonBallHitSound,
-                            cannonBallHitSandSound: cannonBallHitSandSound
+                            shootCannonSound,
+                            tntExplosionSound,
+                            tntHandleClickSound,
+                            fireworkSound,
+                            cannonBallBounceSound,
+                            tntCannonBallHitSound,
+                            cannonBallHitSandSound,
+                            backgroundWaveSound
                         },
                         cannon: {
                             position: [400, screenHeight - 100],

@@ -1,5 +1,5 @@
 import { View, StyleSheet, ImageBackground } from "react-native";
-import { useCallback } from "react";
+import { useCallback,  } from "react";
 import Title from "../Components/UI/Title";
 import MainButton from "../Components/UI/MainButton";
 import colors from "../constants/colors";
@@ -15,7 +15,6 @@ const { height } = Dimensions.get('screen');
 SplashScreen.preventAutoHideAsync();
 
 const Home = () => {
-
   const [fontsLoaded, fontError] = useFonts({
     'titleFont': require('../assets/fonts/titleFont.ttf'),
     'textFont': require('../assets/fonts/textFont.ttf'),

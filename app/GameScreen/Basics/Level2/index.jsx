@@ -28,13 +28,9 @@ function ChatperOneLevelTwo() {
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     // Angle Data
-    const angleLevelRef = useRef(75)
-    // const angleLevelRef = useRef(90)
-
+    const angleLevelRef = useRef(90)
     // Power Data
-    // const powerLevelRef = useRef(15)
-    const powerLevelRef = useRef(36.5)
-
+    const powerLevelRef = useRef(15)
 
     const endGameData = useRef({
         accuracyFloat: 0,
