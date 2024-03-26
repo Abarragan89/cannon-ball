@@ -46,7 +46,7 @@ const TNTDetectionSystem = (entities) => {
         // stop the background noise
         // entities.sounds.backgroundWaveSound.isLooping = false;
         // TNT handle click
-        entities.sounds.tntHandleClickSound.replayAsync();
+        if (!entities.gameData.isGameOver) entities.sounds.tntHandleClickSound.replayAsync();
         //trigger the boolean to let the air-time counter stop and game aspects
         entities.gameData.isGameOver = true;
         // calculate accuracy to center of box
@@ -65,22 +65,26 @@ const TNTDetectionSystem = (entities) => {
             // set the firework explosion coordinate
             entities.explosion.position[0] = entities.TNT.position[0] + 15
             entities.explosion.position[1] = entities.TNT.position[1] + 15
-            // Play Explosion Sound
-            entities.sounds.tntExplosionSound.replayAsync();
+            // Play Explosion Sound only once. Using startAnimation as a trigger
+            if (!entities.explosion.startAnimation) entities.sounds.tntExplosionSound.replayAsync();
+            if (!entities.explosion.startAnimation) {
+                setTimeout(() => {
+                    entities.sounds.fireworkSound.replayAsync();
+                    // I made this 500 ms because it needs to be 300 ms longer than the timeout that sets
+                    // the tnt and cannonBall to disappear
+                }, 500);
+            }
             // trigger explosion animation
             entities.explosion.startAnimation = true;
             // make tnt box and cannonBall disappear with a slight delay
             setTimeout(() => {
                 entities.TNT.display = 'none';
                 entities.cannonBall.display = 'none'
-                setTimeout(() => {
-                    entities.sounds.fireworkSound.replayAsync();
-                }, 300);
             }, 200);
         }, 1000)
         setTimeout(() => {
             entities.gameData.setIsGameOver(true)
-        }, 3000);
+        }, 3500);
     }
 
     function setEndGameModalStats() {
