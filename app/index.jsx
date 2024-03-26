@@ -1,4 +1,4 @@
-import { View, StyleSheet, ImageBackground } from "react-native";
+import { View, StyleSheet, ImageBackground, Button } from "react-native";
 import { useCallback,  } from "react";
 import Title from "../Components/UI/Title";
 import MainButton from "../Components/UI/MainButton";
@@ -30,9 +30,8 @@ const Home = () => {
     return null;
   }
 
-
   return (
-    <>
+    <SoundProvider>
       <ImageBackground
         source={bgImage}
         style={[
@@ -40,7 +39,6 @@ const Home = () => {
           styles.rootContainer
         ]}
         onLayout={onLayoutRootView}>
-        {/* <SoundEffectsProvider> */}
           <Title color={colors.offWhite} size={45}>Cannon Ball!</Title>
           <View style={styles.buttonContainer}>
             <MainButton
@@ -63,13 +61,12 @@ const Home = () => {
               Settings
             </MainButton>
           </View>
-        {/* </SoundEffectsProvider> */}
         <CannonLauncher
           position={[30, height - 100]}
           rotate={'-50deg'}
         />
       </ImageBackground>
-    </>
+    </SoundProvider>
   )
 }
 

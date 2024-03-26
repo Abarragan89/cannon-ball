@@ -38,7 +38,7 @@ const SoundProvider = ({ children }) => {
                     volume: 0.15
                 });
                 console.log(' loaded the seventh sound (7)');
-                const sounds  = {
+                sounds.current  = {
                     shootCannonSound,
                     tntCannonBallHitSound,
                     fireworkSound,
@@ -48,29 +48,16 @@ const SoundProvider = ({ children }) => {
                     cannonBallHitSandSound,
                     backgroundWaveSound
                 }
-                // setSounds(() => {
-                // shootCannonSound,
-                // tntCannonBallHitSound,
-                // fireworkSound,
-                // tntExplosionSound,
-                // tntHandleClickSound,
-                // cannonBallBounceSound,
-                // cannonBallHitSandSound,
-                // backgroundWaveSound
-                // })
-                console.log('sounds in context API ', sounds)
             } catch (e) {
                 console.log('error loading music', e)
             }
         }
 
         loadSound();
-        return () => {
-            console.log('unloading sounds but nothing is actually unloading. fix this in contextAPI')
-        }
     }, [])
 
 
+    
 
 
     return (

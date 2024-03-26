@@ -46,7 +46,7 @@ const TNTDetectionSystem = (entities) => {
         // stop the background noise
         // entities.sounds.backgroundWaveSound.isLooping = false;
         // TNT handle click
-        entities.sounds.tntHandleClickSound.playAsync();
+        entities.sounds.tntHandleClickSound.replayAsync();
         //trigger the boolean to let the air-time counter stop and game aspects
         entities.gameData.isGameOver = true;
         // calculate accuracy to center of box
@@ -66,7 +66,7 @@ const TNTDetectionSystem = (entities) => {
             entities.explosion.position[0] = entities.TNT.position[0] + 15
             entities.explosion.position[1] = entities.TNT.position[1] + 15
             // Play Explosion Sound
-            entities.sounds.tntExplosionSound.playAsync();
+            entities.sounds.tntExplosionSound.replayAsync();
             // trigger explosion animation
             entities.explosion.startAnimation = true;
             // make tnt box and cannonBall disappear with a slight delay
@@ -74,7 +74,7 @@ const TNTDetectionSystem = (entities) => {
                 entities.TNT.display = 'none';
                 entities.cannonBall.display = 'none'
                 setTimeout(() => {
-                    entities.sounds.fireworkSound.playAsync();
+                    entities.sounds.fireworkSound.replayAsync();
                 }, 300);
             }, 200);
         }, 1000)
