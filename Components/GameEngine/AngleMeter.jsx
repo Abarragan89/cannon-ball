@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         flex: 1,
         opacity: .75,
         position: 'absolute',
-        left: 30,
+        left: 60,
         bottom: 0,
         height: 56,
         overflow: 'hidden',

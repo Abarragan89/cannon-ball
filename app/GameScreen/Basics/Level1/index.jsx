@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -19,9 +19,15 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { Audio } from 'expo-av';
+import { SoundContext, SoundProvider } from "../../../../store/soundsContext";
 
 
 function ChatperOneLevelOne() {
+    // Load sounds from context API
+    const value = useContext(SoundContext);
+    console.log('sounds ', value)
+
+
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
 
@@ -107,6 +113,7 @@ function ChatperOneLevelOne() {
     }, [])
 
     return (
+        <SoundProvider>
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
@@ -203,6 +210,7 @@ function ChatperOneLevelOne() {
                 </GameEngine>
             }
         </ImageBackground>
+        </SoundProvider>
     );
 }
 
