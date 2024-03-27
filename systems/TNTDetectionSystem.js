@@ -44,10 +44,11 @@ const TNTDetectionSystem = (entities) => {
 
     function endGameHandler() {
         // stop the background noise
-        // entities.sounds.backgroundWaveSound.isLooping = false;
+        entities.gameData.setPlayBgMusic(false)
         // TNT handle click
         if (!entities.gameData.isGameOver) entities.sounds.tntHandleClickSound.replayAsync();
         //trigger the boolean to let the air-time counter stop and game aspects
+        //this is different than the useState is gameover that sets the modal
         entities.gameData.isGameOver = true;
         // calculate accuracy to center of box
         calculateAccuracy();
@@ -67,13 +68,6 @@ const TNTDetectionSystem = (entities) => {
             entities.explosion.position[1] = entities.TNT.position[1] + 15
             // Play Explosion Sound only once. Using startAnimation as a trigger
             if (!entities.explosion.startAnimation) entities.sounds.tntExplosionSound.replayAsync();
-            if (!entities.explosion.startAnimation) {
-                setTimeout(() => {
-                    entities.sounds.fireworkSound.replayAsync();
-                    // I made this 500 ms because it needs to be 300 ms longer than the timeout that sets
-                    // the tnt and cannonBall to disappear
-                }, 500);
-            }
             // trigger explosion animation
             entities.explosion.startAnimation = true;
             // make tnt box and cannonBall disappear with a slight delay

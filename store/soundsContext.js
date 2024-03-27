@@ -7,7 +7,7 @@ const SoundProvider = ({ children }) => {
     const sounds = useRef({
         shootCannonSound: null,
         tntCannonBallHitSound: null,
-        fireworkSound: null,
+        backgrounMusicSound: null,
         tntExplosionSound: null,
         tntHandleClickSound: null,
         cannonBallBounceSound: null,
@@ -15,15 +15,23 @@ const SoundProvider = ({ children }) => {
         backgroundWaveSound: null
     });
 
+    const images = useRef({
+
+    })
+
     useEffect(() => {
         const loadSound = async () => {
             try {
+                //  DOWNLOAD ALL FILES
                 console.log(' in the audio loading function ');
                 const { sound: shootCannonSound } = await Audio.Sound.createAsync(require('../assets/sounds/cannonShot.mp3'));
                 console.log(' loaded the first sound (1)');
                 const { sound: tntExplosionSound } = await Audio.Sound.createAsync(require('../assets/sounds/hugeExplosion.wav'));
                 console.log(' loaded the second sound (2)');
-                const { sound: fireworkSound } = await Audio.Sound.createAsync(require('../assets/sounds/fireworks.wav'));
+                const { sound: backgroundMusicSound } = await Audio.Sound.createAsync(require('../assets/sounds/backgroundMusic.mp3'), {
+                    isLooping: true,
+                    volume: 0.1
+                });
                 console.log(' loaded the third sound (3)');
                 const { sound: tntHandleClickSound } = await Audio.Sound.createAsync(require('../assets/sounds/tntHandleClick.wav'));
                 console.log(' loaded the fourth sound (4)');
@@ -35,14 +43,15 @@ const SoundProvider = ({ children }) => {
                 console.log(' loaded the seventh sound (7)');
                 const { sound: backgroundWaveSound } = await Audio.Sound.createAsync(require('../assets/sounds/backgroundWaves.wav'), {
                     isLooping: true,
-                    volume: 0.15
+                    volume: 0.1
                 });
                 console.log(' loaded the seventh sound (7)');
+                // SET FILES IN REF VARIABLES
                 sounds.current  = {
                     shootCannonSound,
                     tntCannonBallHitSound,
-                    fireworkSound,
                     tntExplosionSound,
+                    backgroundMusicSound,
                     tntHandleClickSound,
                     cannonBallBounceSound,
                     cannonBallHitSandSound,

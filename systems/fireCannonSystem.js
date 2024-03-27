@@ -14,6 +14,7 @@ const fireBtnPos = {
 }
 
 const fireCannonSystem = (entities, { touches }) => {
+
   function shootCannonBall() {
     // set the gravity, angle and power before launch
     const GRAVITY = .05;

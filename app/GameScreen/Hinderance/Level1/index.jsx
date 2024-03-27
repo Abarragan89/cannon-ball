@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useContext } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -22,11 +22,16 @@ import BackArrow from "../../../../Components/UI/BackArrow";
 import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
 import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
 import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
-import { Audio } from 'expo-av';
+import { SoundContext } from "../../../../store/soundsContext";
+
 
 function ChatperThreeLevelOne() {
+    // Load sounds from context API, make gameEngineRef, and gameOver State
+    const { sounds: gameSoundContext } = useContext(SoundContext);
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
+
+
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
@@ -42,49 +47,12 @@ function ChatperThreeLevelOne() {
         nextLevel: 'Hinderance/Level2'
     })
 
-    ///////////////////// CREATE SOUNDS /////////////////////
-    const [cannonBallSound, setCannonBallSound] = useState();
-    const [fireworkSound, setFireworkSound] = useState();
-    const [explosionSound, setExplosionSound] = useState();
-    const [tntHandleClickSound, setTntHandleClickSound] = useState();
-    const [cannonBallBounceSound, setCannonBallBounceSound] = useState();
-    const [isAudioLoaded, setIsAudioLoaded] = useState(false);
-    
-
-    useEffect(() => {
-        // import sounds and save in state
-        async function loadAudio() {
-            const { sound: cannonShot } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonShot.mp3'));
-            const { sound: explosion } = await Audio.Sound.createAsync(require('../../../../assets/sounds/hugeExplosion.wav'));
-            const { sound: fireworks } = await Audio.Sound.createAsync(require('../../../../assets/sounds/fireworks.wav'));
-            const { sound: tntHandleClick } = await Audio.Sound.createAsync(require('../../../../assets/sounds/tntHandleClick.wav'))
-            const { sound: cannonBallBounce } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonBallBounce.wav'))
-
-            setCannonBallSound(cannonShot);
-            setExplosionSound(explosion);
-            setFireworkSound(fireworks);
-            setTntHandleClickSound(tntHandleClick);
-            setCannonBallBounceSound(cannonBallBounce);
-            setIsAudioLoaded(true);
-        }
-        loadAudio();
-        // unload sounds when unmounted
-        return () => {
-            if (cannonBallSound) cannonBallSound.unloadAsync();
-            if (fireworkSound) fireworkSound.unloadAsync();
-            if (explosionSound) explosionSound.unloadAsync();
-            if (tntHandleClickSound) tntHandleClickSound.unloadAsync();
-            if (cannonBallBounceSound) cannonBallBounceSound.unloadAsync();
-        }
-    }, [])
-
 
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
-            {isAudioLoaded &&
                 <GameEngine
                     ref={gameEngineRef}
                     style={styles.container}
@@ -117,10 +85,14 @@ function ChatperThreeLevelOne() {
                             bounceLevel: 0.8
                         },
                         sounds: {
-                            shootCannonSound: cannonBallSound,
-                            tntExplosionSound: explosionSound,
-                            tntHandleClickSound: tntHandleClickSound,
-                            fireworkSound: fireworkSound
+                            shootCannonSound: gameSoundContext?.current?.shootCannonSound,
+                            tntExplosionSound: gameSoundContext?.current?.tntExplosionSound,
+                            tntHandleClickSound: gameSoundContext?.current?.tntHandleClickSound,
+                            fireworkSound: gameSoundContext?.current?.fireworkSound,
+                            cannonBallBounceSound: gameSoundContext?.current?.cannonBallBounceSound,
+                            tntCannonBallHitSound: gameSoundContext?.current?.tntCannonBallHitSound,
+                            cannonBallHitSandSound: gameSoundContext?.current?.cannonBallHitSandSound,
+                            backgroundWaveSound: gameSoundContext?.current?.backgroundWaveSound
                         },
                         cannon: {
                             position: [400, screenHeight - 100],
@@ -183,7 +155,6 @@ function ChatperThreeLevelOne() {
                         />
                     }
                 </GameEngine>
-            }
         </ImageBackground>
     );
 }
