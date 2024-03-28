@@ -30,19 +30,20 @@ function ChatperOneLevelOne() {
 
     // Play background noises and stop them when game is over
     useEffect(() => {
+
+        async function stopMusic() {
+            await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(false);
+            await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(false);
+        }
+        async function startMusic() {
+            await gameSoundContext.current.backgroundMusicSound.playAsync();
+            await gameSoundContext.current.backgroundWaveSound.playAsync();
+        }
         try {
             if (!playBgMusic) {
-                gameSoundContext.current.backgroundMusicSound.stopAsync();
-                gameSoundContext.current.backgroundWaveSound.stopAsync();
-    
-                gameSoundContext.current.backgroundMusicSound.unloadAsync();
-                gameSoundContext.current.backgroundWaveSound.unloadAsync();
-                
-    
+                stopMusic();
             } else {
-                gameSoundContext.current.backgroundMusicSound.playAsync();
-                gameSoundContext.current.backgroundWaveSound.playAsync();
-    
+                startMusic();
             }
         } catch(e) {
             console.log('error in bg noises', e)
