@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -23,7 +23,6 @@ import colors from "../../../../constants/colors";
 import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
 import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
-// import hatchBtnTwoDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnTwoDetection";
 import HatchLid from "../../../../Components/GameEngine/HatchLid";
 import HatchBox from "../../../../Components/GameEngine/HatchBox";
 import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
@@ -31,10 +30,46 @@ import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/h
 import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
 import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
 import levelFiveHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelFive";
+import { SoundContext } from "../../../../store/soundsContext";
 
 function ChapterFiveLevelFive() {
+    // Load sounds from context API, make gameEngineRef, and gameOver State
+    const { sounds: gameSoundContext } = useContext(SoundContext);
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
+    const [playBgMusic, setPlayBgMusic] = useState(true)
+
+    // Play background noises and stop them when game is over
+    useEffect(() => {
+        async function stopMusic() {
+            await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(false);
+            await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(false);
+        }
+        async function startMusic() {
+            await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(true);
+            await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(true);
+            await gameSoundContext.current.backgroundMusicSound.playAsync();
+            await gameSoundContext.current.backgroundWaveSound.playAsync();
+        }
+        if (!playBgMusic) {
+            try {
+                stopMusic();
+            } catch (e) {
+                console.log('error stopping music', e)
+            }
+        } else {
+            try {
+                startMusic();
+            } catch (e) {
+                console.log('error starting music', e)
+            }
+        }
+        return () => {
+            gameSoundContext.current.backgroundMusicSound.stopAsync();
+            gameSoundContext.current.backgroundWaveSound.stopAsync();
+        }
+    }, [playBgMusic])
+
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
@@ -87,7 +122,20 @@ function ChapterFiveLevelFive() {
                     },
                     gameData: {
                         endGameData: endGameData,
-                        bounceLevel: 0.8,
+                        setPlayBgMusic: setPlayBgMusic,
+                        isGameOver: false,
+                        setIsGameOver: setIsGameOver,
+                        bounceLevel: 0.8
+                    },
+                    sounds: {
+                        shootCannonSound: gameSoundContext?.current?.shootCannonSound,
+                        tntExplosionSound: gameSoundContext?.current?.tntExplosionSound,
+                        tntHandleClickSound: gameSoundContext?.current?.tntHandleClickSound,
+                        fireworkSound: gameSoundContext?.current?.fireworkSound,
+                        cannonBallBounceSound: gameSoundContext?.current?.cannonBallBounceSound,
+                        tntCannonBallHitSound: gameSoundContext?.current?.tntCannonBallHitSound,
+                        cannonBallHitSandSound: gameSoundContext?.current?.cannonBallHitSandSound,
+                        backgroundWaveSound: gameSoundContext?.current?.backgroundWaveSound
                     },
                     cannon: {
                         position: [Math.floor(screenWidth / 3) + 2, screenHeight - 327],

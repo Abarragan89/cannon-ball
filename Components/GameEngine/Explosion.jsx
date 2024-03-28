@@ -10,7 +10,6 @@ function Explosion({ position, ballPosition, startAnimation, ballColor }) {
     const particle4El = useRef(null)
     const cannonBallEl = useRef(null)
 
-
     useEffect(() => {
         if (
             startAnimation === true
@@ -21,7 +20,7 @@ function Explosion({ position, ballPosition, startAnimation, ballColor }) {
             particle4El.current.start();
             cannonBallEl.current.start();
         } 
-    }, [startAnimation, particle1El, particle2El, particle3El, cannonBallEl])
+    }, [startAnimation])
 
 
     return (

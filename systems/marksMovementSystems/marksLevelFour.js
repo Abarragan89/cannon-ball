@@ -3,7 +3,7 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 let angle = 0;
-const radius = 175 // Adjust the radius as needed
+const radius = 175 
 
 const moveTNTMarksLevelFour = (entities) => {
 
@@ -13,7 +13,6 @@ const moveTNTMarksLevelFour = (entities) => {
     
         // Update the angle based on time or any other factor
         angle += 0.01;
-    
         // Calculate new TNT position using polar coordinates
         const tntX = centerX + radius * Math.cos(angle);
         const tntY = centerY + radius * Math.sin(angle);

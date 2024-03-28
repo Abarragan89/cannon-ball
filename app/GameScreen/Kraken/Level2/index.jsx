@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -26,15 +26,46 @@ import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallS
 import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
 import smallSquareSystemThree from "../../../../systems/hinderanceDetection/smallSquareSystemThree";
 import krakenLevelTwo from "../../../../systems/krakenMovementSystems/krakenLevelTwo";
-
+import { SoundContext } from "../../../../store/soundsContext";
 
 function ChapterFourLevelTwo() {
-    // The game data accepts refs and state for each aspect of the game
-    // the ref is used to game data state and remain consistent through rerenders
-    // the state is used to manage the components that use that data so rerenders are triggered
-
+    // Load sounds from context API, make gameEngineRef, and gameOver State
+    const { sounds: gameSoundContext } = useContext(SoundContext);
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
+    const [playBgMusic, setPlayBgMusic] = useState(true)
+
+    // Play background noises and stop them when game is over
+    useEffect(() => {
+        async function stopMusic() {
+            await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(false);
+            await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(false);
+        }
+        async function startMusic() {
+            await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(true);
+            await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(true);
+            await gameSoundContext.current.backgroundMusicSound.playAsync();
+            await gameSoundContext.current.backgroundWaveSound.playAsync();
+        }
+        if (!playBgMusic) {
+            try {
+                stopMusic();
+            } catch (e) {
+                console.log('error stopping music', e)
+            }
+        } else {
+            try {
+                startMusic();
+            } catch (e) {
+                console.log('error starting music', e)
+            }
+        }
+        return () => {
+            gameSoundContext.current.backgroundMusicSound.stopAsync();
+            gameSoundContext.current.backgroundWaveSound.stopAsync();
+        }
+    }, [playBgMusic])
+
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
@@ -85,7 +116,20 @@ function ChapterFourLevelTwo() {
                     },
                     gameData: {
                         endGameData: endGameData,
+                        setPlayBgMusic: setPlayBgMusic,
+                        isGameOver: false,
+                        setIsGameOver: setIsGameOver,
                         bounceLevel: 0.8
+                    },
+                    sounds: {
+                        shootCannonSound: gameSoundContext?.current?.shootCannonSound,
+                        tntExplosionSound: gameSoundContext?.current?.tntExplosionSound,
+                        tntHandleClickSound: gameSoundContext?.current?.tntHandleClickSound,
+                        fireworkSound: gameSoundContext?.current?.fireworkSound,
+                        cannonBallBounceSound: gameSoundContext?.current?.cannonBallBounceSound,
+                        tntCannonBallHitSound: gameSoundContext?.current?.tntCannonBallHitSound,
+                        cannonBallHitSandSound: gameSoundContext?.current?.cannonBallHitSandSound,
+                        backgroundWaveSound: gameSoundContext?.current?.backgroundWaveSound
                     },
                     cannon: {
                         position: [screenWidth - 200, screenHeight - 100],
@@ -125,7 +169,7 @@ function ChapterFourLevelTwo() {
                         renderer: <PowerMeter />
                     },
                     giantTallOne: {
-                        position: [Math.floor(screenWidth / 2 ), screenHeight - 315],
+                        position: [Math.floor(screenWidth / 2), screenHeight - 315],
                         renderer: <GiantTallHind />
                     },
                     squareHindOne: {
@@ -133,11 +177,11 @@ function ChapterFourLevelTwo() {
                         renderer: <SmallSquareHind />
                     },
                     squareHindTwo: {
-                        position: [Math.floor(screenWidth / 4 ) - 10, screenHeight - 250],
+                        position: [Math.floor(screenWidth / 4) - 10, screenHeight - 250],
                         renderer: <SmallSquareHind />
                     },
                     squareHindThree: {
-                        position: [Math.floor(screenWidth / 2 ) - 50, screenHeight - 300],
+                        position: [Math.floor(screenWidth / 2) - 50, screenHeight - 300],
                         renderer: <SmallSquareHind />
                     },
                     fireBtn: {

@@ -29,7 +29,6 @@ const SoundProvider = ({ children }) => {
                 const { sound: tntExplosionSound } = await Audio.Sound.createAsync(require('../assets/sounds/hugeExplosion.wav'));
                 console.log(' loaded the second sound (2)');
                 const { sound: backgroundMusicSound } = await Audio.Sound.createAsync(require('../assets/sounds/backgroundMusic.mp3'), {
-                    isLooping: true,
                     volume: 0.1
                 });
                 console.log(' loaded the third sound (3)');
@@ -42,7 +41,6 @@ const SoundProvider = ({ children }) => {
                 const { sound: cannonBallHitSandSound } = await Audio.Sound.createAsync(require('../assets/sounds/cannonBallHitsBottom.wav'));
                 console.log(' loaded the seventh sound (7)');
                 const { sound: backgroundWaveSound } = await Audio.Sound.createAsync(require('../assets/sounds/backgroundWaves.wav'), {
-                    isLooping: true,
                     volume: 0.1
                 });
                 console.log(' loaded the seventh sound (7)');

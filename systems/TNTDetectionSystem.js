@@ -102,25 +102,22 @@ const TNTDetectionSystem = (entities) => {
     const rightLineX2 = entities.TNT.position[0] + 33;
     const rightLineY2 = entities.TNT.position[1] + 27;
 
-
     // BOTTOM LINE OF TNT BOX
     const bottomLineX1 = entities.TNT.position[0] + 3;
-    const bottomLineY1 = entities.TNT.position[1] + 30;
-    const bottomLineX2 = entities.TNT.position[0] + 25;
-    const bottomLineY2 = entities.TNT.position[1] + 30;
+    const bottomLineY1 = entities.TNT.position[1] + 33;
+    const bottomLineX2 = entities.TNT.position[0] + 27;
+    const bottomLineY2 = entities.TNT.position[1] + 33;
 
     // TOP LINE OF TNT BOX
-    const topLineX1 = entities.TNT.position[0] + 2;
+    const topLineX1 = entities.TNT.position[0] + 3;
     const topLineY1 = entities.TNT.position[1] + 5;
-    const topLineX2 = entities.TNT.position[0] + 25;
+    const topLineX2 = entities.TNT.position[0] + 27;
     const topLineY2 = entities.TNT.position[1] + 2;
 
     // CIRCLE PROPERTIES
     const radius = 10;
     const circleX = entities.cannonBall.position[0] + 10;
     const circleY = entities.cannonBall.position[1] + 10;
-
-
 
     ///////////// CHECKING FOR LEFT WALL DETECTION ////////////////////////
     if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {

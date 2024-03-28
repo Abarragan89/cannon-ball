@@ -6,6 +6,7 @@ export default colors = {
     primaryYellow: '#ddd417',
     primaryOrange: '#ffa500',
     primaryBrown: '#5e2a0e',
+    hinderanceColor: '#5e2a0e',
     primaryBlack: '#000000',
     bronzeStar: '#d94a4a',
     silverStar: 'gray',

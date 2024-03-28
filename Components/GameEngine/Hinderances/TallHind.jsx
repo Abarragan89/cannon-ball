@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         display: 'block',
         height: 120,
         width: 30,
-        backgroundColor: colors.sandColor,
+        backgroundColor: colors.hinderanceColor,
         borderRadius: 4,
         borderWidth: 1,
         borderColor: colors.primaryBlack
