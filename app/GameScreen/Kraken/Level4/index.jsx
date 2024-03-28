@@ -21,16 +21,16 @@ const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import CannonStand from "../../../../Components/GameEngine/Hinderances/CannonStand";
 import krakenLevelFour from "../../../../systems/krakenMovementSystems/krakenLevelFour";
-import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
 import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
-import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
 import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
 import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
 import longHindSystemThree from "../../../../systems/hinderanceDetection/longHindSystemThree";
 import longHindSystemFour from "../../../../systems/hinderanceDetection/longHindSystemFour";
 import cannonDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
 import { SoundContext } from "../../../../store/soundsContext";
+import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+
 
 function ChapterFourLevelFour() {
     // Load sounds from context API, make gameEngineRef, and gameOver State
@@ -182,27 +182,39 @@ function ChapterFourLevelFour() {
                     },
                     squareHindOne: {
                         position: [0, 100],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },
                     squareHindTwo: {
                         position: [screenWidth - 40, 100],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },
                     longHindOne: {
                         position: [Math.floor(screenWidth/2) - 120, 180],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     longHindTwo: {
                         position: [Math.floor(screenWidth/2), 180],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     longHindThree: {
                         position: [0, 260],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     longHindFour: {
                         position: [screenWidth - 120, 260],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     fireBtn: {
                         isShooting: false,

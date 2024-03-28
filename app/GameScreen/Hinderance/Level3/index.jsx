@@ -18,9 +18,9 @@ import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
 import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
 import { SoundContext } from "../../../../store/soundsContext";
+import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 
 
 function ChatperThreeLevelThree() {
@@ -161,7 +161,9 @@ function ChatperThreeLevelThree() {
                     },
                     giantTallOne: {
                         position: [250, screenHeight - 315],
-                        renderer: <GiantTallHind />
+                        width: 70,
+                        height: 300,
+                        renderer: <Hinderance />
                     },
                     fireBtn: {
                         isShooting: false,

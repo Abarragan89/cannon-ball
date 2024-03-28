@@ -21,9 +21,8 @@ const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import tallHindSystemOne from "../../../../systems/hinderanceDetection/tallHindSystemOne";
 import tallHindSystemTwo from "../../../../systems/hinderanceDetection/tallHindSystemTwo";
-import TallHind from "../../../../Components/GameEngine/Hinderances/TallHind";
 import { SoundContext } from "../../../../store/soundsContext";
-
+import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 
 function ChapterThreeLevelTwo() {
     // Load sounds from context API, make gameEngineRef, and gameOver State
@@ -165,11 +164,15 @@ function ChapterThreeLevelTwo() {
                     },
                     tallHindOne: {
                         position: [screenWidth - 173, 70],
-                        renderer: <TallHind />
+                        width: 30,
+                        height: 120,
+                        renderer: <Hinderance />
                     },
                     tallHindTwo: {
                         position: [screenWidth - 228, 70],
-                        renderer: <TallHind />
+                        width: 30,
+                        height: 120,
+                        renderer: <Hinderance />
                     },
                     fireBtn: {
                         isShooting: false,

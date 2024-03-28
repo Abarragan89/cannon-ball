@@ -20,17 +20,15 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import CannonStand from "../../../../Components/GameEngine/Hinderances/CannonStand";
-import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
-import LongHind from '../../../../Components/GameEngine/Hinderances/LongHind';
 import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
 import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
 import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLongHind";
 import extraLongHindSystemOne from "../../../../systems/hinderanceDetection/extraLongHindSystemOne";
 import krakenLevelFiveSystems from "../../../../systems/krakenMovementSystems/krakenLevelFive";
 import cannonStandDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
 import { SoundContext } from "../../../../store/soundsContext";
+import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 
 function ChapterFourLevelFive() {
     // Load sounds from context API, make gameEngineRef, and gameOver State
@@ -180,16 +178,22 @@ function ChapterFourLevelFive() {
                     },
                     longHindOne: {
                         position: [Math.floor(screenWidth / 2) - 180, screenHeight - 50],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     // this is the square closest to the cannon
                     squareHindOne: {
                         position: [Math.floor(screenWidth / 2), screenHeight - 50],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },
                     giantTallOne: {
                         position: [Math.floor(screenWidth / 2) + 55, -50],
-                        renderer: <GiantTallHind />
+                        width: 70,
+                        height: 300,
+                        renderer: <Hinderance />
                     },
                     cannonStand: {
                         position: [screenWidth - 82, 150],

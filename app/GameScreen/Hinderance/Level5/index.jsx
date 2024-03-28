@@ -19,13 +19,12 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
-import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
 import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
 import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
 import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
 import giantTallSystemTwo from "../../../../systems/hinderanceDetection/giantTallSystemTwo";
 import { SoundContext } from "../../../../store/soundsContext";
+import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 
 function ChapterThreeLevelFive() {
     // Load sounds from context API, make gameEngineRef, and gameOver State
@@ -167,19 +166,27 @@ function ChapterThreeLevelFive() {
                     },
                     giantTallOne: {
                         position: [Math.floor(screenWidth / 2) - 170, screenHeight - 315],
-                        renderer: <GiantTallHind />
+                        width: 70,
+                        height: 300,
+                        renderer: <Hinderance />
                     },
                     giantTallTwo: {
                         position: [Math.floor(screenWidth / 2) + 120, screenHeight - 315],
-                        renderer: <GiantTallHind />
+                        width: 70,
+                        height: 300,
+                        renderer: <Hinderance />
                     },
                     longHindOne: {
                         position: [Math.floor(screenWidth / 2) - 45, 120],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     longHindTwo: {
                         position: [Math.floor(screenWidth / 2) - 45, 310],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     fireBtn: {
                         isShooting: false,

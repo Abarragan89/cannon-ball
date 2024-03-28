@@ -19,15 +19,15 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
 import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
 import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
 import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLongHind";
 import extraLongHindSystemOne from "../../../../systems/hinderanceDetection/extraLongHindSystemOne";
-import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
 import krakenLevelThree from "../../../../systems/krakenMovementSystems/krakenLevelThree";
 import { SoundContext } from "../../../../store/soundsContext";
+import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+
 
 function ChatperFourLevelThree() {
     // Load sounds from context API, make gameEngineRef, and gameOver State
@@ -172,15 +172,21 @@ function ChatperFourLevelThree() {
                     // This is the cannon Base
                     longHindOne: {
                         position: [0, 120],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     longHindTwo: {
                         position: [screenWidth - 270, 200],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     squareHindOne: {
                         position: [screenWidth - 500, 300],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },
                     extraLongHindOne: {
                         position: [-3, -2],

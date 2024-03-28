@@ -19,13 +19,12 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
 import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
 import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
 import { SoundContext } from "../../../../store/soundsContext";
+import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+
 
 function ChapterThreeLevelFour() {
     // Load sounds from context API, make gameEngineRef, and gameOver State
@@ -166,15 +165,21 @@ function ChapterThreeLevelFour() {
                     },
                     giantTallOne: {
                         position: [Math.floor(screenWidth / 2), screenHeight - 315],
-                        renderer: <GiantTallHind />
+                        width: 70,
+                        height: 300,
+                        renderer: <Hinderance />
                     },
                     longHindOne: {
                         position: [210, 200],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     squareHindOne: {
                         position: [345, 60],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },
                     fireBtn: {
                         isShooting: false,

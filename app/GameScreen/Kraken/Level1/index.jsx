@@ -19,10 +19,10 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
 import krakenLevelOne from "../../../../systems/krakenMovementSystems/krakenLevelOne";
 import { SoundContext } from "../../../../store/soundsContext";
+import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 
 function ChapterFourLevelOne() {
     // Load sounds from context API, make gameEngineRef, and gameOver State
@@ -164,7 +164,9 @@ function ChapterFourLevelOne() {
                     },
                     squareHindOne: {
                         position: [100, 100],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },
                     fireBtn: {
                         isShooting: false,

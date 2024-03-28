@@ -27,10 +27,10 @@ import HatchLid from "../../../../Components/GameEngine/HatchLid";
 import HatchBox from "../../../../Components/GameEngine/HatchBox";
 import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
 import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
-import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
 import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
 import levelFiveHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelFive";
 import { SoundContext } from "../../../../store/soundsContext";
+import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 
 function ChapterFiveLevelFive() {
     // Load sounds from context API, make gameEngineRef, and gameOver State
@@ -104,7 +104,6 @@ function ChapterFiveLevelFive() {
                     hatchLidDetectionSystem,
                     hitHatchBtn_OpenHatchSystem,
                     giantTallSystemOne,
-                    // hatchBtnTwoDetectionSystem,
                     levelFiveHatchSystem
                 ]}
                 entities={{
@@ -177,7 +176,9 @@ function ChapterFiveLevelFive() {
                     },
                     giantTallOne: {
                         position: [Math.floor(screenWidth / 3), screenHeight - 250],
-                        renderer: <GiantTallHind />
+                        width: 70,
+                        height: 300,
+                        renderer: <Hinderance />
                     },
                     hatchBtn: {
                         isHit: false,
@@ -187,14 +188,6 @@ function ChapterFiveLevelFive() {
                         position: [screenWidth - 50, screenHeight - 150],
                         renderer: <HatchBtnTop />
                     },
-                    // hatchBtnTwo: {
-                    //     isHit: false,
-                    //     topPosition: -8,
-                    //     color: colors.bronzeStar,
-                    //     isTriggerOnTop: true,
-                    //     position: [Math.floor(screenWidth / 2) + 100, screenHeight - 100],
-                    //     renderer: <HatchBtnTop />
-                    // },
                     hatchLid: {
                         position: [Math.floor(screenWidth / 3) - 150, screenHeight - 195],
                         renderer: <HatchLid />

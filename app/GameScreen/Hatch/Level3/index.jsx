@@ -28,10 +28,10 @@ import HatchLid from "../../../../Components/GameEngine/HatchLid";
 import HatchBox from "../../../../Components/GameEngine/HatchBox";
 import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
 import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
-import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
 import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
 import { SoundContext } from "../../../../store/soundsContext";
+import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 
 function ChapterFiveLevelThree() {
     // Load sounds from context API, make gameEngineRef, and gameOver State
@@ -193,11 +193,15 @@ function ChapterFiveLevelThree() {
                     },
                     squareHindOne: {
                         position: [300, screenHeight - 50],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },
                     squareHindTwo: {
                         position: [420, screenHeight - 50],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },       
                     fireBtn: {
                         isShooting: false,

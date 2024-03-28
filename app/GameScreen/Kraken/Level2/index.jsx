@@ -19,14 +19,14 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import GiantTallHind from "../../../../Components/GameEngine/Hinderances/GiantTallHind";
 import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
 import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
 import smallSquareSystemThree from "../../../../systems/hinderanceDetection/smallSquareSystemThree";
 import krakenLevelTwo from "../../../../systems/krakenMovementSystems/krakenLevelTwo";
 import { SoundContext } from "../../../../store/soundsContext";
+import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+
 
 function ChapterFourLevelTwo() {
     // Load sounds from context API, make gameEngineRef, and gameOver State
@@ -170,19 +170,27 @@ function ChapterFourLevelTwo() {
                     },
                     giantTallOne: {
                         position: [Math.floor(screenWidth / 2), screenHeight - 315],
-                        renderer: <GiantTallHind />
+                        width: 70,
+                        height: 300,
+                        renderer: <Hinderance />
                     },
                     squareHindOne: {
                         position: [0, screenHeight - 200],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },
                     squareHindTwo: {
                         position: [Math.floor(screenWidth / 4) - 10, screenHeight - 250],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },
                     squareHindThree: {
                         position: [Math.floor(screenWidth / 2) - 50, screenHeight - 300],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },
                     fireBtn: {
                         isShooting: false,
