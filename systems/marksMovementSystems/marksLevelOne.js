@@ -3,7 +3,7 @@ const screenHeight = Dimensions.get('window').height;
 
 let direction = 'up'
 const moveTNTMarksLevelOne = (entities) => {
-    if (!entities.cannonBall.isGameOver) {
+    if (!entities.gameData.isGameOver) {
         if (entities.TNT.position[1] > screenHeight - 130) {
             direction = 'up';
         } 

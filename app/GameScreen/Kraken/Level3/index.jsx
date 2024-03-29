@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -19,18 +19,54 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
 import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
 import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
 import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLongHind";
 import extraLongHindSystemOne from "../../../../systems/hinderanceDetection/extraLongHindSystemOne";
-import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
 import krakenLevelThree from "../../../../systems/krakenMovementSystems/krakenLevelThree";
+import { SoundContext } from "../../../../store/soundsContext";
+import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+
 
 function ChatperFourLevelThree() {
+    // Load sounds from context API, make gameEngineRef, and gameOver State
+    const { sounds: gameSoundContext } = useContext(SoundContext);
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
+    const [playBgMusic, setPlayBgMusic] = useState(true)
+
+    // Play background noises and stop them when game is over
+    useEffect(() => {
+        async function stopMusic() {
+            await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(false);
+            await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(false);
+        }
+        async function startMusic() {
+            await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(true);
+            await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(true);
+            await gameSoundContext.current.backgroundMusicSound.playAsync();
+            await gameSoundContext.current.backgroundWaveSound.playAsync();
+        }
+        if (!playBgMusic) {
+            try {
+                stopMusic();
+            } catch (e) {
+                console.log('error stopping music', e)
+            }
+        } else {
+            try {
+                startMusic();
+            } catch (e) {
+                console.log('error starting music', e)
+            }
+        }
+        return () => {
+            gameSoundContext.current.backgroundMusicSound.stopAsync();
+            gameSoundContext.current.backgroundWaveSound.stopAsync();
+        }
+    }, [playBgMusic])
+
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
@@ -43,6 +79,7 @@ function ChatperFourLevelThree() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
+        currentLevel: 'Kraken',
         nextLevel: 'Kraken/Level4'
     })
     return (
@@ -81,7 +118,20 @@ function ChatperFourLevelThree() {
                     },
                     gameData: {
                         endGameData: endGameData,
-                        bounceLevel: 0.5
+                        setPlayBgMusic: setPlayBgMusic,
+                        isGameOver: false,
+                        setIsGameOver: setIsGameOver,
+                        bounceLevel: 0.8
+                    },
+                    sounds: {
+                        shootCannonSound: gameSoundContext?.current?.shootCannonSound,
+                        tntExplosionSound: gameSoundContext?.current?.tntExplosionSound,
+                        tntHandleClickSound: gameSoundContext?.current?.tntHandleClickSound,
+                        fireworkSound: gameSoundContext?.current?.fireworkSound,
+                        cannonBallBounceSound: gameSoundContext?.current?.cannonBallBounceSound,
+                        tntCannonBallHitSound: gameSoundContext?.current?.tntCannonBallHitSound,
+                        cannonBallHitSandSound: gameSoundContext?.current?.cannonBallHitSandSound,
+                        backgroundWaveSound: gameSoundContext?.current?.backgroundWaveSound
                     },
                     cannon: {
                         position: [40, 43],
@@ -123,15 +173,21 @@ function ChatperFourLevelThree() {
                     // This is the cannon Base
                     longHindOne: {
                         position: [0, 120],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     longHindTwo: {
-                        position: [screenWidth - 270, 200], 
-                        renderer: <LongHind />
+                        position: [screenWidth - 270, 200],
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     squareHindOne: {
                         position: [screenWidth - 500, 300],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },
                     extraLongHindOne: {
                         position: [-3, -2],

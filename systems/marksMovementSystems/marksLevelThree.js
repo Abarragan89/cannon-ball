@@ -6,7 +6,7 @@ let velocityX = 0.8;
 let velocityY = 0.8;
 const moveTNTMarksLevelThree = (entities) => {
 
-    if (!entities.cannonBall.isGameOver) {
+    if (!entities.gameData.isGameOver) {
         entities.TNT.position[0] += velocityX;
         entities.TNT.position[1] += velocityY;
         // if Bottom is hit

@@ -4,7 +4,7 @@ import colors from '../../constants/colors';
 
 const SecondaryButton = ({ children, route, params, runFunc }) => {
     // if runFunc is passed, then we don't want to link to a new page, but run a function
-    const onPressHandler = runFunc ? runFunc : () => router.push({ pathname: route, params: params });
+    const onPressHandler = runFunc ? runFunc : () => router.replace({ pathname: route, params: params });
 
     return (
         <Pressable onPress={onPressHandler} style={({ pressed }) => [styles.container, pressed && styles.pressed]}>

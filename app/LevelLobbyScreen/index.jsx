@@ -20,7 +20,9 @@ const LevelLobbyScreen = () => {
     return (
         <ScrollView>
             <View style={styles.backIcon}>
-                <BackArrow />
+                <BackArrow 
+                    route='CampaignOverviewScreen'
+                />
             </View>
             {mapName &&
                 <View style={styles.root}>

@@ -8,7 +8,7 @@ const radius = 100
 
 const krakenLevelOne = (entities) => {
 
-    if (!entities.cannonBall.isGameOver) {
+    if (!entities.gameData.isGameOver) {
         const centerX = screenWidth / 2 + 170;
         const centerY = screenHeight / 2 - 20;
 

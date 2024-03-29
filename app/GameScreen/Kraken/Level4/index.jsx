@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -21,24 +21,55 @@ const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import CannonStand from "../../../../Components/GameEngine/Hinderances/CannonStand";
 import krakenLevelFour from "../../../../systems/krakenMovementSystems/krakenLevelFour";
-import SmallSquareHind from "../../../../Components/GameEngine/Hinderances/SmallSquareHind";
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
 import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
-import LongHind from "../../../../Components/GameEngine/Hinderances/LongHind";
 import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
 import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
 import longHindSystemThree from "../../../../systems/hinderanceDetection/longHindSystemThree";
 import longHindSystemFour from "../../../../systems/hinderanceDetection/longHindSystemFour";
 import cannonDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
+import { SoundContext } from "../../../../store/soundsContext";
+import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 
 
 function ChapterFourLevelFour() {
-    // The game data accepts refs and state for each aspect of the game
-    // the ref is used to game data state and remain consistent through rerenders
-    // the state is used to manage the components that use that data so rerenders are triggered
-
+    // Load sounds from context API, make gameEngineRef, and gameOver State
+    const { sounds: gameSoundContext } = useContext(SoundContext);
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
+    const [playBgMusic, setPlayBgMusic] = useState(true)
+
+    // Play background noises and stop them when game is over
+    useEffect(() => {
+        async function stopMusic() {
+            await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(false);
+            await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(false);
+        }
+        async function startMusic() {
+            await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(true);
+            await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(true);
+            await gameSoundContext.current.backgroundMusicSound.playAsync();
+            await gameSoundContext.current.backgroundWaveSound.playAsync();
+        }
+        if (!playBgMusic) {
+            try {
+                stopMusic();
+            } catch (e) {
+                console.log('error stopping music', e)
+            }
+        } else {
+            try {
+                startMusic();
+            } catch (e) {
+                console.log('error starting music', e)
+            }
+        }
+        return () => {
+            gameSoundContext.current.backgroundMusicSound.stopAsync();
+            gameSoundContext.current.backgroundWaveSound.stopAsync();
+        }
+    }, [playBgMusic])
+
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
@@ -51,6 +82,7 @@ function ChapterFourLevelFour() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
+        currentLevel: 'Kraken',
         nextLevel: 'Kraken/Level5'
     })
     return (
@@ -92,7 +124,20 @@ function ChapterFourLevelFour() {
                     },
                     gameData: {
                         endGameData: endGameData,
-                        bounceLevel: .9
+                        setPlayBgMusic: setPlayBgMusic,
+                        isGameOver: false,
+                        setIsGameOver: setIsGameOver,
+                        bounceLevel: 0.8
+                    },
+                    sounds: {
+                        shootCannonSound: gameSoundContext?.current?.shootCannonSound,
+                        tntExplosionSound: gameSoundContext?.current?.tntExplosionSound,
+                        tntHandleClickSound: gameSoundContext?.current?.tntHandleClickSound,
+                        fireworkSound: gameSoundContext?.current?.fireworkSound,
+                        cannonBallBounceSound: gameSoundContext?.current?.cannonBallBounceSound,
+                        tntCannonBallHitSound: gameSoundContext?.current?.tntCannonBallHitSound,
+                        cannonBallHitSandSound: gameSoundContext?.current?.cannonBallHitSandSound,
+                        backgroundWaveSound: gameSoundContext?.current?.backgroundWaveSound
                     },
                     cannon: {
                         position: [Math.floor(screenWidth / 2) - 35, -2],
@@ -138,27 +183,39 @@ function ChapterFourLevelFour() {
                     },
                     squareHindOne: {
                         position: [0, 100],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },
                     squareHindTwo: {
                         position: [screenWidth - 40, 100],
-                        renderer: <SmallSquareHind />
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
                     },
                     longHindOne: {
                         position: [Math.floor(screenWidth/2) - 120, 180],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     longHindTwo: {
                         position: [Math.floor(screenWidth/2), 180],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     longHindThree: {
                         position: [0, 260],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     longHindFour: {
                         position: [screenWidth - 120, 260],
-                        renderer: <LongHind />
+                        width: 120,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     fireBtn: {
                         isShooting: false,
