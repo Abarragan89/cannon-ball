@@ -52,7 +52,7 @@ const EndGameModal = ({ endGameData }) => {
                 <View style={styles.buttonContainer}>
                     <SecondaryButton
                         route={'/LevelLobbyScreen'}
-                        params={{ mapName: endGameData.current.nextLevel.split('/')[0] }}
+                        params={{ mapName: endGameData.current.currentLevel }}
                     >Back</SecondaryButton>
                     <SecondaryButton
                         route={`/GameScreen/${endGameData.current.nextLevel}`}

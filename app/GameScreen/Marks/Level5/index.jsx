@@ -73,6 +73,7 @@ function ChatperTwoLevelFive() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
+        currentLevel: 'Marks',
         nextLevel: 'Hinderance/Level1'
     })
     return (

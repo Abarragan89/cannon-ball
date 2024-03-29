@@ -72,6 +72,7 @@ function ChatperOneLevelTwo() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
+        currentLevel: 'Basics',
         nextLevel: 'Basics/Level3'
     })
     return (

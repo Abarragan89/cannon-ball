@@ -82,7 +82,8 @@ function ChapterFiveLevelFive() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
-        nextLevel: 'Hatch/Level2'
+        currentLevel: 'Hatch',
+        nextLevel: 'Hatch/Level5'
     })
     return (
 

@@ -74,6 +74,7 @@ function ChapterThreeLevelTwo() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
+        currentLevel: 'Hinderance',
         nextLevel: 'Hinderance/Level3'
     })
     return (

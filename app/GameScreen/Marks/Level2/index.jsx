@@ -17,7 +17,6 @@ import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
-const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { SoundContext } from "../../../../store/soundsContext";
@@ -73,6 +72,7 @@ function ChatperTwoLevelTwo() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
+        currentLevel: 'Marks',
         nextLevel: 'Marks/Level3'
     })
 

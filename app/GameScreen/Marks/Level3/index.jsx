@@ -72,6 +72,7 @@ function ChatperTwoLevelThree() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
+        currentLevel: 'Marks',
         nextLevel: 'Marks/Level4'
     })
 

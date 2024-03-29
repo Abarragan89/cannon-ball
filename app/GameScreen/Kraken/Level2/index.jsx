@@ -78,6 +78,7 @@ function ChapterFourLevelTwo() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
+        currentLevel: 'Kraken',
         nextLevel: 'Kraken/Level3'
     })
     return (

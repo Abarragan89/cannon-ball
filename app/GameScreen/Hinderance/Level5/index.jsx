@@ -76,6 +76,7 @@ function ChapterThreeLevelFive() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
+        currentLevel: 'Hinderance',
         nextLevel: 'Kraken/Level1'
     })
     return (

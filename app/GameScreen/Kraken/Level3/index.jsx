@@ -79,6 +79,7 @@ function ChatperFourLevelThree() {
         airTime: 0,
         bounces: 0,
         multiplier: 0,
+        currentLevel: 'Kraken',
         nextLevel: 'Kraken/Level4'
     })
     return (
