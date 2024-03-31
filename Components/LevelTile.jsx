@@ -12,13 +12,17 @@ const LevelTile = ({ children, route }) => {
                 {children}
             </Text>
             <View style={styles.starContainer}>
-                <Fontisto style={styles.star} name="star" size={20} color={colors.bronzeStar} />
-                <Fontisto style={styles.star} name="star" size={20} color={colors.silverStar} />
-                <Fontisto style={styles.star} name="star" size={20} color={colors.goldStar} />
+                <Fontisto style={styles.star} name="star" size={20} color={colors.skyColor} />
+                <Fontisto style={styles.star} name="star" size={20} color={colors.skyColor} />
+                <Fontisto style={styles.star} name="star" size={20} color={colors.skyColor} />
             </View>
-            <View style={styles.bestAccuracyContainer}>
-                <Text>Accuracy:</Text>
-                <Text>91.02 pixels</Text>
+            <View style={styles.levelDetailsContainer}>
+                <Text>Accuracy: </Text>
+                <Text> 91.02 px</Text>
+            </View>
+            <View style={styles.levelDetailsContainer}>
+                <Text>Highscore: </Text>
+                <Text> 19,019</Text>
             </View>
         </Pressable>
     )
@@ -28,11 +32,10 @@ export default LevelTile;
 
 const styles = StyleSheet.create({
     container: {
-        borderWidth: 1,
-        backgroundColor: colors.primaryBrown,
+        backgroundColor: colors.goldStar,
         borderRadius: 10,
         padding: 20,
-        height: 150,
+        width: 200,
         justifyContent: 'space-between',
         marginHorizontal: 10,
         marginBottom: 20
@@ -41,16 +44,18 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 24,
         fontFamily: 'textFont',
-        color: 'white',
     },
     starContainer: {
         flexDirection: 'row',
+        justifyContent: 'center',
     },
     star: {
-        marginHorizontal: 5
+        marginHorizontal: 10
     },
-    bestAccuracyContainer: {
-        alignItems: 'center'
+    levelDetailsContainer: {
+        marginTop: 10,
+        flexDirection: 'row',
+        justifyContent: 'center'
     },
     pressed: {
         opacity: 0.9

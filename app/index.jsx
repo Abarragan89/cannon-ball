@@ -1,4 +1,4 @@
-import { View, StyleSheet, ImageBackground, Button } from "react-native";
+import { View, StyleSheet, ImageBackground } from "react-native";
 import { useCallback,  } from "react";
 import Title from "../Components/UI/Title";
 import MainButton from "../Components/UI/MainButton";
@@ -21,10 +21,10 @@ const Home = () => {
   });
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded || fontError) {
+    if ((fontsLoaded || fontError) && bgImage && mainBtnImgSrc) {
       await SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, fontError]);
+  }, [fontsLoaded, fontError, bgImage, mainBtnImgSrc]);
 
   if ((!fontsLoaded && !fontError)) {
     return null;
@@ -62,7 +62,7 @@ const Home = () => {
             </MainButton>
           </View>
         <CannonLauncher
-          position={[30, height - 100]}
+          position={[60, height - 110]}
           rotate={'-50deg'}
         />
       </ImageBackground>
