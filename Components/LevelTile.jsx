@@ -2,9 +2,20 @@ import { router } from 'expo-router';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
 import colors from '../constants/colors';
 import { Fontisto } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
-const LevelTile = ({ children, route }) => {
+
+const LevelTile = ({ children, route, isLocked }) => {
     const onPressHandler = () => router.push({ pathname: route });
+
+    if (isLocked) {
+        return (
+            <View style={styles.containerLockedLevel}>
+                <Text style={styles.earnMoreStarsText}>Collect 49 <Fontisto style={styles.star} name="star" size={20} color={colors.winningStar} /> to unlocked</Text>
+                <Entypo name="lock" size={35} color="black" />
+            </View>
+        )
+    }
 
     return (
         <Pressable onPress={onPressHandler} style={({ pressed }) => [styles.container, pressed && styles.pressed]}>
@@ -37,11 +48,31 @@ const LevelTile = ({ children, route }) => {
 export default LevelTile;
 
 const styles = StyleSheet.create({
+    containerLockedLevel: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.silverStar,
+        borderRadius: 10,
+        padding: 10,
+        width: 300,
+        height: 105,
+        marginBottom: 10,
+        borderWidth: 1,
+        borderColor: colors.primaryBlack,
+    },
+    earnMoreStarsText: {
+        fontFamily: 'textFont',
+        color: colors.primaryBlack,
+        fontSize: 18,
+        textAlign: 'center',
+
+    },
     container: {
         backgroundColor: colors.sandColor,
         borderRadius: 10,
         padding: 10,
         width: 300,
+        height: 105,
         justifyContent: 'space-between',
         marginBottom: 10,
         borderWidth: 1,
@@ -87,6 +118,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: 'column',
         justifyContent: 'center'
+    },
+    needMoreStarsText: {
+        backgroundColor: colors.silverStar,
+        position: 'absolute',
+        width: 250,
     },
     pressed: {
         elevation: 5,

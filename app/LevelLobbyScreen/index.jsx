@@ -11,27 +11,33 @@ const LevelLobbyScreen = () => {
     const linkData = [
         {
             link: 'Level1',
-            level: 'Level One'
+            level: 'Level One',
+            isLocked: true,
         },
         {
             link: 'Level2',
-            level: 'Level Two'
+            level: 'Level Two',
+            isLocked: true,
         },
         {
             link: 'Level3',
-            level: 'Level Three'
+            level: 'Level Three',
+            isLocked: true,
         },
         {
             link: 'Level4',
-            level: 'Level Four'
+            level: 'Level Four',
+            isLocked: false,
         },
         {
             link: 'Level5',
-            level: 'Level Five'
+            level: 'Level Five',
+            isLocked: false,
         },
         {
             link: 'Level6',
-            level: 'Level Six'
+            level: 'Level Six',
+            isLocked: false,
         },
     ]
 
@@ -56,7 +62,10 @@ const LevelLobbyScreen = () => {
                         <View style={styles.levelBtnContainer}>
                             {linkData.map((item, index) => (
                                 <View key={index} style={styles.singleLevelButton}>
-                                    <LevelTile route={`/GameScreen/${mapName}/${item.link}`}>
+                                    <LevelTile
+                                        route={`/GameScreen/${mapName}/${item.link}`}
+                                        isLocked={item.isLocked}
+                                    >
                                         {item.level}
                                     </LevelTile>
                                 </View>
