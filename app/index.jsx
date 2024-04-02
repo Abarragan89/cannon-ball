@@ -62,7 +62,7 @@ const Home = () => {
             </MainButton>
           </View>
         <CannonLauncher
-          position={[60, height - 110]}
+          position={[80, height - 100]}
           rotate={'-50deg'}
         />
       </ImageBackground>

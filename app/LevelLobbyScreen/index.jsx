@@ -9,11 +9,30 @@ const LevelLobbyScreen = () => {
     const { mapName } = useLocalSearchParams();
 
     const linkData = [
-        { level: 'Level1' },
-        { level: 'Level2' },
-        { level: 'Level3' },
-        { level: 'Level4' },
-        { level: 'Level5' },
+        {
+            link: 'Level1',
+            level: 'Level One'
+        },
+        {
+            link: 'Level2',
+            level: 'Level Two'
+        },
+        {
+            link: 'Level3',
+            level: 'Level Three'
+        },
+        {
+            link: 'Level4',
+            level: 'Level Four'
+        },
+        {
+            link: 'Level5',
+            level: 'Level Five'
+        },
+        {
+            link: 'Level6',
+            level: 'Level Six'
+        },
     ]
 
 
@@ -31,15 +50,17 @@ const LevelLobbyScreen = () => {
             <ScrollView>
                 {mapName &&
                     <View style={styles.root}>
-                        <Title color={colors.offWhite} size={45}>{mapName}</Title>
+                        <View style={styles.titleContainer}>
+                            <Title color={colors.offWhite} size={50}>{mapName}</Title>
+                        </View>
                         <View style={styles.levelBtnContainer}>
-                            <View style={styles.singleLevelButton}>
-                                {linkData.map((item, index) => (
-                                    <LevelTile key={index} route={`/GameScreen/${mapName}/${item.level}`}>
+                            {linkData.map((item, index) => (
+                                <View key={index} style={styles.singleLevelButton}>
+                                    <LevelTile route={`/GameScreen/${mapName}/${item.link}`}>
                                         {item.level}
                                     </LevelTile>
-                                ))}
-                            </View>
+                                </View>
+                            ))}
                         </View>
                     </View>
                 }
@@ -61,8 +82,17 @@ const styles = StyleSheet.create({
     backIcon: {
         zIndex: 2
     },
+    titleContainer: {
+        marginTop: 20
+    },
     levelBtnContainer: {
+        justifyContent: 'space-around',
+        marginHorizontal: 50,
+        marginTop: 20,
+        flexWrap: 'nowrap',
         alignItems: 'center',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     },
     singleLevelButton: {
         marginTop: 10,

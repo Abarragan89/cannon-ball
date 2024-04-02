@@ -8,21 +8,27 @@ const LevelTile = ({ children, route }) => {
 
     return (
         <Pressable onPress={onPressHandler} style={({ pressed }) => [styles.container, pressed && styles.pressed]}>
-            <Text style={styles.text}>
-                {children}
-            </Text>
-            <View style={styles.starContainer}>
-                <Fontisto style={styles.star} name="star" size={20} color={colors.skyColor} />
-                <Fontisto style={styles.star} name="star" size={20} color={colors.skyColor} />
-                <Fontisto style={styles.star} name="star" size={20} color={colors.skyColor} />
+            <View style={styles.levelStarContainer}>
+                <Text style={[styles.text, styles.levelTitle]}>
+                    {children}
+                </Text>
+                <View style={styles.starContainer}>
+                    <Fontisto style={styles.star} name="star" size={20} color={colors.winningStar} />
+                    <Fontisto style={styles.star} name="star" size={20} color={colors.sandColorAccent} />
+                    <Fontisto style={styles.star} name="star" size={20} color={colors.sandColorAccent} />
+                </View>
             </View>
-            <View style={styles.levelDetailsContainer}>
-                <Text>Accuracy: </Text>
-                <Text> 91.02 px</Text>
-            </View>
-            <View style={styles.levelDetailsContainer}>
-                <Text>Highscore: </Text>
-                <Text> 19,019</Text>
+            <View>
+                <View style={styles.levelStatsContainer}>
+                    <View style={styles.levelDetailsContainer}>
+                        <Text style={[styles.text, styles.detailLabel]}>Accuracy</Text>
+                        <Text style={styles.text}>91.02 px</Text>
+                    </View>
+                    <View style={styles.levelDetailsContainer}>
+                        <Text style={[styles.text, styles.detailLabel]}>Highscore</Text>
+                        <Text style={styles.text}>19,019</Text>
+                    </View>
+                </View>
             </View>
         </Pressable>
     )
@@ -32,32 +38,58 @@ export default LevelTile;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: colors.goldStar,
+        backgroundColor: colors.sandColor,
         borderRadius: 10,
-        padding: 20,
-        width: 200,
+        padding: 10,
+        width: 300,
         justifyContent: 'space-between',
-        marginHorizontal: 10,
-        marginBottom: 20
+        marginBottom: 10,
+        borderWidth: 1,
+        borderColor: colors.primaryBlack,
+        elevation: 3,
+        shadowColor: 'black',
+        shadowOpacity: 0.7,
+        shadowOffset: { width: 1, height: 1 },
+        shadowRadius: 4,
+    },
+    levelStarContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
+    levelTitle: {
+        marginBottom: 5,
+        color: colors.skyColor,
+        fontSize: 24,
+        fontFamily: 'textFont'
     },
     text: {
         textAlign: 'center',
-        fontSize: 24,
+        color: colors.primaryBlack,
+        fontSize: 18,
         fontFamily: 'textFont',
     },
     starContainer: {
+        marginBottom: 5,
         flexDirection: 'row',
         justifyContent: 'center',
     },
     star: {
         marginHorizontal: 10
     },
+    levelStatsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    detailLabel: {
+        textDecorationLine: 'underline'
+    },
     levelDetailsContainer: {
         marginTop: 10,
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'center'
     },
     pressed: {
-        opacity: 0.9
+        elevation: 5,
+        shadowOpacity: 0,
     }
 })

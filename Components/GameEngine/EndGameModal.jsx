@@ -4,7 +4,6 @@ import ModalDetaiItemContainer from '../UI/ModalDetaiItemContainer';
 import SecondaryButton from '../UI/SecondaryButton';
 import { Fontisto } from '@expo/vector-icons';
 import colors from '../../constants/colors';
-import { router } from 'expo-router';
 
 const EndGameModal = ({ endGameData }) => {
     const finalScore = endGameData.current.airTime * endGameData.current.bounces * endGameData.current.multiplier
@@ -35,18 +34,15 @@ const EndGameModal = ({ endGameData }) => {
                     </View>
                 </View>
                 <View style={styles.starContainer}>
-                    {finalScore > endGameData.current.winningScore[0]
-                        &&
-                        <Fontisto name="star" size={30} color={colors.bronzeStar} />
-                    }
-                    {finalScore > endGameData.current.winningScore[1]
-                        &&
-                        <Fontisto name="star" size={30} color={colors.silverStar} />
-
-                    }
-                    {finalScore > endGameData.current.winningScore[2]
-                        &&
-                        <Fontisto name="star" size={30} color={colors.goldStar} />
+                    {
+                        finalScore < endGameData.current.winningScore[0] ?
+                            <Text>Try getting a higher score to earn stars!</Text>
+                            :
+                            <>
+                                <Fontisto name="star" size={30} color={finalScore > endGameData.current.winningScore[0] ? colors.winningStar : colors.sandColorAccent} />
+                                <Fontisto name="star" size={30} color={finalScore > endGameData.current.winningScore[1] ? colors.winningStar : colors.sandColorAccent} />
+                                <Fontisto name="star" size={30} color={finalScore > endGameData.current.winningScore[2] ? colors.winningStar : colors.sandColorAccent} />
+                            </>
                     }
                 </View>
                 <View style={styles.buttonContainer}>
