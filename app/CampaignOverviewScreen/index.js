@@ -2,8 +2,11 @@ import { StyleSheet, View, ImageBackground } from "react-native";
 import Title from "../../Components/UI/Title";
 import MainButton from "../../Components/UI/MainButton";
 import BackArrow from "../../Components/UI/BackArrow";
+import LockedMap from "../../Components/UI/LockedMap";
 import colors from "../../constants/colors";
 const mainBtnImgSrc = require('../../assets/images/btnWoodBg.png')
+import { Fontisto } from '@expo/vector-icons';
+
 
 const CampaignOverview = () => {
     return (
@@ -32,7 +35,7 @@ const CampaignOverview = () => {
                         </MainButton>
                     </View>
                     <View style={styles.mapBtnTwo}>
-                        <MainButton
+                        {/* <MainButton
                             route="/LevelLobbyScreen"
                             params={{
                                 mapName: 'Marks',
@@ -40,7 +43,10 @@ const CampaignOverview = () => {
                             imgSrc={mainBtnImgSrc}
                         >
                             Marks
-                        </MainButton>
+                        </MainButton> */}
+                        <LockedMap
+                            starsNeeded={29} imgSrc={mainBtnImgSrc}
+                        />
                     </View>
                     <View style={styles.mapBtnThree}>
                         <MainButton
@@ -65,15 +71,15 @@ const CampaignOverview = () => {
                         </MainButton>
                     </View>
                     <View style={styles.mapBtnFive}>
-                    <MainButton
-                        route="/LevelLobbyScreen"
-                        params={{
-                            mapName: 'Hatch',
-                        }}
-                        imgSrc={mainBtnImgSrc}
-                    >
-                        Hatch
-                    </MainButton>
+                        <MainButton
+                            route="/LevelLobbyScreen"
+                            params={{
+                                mapName: 'Hatch',
+                            }}
+                            imgSrc={mainBtnImgSrc}
+                        >
+                            Hatch
+                        </MainButton>
                     </View>
                 </View>
             </ImageBackground>

@@ -11,8 +11,8 @@ const LevelTile = ({ children, route, isLocked }) => {
     if (isLocked) {
         return (
             <View style={styles.containerLockedLevel}>
-                <Text style={styles.earnMoreStarsText}>Collect 49 <Fontisto style={styles.star} name="star" size={20} color={colors.winningStar} /> to unlocked</Text>
-                <Entypo name="lock" size={35} color="black" />
+                <Text style={styles.earnMoreStarsText}>Complete level One to unlock</Text>
+                <Entypo name="lock" size={35} color="#000000b7" />
             </View>
         )
     }
@@ -51,11 +51,11 @@ const styles = StyleSheet.create({
     containerLockedLevel: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colors.silverStar,
+        backgroundColor: '#b59a57c3',
         borderRadius: 10,
         padding: 10,
-        width: 300,
-        height: 105,
+        width: 280,
+        height: 100,
         marginBottom: 10,
         borderWidth: 1,
         borderColor: colors.primaryBlack,
@@ -65,14 +65,13 @@ const styles = StyleSheet.create({
         color: colors.primaryBlack,
         fontSize: 18,
         textAlign: 'center',
-
     },
     container: {
         backgroundColor: colors.sandColor,
         borderRadius: 10,
         padding: 10,
-        width: 300,
-        height: 105,
+        width: 280,
+        height: 100,
         justifyContent: 'space-between',
         marginBottom: 10,
         borderWidth: 1,
@@ -84,11 +83,11 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
     },
     levelStarContainer: {
+        marginTop: 5,
         flexDirection: 'row',
         justifyContent: 'space-around'
     },
     levelTitle: {
-        marginBottom: 5,
         color: colors.skyColor,
         fontSize: 24,
         fontFamily: 'textFont'
@@ -100,7 +99,6 @@ const styles = StyleSheet.create({
         fontFamily: 'textFont',
     },
     starContainer: {
-        marginBottom: 5,
         flexDirection: 'row',
         justifyContent: 'center',
     },
@@ -109,13 +107,15 @@ const styles = StyleSheet.create({
     },
     levelStatsContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'center',
+        marginTop: -5,
     },
     detailLabel: {
         textDecorationLine: 'underline'
     },
     levelDetailsContainer: {
         marginTop: 10,
+        marginHorizontal: 30,
         flexDirection: 'column',
         justifyContent: 'center'
     },

@@ -8,36 +8,31 @@ import LevelTile from '../../Components/LevelTile';
 const LevelLobbyScreen = () => {
     const { mapName } = useLocalSearchParams();
 
-    const linkData = [
+    const levelData = [
         {
             link: 'Level1',
             level: 'Level One',
-            isLocked: true,
+            isLocked: false,
         },
         {
             link: 'Level2',
             level: 'Level Two',
-            isLocked: true,
+            isLocked: false,
         },
         {
             link: 'Level3',
             level: 'Level Three',
-            isLocked: true,
+            isLocked: false,
         },
         {
             link: 'Level4',
             level: 'Level Four',
-            isLocked: false,
+            isLocked: true,
         },
         {
             link: 'Level5',
             level: 'Level Five',
-            isLocked: false,
-        },
-        {
-            link: 'Level6',
-            level: 'Level Six',
-            isLocked: false,
+            isLocked: true,
         },
     ]
 
@@ -60,7 +55,7 @@ const LevelLobbyScreen = () => {
                             <Title color={colors.offWhite} size={50}>{mapName}</Title>
                         </View>
                         <View style={styles.levelBtnContainer}>
-                            {linkData.map((item, index) => (
+                            {levelData.map((item, index) => (
                                 <View key={index} style={styles.singleLevelButton}>
                                     <LevelTile
                                         route={`/GameScreen/${mapName}/${item.link}`}
