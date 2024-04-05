@@ -2,7 +2,7 @@ import { router } from 'expo-router';
 import { StyleSheet, Pressable, Text, ImageBackground } from 'react-native';
 import colors from '../../constants/colors';
 
-const MainButton = ({ children, route, params, runFunc, imgSrc }) => {
+const MainButton = ({ children, route, params, runFunc, imgSrc, progressBar }) => {
     // if runFunc is passed, then we don't want to link to a new page, but run a function
     const onPressHandler = runFunc ? runFunc : () => router.push({ pathname: route, params: params });
 
@@ -20,6 +20,9 @@ const MainButton = ({ children, route, params, runFunc, imgSrc }) => {
                     <Text style={[styles.text]}>
                         {children}
                     </Text>
+                    {progressBar &&
+                        progressBar
+                    }
                 </ImageBackground>
             </Pressable>
         </>
@@ -48,7 +51,8 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 28,
         fontFamily: 'textFont',
-        color: colors.offWhite
+        color: colors.offWhite,
+        textAlign: 'center',
     },
     pressed: {
         elevation: 0,

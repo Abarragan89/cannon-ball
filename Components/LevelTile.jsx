@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         width: 250,
     },
     pressed: {
-        elevation: 5,
+        elevation: 0,
         shadowOpacity: 0,
     }
 })

@@ -1,12 +1,12 @@
-import { StyleSheet, View, ImageBackground } from "react-native";
+import { StyleSheet, View, Text, ImageBackground } from "react-native";
+import * as Progress from 'react-native-progress';
 import Title from "../../Components/UI/Title";
 import MainButton from "../../Components/UI/MainButton";
 import BackArrow from "../../Components/UI/BackArrow";
 import LockedMap from "../../Components/UI/LockedMap";
+import lockedMapBg from '../../assets/images/lockedMap.png'
 import colors from "../../constants/colors";
 const mainBtnImgSrc = require('../../assets/images/btnWoodBg.png')
-import { Fontisto } from '@expo/vector-icons';
-
 
 const CampaignOverview = () => {
     return (
@@ -31,6 +31,16 @@ const CampaignOverview = () => {
                                 mapName: 'Basics',
                             }}
                             imgSrc={mainBtnImgSrc}
+
+                            progressBar={<Progress.Bar
+                                progress={14 / 15}
+                                width={100}
+                                height={5}
+                                style={[styles.slider]}
+                                borderWidth={1}
+                                borderColor={'#2c1717'}
+                                color={'#00ff08'}
+                            />}
                         >Basics
                         </MainButton>
                     </View>
@@ -41,11 +51,21 @@ const CampaignOverview = () => {
                                 mapName: 'Marks',
                             }}
                             imgSrc={mainBtnImgSrc}
+
+                            progressBar={<Progress.Bar
+                                progress={14 / 15}
+                                width={100}
+                                height={5}
+                                style={[styles.slider]}
+                                borderWidth={1}
+                                borderColor={'#2c1717'}
+                                color={'#00ff08'}
+                            />}
                         >
                             Marks
                         </MainButton> */}
                         <LockedMap
-                            starsNeeded={29} imgSrc={mainBtnImgSrc}
+                            starsNeeded={29} imgSrc={lockedMapBg}
                         />
                     </View>
                     <View style={styles.mapBtnThree}>
@@ -55,6 +75,16 @@ const CampaignOverview = () => {
                                 mapName: 'Hinderance',
                             }}
                             imgSrc={mainBtnImgSrc}
+
+                            progressBar={<Progress.Bar
+                                progress={14 / 15}
+                                width={100}
+                                height={5}
+                                style={[styles.slider]}
+                                borderWidth={1}
+                                borderColor={'#2c1717'}
+                                color={'#00ff08'}
+                            />}
                         >
                             Hinderance
                         </MainButton>
@@ -66,6 +96,16 @@ const CampaignOverview = () => {
                                 mapName: 'Kraken',
                             }}
                             imgSrc={mainBtnImgSrc}
+
+                            progressBar={<Progress.Bar
+                                progress={14 / 15}
+                                width={100}
+                                height={5}
+                                style={[styles.slider]}
+                                borderWidth={1}
+                                borderColor={'#2c1717'}
+                                color={'#00ff08'}
+                            />}
                         >
                             Kraken
                         </MainButton>
@@ -77,6 +117,16 @@ const CampaignOverview = () => {
                                 mapName: 'Hatch',
                             }}
                             imgSrc={mainBtnImgSrc}
+
+                            progressBar={<Progress.Bar
+                                progress={14 / 15}
+                                width={100}
+                                height={5}
+                                style={[styles.slider]}
+                                borderWidth={1}
+                                borderColor={'#2c1717'}
+                                color={'#00ff08'}
+                            />}
                         >
                             Hatch
                         </MainButton>
@@ -111,6 +161,9 @@ const styles = StyleSheet.create({
         marginTop: 50,
         flexDirection: 'row',
         justifyContent: 'center'
+    },
+    slider: {
+        backgroundColor: '#4e2a2a'
     },
     mapBtnOne: {
         position: 'absolute',

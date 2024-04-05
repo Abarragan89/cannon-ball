@@ -36,7 +36,7 @@ const Home = () => {
         <ImageBackground
           source={bgImage}
           style={[
-            // !mainBtnImgSrc || !bgImage ? { display: 'none ' } : {},
+            !mainBtnImgSrc || !bgImage ? { display: 'none ' } : {},
             styles.rootContainer
           ]}
           onLayout={onLayoutRootView}

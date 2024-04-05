@@ -1,9 +1,4 @@
-import { StyleSheet, Text, ImageBackground } from 'react-native';
-import colors from '../../constants/colors';
-import { Entypo } from '@expo/vector-icons';
-import { Fontisto } from '@expo/vector-icons';
-
-
+import { StyleSheet, ImageBackground } from 'react-native';
 
 const LockedMap = ({ starsNeeded, imgSrc }) => {
     return (
@@ -14,12 +9,6 @@ const LockedMap = ({ starsNeeded, imgSrc }) => {
                 ]}
                 source={imgSrc}
             >
-                <Entypo name="lock" size={23} color="#afabab" />
-                <Text style={[styles.text]}>{starsNeeded}
-                    {' '}
-                    <Fontisto style={styles.star} name="star" size={15} color={'gold'} />
-                    's
-                </Text>
             </ImageBackground>
         </>
     )
@@ -32,19 +21,9 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         flexDirection: 'row',
         justifyContent: 'center',
-        width: 154,
-        height: 47,
+        width: 170,
+        height: 50,
         alignItems: 'center',
-    },
-    text: {
-        fontSize: 22,
-        marginHorizontal: 5,
-        fontFamily: 'textFont',
-        color: colors.offWhite,
-        textAlign: 'center'
-    },
-    star: {
-        marginRight: 5
     },
     pressed: {
         elevation: 0,
