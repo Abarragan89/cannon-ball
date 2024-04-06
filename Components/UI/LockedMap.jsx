@@ -1,8 +1,13 @@
-import { StyleSheet, ImageBackground } from 'react-native';
+import { StyleSheet, ImageBackground, Modal, View, Text, Pressable } from 'react-native';
+import colors from '../../constants/colors';
 
-const LockedMap = ({ starsNeeded, imgSrc }) => {
+const LockedMap = ({ imgSrc, showModal, setShowModal, starsNeeded }) => {
+
     return (
         <>
+        <Pressable onPress={() => setShowModal(true)}
+            style={({ pressed }) => [styles.parentPress, pressed && styles.pressed]}
+        >
             <ImageBackground
                 style={[
                     styles.backgroundImage
@@ -10,6 +15,7 @@ const LockedMap = ({ starsNeeded, imgSrc }) => {
                 source={imgSrc}
             >
             </ImageBackground>
+        </Pressable>
         </>
     )
 }
@@ -17,11 +23,18 @@ const LockedMap = ({ starsNeeded, imgSrc }) => {
 export default LockedMap;
 
 const styles = StyleSheet.create({
+    parentPress: {
+        borderBottomWidth: 5,
+        borderColor: '#422503',
+        marginHorizontal: 20,
+        marginBottom: 30,
+        borderRadius: 10
+    },
     backgroundImage: {
         paddingVertical: 5,
         flexDirection: 'row',
         justifyContent: 'center',
-        width: 170,
+        width: 180,
         height: 50,
         alignItems: 'center',
     },
@@ -31,5 +44,5 @@ const styles = StyleSheet.create({
         borderRadius: 2,
         borderBottomWidth: 2,
         transform: [{ translateY: 1 }]
-    }
+    },
 })

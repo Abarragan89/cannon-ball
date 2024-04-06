@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         width: 280,
-        height: 100,
+        height: 90,
         marginBottom: 10,
         borderWidth: 1,
         borderColor: colors.primaryBlack,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         width: 280,
-        height: 100,
+        height: 90,
         justifyContent: 'space-between',
         marginBottom: 10,
         borderWidth: 1,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     levelTitle: {
-        color: colors.skyColor,
+        color: colors.primaryBlack,
         fontSize: 24,
         fontFamily: 'textFont'
     },

@@ -1,6 +1,7 @@
 import { View, StyleSheet, ScrollView, ImageBackground } from 'react-native'
-import Title from '../../Components/UI/Title';
 import { useLocalSearchParams } from 'expo-router';
+import { useState } from 'react';
+import Title from '../../Components/UI/Title';
 import colors from '../../constants/colors';
 import BackArrow from '../../Components/UI/BackArrow';
 import LevelTile from '../../Components/LevelTile';
@@ -36,8 +37,8 @@ const LevelLobbyScreen = () => {
         },
     ]
 
-
     return (
+        <>
         <ImageBackground
             source={require('../../assets/images/levelLobbyBgImage.png')}
             style={styles.backgroundImg}
@@ -70,6 +71,7 @@ const LevelLobbyScreen = () => {
                 }
             </ScrollView>
         </ImageBackground>
+        </>
     )
 }
 
