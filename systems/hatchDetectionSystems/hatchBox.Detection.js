@@ -24,7 +24,7 @@ const hatchBoxDetectionSystem = (entities) => {
     // TOP Left LINE OF HINDERANCE BOX
     const topLeftLineX1 = entities.hatchBox.position[0];
     const topLeftLineY1 = entities.hatchBox.position[1];
-    const topLeftLineX2 = entities.hatchBox.position[0] + 3;
+    const topLeftLineX2 = entities.hatchBox.position[0] + 2;
     const topLeftLineY2 = entities.hatchBox.position[1];
 
     // TOP Right LINE OF HINDERANCE BOX

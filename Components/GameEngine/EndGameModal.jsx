@@ -4,7 +4,6 @@ import ModalDetaiItemContainer from '../UI/ModalDetaiItemContainer';
 import SecondaryButton from '../UI/SecondaryButton';
 import { Fontisto } from '@expo/vector-icons';
 import colors from '../../constants/colors';
-import { router } from 'expo-router';
 
 const EndGameModal = ({ endGameData }) => {
     const finalScore = endGameData.current.airTime * endGameData.current.bounces * endGameData.current.multiplier
@@ -13,7 +12,9 @@ const EndGameModal = ({ endGameData }) => {
         <View style={[styles.root,]}>
             <View style={styles.modalMainView}>
                 <Title color={colors.skyColor} size={35}>{endGameData.current.accuracyName}</Title>
-                <Text style={styles.pixelText}>({endGameData.current.accuracyFloat} pixels away!)</Text>
+                <View style={styles.pixelTextContainer}>
+                    <Text style={styles.pixelText}>({endGameData.current.accuracyFloat} pixels away!)</Text>
+                </View>
                 <View style={styles.detailsContainer}>
                     <ModalDetaiItemContainer
                         itemName='Air Time'
@@ -31,22 +32,19 @@ const EndGameModal = ({ endGameData }) => {
                     />
                     <View style={styles.finalTotalContainer}>
                         <Text style={styles.totalText}>Total Points</Text>
-                        <Text style={styles.totalText}>{finalScore}</Text>
+                        <Text style={[styles.totalText, styles.finalScoreText]}>{finalScore}</Text>
                     </View>
                 </View>
                 <View style={styles.starContainer}>
-                    {finalScore > endGameData.current.winningScore[0]
-                        &&
-                        <Fontisto name="star" size={30} color={colors.bronzeStar} />
-                    }
-                    {finalScore > endGameData.current.winningScore[1]
-                        &&
-                        <Fontisto name="star" size={30} color={colors.silverStar} />
-
-                    }
-                    {finalScore > endGameData.current.winningScore[2]
-                        &&
-                        <Fontisto name="star" size={30} color={colors.goldStar} />
+                    {
+                        finalScore < endGameData.current.winningScore[0] ?
+                            <Text style={styles.tryHigherScoreText}>*Earn a higher score to earn stars</Text>
+                            :
+                            <>
+                                <Fontisto name="star" size={30} color={finalScore > endGameData.current.winningScore[0] ? colors.winningStar : colors.sandColorAccent} />
+                                <Fontisto name="star" size={30} color={finalScore > endGameData.current.winningScore[1] ? colors.winningStar : colors.sandColorAccent} />
+                                <Fontisto name="star" size={30} color={finalScore > endGameData.current.winningScore[2] ? colors.winningStar : colors.sandColorAccent} />
+                            </>
                     }
                 </View>
                 <View style={styles.buttonContainer}>
@@ -91,6 +89,12 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         alignItems: 'center'
     },
+    pixelTextContainer: {
+        borderRadius: 4,
+        backgroundColor: colors.winningStar,
+        padding: 3,
+        paddingHorizontal: 5,
+    },
     pixelText: {
         color: colors.skyColor,
         textAlign: 'center',
@@ -125,5 +129,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         width: 260,
+    },
+    tryHigherScoreText: {
+        fontFamily: 'textFont',
+        color: colors.winningStar,
+        fontSize: 18,
+        textAlign: 'center',
+        width: 300,
     },
 })

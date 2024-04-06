@@ -16,36 +16,28 @@ const SoundProvider = ({ children }) => {
     });
 
     const images = useRef({
-
+        homescreenBgImage: null
     })
 
     useEffect(() => {
         const loadSound = async () => {
             try {
-                //  DOWNLOAD ALL FILES
+                //  DOWNLOAD ALL AUDIO FILES
                 console.log(' in the audio loading function ');
                 const { sound: shootCannonSound } = await Audio.Sound.createAsync(require('../assets/sounds/cannonShot.mp3'));
-                console.log(' loaded the first sound (1)');
                 const { sound: tntExplosionSound } = await Audio.Sound.createAsync(require('../assets/sounds/hugeExplosion.wav'));
-                console.log(' loaded the second sound (2)');
                 const { sound: backgroundMusicSound } = await Audio.Sound.createAsync(require('../assets/sounds/backgroundMusic.mp3'), {
                     volume: 0.1
                 });
-                console.log(' loaded the third sound (3)');
                 const { sound: tntHandleClickSound } = await Audio.Sound.createAsync(require('../assets/sounds/tntHandleClick.wav'));
-                console.log(' loaded the fourth sound (4)');
                 const { sound: cannonBallBounceSound } = await Audio.Sound.createAsync(require('../assets/sounds/cannonBallBounce.wav'));
-                console.log(' loaded the fifth sound (5)');
                 const { sound: tntCannonBallHitSound } = await Audio.Sound.createAsync(require('../assets/sounds/woodHit.wav'));
-                console.log(' loaded the sixth sound (6)');
                 const { sound: cannonBallHitSandSound } = await Audio.Sound.createAsync(require('../assets/sounds/cannonBallHitsBottom.wav'));
-                console.log(' loaded the seventh sound (7)');
                 const { sound: backgroundWaveSound } = await Audio.Sound.createAsync(require('../assets/sounds/backgroundWaves.wav'), {
                     volume: 0.1
                 });
-                console.log(' loaded the seventh sound (7)');
-                // SET FILES IN REF VARIABLES
-                sounds.current  = {
+                // SET AUDIO FILES IN REF VARIABLES
+                sounds.current = {
                     shootCannonSound,
                     tntCannonBallHitSound,
                     tntExplosionSound,
@@ -55,20 +47,26 @@ const SoundProvider = ({ children }) => {
                     cannonBallHitSandSound,
                     backgroundWaveSound
                 }
+                // // DOWNLOAD ALL IMAGE FILES
+                // const homescreenBgImage = require('../assets/homeScreenImg.png')
+                // // SET IMAGE FILES IN REF VARIABLES
+                // images.current = {
+                //     homescreenBgImage,
+                // }
             } catch (e) {
-                console.log('error loading music', e)
+                console.log('ERROR LOADING IMAGES AND AUDIO FILES ', e)
             }
         }
-
+        
         loadSound();
     }, [])
 
 
-    
+
 
 
     return (
-        <SoundContext.Provider value={{ sounds }}>
+        <SoundContext.Provider value={{ sounds, images }}>
             {children}
         </SoundContext.Provider>
     );

@@ -1,32 +1,30 @@
 import { router } from 'expo-router';
-import { useState } from 'react';
 import { StyleSheet, Pressable, Text, ImageBackground } from 'react-native';
 import colors from '../../constants/colors';
 
-const MainButton = ({ children, route, params, runFunc, imgSrc }) => {
-    const [isImageLoaded, setIsImageLoaded] = useState(false);
+const MainButton = ({ children, route, params, runFunc, imgSrc, progressBar }) => {
     // if runFunc is passed, then we don't want to link to a new page, but run a function
     const onPressHandler = runFunc ? runFunc : () => router.push({ pathname: route, params: params });
 
     return (
         <>
-            {
-                imgSrc &&
-                <Pressable onPress={onPressHandler} style={({ pressed }) =>
-                    [styles.parentPress, pressed && styles.pressed]
-                }>
-                    <ImageBackground
-                        style={[
-                            styles.backgroundImage
-                        ]}
-                        source={imgSrc}
-                    >
-                        <Text style={[styles.text]}>
-                            {children}
-                        </Text>
-                    </ImageBackground>
-                </Pressable>
-            }
+            <Pressable onPress={onPressHandler} style={({ pressed }) =>
+                [styles.parentPress, pressed && styles.pressed]
+            }>
+                <ImageBackground
+                    style={[
+                        styles.backgroundImage
+                    ]}
+                    source={imgSrc}
+                >
+                    <Text style={[styles.text]}>
+                        {children}
+                    </Text>
+                    {progressBar &&
+                        progressBar
+                    }
+                </ImageBackground>
+            </Pressable>
         </>
     )
 }
@@ -51,9 +49,10 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
     },
     text: {
-        fontSize: 25,
+        fontSize: 28,
         fontFamily: 'textFont',
-        color: colors.offWhite
+        color: colors.offWhite,
+        textAlign: 'center',
     },
     pressed: {
         elevation: 0,
