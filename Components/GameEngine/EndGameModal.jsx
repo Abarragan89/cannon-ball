@@ -12,7 +12,9 @@ const EndGameModal = ({ endGameData }) => {
         <View style={[styles.root,]}>
             <View style={styles.modalMainView}>
                 <Title color={colors.skyColor} size={35}>{endGameData.current.accuracyName}</Title>
-                <Text style={styles.pixelText}>({endGameData.current.accuracyFloat} pixels away!)</Text>
+                <View style={styles.pixelTextContainer}>
+                    <Text style={styles.pixelText}>({endGameData.current.accuracyFloat} pixels away!)</Text>
+                </View>
                 <View style={styles.detailsContainer}>
                     <ModalDetaiItemContainer
                         itemName='Air Time'
@@ -30,13 +32,13 @@ const EndGameModal = ({ endGameData }) => {
                     />
                     <View style={styles.finalTotalContainer}>
                         <Text style={styles.totalText}>Total Points</Text>
-                        <Text style={styles.totalText}>{finalScore}</Text>
+                        <Text style={[styles.totalText, styles.finalScoreText]}>{finalScore}</Text>
                     </View>
                 </View>
                 <View style={styles.starContainer}>
                     {
                         finalScore < endGameData.current.winningScore[0] ?
-                            <Text>Try getting a higher score to earn stars!</Text>
+                            <Text style={styles.tryHigherScoreText}>*Earn a higher score to earn stars</Text>
                             :
                             <>
                                 <Fontisto name="star" size={30} color={finalScore > endGameData.current.winningScore[0] ? colors.winningStar : colors.sandColorAccent} />
@@ -87,6 +89,12 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         alignItems: 'center'
     },
+    pixelTextContainer: {
+        borderRadius: 4,
+        backgroundColor: colors.winningStar,
+        padding: 3,
+        paddingHorizontal: 5,
+    },
     pixelText: {
         color: colors.skyColor,
         textAlign: 'center',
@@ -121,5 +129,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         width: 260,
+    },
+    tryHigherScoreText: {
+        fontFamily: 'textFont',
+        color: colors.winningStar,
+        fontSize: 18,
+        textAlign: 'center',
+        width: 300,
     },
 })

@@ -1,6 +1,5 @@
 import { View, StyleSheet, ScrollView, ImageBackground } from 'react-native'
 import { useLocalSearchParams } from 'expo-router';
-import { useState } from 'react';
 import Title from '../../Components/UI/Title';
 import colors from '../../constants/colors';
 import BackArrow from '../../Components/UI/BackArrow';

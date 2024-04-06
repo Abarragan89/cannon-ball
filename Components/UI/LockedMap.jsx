@@ -1,7 +1,6 @@
-import { StyleSheet, ImageBackground, Modal, View, Text, Pressable } from 'react-native';
-import colors from '../../constants/colors';
+import { StyleSheet, ImageBackground, Pressable } from 'react-native';
 
-const LockedMap = ({ imgSrc, showModal, setShowModal, starsNeeded }) => {
+const LockedMap = ({ imgSrc, showModal, setShowModal }) => {
 
     return (
         <>

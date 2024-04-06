@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         right: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.424)',
         zIndex: 5
     },
     modalMessageContainer: {
@@ -34,6 +34,11 @@ const styles = StyleSheet.create({
         backgroundColor: colors.sandColor,
         padding: 20,
         borderRadius: 10,
+        elevation: 5,
+        shadowColor: 'black',
+        shadowOpacity: 1,
+        shadowOffset: { width: 1, height: 1 },
+        shadowRadius: 5,
     },
     confirmBtn: {
         marginTop: 10,
