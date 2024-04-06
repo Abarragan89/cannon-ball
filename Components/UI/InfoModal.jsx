@@ -7,7 +7,7 @@ const InfoModal = ({ starsNeeded, showModal, setShowModal }) => {
         <View style={styles.modalBackdrop}>
             <View style={styles.modalMessageContainer}>
                 <Text style={[styles.text, styles.messageText]}>Collect {starsNeeded} stars to unlock!</Text>
-                <Pressable style={styles.confirmBtn} onPress={() => setShowModal(false)}>
+                <Pressable style={({ pressed }) => [styles.confirmBtn, pressed && styles.confirmBtnPressed]} onPress={() => setShowModal(false)}>
                     <Text style={styles.text}>Ok</Text>
                 </Pressable>
             </View>
@@ -44,7 +44,14 @@ const styles = StyleSheet.create({
         marginTop: 10,
         backgroundColor: colors.hinderanceColor,
         marginHorizontal: 60,
+        borderWidth: 1,
+        borderColor: colors.primaryBlack,
         borderRadius: 8,
+        elevation: 2,
+        shadowColor: 'black',
+        shadowOpacity: .5,
+        shadowOffset: { width: 0, height: 1 },
+        shadowRadius: 2,
     },
     text: {
         fontSize: 20,
@@ -55,6 +62,10 @@ const styles = StyleSheet.create({
     },
     messageText: {
         color: colors.primaryBlack
+    },
+    confirmBtnPressed: {
+        elevation: 0,
+        shadowRadius: 0,
     },
     pressed: {
         elevation: 0,
