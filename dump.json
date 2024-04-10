@@ -1,0 +1,72 @@
+{
+    "insertId": 0,
+    "rows": [
+        {
+            "id": 6,
+            "level": 1,
+            "mapName": "basics",
+            "passed": 0
+        },
+        {
+            "id": 6,
+            "level": 2,
+            "mapName": "basics",
+            "passed": 0
+        },
+        {
+            "id": 6,
+            "level": 3,
+            "mapName": "basics",
+            "passed": 0
+        },
+        {
+            "id": 6,
+            "level": 4,
+            "mapName": "basics",
+            "passed": 0
+        },
+        {
+            "id": 6,
+            "level": 5,
+            "mapName": "basics",
+            "passed": 0
+        },
+        {
+            "id": 7,
+            "level": 1,
+            "mapName": "basics",
+            "passed": 0
+        },
+        {
+            "id": 7,
+            "level": 2,
+            "mapName": "basics",
+            "passed": 0
+        },
+        {
+            "id": 7,
+            "level": 3,
+            "mapName": "basics",
+            "passed": 0
+        },
+        {
+            "id": 7,
+            "level": 4,
+            "mapName": "basics",
+            "passed": 0
+        },
+        {
+            "id": 7,
+            "level": 5,
+            "mapName": "basics",
+            "passed": 0
+        },
+        {
+            "id": 8,
+            "level": 1,
+            "mapName": "basics",
+            "passed": 0
+        }
+    ],
+    "rowsAffected": 0
+}

@@ -1,5 +1,5 @@
 import { View, StyleSheet, ImageBackground } from "react-native";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import Title from "../Components/UI/Title";
 import MainButton from "../Components/UI/MainButton";
 import colors from "../constants/colors";
@@ -11,6 +11,7 @@ const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
 const bgImage = require('../assets/images/homeScreenImg.png')
 const { height } = Dimensions.get('screen');
 import { SoundProvider } from "../store/soundsContext";
+import { initDB, getPreferences } from "../utils/db/init";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,6 +23,8 @@ const Home = () => {
 
   const onLayoutRootView = useCallback(async () => {
     if ((fontsLoaded || fontError) && bgImage && mainBtnImgSrc) {
+      await initDB();
+      await getPreferences();
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded, fontError, bgImage, mainBtnImgSrc]);
@@ -40,7 +43,7 @@ const Home = () => {
             styles.rootContainer
           ]}
           onLayout={onLayoutRootView}
-          >
+        >
           <Title color={colors.offWhite} size={45}>Cannon Ball!</Title>
           <View style={styles.buttonContainer}>
             <MainButton
