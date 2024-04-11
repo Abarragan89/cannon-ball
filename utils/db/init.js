@@ -4,14 +4,22 @@ const db = SQLite.openDatabase('cannonBallDB', 1);
 
 export async function initDB() {
     await db.transactionAsync(async tx => {
+        let needInitialSetup = false;
 
         // check to see if there is something in the db already
-        const isAccountMade = await tx.executeSqlAsync(`
+        try {
+            const isAccountMade = await tx.executeSqlAsync(`
             SELECT * FROM users;
-        `)
+            `, [])
+            
+        } catch (error) {
+            needInitialSetup = true
+            console.log('error in looking up user ', error)
+        }
+        console.log('need initial set up ', needInitialSetup)
 
         // Only create new tables and new user if new user doesn't already exist. 
-        if (isAccountMade.rows.length === 0) {
+        if (needInitialSetup) {
             try {
                 ///////// Create Preferences Table ///////////
                 await tx.executeSqlAsync(`
@@ -29,8 +37,8 @@ export async function initDB() {
                         name TEXT,
                         totalPoints INTEGER DEFAULT 0,
                         totalStars INTEGER DEFAULT 0,
-                        preference_id INTEGER,
-                        FOREIGN KEY (preference_id) REFERENCES preferences(id) ON DELETE CASCADE
+                        preferenceId INTEGER,
+                        FOREIGN KEY (preferenceId) REFERENCES preferences(id) ON DELETE CASCADE
                     );
                     `, []);
                 /////////// Create Map Table ///////////
@@ -40,8 +48,8 @@ export async function initDB() {
                         mapName TEXT,
                         earnedStars INTEGER DEFAULT 0,
                         requiredStars INTEGER,
-                        user_id INTEGER,
-                        FOREIGN KEY (user_id) REFERENCES users(id)
+                        userId INTEGER,
+                        FOREIGN KEY (userId) REFERENCES users(id)
                     );  
                     `, []);
                 //////////// Create Level Table ///////////////
@@ -61,9 +69,9 @@ export async function initDB() {
                 // Set Default Preferences
                 const { insertId: preferenceId } = await tx.executeSqlAsync(`INSERT INTO preferences DEFAULT VALUES;`, []);
                 // Create User
-                const { insertId: newUserId } = await tx.executeSqlAsync(`INSERT INTO users (name, preference_id) VALUES ('mike', ${preferenceId});`, []);
+                const { insertId: newUserId } = await tx.executeSqlAsync(`INSERT INTO users (name, preferenceId) VALUES ('mike', ${preferenceId});`, []);
                 // Create Maps
-                const { insertId: mapOneId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, requiredStars, user_id) VALUES ('basics', 0 ${newUserId});`, []);
+                const { insertId: mapOneId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, requiredStars, userId) VALUES ('basics', 0, ${newUserId});`, []);
                 // Create Level
                 await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (1, ${mapOneId});`, []);
 
@@ -74,10 +82,10 @@ export async function initDB() {
 
 
         // try {
-        //     await tx.executeSqlAsync(`DELETE FROM users;`, [])
-        //     await tx.executeSqlAsync(`DELETE FROM preferences;`, [])
-        //     await tx.executeSqlAsync(`DELETE FROM maps;`, [])
-        //     await tx.executeSqlAsync(`DELETE FROM levels;`, [])
+        //     await tx.executeSqlAsync(`DROP TABLE IF EXISTS users;`, []);
+        //     await tx.executeSqlAsync(`DROP TABLE IF EXISTS preferences;`, []);
+        //     await tx.executeSqlAsync(`DROP TABLE IF EXISTS maps;`, []);
+        //     await tx.executeSqlAsync(`DROP TABLE IF EXISTS levels;`, []);
         // } catch (error) {
         //     console.log('error in deleting ', error)
         // }
@@ -89,12 +97,12 @@ export async function getPreferences() {
     // Delete FROM preferences WHERE hasSeenTutorial=0;
     await db.transactionAsync(async tx => {
         try {
-            const result = await tx.executeSqlAsync(`
-                SELECT u.name, u.totalPoints, p.soundOn, p.hasSeenTutorial FROM users u LEFT JOIN preferences p ON u.preference_id=p.id;
-            `)
             // const result = await tx.executeSqlAsync(`
-            //     SELECT * from users;
+            //     SELECT u.name, u.totalPoints, p.soundOn, p.hasSeenTutorial FROM users u LEFT JOIN preferences p ON u.preference_id=p.id;
             // `)
+            const result = await tx.executeSqlAsync(`
+                SELECT * from users;
+            `)
             console.log('results ', result)
             result.rows.forEach((row) => {
                 console.log('users', row)
