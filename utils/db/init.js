@@ -1,24 +1,24 @@
-import * as SQLite from 'expo-sqlite';
-const db = SQLite.openDatabase('cannonBallDB', 1);
+import openDatabaseConnection from './openDB';
+import { getTotalStarsInMap, getTotalStars, getUserTotalPoints } from './selectQueries';
 
 
 export async function initDB() {
+    const db = openDatabaseConnection();
     await db.transactionAsync(async tx => {
         let needInitialSetup = false;
 
         // check to see if there is something in the db already
         try {
-            const isAccountMade = await tx.executeSqlAsync(`
-            SELECT * FROM users;
+            await tx.executeSqlAsync(`
+                SELECT * FROM users;
             `, [])
 
         } catch (error) {
             needInitialSetup = true
             console.log('error in looking up user ', error)
         }
-        console.log('need initial set up ', needInitialSetup)
 
-        // Only create new tables and new user if new user doesn't already exist. 
+        // // Only create new tables and new user if new user doesn't already exist. 
         if (needInitialSetup) {
             try {
                 ///////// Create Preferences Table ///////////
@@ -37,7 +37,6 @@ export async function initDB() {
                         id INTEGER PRIMARY KEY NOT NULL,
                         name VARCHAR(50),
                         totalPoints INTEGER DEFAULT 0,
-                        totalStars INTEGER DEFAULT 0,
                         preferenceId INTEGER,
                         FOREIGN KEY (preferenceId) REFERENCES preferences(id) ON DELETE CASCADE
                     );
@@ -69,13 +68,11 @@ export async function initDB() {
                     );
                     `, [])
 
-                console.log('all tables are created')
-
                 // Set Default Preferences
                 const { insertId: preferenceId } = await tx.executeSqlAsync(`INSERT INTO preferences DEFAULT VALUES;`, []);
 
                 // Create User
-                const { insertId: newUserId } = await tx.executeSqlAsync(`INSERT INTO users (name, preferenceId) VALUES ('mike', ${preferenceId});`, []);
+                const { insertId: newUserId } = await tx.executeSqlAsync(`INSERT INTO users (name, preferenceId, totalPoints) VALUES ('mike', ${preferenceId}, 29384);`, []);
 
                 // Create Maps
                 const { insertId: mapOneId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, requiredStars, userId) VALUES ('basics', 0, ${newUserId});`, []);
@@ -84,15 +81,12 @@ export async function initDB() {
                 const { insertId: mapFourId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, requiredStars, userId) VALUES ('kraken', 0, ${newUserId});`, []);
                 const { insertId: mapFiveId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, requiredStars, userId) VALUES ('hatch', 0, ${newUserId});`, []);
 
-                console.log('all maps are created')
                 // Create Levels for Map One
                 await tx.executeSqlAsync(`INSERT INTO levels (level, mapId, earnedStars) VALUES (1, ${mapOneId}, 1);`, []);
                 await tx.executeSqlAsync(`INSERT INTO levels (level, mapId, earnedStars) VALUES (2, ${mapOneId}, 1);`, []);
                 await tx.executeSqlAsync(`INSERT INTO levels (level, mapId, earnedStars) VALUES (3, ${mapOneId}, 3);`, []);
                 await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (4, ${mapOneId});`, []);
                 await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (5, ${mapOneId});`, []);
-
-                console.log('all map one leves are created')
 
                 // Create Levels for Map Two
                 await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (1, ${mapTwoId});`, []);
@@ -141,26 +135,13 @@ export async function initDB() {
 }
 
 export async function getPreferences() {
-    // Delete FROM preferences WHERE hasSeenTutorial=0;
-    await db.transactionAsync(async tx => {
-        try {
-            // const result = await tx.executeSqlAsync(`
-            //     SELECT u.name, u.totalPoints, p.soundOn, p.hasSeenTutorial FROM users u LEFT JOIN preferences p ON u.preferenceId=p.id;
-            // `)
-            const result = await tx.executeSqlAsync(`
-                SELECT m.mapName, SUM(l.earnedStars) as totalStars 
-                FROM maps m
-                LEFT JOIN levels l ON l.mapId=m.id
-                WHERE m.mapName='hatch'
-                GROUP BY m.mapName;
-                `)
-            // console.log('results ', result)
-            result.rows.forEach((row) => {
-                console.log('users', row)
-            });
-        } catch (error) {
-            console.log('error in get preference ', error)
-        }
-    })
+    // const totalStarsInAMap = await getTotalStarsInMap(1, 'basics');
+    // const totalStars = await getTotalStars(1);
+    // const totalPoints = await getUserTotalPoints(1);
+
+    // console.log('total Stars In A Map', totalStarsInAMap);
+    // console.log('total Stars ', totalStars);
+    // console.log('total Points', totalPoints);
+
 }
 

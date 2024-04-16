@@ -1,10 +1,14 @@
 import { StyleSheet, ImageBackground, Pressable } from 'react-native';
 
-const LockedMap = ({ imgSrc, showModal, setShowModal }) => {
+const LockedMap = ({ imgSrc, setShowModal, setStarsNeeded, starsNeeded }) => {
+    
+    function presentModal() {
+        setStarsNeeded(starsNeeded)
+        setShowModal(true)
+    }
 
     return (
-        <>
-        <Pressable onPress={() => setShowModal(true)}
+        <Pressable onPress={presentModal}
             style={({ pressed }) => [styles.parentPress, pressed && styles.pressed]}
         >
             <ImageBackground
@@ -15,7 +19,6 @@ const LockedMap = ({ imgSrc, showModal, setShowModal }) => {
             >
             </ImageBackground>
         </Pressable>
-        </>
     )
 }
 

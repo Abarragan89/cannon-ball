@@ -1,5 +1,5 @@
-import { StyleSheet, View, ImageBackground } from "react-native";
-import { useState } from "react";
+import { StyleSheet, View, ImageBackground, StatusBar } from "react-native";
+import { useState, useEffect } from "react";
 import * as Progress from 'react-native-progress';
 import Title from "../../Components/UI/Title";
 import MainButton from "../../Components/UI/MainButton";
@@ -9,146 +9,224 @@ import lockedMapBg from '../../assets/images/lockedMap.png'
 import colors from "../../constants/colors";
 const mainBtnImgSrc = require('../../assets/images/btnWoodBg.png')
 import InfoModal from "../../Components/UI/InfoModal";
+import UserAllTimeNavStats from "../../Components/UI/UserAllTimeNavStats";
+import { getTotalStarsInMap, getTotalStars } from "../../utils/db/selectQueries";
 
 const CampaignOverview = () => {
 
     const [showModal, setShowModal] = useState(false);
+    const [isDataLoaded, setIsDataLoaded] = useState(false);
+    const [totalStars, setTotalStars] = useState(0);
+    const [starsNeededInModal, setStarsNeededInModal] = useState(0);
+    // Map Progress Variables
+    const [mapOneProgress, setMapOneProgress] = useState(0);
+    const [mapTwoProgress, setMapTwoProgress] = useState(0);
+    const [mapThreeProgress, setMapThreeProgress] = useState(0);
+    const [mapFourProgress, setMapFourProgress] = useState(0);
+    const [mapFiveProgress, setMapFiveProgress] = useState(0);
+
+    function setStarsNeeded(starsNeeded) {
+        setStarsNeededInModal(starsNeeded)
+    }
+
+    useEffect(() => {
+        async function getUserData() {
+            try {
+                const basicProgress = await getTotalStarsInMap(1, 'basics');
+                const marksProgress = await getTotalStarsInMap(1, 'marks');
+                const hinderanceProgress = await getTotalStarsInMap(1, 'hinderance');
+                const krakenProgress = await getTotalStarsInMap(1, 'kraken');
+                const hatchProgress = await getTotalStarsInMap(1, 'hatch');
+                const totalStars = await getTotalStars(1);
+
+                setMapOneProgress(basicProgress[0].totalMapStars);
+                setMapTwoProgress(marksProgress[0].totalMapStars);
+                setMapThreeProgress(hinderanceProgress[0].totalMapStars);
+                setMapFourProgress(krakenProgress[0].totalMapStars);
+                setMapFiveProgress(hatchProgress[0].totalMapStars);
+
+                setTotalStars(totalStars[0].totalMapStars);
+                setIsDataLoaded(true)
+
+            } catch (error) {
+                console.log('error getting map progress data ', error)
+            }
+
+        }
+        getUserData();
+    }, [])
 
     return (
         <>
-            {showModal &&
+            { showModal &&
                 <InfoModal
                     showModal={showModal}
                     setShowModal={setShowModal}
-                    starsNeeded={28}
+                    starsNeeded={starsNeededInModal}
                 />
             }
+            <StatusBar hidden={true} />
+            <>
+                { isDataLoaded &&
+                    <>
+                        <View style={styles.backIcon}>
+                            <BackArrow />
+                        </View>
+                        <UserAllTimeNavStats />
+                        <ImageBackground
+                            source={require('../../assets/images/treasureMapBg.png')}
+                            style={[
+                                !mainBtnImgSrc ? { display: 'none' } : {},
+                                styles.rootContainer
+                            ]}>
+                            <View style={styles.headerRoot}>
+                                <Title color={colors.offWhite} size={50}>Campaign</Title>
+                            </View>
+                            <View style={styles.mapBtnContainer}>
+                                <View style={styles.mapBtnOne}>
+                                    <MainButton
+                                        route="/LevelLobbyScreen"
+                                        params={{
+                                            mapName: 'Basics',
+                                        }}
+                                        imgSrc={mainBtnImgSrc}
 
-            <View style={styles.backIcon}>
-                <BackArrow />
-            </View>
-            <ImageBackground
-                source={require('../../assets/images/treasureMapBg.png')}
-                style={[
-                    !mainBtnImgSrc ? { display: 'none' } : {},
-                    styles.rootContainer
-                ]}>
-                <View style={styles.headerRoot}>
-                    <Title color={colors.offWhite} size={50}>Campaign</Title>
-                </View>
-                <View style={styles.mapBtnContainer}>
-                    <View style={styles.mapBtnOne}>
-                        <MainButton
-                            route="/LevelLobbyScreen"
-                            params={{
-                                mapName: 'Basics',
-                            }}
-                            imgSrc={mainBtnImgSrc}
+                                        progressBar={<Progress.Bar
+                                            progress={mapOneProgress / 15}
+                                            width={100}
+                                            height={5}
+                                            style={[styles.slider]}
+                                            borderWidth={1}
+                                            borderColor={'#2c1717'}
+                                            color={'#00ff08'}
+                                        />}
+                                    >Basics
+                                    </MainButton>
+                                </View>
 
-                            progressBar={<Progress.Bar
-                                progress={14 / 15}
-                                width={100}
-                                height={5}
-                                style={[styles.slider]}
-                                borderWidth={1}
-                                borderColor={'#2c1717'}
-                                color={'#00ff08'}
-                            />}
-                        >Basics
-                        </MainButton>
-                    </View>
-                    <View style={styles.mapBtnTwo}>
-                        {/* <MainButton
-                            route="/LevelLobbyScreen"
-                            params={{
-                                mapName: 'Marks',
-                            }}
-                            imgSrc={mainBtnImgSrc}
+                                <View style={styles.mapBtnTwo}>
+                                    {
+                                        totalStars >= 7 ?
+                                            <MainButton
+                                                route="/LevelLobbyScreen"
+                                                params={{
+                                                    mapName: 'Marks',
+                                                }}
+                                                imgSrc={mainBtnImgSrc}
+                                                progressBar={<Progress.Bar
+                                                    progress={mapTwoProgress / 15}
+                                                    width={100}
+                                                    height={5}
+                                                    style={[styles.slider]}
+                                                    borderWidth={1}
+                                                    borderColor={'#2c1717'}
+                                                    color={'#00ff08'}
+                                                />}
+                                            >
+                                                Marks
+                                            </MainButton>
+                                            :
+                                            <LockedMap
+                                                setShowModal={setShowModal}
+                                                setStarsNeeded={() => setStarsNeeded(7)}
+                                                imgSrc={lockedMapBg}
+                                            />
+                                    }
+                                </View>
+                                {/* Button Number Three */}
+                                <View style={styles.mapBtnThree}>
+                                    {totalStars >= 20 ?
+                                        <MainButton
+                                            route="/LevelLobbyScreen"
+                                            params={{
+                                                mapName: 'Hinderance',
+                                            }}
+                                            imgSrc={mainBtnImgSrc}
 
-                            progressBar={<Progress.Bar
-                                progress={14 / 15}
-                                width={100}
-                                height={5}
-                                style={[styles.slider]}
-                                borderWidth={1}
-                                borderColor={'#2c1717'}
-                                color={'#00ff08'}
-                            />}
-                        >
-                            Marks
-                        </MainButton> */}
-                        <LockedMap
-                            showModal={showModal}
-                            setShowModal={setShowModal}
-                            starsNeeded={29}
-                            imgSrc={lockedMapBg}
-                        />
-                    </View>
-                    <View style={styles.mapBtnThree}>
-                        <MainButton
-                            route="/LevelLobbyScreen"
-                            params={{
-                                mapName: 'Hinderance',
-                            }}
-                            imgSrc={mainBtnImgSrc}
+                                            progressBar={<Progress.Bar
+                                                progress={mapThreeProgress / 15}
+                                                width={100}
+                                                height={5}
+                                                style={[styles.slider]}
+                                                borderWidth={1}
+                                                borderColor={'#2c1717'}
+                                                color={'#00ff08'}
+                                            />}
+                                        >
+                                            Hinderance
+                                        </MainButton>
+                                        :
+                                        <LockedMap
+                                            setShowModal={setShowModal}
+                                            setStarsNeeded={() => setStarsNeeded(20)}
+                                            imgSrc={lockedMapBg}
+                                        />
+                                    }
+                                </View>
+                                <View style={styles.mapBtnFour}>
+                                    {totalStars >= 30 ?
+                                        <MainButton
+                                            route="/LevelLobbyScreen"
+                                            params={{
+                                                mapName: 'Kraken',
+                                            }}
+                                            imgSrc={mainBtnImgSrc}
 
-                            progressBar={<Progress.Bar
-                                progress={14 / 15}
-                                width={100}
-                                height={5}
-                                style={[styles.slider]}
-                                borderWidth={1}
-                                borderColor={'#2c1717'}
-                                color={'#00ff08'}
-                            />}
-                        >
-                            Hinderance
-                        </MainButton>
-                    </View>
-                    <View style={styles.mapBtnFour}>
-                        <MainButton
-                            route="/LevelLobbyScreen"
-                            params={{
-                                mapName: 'Kraken',
-                            }}
-                            imgSrc={mainBtnImgSrc}
+                                            progressBar={<Progress.Bar
+                                                progress={mapFourProgress / 15}
+                                                width={100}
+                                                height={5}
+                                                style={[styles.slider]}
+                                                borderWidth={1}
+                                                borderColor={'#2c1717'}
+                                                color={'#00ff08'}
+                                            />}
+                                        >
+                                            Kraken
+                                        </MainButton>
+                                        :
+                                        <LockedMap
+                                            setShowModal={setShowModal}
+                                            setStarsNeeded={() => setStarsNeeded(30)}
+                                            imgSrc={lockedMapBg}
+                                        />
+                                    }
+                                </View>
+                                <View style={styles.mapBtnFive}>
+                                    {
+                                        totalStars >= 45 ?
+                                            <MainButton
+                                                route="/LevelLobbyScreen"
+                                                params={{
+                                                    mapName: 'Hatch',
+                                                }}
+                                                imgSrc={mainBtnImgSrc}
 
-                            progressBar={<Progress.Bar
-                                progress={14 / 15}
-                                width={100}
-                                height={5}
-                                style={[styles.slider]}
-                                borderWidth={1}
-                                borderColor={'#2c1717'}
-                                color={'#00ff08'}
-                            />}
-                        >
-                            Kraken
-                        </MainButton>
-                    </View>
-                    <View style={styles.mapBtnFive}>
-                        <MainButton
-                            route="/LevelLobbyScreen"
-                            params={{
-                                mapName: 'Hatch',
-                            }}
-                            imgSrc={mainBtnImgSrc}
-
-                            progressBar={<Progress.Bar
-                                progress={14 / 15}
-                                width={100}
-                                height={5}
-                                style={[styles.slider]}
-                                borderWidth={1}
-                                borderColor={'#2c1717'}
-                                color={'#00ff08'}
-                            />}
-                        >
-                            Hatch
-                        </MainButton>
-                    </View>
-                </View>
-            </ImageBackground>
+                                                progressBar={<Progress.Bar
+                                                    progress={mapFiveProgress / 15}
+                                                    width={100}
+                                                    height={5}
+                                                    style={[styles.slider]}
+                                                    borderWidth={1}
+                                                    borderColor={'#2c1717'}
+                                                    color={'#00ff08'}
+                                                />}
+                                            >
+                                                Hatch
+                                            </MainButton>
+                                            :
+                                            <LockedMap
+                                                setShowModal={setShowModal}
+                                                setStarsNeeded={() => setStarsNeeded(45)}
+                                                imgSrc={lockedMapBg}
+                                            />
+                                    }
+                                </View>
+                            </View>
+                        </ImageBackground>
+                    </>
+                }
+            </>
         </>
     )
 }

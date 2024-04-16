@@ -91,14 +91,16 @@ const styles = StyleSheet.create({
     },
     pixelTextContainer: {
         borderRadius: 4,
-        backgroundColor: colors.winningStar,
+        backgroundColor: '#ffff003d',
         padding: 3,
         paddingHorizontal: 5,
+        borderWidth: 1,
+        borderColor: '#0000005c'
     },
     pixelText: {
         color: colors.skyColor,
         textAlign: 'center',
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: 'textFont',
     },
     detailsContainer: {
@@ -132,7 +134,7 @@ const styles = StyleSheet.create({
     },
     tryHigherScoreText: {
         fontFamily: 'textFont',
-        color: colors.winningStar,
+        color: colors.offWhite,
         fontSize: 18,
         textAlign: 'center',
         width: 300,

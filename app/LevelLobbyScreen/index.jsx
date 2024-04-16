@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView, ImageBackground } from 'react-native'
+import { View, StyleSheet, ScrollView, ImageBackground, StatusBar } from 'react-native'
 import { useLocalSearchParams } from 'expo-router';
 import Title from '../../Components/UI/Title';
 import colors from '../../constants/colors';
@@ -38,11 +38,13 @@ const LevelLobbyScreen = () => {
 
     return (
         <>
+        <StatusBar hidden={true} />
         <ImageBackground
             source={require('../../assets/images/levelLobbyBgImage.png')}
             style={styles.backgroundImg}
 
         >
+            
             <View style={styles.backIcon}>
                 <BackArrow
                     route='CampaignOverviewScreen'
