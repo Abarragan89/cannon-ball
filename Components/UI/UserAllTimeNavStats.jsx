@@ -17,7 +17,6 @@ const UserAllTimeNavStats = () => {
       const totalPoints = await getUserTotalPoints(1);
       const totalStars = await getTotalStars(1);
 
-
       setTotalPoints(totalPoints)
       setTotalStars(totalStars)
     }

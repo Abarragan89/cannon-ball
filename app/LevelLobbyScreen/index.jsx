@@ -1,12 +1,27 @@
-import { View, StyleSheet, ScrollView, ImageBackground, StatusBar } from 'react-native'
+import { View, StyleSheet, ScrollView, ImageBackground, StatusBar } from 'react-native';
+import { useEffect, useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import Title from '../../Components/UI/Title';
 import colors from '../../constants/colors';
 import BackArrow from '../../Components/UI/BackArrow';
 import LevelTile from '../../Components/LevelTile';
+import { getIndividualLevelData } from '../../utils/db/selectQueries';
 
 const LevelLobbyScreen = () => {
     const { mapName } = useLocalSearchParams();
+    console.log('mapName', mapName)
+
+    const [currentLevelData, setCurrentLevelData] = useState([])
+
+    useEffect(() => {
+        async function getLevelData() {
+            const levelData = await getIndividualLevelData(1, mapName.toLowerCase());
+            setCurrentLevelData(levelData)
+        }
+        if (mapName) getLevelData();
+    }, [mapName])
+
+    console.log('current Level Data', currentLevelData)
 
     const levelData = [
         {
@@ -51,17 +66,20 @@ const LevelLobbyScreen = () => {
                 />
             </View>
             <ScrollView>
-                {mapName &&
+                {mapName && currentLevelData &&
                     <View style={styles.root}>
                         <View style={styles.titleContainer}>
                             <Title color={colors.offWhite} size={50}>{mapName}</Title>
                         </View>
                         <View style={styles.levelBtnContainer}>
-                            {levelData.map((item, index) => (
+                            {currentLevelData.map((item, index) => (
                                 <View key={index} style={styles.singleLevelButton}>
                                     <LevelTile
                                         route={`/GameScreen/${mapName}/${item.link}`}
-                                        isLocked={item.isLocked}
+                                        isLocked={item.passed}
+                                        accuracy={item.accuracy}
+                                        highscore={item.highscore}
+                                        earnedStars={item.earnedStars}
                                     >
                                         {item.level}
                                     </LevelTile>

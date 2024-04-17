@@ -5,10 +5,10 @@ import { Fontisto } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 
-const LevelTile = ({ children, route, isLocked }) => {
+const LevelTile = ({ children, route, isLocked, accuracy, highscore, earnedStars }) => {
     const onPressHandler = () => router.push({ pathname: route });
 
-    if (isLocked) {
+    if (isLocked === 0) {
         return (
             <View style={styles.containerLockedLevel}>
                 <Text style={styles.earnMoreStarsText}>Complete level One to unlock</Text>
@@ -24,20 +24,35 @@ const LevelTile = ({ children, route, isLocked }) => {
                     {children}
                 </Text>
                 <View style={styles.starContainer}>
-                    <Fontisto style={styles.star} name="star" size={20} color={colors.winningStar} />
-                    <Fontisto style={styles.star} name="star" size={20} color={colors.sandColorAccent} />
-                    <Fontisto style={styles.star} name="star" size={20} color={colors.sandColorAccent} />
+                    {
+                        earnedStars > 0 ?
+                            <Fontisto style={styles.star} name="star" size={20} color={colors.winningStar} />
+                            :
+                            <Fontisto style={styles.star} name="star" size={20} color={colors.sandColorAccent} />
+                    }
+                    {
+                        earnedStars > 1 ?
+                            <Fontisto style={styles.star} name="star" size={20} color={colors.winningStar} />
+                            :
+                            <Fontisto style={styles.star} name="star" size={20} color={colors.sandColorAccent} />
+                    }
+                    {
+                        earnedStars > 2 ?
+                            <Fontisto style={styles.star} name="star" size={20} color={colors.winningStar} />
+                            :
+                            <Fontisto style={styles.star} name="star" size={20} color={colors.sandColorAccent} />
+                    }
                 </View>
             </View>
             <View>
                 <View style={styles.levelStatsContainer}>
                     <View style={styles.levelDetailsContainer}>
                         <Text style={[styles.text, styles.detailLabel]}>Accuracy</Text>
-                        <Text style={styles.text}>91.02 px</Text>
+                        <Text style={styles.text}>{accuracy} px</Text>
                     </View>
                     <View style={styles.levelDetailsContainer}>
                         <Text style={[styles.text, styles.detailLabel]}>Highscore</Text>
-                        <Text style={styles.text}>19,019</Text>
+                        <Text style={styles.text}>{highscore}</Text>
                     </View>
                 </View>
             </View>

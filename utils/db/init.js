@@ -1,6 +1,5 @@
 import openDatabaseConnection from './openDB';
-import { getTotalStarsInMap, getTotalStars, getUserTotalPoints } from './selectQueries';
-
+import { getTotalStarsInMap, getTotalStars, getUserTotalPoints, getIndividualLevelData } from './selectQueries';
 
 export async function initDB() {
     const db = openDatabaseConnection();
@@ -47,8 +46,6 @@ export async function initDB() {
                     CREATE TABLE IF NOT EXISTS maps (
                         id INTEGER PRIMARY KEY NOT NULL,
                         mapName VARCHAR(100),
-                        earnedStars INTEGER DEFAULT 0,
-                        requiredStars INTEGER,
                         userId INTEGER,
                         FOREIGN KEY (userId) REFERENCES users(id)
                     );  
@@ -58,7 +55,8 @@ export async function initDB() {
                 await tx.executeSqlAsync(`
                 CREATE TABLE IF NOT EXISTS levels (
                         id INTEGER PRIMARY KEY NOT NULL,
-                        level INTEGER,
+                        level VARCHAR(50) NOT NULL,
+                        link VARCHAR(50) NOT NULL,
                         accuracy INTEGER DEFAULT 0,
                         highscore INTEGER DEFAULT 0,
                         passed INTEGER DEFAULT 0,
@@ -72,49 +70,49 @@ export async function initDB() {
                 const { insertId: preferenceId } = await tx.executeSqlAsync(`INSERT INTO preferences DEFAULT VALUES;`, []);
 
                 // Create User
-                const { insertId: newUserId } = await tx.executeSqlAsync(`INSERT INTO users (name, preferenceId, totalPoints) VALUES ('mike', ${preferenceId}, 29384);`, []);
+                const { insertId: newUserId } = await tx.executeSqlAsync(`INSERT INTO users (name, preferenceId) VALUES ('mike', ${preferenceId});`, []);
 
                 // Create Maps
-                const { insertId: mapOneId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, requiredStars, userId) VALUES ('basics', 0, ${newUserId});`, []);
-                const { insertId: mapTwoId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, requiredStars, userId) VALUES ('marks', 0, ${newUserId});`, []);
-                const { insertId: mapThreeId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, requiredStars, userId) VALUES ('hinderance', 0, ${newUserId});`, []);
-                const { insertId: mapFourId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, requiredStars, userId) VALUES ('kraken', 0, ${newUserId});`, []);
-                const { insertId: mapFiveId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, requiredStars, userId) VALUES ('hatch', 0, ${newUserId});`, []);
+                const { insertId: mapOneId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('basics', ${newUserId});`, []);
+                const { insertId: mapTwoId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('marks', ${newUserId});`, []);
+                const { insertId: mapThreeId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('hinderance', ${newUserId});`, []);
+                const { insertId: mapFourId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('kraken', ${newUserId});`, []);
+                const { insertId: mapFiveId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('hatch', ${newUserId});`, []);
 
                 // Create Levels for Map One
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId, earnedStars) VALUES (1, ${mapOneId}, 1);`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId, earnedStars) VALUES (2, ${mapOneId}, 1);`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId, earnedStars) VALUES (3, ${mapOneId}, 3);`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (4, ${mapOneId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (5, ${mapOneId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, passed, mapId) VALUES ('Level One', 'Level1', 1, ${mapOneId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapOneId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapOneId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapOneId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapOneId});`, []);
 
                 // Create Levels for Map Two
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (1, ${mapTwoId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (2, ${mapTwoId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (3, ${mapTwoId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (4, ${mapTwoId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (5, ${mapTwoId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level One', 'Level1', ${mapTwoId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapTwoId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapTwoId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapTwoId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapTwoId});`, []);
 
                 // Create Levels for Map Three
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId, earnedStars) VALUES (1, ${mapThreeId}, 2);`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (2, ${mapThreeId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (3, ${mapThreeId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (4, ${mapThreeId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (5, ${mapThreeId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level One', 'Level1', ${mapThreeId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapThreeId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapThreeId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapThreeId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapThreeId});`, []);
 
                 // Create Levels for Map Four
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId, earnedStars) VALUES (1, ${mapFourId}, 2);`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (2, ${mapFourId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (3, ${mapFourId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (4, ${mapFourId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId, earnedStars) VALUES (5, ${mapFourId}, 3);`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level One', 'Level1', ${mapFourId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapFourId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapFourId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapFourId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapFourId});`, []);
 
                 // Create Levels for Map Five
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (1, ${mapFiveId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (2, ${mapFiveId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (3, ${mapFiveId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId) VALUES (4, ${mapFiveId});`, []);
-                await tx.executeSqlAsync(`INSERT INTO levels (level, mapId, earnedStars) VALUES (5, ${mapFiveId}, 2);`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level One', 'Level1', ${mapFiveId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapFiveId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapFiveId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapFiveId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapFiveId});`, []);
 
             } catch (error) {
                 console.log('error in Init SQL function', error)
@@ -138,7 +136,9 @@ export async function getPreferences() {
     // const totalStarsInAMap = await getTotalStarsInMap(1, 'basics');
     // const totalStars = await getTotalStars(1);
     // const totalPoints = await getUserTotalPoints(1);
+    // const individuallevelData = await getIndividualLevelData(1, 'basics')
 
+    // console.log('indidivual level data ', individuallevelData)
     // console.log('total Stars In A Map', totalStarsInAMap);
     // console.log('total Stars ', totalStars);
     // console.log('total Points', totalPoints);
