@@ -9,7 +9,6 @@ import { getIndividualLevelData } from '../../utils/db/selectQueries';
 
 const LevelLobbyScreen = () => {
     const { mapName } = useLocalSearchParams();
-    console.log('mapName', mapName)
 
     const [currentLevelData, setCurrentLevelData] = useState([])
 
@@ -76,6 +75,13 @@ const LevelLobbyScreen = () => {
                                 <View key={index} style={styles.singleLevelButton}>
                                     <LevelTile
                                         route={`/GameScreen/${mapName}/${item.link}`}
+                                        params={{ 
+                                            levelId: item.id,
+                                            lastAccuracy: item.accuracy,
+                                            lastHighscore: item.highscore,
+                                            lastEarnedStars: item.earnedStars,
+                                            isPassed: item.passed
+                                        }}
                                         isLocked={item.passed}
                                         accuracy={item.accuracy}
                                         highscore={item.highscore}

@@ -5,8 +5,8 @@ import { Fontisto } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 
-const LevelTile = ({ children, route, isLocked, accuracy, highscore, earnedStars }) => {
-    const onPressHandler = () => router.push({ pathname: route });
+const LevelTile = ({ children, route, params, isLocked, accuracy, highscore, earnedStars }) => {
+    const onPressHandler = () => router.push({ pathname: route, params: params });
 
     if (isLocked === 0) {
         return (

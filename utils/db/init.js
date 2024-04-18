@@ -57,7 +57,7 @@ export async function initDB() {
                         id INTEGER PRIMARY KEY NOT NULL,
                         level VARCHAR(50) NOT NULL,
                         link VARCHAR(50) NOT NULL,
-                        accuracy INTEGER DEFAULT 0,
+                        accuracy FLOAT DEFAULT 0,
                         highscore INTEGER DEFAULT 0,
                         passed INTEGER DEFAULT 0,
                         earnedStars INTEGER DEFAULT 0,

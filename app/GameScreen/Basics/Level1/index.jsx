@@ -1,4 +1,5 @@
 import { useRef, useState, useContext, useEffect } from "react";
+import { useLocalSearchParams } from 'expo-router';
 import { GameEngine } from "react-native-game-engine"
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -19,14 +20,32 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { SoundContext } from "../../../../store/soundsContext";
-
+import { 
+    updateLevelToPass, 
+    updateLevelHighScore, 
+    updateLevelAccuracy, 
+    updateLevelEarnedStars } from "../../../../utils/db/updateQueries";
 
 function ChatperOneLevelOne() {
+    // Grab the level Id 
+    const { levelId, lastAccuracy, lastHighscore, lastEarnedStars, isPassed } = useLocalSearchParams();
+
     // Load sounds from context API, make gameEngineRef, and gameOver State
     const { sounds: gameSoundContext } = useContext(SoundContext);
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     const [playBgMusic, setPlayBgMusic] = useState(true)
+
+    const endGameData = useRef({
+        accuracyFloat: 0,
+        accuracyName: '',
+        winningScore: [500, 1000, 2000],
+        airTime: 0,
+        bounces: 0,
+        multiplier: 0,
+        currentLevel: 'Basics',
+        nextLevel: 'Basics/Level2'
+    });
 
     // Play background noises and stop them when game is over
     useEffect(() => {
@@ -57,24 +76,55 @@ function ChatperOneLevelOne() {
             gameSoundContext.current.backgroundMusicSound.stopAsync();
             gameSoundContext.current.backgroundWaveSound.stopAsync();
         }
-    }, [playBgMusic])
+    }, [playBgMusic]);
+
+
+
+    useEffect(() => {
+        // 'isGameOver' should more appropriately be named 'gameWon'
+        if (isGameOver) {
+            // get highscore, accuracy, and earnedStars amount after user wins
+            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime * endGameData.current.bounces)
+            const currentAccuracy = endGameData.current.accuracyFloat;
+            let currentEarnedStars = 0
+            // determine earned stars
+            if (currentHighScore >= endGameData.current.winningScore[2]) {
+                currentEarnedStars = 3;
+            } else if (currentHighScore >= endGameData.current.winningScore[1]) {
+                currentEarnedStars = 2;
+            } else if (currentHighScore >= endGameData.current.winningScore[0]) {
+                currentEarnedStars = 1;
+            } else {
+                currentEarnedStars = 0;
+            }
+
+            async function updateLevelData() {
+                // Update level to passed if not already passed
+                if (!isPassed) {
+                    await updateLevelToPass(levelId)
+                }
+                // Compare the highscore to the old highscore
+                if (currentHighScore > lastHighscore) {
+                    await updateLevelHighScore(levelId, currentHighScore)
+                }
+                // Compare the accuracy with old accuracy
+                if (currentAccuracy > lastAccuracy) {
+                    await updateLevelAccuracy(levelId, currentAccuracy)
+                }
+                // Compare earnedStars
+                if (currentEarnedStars > lastEarnedStars) {
+                    await updateLevelEarnedStars(levelId, currentEarnedStars)
+                }
+            }
+            updateLevelData();
+        }
+    }, [isGameOver, endGameData.current])
 
 
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
     const powerLevelRef = useRef(15)
-
-    const endGameData = useRef({
-        accuracyFloat: 0,
-        accuracyName: '',
-        winningScore: [500, 1000, 2000],
-        airTime: 0,
-        bounces: 0,
-        multiplier: 0,
-        currentLevel: 'Basics',
-        nextLevel: 'Basics/Level2'
-    })
 
     return (
         <ImageBackground

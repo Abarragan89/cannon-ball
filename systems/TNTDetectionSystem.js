@@ -40,6 +40,7 @@ const TNTDetectionSystem = (entities) => {
                 multiplier: 5,
             }
         }
+        return accuracyAmount
     }
 
     function endGameHandler() {
