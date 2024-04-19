@@ -9,8 +9,8 @@ export async function updateLevelToPass(levelId) {
         await db.transactionAsync(async tx => {
             const myData =  await tx.executeSqlAsync(`
                     UPDATE levels
-                    SET passed=1
-                    WHERE levels.id=${+levelId}
+                    SET isOpen=1
+                    WHERE levels.id=${+levelId + 1}
                 `);
             data = myData.rows
         });
@@ -78,5 +78,25 @@ export async function updateLevelEarnedStars(levelId, earnedStars) {
         return data;
     } catch (error) {
         console.log('error in updateLevelEarnedStars ', error)
+    }
+}
+
+// ADD TO TOTAL POINTS 
+export async function updateUserTotalPoints(points) {
+    let data;
+    const db = openDatabaseConnection();
+    try {
+        console.log('in update user points')
+        await db.transactionAsync(async tx => {
+            const myData =  await tx.executeSqlAsync(`
+                    UPDATE users
+                    SET totalPoints = totalPoints + ${points} 
+                    WHERE users.id=1
+                `);
+            data = myData.rows
+        });
+        return data;
+    } catch (error) {
+        console.log('error in update in add user total ', error)
     }
 }

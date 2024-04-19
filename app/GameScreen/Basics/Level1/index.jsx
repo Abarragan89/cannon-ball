@@ -24,11 +24,13 @@ import {
     updateLevelToPass, 
     updateLevelHighScore, 
     updateLevelAccuracy, 
-    updateLevelEarnedStars } from "../../../../utils/db/updateQueries";
+    updateUserTotalPoints,
+    updateLevelEarnedStars 
+} from "../../../../utils/db/updateQueries";
 
 function ChatperOneLevelOne() {
     // Grab the level Id 
-    const { levelId, lastAccuracy, lastHighscore, lastEarnedStars, isPassed } = useLocalSearchParams();
+    const { levelId, lastAccuracy, lastHighscore, lastEarnedStars } = useLocalSearchParams();
 
     // Load sounds from context API, make gameEngineRef, and gameOver State
     const { sounds: gameSoundContext } = useContext(SoundContext);
@@ -79,7 +81,7 @@ function ChatperOneLevelOne() {
     }, [playBgMusic]);
 
 
-
+    // Backend updates 
     useEffect(() => {
         // 'isGameOver' should more appropriately be named 'gameWon'
         if (isGameOver) {
@@ -97,29 +99,27 @@ function ChatperOneLevelOne() {
             } else {
                 currentEarnedStars = 0;
             }
-
             async function updateLevelData() {
                 // Update level to passed if not already passed
-                if (!isPassed) {
-                    await updateLevelToPass(levelId)
-                }
+                await updateLevelToPass(levelId)
+                // Update users highscore
+                await updateUserTotalPoints(currentHighScore)
                 // Compare the highscore to the old highscore
-                if (currentHighScore > lastHighscore) {
+                if (currentHighScore > +lastHighscore) {
                     await updateLevelHighScore(levelId, currentHighScore)
                 }
                 // Compare the accuracy with old accuracy
-                if (currentAccuracy > lastAccuracy) {
+                if (currentAccuracy < +lastAccuracy) {
                     await updateLevelAccuracy(levelId, currentAccuracy)
                 }
                 // Compare earnedStars
-                if (currentEarnedStars > lastEarnedStars) {
+                if (currentEarnedStars > +lastEarnedStars) {
                     await updateLevelEarnedStars(levelId, currentEarnedStars)
                 }
             }
             updateLevelData();
         }
     }, [isGameOver, endGameData.current])
-
 
     // Angle Data
     const angleLevelRef = useRef(90)

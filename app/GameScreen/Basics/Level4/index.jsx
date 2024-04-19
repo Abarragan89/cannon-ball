@@ -1,5 +1,6 @@
 import { useRef, useState, useContext, useEffect } from "react";
 import { GameEngine } from "react-native-game-engine"
+import { useLocalSearchParams } from 'expo-router';
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
@@ -20,8 +21,16 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { SoundContext } from "../../../../store/soundsContext";
+import {
+    updateLevelToPass,
+    updateLevelHighScore,
+    updateLevelAccuracy,
+    updateLevelEarnedStars
+} from "../../../../utils/db/updateQueries";
 
 function ChatperOneLevelFour() {
+    const { levelId, lastAccuracy, lastHighscore, lastEarnedStars } = useLocalSearchParams();
+
     // Load sounds from context API, make gameEngineRef, and gameOver State
     const { sounds: gameSoundContext } = useContext(SoundContext);
     const gameEngineRef = useRef(null);
@@ -73,9 +82,47 @@ function ChatperOneLevelFour() {
         multiplier: 0,
         currentLevel: 'Basics',
         nextLevel: 'Basics/Level5'
-    })
-    return (
+    });
 
+    // Backend updates 
+    useEffect(() => {
+        // 'isGameOver' should more appropriately be named 'gameWon'
+        if (isGameOver) {
+            // get highscore, accuracy, and earnedStars amount after user wins
+            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime * endGameData.current.bounces)
+            const currentAccuracy = endGameData.current.accuracyFloat;
+            let currentEarnedStars = 0
+            // determine earned stars
+            if (currentHighScore >= endGameData.current.winningScore[2]) {
+                currentEarnedStars = 3;
+            } else if (currentHighScore >= endGameData.current.winningScore[1]) {
+                currentEarnedStars = 2;
+            } else if (currentHighScore >= endGameData.current.winningScore[0]) {
+                currentEarnedStars = 1;
+            } else {
+                currentEarnedStars = 0;
+            }
+            async function updateLevelData() {
+                // Update level to passed if not already passed
+                await updateLevelToPass(levelId)
+                // Compare the highscore to the old highscore
+                if (currentHighScore > +lastHighscore) {
+                    await updateLevelHighScore(levelId, currentHighScore)
+                }
+                // Compare the accuracy with old accuracy
+                if (currentAccuracy < +lastAccuracy) {
+                    await updateLevelAccuracy(levelId, currentAccuracy)
+                }
+                // Compare earnedStars
+                if (currentEarnedStars > +lastEarnedStars) {
+                    await updateLevelEarnedStars(levelId, currentEarnedStars)
+                }
+            }
+            updateLevelData();
+        }
+    }, [isGameOver, endGameData.current])
+
+    return (
         <ImageBackground
             source={require('../../../../assets/images/basics/short.png')}
             style={styles.backgroundImg}

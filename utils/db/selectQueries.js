@@ -54,7 +54,7 @@ export async function getIndividualLevelData(userId, mapName) {
     try {
         await db.transactionAsync(async tx => {
             const myData =  await tx.executeSqlAsync(`
-                    SELECT level, accuracy, highscore, id, passed, earnedStars, link
+                    SELECT level, accuracy, highscore, id, isOpen, earnedStars, link
                     FROM levels l
                     WHERE l.mapId IN (
                         SELECT m.id

@@ -1,17 +1,42 @@
 import { router } from 'expo-router';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
 import colors from '../constants/colors';
 import { Fontisto } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 
-const LevelTile = ({ children, route, params, isLocked, accuracy, highscore, earnedStars }) => {
+const LevelTile = ({ children, route, params, isLocked, accuracy, highscore, earnedStars, currentLevel }) => {
+
+    const [prevLevel, setPrevLevel] = useState('')
+
+    useEffect(() => {
+        // Determine Previous Level
+        if (currentLevel) {
+            switch (currentLevel) {
+                case 'Level Two':
+                    setPrevLevel('Level One')
+                    break;
+                case 'Level Three':
+                    setPrevLevel('Level Two')
+                    break;
+                case 'Level Four':
+                    setPrevLevel('Level Three')
+                    break;
+                case 'Level Five':
+                    setPrevLevel('Level Four')
+                    break;
+            }
+        }
+    }, [currentLevel])
+
+
     const onPressHandler = () => router.push({ pathname: route, params: params });
 
     if (isLocked === 0) {
         return (
             <View style={styles.containerLockedLevel}>
-                <Text style={styles.earnMoreStarsText}>Complete level One to unlock</Text>
+                <Text style={styles.earnMoreStarsText}>Complete {prevLevel} to unlock</Text>
                 <Entypo name="lock" size={35} color="#000000b7" />
             </View>
         )
@@ -48,7 +73,11 @@ const LevelTile = ({ children, route, params, isLocked, accuracy, highscore, ear
                 <View style={styles.levelStatsContainer}>
                     <View style={styles.levelDetailsContainer}>
                         <Text style={[styles.text, styles.detailLabel]}>Accuracy</Text>
-                        <Text style={styles.text}>{accuracy} px</Text>
+                        {accuracy === 50 ?
+                            <Text style={styles.text}>N/A</Text>
+                            :
+                            <Text style={styles.text}>{accuracy} px</Text>
+                        }
                     </View>
                     <View style={styles.levelDetailsContainer}>
                         <Text style={[styles.text, styles.detailLabel]}>Highscore</Text>

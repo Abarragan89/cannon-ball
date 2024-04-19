@@ -22,80 +22,52 @@ const LevelLobbyScreen = () => {
 
     console.log('current Level Data', currentLevelData)
 
-    const levelData = [
-        {
-            link: 'Level1',
-            level: 'Level One',
-            isLocked: false,
-        },
-        {
-            link: 'Level2',
-            level: 'Level Two',
-            isLocked: false,
-        },
-        {
-            link: 'Level3',
-            level: 'Level Three',
-            isLocked: false,
-        },
-        {
-            link: 'Level4',
-            level: 'Level Four',
-            isLocked: true,
-        },
-        {
-            link: 'Level5',
-            level: 'Level Five',
-            isLocked: true,
-        },
-    ]
-
     return (
         <>
-        <StatusBar hidden={true} />
-        <ImageBackground
-            source={require('../../assets/images/levelLobbyBgImage.png')}
-            style={styles.backgroundImg}
+            <StatusBar hidden={true} />
+            <ImageBackground
+                source={require('../../assets/images/levelLobbyBgImage.png')}
+                style={styles.backgroundImg}
 
-        >
-            
-            <View style={styles.backIcon}>
-                <BackArrow
-                    route='CampaignOverviewScreen'
-                />
-            </View>
-            <ScrollView>
-                {mapName && currentLevelData &&
-                    <View style={styles.root}>
-                        <View style={styles.titleContainer}>
-                            <Title color={colors.offWhite} size={50}>{mapName}</Title>
+            >
+
+                <View style={styles.backIcon}>
+                    <BackArrow
+                        route='CampaignOverviewScreen'
+                    />
+                </View>
+                <ScrollView>
+                    {mapName && currentLevelData &&
+                        <View style={styles.root}>
+                            <View style={styles.titleContainer}>
+                                <Title color={colors.offWhite} size={50}>{mapName}</Title>
+                            </View>
+                            <View style={styles.levelBtnContainer}>
+                                {currentLevelData.map((item, index) => (
+                                    <View key={index} style={styles.singleLevelButton}>
+                                        <LevelTile
+                                            route={`/GameScreen/${mapName}/${item.link}`}
+                                            params={{
+                                                levelId: item.id,
+                                                lastAccuracy: item.accuracy,
+                                                lastHighscore: item.highscore,
+                                                lastEarnedStars: item.earnedStars,
+                                            }}
+                                            isLocked={item.isOpen}
+                                            accuracy={item.accuracy}
+                                            highscore={item.highscore}
+                                            earnedStars={item.earnedStars}
+                                            currentLevel={item.level}
+                                        >
+                                            {item.level}
+                                        </LevelTile>
+                                    </View>
+                                ))}
+                            </View>
                         </View>
-                        <View style={styles.levelBtnContainer}>
-                            {currentLevelData.map((item, index) => (
-                                <View key={index} style={styles.singleLevelButton}>
-                                    <LevelTile
-                                        route={`/GameScreen/${mapName}/${item.link}`}
-                                        params={{ 
-                                            levelId: item.id,
-                                            lastAccuracy: item.accuracy,
-                                            lastHighscore: item.highscore,
-                                            lastEarnedStars: item.earnedStars,
-                                            isPassed: item.passed
-                                        }}
-                                        isLocked={item.passed}
-                                        accuracy={item.accuracy}
-                                        highscore={item.highscore}
-                                        earnedStars={item.earnedStars}
-                                    >
-                                        {item.level}
-                                    </LevelTile>
-                                </View>
-                            ))}
-                        </View>
-                    </View>
-                }
-            </ScrollView>
-        </ImageBackground>
+                    }
+                </ScrollView>
+            </ImageBackground>
         </>
     )
 }
