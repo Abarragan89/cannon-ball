@@ -25,6 +25,7 @@ import {
     updateLevelToPass,
     updateLevelHighScore,
     updateLevelAccuracy,
+    updateUserTotalPoints,
     updateLevelEarnedStars
 } from "../../../../utils/db/updateQueries";
 
@@ -103,6 +104,8 @@ function ChatperOneLevelFour() {
                 currentEarnedStars = 0;
             }
             async function updateLevelData() {
+                // Update users highscore
+                await updateUserTotalPoints(currentHighScore)
                 // Update level to passed if not already passed
                 await updateLevelToPass(levelId)
                 // Compare the highscore to the old highscore
