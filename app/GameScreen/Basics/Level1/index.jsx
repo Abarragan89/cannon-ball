@@ -20,12 +20,13 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { SoundContext } from "../../../../store/soundsContext";
-import { 
-    updateLevelToPass, 
-    updateLevelHighScore, 
-    updateLevelAccuracy, 
+import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
+import {
+    updateLevelToPass,
+    updateLevelHighScore,
+    updateLevelAccuracy,
     updateUserTotalPoints,
-    updateLevelEarnedStars 
+    updateLevelEarnedStars
 } from "../../../../utils/db/updateQueries";
 
 function ChatperOneLevelOne() {
@@ -119,7 +120,22 @@ function ChatperOneLevelOne() {
             }
             updateLevelData();
         }
-    }, [isGameOver, endGameData.current])
+    }, [isGameOver, endGameData.current]);
+
+    const [nextLevelData, setNextLevelData] = useState(null);
+
+    // Get next level information to pass as params in the 
+    // next level button in the end of game modal
+    useEffect(() => {
+        async function getNextLevelData() {
+            const mapName = endGameData.current.nextLevel.split('/')[0];
+            const link = endGameData.current.nextLevel.split('/')[1];
+            const nextLevel = await getIndividualLevelData(mapName, link)
+            setNextLevelData(nextLevel[0])
+            console.log(nextLevel)
+        }
+        getNextLevelData();
+    }, [])
 
     // Angle Data
     const angleLevelRef = useRef(90)
@@ -220,6 +236,7 @@ function ChatperOneLevelOne() {
                     {isGameOver &&
                         <EndGameModal
                             endGameData={endGameData}
+                            nextLevelData={nextLevelData}
                         />
                     }
                 </GameEngine>

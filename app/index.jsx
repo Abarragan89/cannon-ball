@@ -11,7 +11,7 @@ const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
 const bgImage = require('../assets/images/homeScreenImg.png')
 const { height } = Dimensions.get('screen');
 import { SoundProvider } from "../store/soundsContext";
-import { initDB } from "../utils/db/init";
+import { initDB, getPreferences } from "../utils/db/init";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,6 +24,7 @@ const Home = () => {
   const onLayoutRootView = useCallback(async () => {
     if ((fontsLoaded || fontError) && bgImage && mainBtnImgSrc) {
       await initDB();
+      await getPreferences();
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded, fontError, bgImage, mainBtnImgSrc]);

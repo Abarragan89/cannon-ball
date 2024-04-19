@@ -32,11 +32,11 @@ const CampaignOverview = () => {
     useEffect(() => {
         async function getUserData() {
             try {
-                const basicProgress = await getTotalStarsInMap(1, 'basics');
-                const marksProgress = await getTotalStarsInMap(1, 'marks');
-                const hinderanceProgress = await getTotalStarsInMap(1, 'hinderance');
-                const krakenProgress = await getTotalStarsInMap(1, 'kraken');
-                const hatchProgress = await getTotalStarsInMap(1, 'hatch');
+                const basicProgress = await getTotalStarsInMap(1, 'Basics');
+                const marksProgress = await getTotalStarsInMap(1, 'Marks');
+                const hinderanceProgress = await getTotalStarsInMap(1, 'Hinderance');
+                const krakenProgress = await getTotalStarsInMap(1, 'Kraken');
+                const hatchProgress = await getTotalStarsInMap(1, 'Hatch');
                 const totalStars = await getTotalStars(1);
 
                 setMapOneProgress(basicProgress[0].totalMapStars);

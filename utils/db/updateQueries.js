@@ -30,7 +30,7 @@ export async function updateLevelHighScore(levelId, highscore) {
             const myData =  await tx.executeSqlAsync(`
                     UPDATE levels
                     SET highscore=${+highscore}
-                    WHERE levels.id=${+levelId}
+                    WHERE levels.id=${+levelId} 
                 `);
             data = myData.rows
         });

@@ -5,7 +5,7 @@ import Title from '../../Components/UI/Title';
 import colors from '../../constants/colors';
 import BackArrow from '../../Components/UI/BackArrow';
 import LevelTile from '../../Components/LevelTile';
-import { getIndividualLevelData } from '../../utils/db/selectQueries';
+import { getAllLevelDataInMap } from '../../utils/db/selectQueries';
 
 const LevelLobbyScreen = () => {
     const { mapName } = useLocalSearchParams();
@@ -14,13 +14,11 @@ const LevelLobbyScreen = () => {
 
     useEffect(() => {
         async function getLevelData() {
-            const levelData = await getIndividualLevelData(1, mapName.toLowerCase());
+            const levelData = await getAllLevelDataInMap(1, mapName);
             setCurrentLevelData(levelData)
         }
         if (mapName) getLevelData();
     }, [mapName])
-
-    console.log('current Level Data', currentLevelData)
 
     return (
         <>

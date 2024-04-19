@@ -1,4 +1,5 @@
 import openDatabaseConnection from './openDB';
+import { getIndividualLevelData } from './selectQueries';
 
 export async function initDB() {
     const db = openDatabaseConnection();
@@ -72,14 +73,14 @@ export async function initDB() {
                 const { insertId: newUserId } = await tx.executeSqlAsync(`INSERT INTO users (name, preferenceId) VALUES ('mike', ${preferenceId});`, []);
 
                 // Create Maps
-                const { insertId: mapOneId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('basics', ${newUserId});`, []);
-                const { insertId: mapTwoId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('marks', ${newUserId});`, []);
-                const { insertId: mapThreeId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('hinderance', ${newUserId});`, []);
-                const { insertId: mapFourId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('kraken', ${newUserId});`, []);
-                const { insertId: mapFiveId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('hatch', ${newUserId});`, []);
+                const { insertId: mapOneId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('Basics', ${newUserId});`, []);
+                const { insertId: mapTwoId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('Marks', ${newUserId});`, []);
+                const { insertId: mapThreeId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('Hinderance', ${newUserId});`, []);
+                const { insertId: mapFourId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('Kraken', ${newUserId});`, []);
+                const { insertId: mapFiveId } = await tx.executeSqlAsync(`INSERT INTO maps (mapName, userId) VALUES ('Hatch', ${newUserId});`, []);
 
                 // Create Levels for Map One
-                await tx.executeSqlAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapOneId});`, []);
+                await tx.executeSqlAsync(`INSERT INTO levels (level, link, isOpen, earnedStars, mapId) VALUES ('Level One', 'Level1', 1, 47, ${mapOneId});`, []);
                 await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapOneId});`, []);
                 await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapOneId});`, []);
                 await tx.executeSqlAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapOneId});`, []);
@@ -135,9 +136,11 @@ export async function getPreferences() {
     // const totalStarsInAMap = await getTotalStarsInMap(1, 'basics');
     // const totalStars = await getTotalStars(1);
     // const totalPoints = await getUserTotalPoints(1);
-    // const individuallevelData = await getIndividualLevelData(1, 'basics')
+    // const individuallevelData = await getAllLevelDataInMap(1, 'basics')
 
+    // const individualLevel = await getIndividualLevelData('Basics', 'Level1')
     // console.log('indidivual level data ', individuallevelData)
+    // console.log('individual level data', individualLevel)
     // console.log('total Stars In A Map', totalStarsInAMap);
     // console.log('total Stars ', totalStars);
     // console.log('total Points', totalPoints);

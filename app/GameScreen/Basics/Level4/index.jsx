@@ -21,6 +21,7 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { SoundContext } from "../../../../store/soundsContext";
+import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
 import {
     updateLevelToPass,
     updateLevelHighScore,
@@ -125,6 +126,20 @@ function ChatperOneLevelFour() {
         }
     }, [isGameOver, endGameData.current])
 
+    const [nextLevelData, setNextLevelData] = useState(null);
+
+    // Get next level information to pass as params in the 
+    // next level button in the end of game modal
+    useEffect(() => {
+        async function getNextLevelData() {
+            let mapName = endGameData.current.nextLevel.split('/')[0];
+            let link = endGameData.current.nextLevel.split('/')[1];
+            const nextLevel = await getIndividualLevelData(mapName, link)
+            setNextLevelData(nextLevel[0])
+        }
+        getNextLevelData();
+    }, []);
+
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/short.png')}
@@ -222,6 +237,7 @@ function ChatperOneLevelFour() {
                 {isGameOver &&
                     <EndGameModal
                         endGameData={endGameData}
+                        nextLevelData={nextLevelData}
                     />
                 }
             </GameEngine>

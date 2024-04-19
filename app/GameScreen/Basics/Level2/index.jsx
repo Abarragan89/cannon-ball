@@ -21,6 +21,7 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { SoundContext } from "../../../../store/soundsContext";
+import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
 import {
     updateLevelToPass,
     updateLevelHighScore,
@@ -33,6 +34,8 @@ import {
 function ChatperOneLevelTwo() {
     // Grab the level Id 
     const { levelId, lastAccuracy, lastHighscore, lastEarnedStars } = useLocalSearchParams();
+
+    console.log('local search params ', levelId, lastAccuracy, lastEarnedStars )
 
     // Load sounds from context API, make gameEngineRef, and gameOver State
     const { sounds: gameSoundContext } = useContext(SoundContext);
@@ -127,7 +130,20 @@ function ChatperOneLevelTwo() {
         }
     }, [isGameOver, endGameData.current])
 
+    const [nextLevelData, setNextLevelData] = useState(null);
 
+    // Get next level information to pass as params in the 
+    // next level button in the end of game modal
+    useEffect(() => {
+        async function getNextLevelData() {
+            let mapName = endGameData.current.nextLevel.split('/')[0];
+            let link = endGameData.current.nextLevel.split('/')[1];
+            const nextLevel = await getIndividualLevelData(mapName, link)
+            setNextLevelData(nextLevel[0])
+        }
+        getNextLevelData();
+    }, [])
+    
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
@@ -223,6 +239,7 @@ function ChatperOneLevelTwo() {
                 {isGameOver &&
                     <EndGameModal
                         endGameData={endGameData}
+                        nextLevelData={nextLevelData}
                     />
                 }
             </GameEngine>
