@@ -7,8 +7,6 @@ import colors from '../../constants/colors';
 
 const EndGameModal = ({ endGameData, nextLevelData }) => {
     const finalScore = endGameData.current.airTime * endGameData.current.bounces * endGameData.current.multiplier
-
-    console.log('next level data in end game modal ', nextLevelData)
     return (
         <>
             {nextLevelData &&

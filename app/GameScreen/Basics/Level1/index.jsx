@@ -1,6 +1,6 @@
 import { useRef, useState, useContext, useEffect } from "react";
 import { useLocalSearchParams } from 'expo-router';
-import { GameEngine } from "react-native-game-engine"
+import { GameEngine } from "react-native-game-engine";
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
@@ -132,7 +132,6 @@ function ChatperOneLevelOne() {
             const link = endGameData.current.nextLevel.split('/')[1];
             const nextLevel = await getIndividualLevelData(mapName, link)
             setNextLevelData(nextLevel[0])
-            console.log(nextLevel)
         }
         getNextLevelData();
     }, [])

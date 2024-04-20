@@ -35,8 +35,6 @@ function ChatperOneLevelTwo() {
     // Grab the level Id 
     const { levelId, lastAccuracy, lastHighscore, lastEarnedStars } = useLocalSearchParams();
 
-    console.log('local search params ', levelId, lastAccuracy, lastEarnedStars )
-
     // Load sounds from context API, make gameEngineRef, and gameOver State
     const { sounds: gameSoundContext } = useContext(SoundContext);
     const gameEngineRef = useRef(null);

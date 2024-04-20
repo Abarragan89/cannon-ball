@@ -33,13 +33,6 @@ import {
 
 function ChatperOneLevelThree() {
     const { levelId, lastAccuracy, lastHighscore, lastEarnedStars } = useLocalSearchParams();
-    console.log('local search params ', levelId, lastAccuracy, lastEarnedStars )
-
-    console.log('level Id ', levelId)
-    console.log('last accuracy ', lastAccuracy)
-    console.log('last highscore ', lastHighscore)
-    console.log('last earned stars ', lastEarnedStars)
-
 
     // Load sounds from context API, make gameEngineRef, and gameOver State
     const { sounds: gameSoundContext } = useContext(SoundContext);
@@ -113,7 +106,6 @@ function ChatperOneLevelThree() {
                 currentEarnedStars = 0;
             }
             async function updateLevelData() {
-                console.log('data in ', currentAccuracy, currentHighScore)
                 // Update users highscore
                 await updateUserTotalPoints(currentHighScore)
                 // Update level to passed if not already passed

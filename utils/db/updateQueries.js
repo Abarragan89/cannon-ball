@@ -5,7 +5,6 @@ export async function updateLevelToPass(levelId) {
     let data;
     const db = openDatabaseConnection();
     try {
-        console.log('in update level pass')
         await db.transactionAsync(async tx => {
             const myData =  await tx.executeSqlAsync(`
                     UPDATE levels
@@ -25,7 +24,6 @@ export async function updateLevelHighScore(levelId, highscore) {
     let data;
     const db = openDatabaseConnection();
     try {
-        console.log('in update level highscore')
         await db.transactionAsync(async tx => {
             const myData =  await tx.executeSqlAsync(`
                     UPDATE levels
@@ -45,7 +43,6 @@ export async function updateLevelAccuracy(levelId, accuracy) {
     let data;
     const db = openDatabaseConnection();
     try {
-        console.log('in update level accuracy')
         await db.transactionAsync(async tx => {
             const myData =  await tx.executeSqlAsync(`
                     UPDATE levels
@@ -65,8 +62,6 @@ export async function updateLevelEarnedStars(levelId, earnedStars) {
     let data;
     const db = openDatabaseConnection();
     try {
-        console.log('in update level stars')
-
         await db.transactionAsync(async tx => {
             const myData =  await tx.executeSqlAsync(`
                     UPDATE levels
@@ -86,7 +81,6 @@ export async function updateUserTotalPoints(points) {
     let data;
     const db = openDatabaseConnection();
     try {
-        console.log('in update user points')
         await db.transactionAsync(async tx => {
             const myData =  await tx.executeSqlAsync(`
                     UPDATE users
