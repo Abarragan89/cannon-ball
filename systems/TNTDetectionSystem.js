@@ -5,11 +5,11 @@ const TNTDetectionSystem = (entities) => {
     function calculateAccuracy() {
         // coordinates for the bottom of the ball
         const ballXCoord = entities.cannonBall.position[0] + 10;
-        const ballYCoord = entities.cannonBall.position[1] + 20;
+        const ballYCoord = entities.cannonBall.position[1] + 10;
 
         // coordinate for the top center of the TNT
         const tntXCoord = entities.TNT.position[0] + 15;
-        const tntYCoord = entities.TNT.position[1] - 2;
+        const tntYCoord = entities.TNT.position[1] - 7;
 
         // calculate the length of both sides
         const triangleASide = Math.abs(ballXCoord - tntXCoord);
@@ -25,7 +25,7 @@ const TNTDetectionSystem = (entities) => {
                 multiplier: 2,
 
             }
-        } else if (accuracyAmount >= 5) {
+        } else if (accuracyAmount >= 3) {
             entities.cannonBall.accuracy =
             {
                 name: 'Great Shot!',
@@ -56,7 +56,7 @@ const TNTDetectionSystem = (entities) => {
         // pass data to end game modal
         setEndGameModalStats();
         // Lower TNT handle
-        entities.TNT.handlePosition[0] = -6;
+        entities.TNT.handlePosition[0] = -13;
         // pause the cannonBall
         entities.cannonBall.velocity[1] = 0
         entities.cannonBall.velocity[0] = 0
@@ -111,9 +111,9 @@ const TNTDetectionSystem = (entities) => {
 
     // TOP LINE OF TNT BOX
     const topLineX1 = entities.TNT.position[0] + 3;
-    const topLineY1 = entities.TNT.position[1] + 5;
+    const topLineY1 = entities.TNT.position[1] + 3;
     const topLineX2 = entities.TNT.position[0] + 27;
-    const topLineY2 = entities.TNT.position[1] + 2;
+    const topLineY2 = entities.TNT.position[1] + 3;
 
     // CIRCLE PROPERTIES
     const radius = 10;

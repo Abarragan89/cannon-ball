@@ -207,7 +207,7 @@ function ChatperFourLevelThree() {
                     TNT: {
                         position: [50, screenHeight - 200],
                         display: 'block',
-                        handlePosition: [-13, 0],
+                        handlePosition: [-19, 0],
                         renderer: <TNT />
                     },
                     explosion: {

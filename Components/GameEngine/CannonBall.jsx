@@ -26,16 +26,27 @@ function CannonBall({ position, display, color, gradientColor }) {
 }
 
 const styles = StyleSheet.create({
+    // cannonBall: {
+    //     zIndex: 0,
+    //     height: 20,
+    //     position: 'absolute',
+    //     width: 20,
+    //     borderRadius: RADIUS * 2,
+    //     borderWidth: 1,
+    //     width: RADIUS * 2,
+    //     height: RADIUS * 2,
+    // }
+
     cannonBall: {
         zIndex: 0,
         height: 20,
         position: 'absolute',
-        width: 20,
         borderRadius: RADIUS * 2,
         borderWidth: 1,
         width: RADIUS * 2,
         height: RADIUS * 2,
     }
+
 })
 
 

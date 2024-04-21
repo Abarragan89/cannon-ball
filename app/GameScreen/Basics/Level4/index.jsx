@@ -195,7 +195,7 @@ function ChatperOneLevelFour() {
                     TNT: {
                         position: [screenWidth - 200, 150],
                         display: 'block',
-                        handlePosition: [-13, 0],
+                        handlePosition: [-19, 0],
                         renderer: <TNT />
                     },
                     explosion: {

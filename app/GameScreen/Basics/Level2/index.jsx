@@ -141,7 +141,7 @@ function ChatperOneLevelTwo() {
         }
         getNextLevelData();
     }, [])
-    
+
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
@@ -195,7 +195,7 @@ function ChatperOneLevelTwo() {
                     TNT: {
                         position: [screenWidth - 31, 60],
                         display: 'block',
-                        handlePosition: [-13, 0],
+                        handlePosition: [-19, 0],
                         renderer: <TNT />
                     },
                     explosion: {

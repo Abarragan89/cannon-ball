@@ -199,7 +199,7 @@ function ChatperThreeLevelOne() {
                     TNT: {
                         position: [screenWidth - 100, 100],
                         display: 'block',
-                        handlePosition: [-13, 0],
+                        handlePosition: [-19, 0],
                         renderer: <TNT />
                     },
                     explosion: {

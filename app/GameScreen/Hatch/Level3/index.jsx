@@ -215,7 +215,7 @@ function ChapterFiveLevelThree() {
                     TNT: {
                         position: [screenWidth - 100, screenHeight - 125],
                         display: 'block',
-                        handlePosition: [-13, 0],
+                        handlePosition: [-19, 0],
                         renderer: <TNT />
                     },
                     explosion: {
