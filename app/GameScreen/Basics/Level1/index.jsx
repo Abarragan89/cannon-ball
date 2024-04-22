@@ -29,8 +29,6 @@ import {
     updateLevelEarnedStars
 } from "../../../../utils/db/updateQueries";
 
-import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
-
 function ChatperOneLevelOne() {
     // Grab the level Id 
     const { levelId, lastAccuracy, lastHighscore, lastEarnedStars } = useLocalSearchParams();
@@ -157,8 +155,7 @@ function ChatperOneLevelOne() {
                         cannonControlSystem,
                         TNTDetectionSystem,
                         scoreCalculatorSystem,
-                        fireCannonSystem,
-                        // followCannonBallOnMove
+                        fireCannonSystem
                     ]}
                     entities={{
                         cannonBall: {

@@ -188,7 +188,8 @@ function ChatperOneLevelTwo() {
                         backgroundWaveSound: gameSoundContext?.current?.backgroundWaveSound
                     },
                     cannon: {
-                        position: [400, screenHeight - 100],
+                        // position: [400, screenHeight - 100],
+                        position: [5, screenHeight - 100],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
