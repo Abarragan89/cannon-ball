@@ -5,9 +5,8 @@ import SecondaryButton from '../UI/SecondaryButton';
 import { Fontisto } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 
-const EndGameModal = ({ endGameData }) => {
+const EndGameModal = ({ endGameData, nextLevelData }) => {
     const finalScore = endGameData.current.airTime * endGameData.current.bounces * endGameData.current.multiplier
-
     return (
         <View style={[styles.root,]}>
             <View style={styles.modalMainView}>
@@ -52,9 +51,18 @@ const EndGameModal = ({ endGameData }) => {
                         route={'/LevelLobbyScreen'}
                         params={{ mapName: endGameData.current.currentLevel }}
                     >Back</SecondaryButton>
-                    <SecondaryButton
-                        route={`/GameScreen/${endGameData.current.nextLevel}`}
-                    >Next Level</SecondaryButton>
+
+                    {nextLevelData !== null &&
+                        <SecondaryButton
+                            route={`/GameScreen/${endGameData.current.nextLevel}`}
+                            params={{
+                                levelId: nextLevelData.id,
+                                lastAccuracy: nextLevelData.accuracy,
+                                lastHighscore: nextLevelData.highscore,
+                                lastEarnedStars: nextLevelData.earnedStars,
+                            }}
+                        >Next Level</SecondaryButton>
+                    }
                 </View>
             </View>
         </View>
@@ -91,14 +99,16 @@ const styles = StyleSheet.create({
     },
     pixelTextContainer: {
         borderRadius: 4,
-        backgroundColor: colors.winningStar,
+        backgroundColor: '#ffff003d',
         padding: 3,
         paddingHorizontal: 5,
+        borderWidth: 1,
+        borderColor: '#0000005c'
     },
     pixelText: {
         color: colors.skyColor,
         textAlign: 'center',
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: 'textFont',
     },
     detailsContainer: {
@@ -132,7 +142,7 @@ const styles = StyleSheet.create({
     },
     tryHigherScoreText: {
         fontFamily: 'textFont',
-        color: colors.winningStar,
+        color: colors.offWhite,
         fontSize: 18,
         textAlign: 'center',
         width: 300,

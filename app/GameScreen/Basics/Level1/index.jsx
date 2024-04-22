@@ -1,5 +1,6 @@
 import { useRef, useState, useContext, useEffect } from "react";
-import { GameEngine } from "react-native-game-engine"
+import { useLocalSearchParams } from 'expo-router';
+import { GameEngine } from "react-native-game-engine";
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
@@ -19,14 +20,35 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { SoundContext } from "../../../../store/soundsContext";
-
+import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
+import {
+    updateLevelToPass,
+    updateLevelHighScore,
+    updateLevelAccuracy,
+    updateUserTotalPoints,
+    updateLevelEarnedStars
+} from "../../../../utils/db/updateQueries";
 
 function ChatperOneLevelOne() {
+    // Grab the level Id 
+    const { levelId, lastAccuracy, lastHighscore, lastEarnedStars } = useLocalSearchParams();
+
     // Load sounds from context API, make gameEngineRef, and gameOver State
     const { sounds: gameSoundContext } = useContext(SoundContext);
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     const [playBgMusic, setPlayBgMusic] = useState(true)
+
+    const endGameData = useRef({
+        accuracyFloat: 0,
+        accuracyName: '',
+        winningScore: [500, 1000, 2000],
+        airTime: 0,
+        bounces: 0,
+        multiplier: 0,
+        currentLevel: 'Basics',
+        nextLevel: 'Basics/Level2'
+    });
 
     // Play background noises and stop them when game is over
     useEffect(() => {
@@ -57,24 +79,67 @@ function ChatperOneLevelOne() {
             gameSoundContext.current.backgroundMusicSound.stopAsync();
             gameSoundContext.current.backgroundWaveSound.stopAsync();
         }
-    }, [playBgMusic])
+    }, [playBgMusic]);
 
+
+    // Backend updates 
+    useEffect(() => {
+        // 'isGameOver' should more appropriately be named 'gameWon'
+        if (isGameOver) {
+            // get highscore, accuracy, and earnedStars amount after user wins
+            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime * endGameData.current.bounces)
+            const currentAccuracy = endGameData.current.accuracyFloat;
+            let currentEarnedStars = 0
+            // determine earned stars
+            if (currentHighScore >= endGameData.current.winningScore[2]) {
+                currentEarnedStars = 3;
+            } else if (currentHighScore >= endGameData.current.winningScore[1]) {
+                currentEarnedStars = 2;
+            } else if (currentHighScore >= endGameData.current.winningScore[0]) {
+                currentEarnedStars = 1;
+            } else {
+                currentEarnedStars = 0;
+            }
+            async function updateLevelData() {
+                // Update level to passed if not already passed
+                await updateLevelToPass(levelId)
+                // Update users highscore
+                await updateUserTotalPoints(currentHighScore)
+                // Compare the highscore to the old highscore
+                if (currentHighScore > +lastHighscore) {
+                    await updateLevelHighScore(levelId, currentHighScore)
+                }
+                // Compare the accuracy with old accuracy
+                if (currentAccuracy < +lastAccuracy) {
+                    await updateLevelAccuracy(levelId, currentAccuracy)
+                }
+                // Compare earnedStars
+                if (currentEarnedStars > +lastEarnedStars) {
+                    await updateLevelEarnedStars(levelId, currentEarnedStars)
+                }
+            }
+            updateLevelData();
+        }
+    }, [isGameOver, endGameData.current]);
+
+    const [nextLevelData, setNextLevelData] = useState(null);
+
+    // Get next level information to pass as params in the 
+    // next level button in the end of game modal
+    useEffect(() => {
+        async function getNextLevelData() {
+            const mapName = endGameData.current.nextLevel.split('/')[0];
+            const link = endGameData.current.nextLevel.split('/')[1];
+            const nextLevel = await getIndividualLevelData(mapName, link)
+            setNextLevelData(nextLevel[0])
+        }
+        getNextLevelData();
+    }, [])
 
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
     const powerLevelRef = useRef(15)
-
-    const endGameData = useRef({
-        accuracyFloat: 0,
-        accuracyName: '',
-        winningScore: [500, 1000, 2000],
-        airTime: 0,
-        bounces: 0,
-        multiplier: 0,
-        currentLevel: 'Basics',
-        nextLevel: 'Basics/Level2'
-    })
 
     return (
         <ImageBackground
@@ -90,7 +155,7 @@ function ChatperOneLevelOne() {
                         cannonControlSystem,
                         TNTDetectionSystem,
                         scoreCalculatorSystem,
-                        fireCannonSystem,
+                        fireCannonSystem
                     ]}
                     entities={{
                         cannonBall: {
@@ -128,7 +193,7 @@ function ChatperOneLevelOne() {
                         TNT: {
                             position: [250, 100],
                             display: 'block',
-                            handlePosition: [-13, 0],
+                            handlePosition: [-19, 0],
                             renderer: <TNT />
                         },
                         explosion: {
@@ -170,6 +235,7 @@ function ChatperOneLevelOne() {
                     {isGameOver &&
                         <EndGameModal
                             endGameData={endGameData}
+                            nextLevelData={nextLevelData}
                         />
                     }
                 </GameEngine>

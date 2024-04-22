@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
         zIndex: 0,
         height: 20,
         position: 'absolute',
-        width: 20,
         borderRadius: RADIUS * 2,
         borderWidth: 1,
         width: RADIUS * 2,
         height: RADIUS * 2,
     }
+
 })
 
 

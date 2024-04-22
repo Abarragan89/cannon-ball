@@ -1,5 +1,6 @@
 import { useRef, useState, useContext, useEffect } from "react";
-import { GameEngine } from "react-native-game-engine"
+import { GameEngine } from "react-native-game-engine";
+import { useLocalSearchParams } from 'expo-router';
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
@@ -30,9 +31,20 @@ import longHindSystemFour from "../../../../systems/hinderanceDetection/longHind
 import cannonDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
 import { SoundContext } from "../../../../store/soundsContext";
 import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
+import {
+    updateLevelToPass,
+    updateLevelHighScore,
+    updateLevelAccuracy,
+    updateUserTotalPoints,
+    updateLevelEarnedStars
+} from "../../../../utils/db/updateQueries";
 
 
 function ChapterFourLevelFour() {
+    // Grab the level Id 
+    const { levelId, lastAccuracy, lastHighscore, lastEarnedStars } = useLocalSearchParams();
+
     // Load sounds from context API, make gameEngineRef, and gameOver State
     const { sounds: gameSoundContext } = useContext(SoundContext);
     const gameEngineRef = useRef(null);
@@ -84,9 +96,63 @@ function ChapterFourLevelFour() {
         multiplier: 0,
         currentLevel: 'Kraken',
         nextLevel: 'Kraken/Level5'
-    })
-    return (
+    });
 
+    // Backend updates 
+    useEffect(() => {
+        // 'isGameOver' should more appropriately be named 'gameWon'
+        if (isGameOver) {
+            // get highscore, accuracy, and earnedStars amount after user wins
+            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime * endGameData.current.bounces)
+            const currentAccuracy = endGameData.current.accuracyFloat;
+            let currentEarnedStars = 0
+            // determine earned stars
+            if (currentHighScore >= endGameData.current.winningScore[2]) {
+                currentEarnedStars = 3;
+            } else if (currentHighScore >= endGameData.current.winningScore[1]) {
+                currentEarnedStars = 2;
+            } else if (currentHighScore >= endGameData.current.winningScore[0]) {
+                currentEarnedStars = 1;
+            } else {
+                currentEarnedStars = 0;
+            }
+            async function updateLevelData() {
+                // Update level to passed if not already passed
+                await updateLevelToPass(levelId)
+                // Update users highscore
+                await updateUserTotalPoints(currentHighScore)
+                // Compare the highscore to the old highscore
+                if (currentHighScore > +lastHighscore) {
+                    await updateLevelHighScore(levelId, currentHighScore)
+                }
+                // Compare the accuracy with old accuracy
+                if (currentAccuracy < +lastAccuracy) {
+                    await updateLevelAccuracy(levelId, currentAccuracy)
+                }
+                // Compare earnedStars
+                if (currentEarnedStars > +lastEarnedStars) {
+                    await updateLevelEarnedStars(levelId, currentEarnedStars)
+                }
+            }
+            updateLevelData();
+        }
+    }, [isGameOver, endGameData.current]);
+
+    const [nextLevelData, setNextLevelData] = useState(null);
+
+    // Get next level information to pass as params in the 
+    // next level button in the end of game modal
+    useEffect(() => {
+        async function getNextLevelData() {
+            const mapName = endGameData.current.nextLevel.split('/')[0];
+            const link = endGameData.current.nextLevel.split('/')[1];
+            const nextLevel = await getIndividualLevelData(mapName, link)
+            setNextLevelData(nextLevel[0])
+        }
+        getNextLevelData();
+    }, []);
+
+    return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
@@ -149,7 +215,7 @@ function ChapterFourLevelFour() {
                     TNT: {
                         position: [250, screenHeight - 40],
                         display: 'block',
-                        handlePosition: [-13, 0],
+                        handlePosition: [-19, 0],
                         renderer: <TNT />
                     },
                     explosion: {
@@ -178,7 +244,7 @@ function ChapterFourLevelFour() {
                         renderer: <PowerMeter />
                     },
                     cannonStand: {
-                        position: [Math.floor(screenWidth / 2) - 35, 75], 
+                        position: [Math.floor(screenWidth / 2) - 35, 75],
                         renderer: <CannonStand />
                     },
                     squareHindOne: {
@@ -194,13 +260,13 @@ function ChapterFourLevelFour() {
                         renderer: <Hinderance />
                     },
                     longHindOne: {
-                        position: [Math.floor(screenWidth/2) - 120, 180],
+                        position: [Math.floor(screenWidth / 2) - 120, 180],
                         width: 120,
                         height: 30,
                         renderer: <Hinderance />
                     },
                     longHindTwo: {
-                        position: [Math.floor(screenWidth/2), 180],
+                        position: [Math.floor(screenWidth / 2), 180],
                         width: 120,
                         height: 30,
                         renderer: <Hinderance />
@@ -232,6 +298,7 @@ function ChapterFourLevelFour() {
                 {isGameOver &&
                     <EndGameModal
                         endGameData={endGameData}
+                        nextLevelData={nextLevelData}
                     />
                 }
             </GameEngine>

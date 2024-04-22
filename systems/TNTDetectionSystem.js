@@ -5,11 +5,11 @@ const TNTDetectionSystem = (entities) => {
     function calculateAccuracy() {
         // coordinates for the bottom of the ball
         const ballXCoord = entities.cannonBall.position[0] + 10;
-        const ballYCoord = entities.cannonBall.position[1] + 20;
+        const ballYCoord = entities.cannonBall.position[1] + 10;
 
         // coordinate for the top center of the TNT
         const tntXCoord = entities.TNT.position[0] + 15;
-        const tntYCoord = entities.TNT.position[1] - 2;
+        const tntYCoord = entities.TNT.position[1] - 7;
 
         // calculate the length of both sides
         const triangleASide = Math.abs(ballXCoord - tntXCoord);
@@ -25,7 +25,7 @@ const TNTDetectionSystem = (entities) => {
                 multiplier: 2,
 
             }
-        } else if (accuracyAmount >= 5) {
+        } else if (accuracyAmount >= 3) {
             entities.cannonBall.accuracy =
             {
                 name: 'Great Shot!',
@@ -40,6 +40,7 @@ const TNTDetectionSystem = (entities) => {
                 multiplier: 5,
             }
         }
+        return accuracyAmount
     }
 
     function endGameHandler() {
@@ -50,15 +51,16 @@ const TNTDetectionSystem = (entities) => {
         //trigger the boolean to let the air-time counter stop and game aspects
         //this is different than the useState is gameover that sets the modal
         entities.gameData.isGameOver = true;
-        // calculate accuracy to center of box
-        calculateAccuracy();
         // pass data to end game modal
         setEndGameModalStats();
         // Lower TNT handle
-        entities.TNT.handlePosition[0] = -6;
+        entities.TNT.handlePosition[0] = -14;
+        calculateAccuracy();
         // pause the cannonBall
         entities.cannonBall.velocity[1] = 0
         entities.cannonBall.velocity[0] = 0
+        // calculate accuracy to center of ball being over the center or box
+
         setTimeout(() => {
             // set the ball explosion coordinates
             entities.explosion.ballPosition[0] = entities.cannonBall.position[0] + 5;
@@ -90,15 +92,15 @@ const TNTDetectionSystem = (entities) => {
         entities.gameData.endGameData.current.bounces = entities.headerStats.bounces + 1;
     }
 
-    // Left LINE OF TNT BOX
-    const leftLineX1 = entities.TNT.position[0];
-    const leftLineY1 = entities.TNT.position[1] - 3;
-    const leftLineX2 = entities.TNT.position[0];
+    // LEFT LINE OF TNT BOX
+    const leftLineX1 = entities.TNT.position[0] - 3;
+    const leftLineY1 = entities.TNT.position[1];
+    const leftLineX2 = entities.TNT.position[0] - 3;
     const leftLineY2 = entities.TNT.position[1] + 30;
 
-    // Right LINE OF TNT BOX
+    // RIGHT LINE OF TNT BOX
     const rightLineX1 = entities.TNT.position[0] + 33;
-    const rightLineY1 = entities.TNT.position[1] - 3;
+    const rightLineY1 = entities.TNT.position[1];
     const rightLineX2 = entities.TNT.position[0] + 33;
     const rightLineY2 = entities.TNT.position[1] + 27;
 
@@ -108,11 +110,11 @@ const TNTDetectionSystem = (entities) => {
     const bottomLineX2 = entities.TNT.position[0] + 27;
     const bottomLineY2 = entities.TNT.position[1] + 33;
 
-    // TOP LINE OF TNT BOX
-    const topLineX1 = entities.TNT.position[0] + 3;
-    const topLineY1 = entities.TNT.position[1] + 5;
-    const topLineX2 = entities.TNT.position[0] + 27;
-    const topLineY2 = entities.TNT.position[1] + 2;
+    // TOP LINE OF TNT BOX (The Handle)
+    const topLineX1 = entities.TNT.position[0] + 10;
+    const topLineY1 = entities.TNT.position[1] - 2;
+    const topLineX2 = entities.TNT.position[0] + 20;
+    const topLineY2 = entities.TNT.position[1] - 2;
 
     // CIRCLE PROPERTIES
     const radius = 10;
@@ -121,6 +123,8 @@ const TNTDetectionSystem = (entities) => {
 
     ///////////// CHECKING FOR LEFT WALL DETECTION ////////////////////////
     if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
+        console.log('left detected')
+
         if (entities.cannonBall.velocity[0] > 0) {
             entities.sounds.tntCannonBallHitSound.replayAsync();
             entities.headerStats.bounces += 1;
@@ -130,6 +134,8 @@ const TNTDetectionSystem = (entities) => {
 
     ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
     if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
+        console.log('right detected')
+
         if (entities.cannonBall.velocity[0] < 0) {
             entities.sounds.tntCannonBallHitSound.replayAsync();
             entities.headerStats.bounces += 1;
@@ -148,6 +154,7 @@ const TNTDetectionSystem = (entities) => {
 
     ////////////////// CHECKING FOR TOP WALL DETECTION /////////////////
     if (lineBallDetection(topLineX1, topLineY1, topLineX2, topLineY2, circleX, circleY, radius)) {
+        console.log('top wall detected')
         endGameHandler();
     }
 

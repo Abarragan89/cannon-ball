@@ -1,17 +1,42 @@
 import { router } from 'expo-router';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
 import colors from '../constants/colors';
 import { Fontisto } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 
-const LevelTile = ({ children, route, isLocked }) => {
-    const onPressHandler = () => router.push({ pathname: route });
+const LevelTile = ({ children, route, params, isLocked, accuracy, highscore, earnedStars, currentLevel }) => {
 
-    if (isLocked) {
+    const [prevLevel, setPrevLevel] = useState('')
+
+    useEffect(() => {
+        // Determine Previous Level
+        if (currentLevel) {
+            switch (currentLevel) {
+                case 'Level Two':
+                    setPrevLevel('Level One')
+                    break;
+                case 'Level Three':
+                    setPrevLevel('Level Two')
+                    break;
+                case 'Level Four':
+                    setPrevLevel('Level Three')
+                    break;
+                case 'Level Five':
+                    setPrevLevel('Level Four')
+                    break;
+            }
+        }
+    }, [currentLevel])
+
+
+    const onPressHandler = () => router.push({ pathname: route, params: params });
+
+    if (isLocked === 0) {
         return (
             <View style={styles.containerLockedLevel}>
-                <Text style={styles.earnMoreStarsText}>Complete level One to unlock</Text>
+                <Text style={styles.earnMoreStarsText}>Complete {prevLevel} to unlock</Text>
                 <Entypo name="lock" size={35} color="#000000b7" />
             </View>
         )
@@ -24,20 +49,39 @@ const LevelTile = ({ children, route, isLocked }) => {
                     {children}
                 </Text>
                 <View style={styles.starContainer}>
-                    <Fontisto style={styles.star} name="star" size={20} color={colors.winningStar} />
-                    <Fontisto style={styles.star} name="star" size={20} color={colors.sandColorAccent} />
-                    <Fontisto style={styles.star} name="star" size={20} color={colors.sandColorAccent} />
+                    {
+                        earnedStars > 0 ?
+                            <Fontisto style={styles.star} name="star" size={20} color={colors.winningStar} />
+                            :
+                            <Fontisto style={styles.star} name="star" size={20} color={colors.sandColorAccent} />
+                    }
+                    {
+                        earnedStars > 1 ?
+                            <Fontisto style={styles.star} name="star" size={20} color={colors.winningStar} />
+                            :
+                            <Fontisto style={styles.star} name="star" size={20} color={colors.sandColorAccent} />
+                    }
+                    {
+                        earnedStars > 2 ?
+                            <Fontisto style={styles.star} name="star" size={20} color={colors.winningStar} />
+                            :
+                            <Fontisto style={styles.star} name="star" size={20} color={colors.sandColorAccent} />
+                    }
                 </View>
             </View>
             <View>
                 <View style={styles.levelStatsContainer}>
                     <View style={styles.levelDetailsContainer}>
                         <Text style={[styles.text, styles.detailLabel]}>Accuracy</Text>
-                        <Text style={styles.text}>91.02 px</Text>
+                        {accuracy === 50 ?
+                            <Text style={styles.text}>N/A</Text>
+                            :
+                            <Text style={styles.text}>{accuracy} px</Text>
+                        }
                     </View>
                     <View style={styles.levelDetailsContainer}>
                         <Text style={[styles.text, styles.detailLabel]}>Highscore</Text>
-                        <Text style={styles.text}>19,019</Text>
+                        <Text style={styles.text}>{highscore}</Text>
                     </View>
                 </View>
             </View>

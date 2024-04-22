@@ -36,6 +36,62 @@ const fireCannonSystem = (entities, { touches }) => {
       entities.headerStats.bounces = 0;
       // reset the fire button UI
       entities.fireBtn.isShooting = false;
+
+
+      /////////// THIS TRIGGERS THE WIN SEQUENCE IF HITS BOTTOM FOR TESTING PURPOSES /////////
+      ////////////// ERASE THIS ///////////////////////////
+      // entities.gameData.isGameOver = true;
+      // entities.gameData.setIsGameOver(true);
+
+      // // coordinates for the bottom of the ball
+      // const ballXCoord = entities.cannonBall.position[0] + 10;
+      // const ballYCoord = entities.cannonBall.position[1] + 20;
+
+      // // coordinate for the top center of the TNT
+      // const tntXCoord = entities.TNT.position[0] + 15;
+      // const tntYCoord = entities.TNT.position[1] - 2;
+
+      // // calculate the length of both sides
+      // const triangleASide = Math.abs(ballXCoord - tntXCoord);
+      // const triangeBSide = Math.abs(ballYCoord - tntYCoord);
+
+      // const accuracyAmount = (Math.sqrt(triangleASide ** 2 + triangeBSide ** 2)).toFixed(2);
+
+      // if (accuracyAmount >= 15) {
+      //   entities.cannonBall.accuracy =
+      //   {
+      //     name: 'Good Shot',
+      //     float: accuracyAmount,
+      //     multiplier: 2,
+
+      //   }
+      // } else if (accuracyAmount >= 5) {
+      //   entities.cannonBall.accuracy =
+      //   {
+      //     name: 'Great Shot!',
+      //     float: accuracyAmount,
+      //     multiplier: 3,
+      //   }
+      // } else {
+      //   entities.cannonBall.accuracy =
+      //   {
+      //     name: 'Perfect Shot!!!',
+      //     float: accuracyAmount,
+      //     multiplier: 5,
+      //   }
+      // }
+
+      // // pass all the relevant data to end game modal
+      // entities.gameData.endGameData.current.accuracyFloat = entities.cannonBall.accuracy.float;
+      // entities.gameData.endGameData.current.accuracyName = entities.cannonBall.accuracy.name;
+      // entities.gameData.endGameData.current.multiplier = entities.cannonBall.accuracy.multiplier
+      // entities.gameData.endGameData.current.airTime = entities.headerStats.airTime;
+      // entities.gameData.endGameData.current.bounces = entities.headerStats.bounces + 1;
+
+      // /////////////////////////////////////////////////////////////
+
+
+
     }
     // if hits right wall
     if (entities.cannonBall.position[0] > width - 14) {
@@ -119,8 +175,6 @@ const fireCannonSystem = (entities, { touches }) => {
 
   return entities;
 }
-
-
 
 
 export default fireCannonSystem;

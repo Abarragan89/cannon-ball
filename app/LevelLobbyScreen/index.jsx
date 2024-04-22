@@ -1,75 +1,71 @@
-import { View, StyleSheet, ScrollView, ImageBackground } from 'react-native'
+import { View, StyleSheet, ScrollView, ImageBackground, StatusBar } from 'react-native';
+import { useEffect, useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import Title from '../../Components/UI/Title';
 import colors from '../../constants/colors';
 import BackArrow from '../../Components/UI/BackArrow';
 import LevelTile from '../../Components/LevelTile';
+import { getAllLevelDataInMap } from '../../utils/db/selectQueries';
 
 const LevelLobbyScreen = () => {
     const { mapName } = useLocalSearchParams();
 
-    const levelData = [
-        {
-            link: 'Level1',
-            level: 'Level One',
-            isLocked: false,
-        },
-        {
-            link: 'Level2',
-            level: 'Level Two',
-            isLocked: false,
-        },
-        {
-            link: 'Level3',
-            level: 'Level Three',
-            isLocked: false,
-        },
-        {
-            link: 'Level4',
-            level: 'Level Four',
-            isLocked: true,
-        },
-        {
-            link: 'Level5',
-            level: 'Level Five',
-            isLocked: true,
-        },
-    ]
+    const [currentLevelData, setCurrentLevelData] = useState([])
+
+    useEffect(() => {
+        async function getLevelData() {
+            const levelData = await getAllLevelDataInMap(1, mapName);
+            setCurrentLevelData(levelData)
+        }
+        if (mapName) getLevelData();
+    }, [mapName])
 
     return (
         <>
-        <ImageBackground
-            source={require('../../assets/images/levelLobbyBgImage.png')}
-            style={styles.backgroundImg}
+            <StatusBar hidden={true} />
+            <ImageBackground
+                source={require('../../assets/images/levelLobbyBgImage.png')}
+                style={styles.backgroundImg}
 
-        >
-            <View style={styles.backIcon}>
-                <BackArrow
-                    route='CampaignOverviewScreen'
-                />
-            </View>
-            <ScrollView>
-                {mapName &&
-                    <View style={styles.root}>
-                        <View style={styles.titleContainer}>
-                            <Title color={colors.offWhite} size={50}>{mapName}</Title>
+            >
+
+                <View style={styles.backIcon}>
+                    <BackArrow
+                        route='CampaignOverviewScreen'
+                    />
+                </View>
+                <ScrollView>
+                    {mapName && currentLevelData &&
+                        <View style={styles.root}>
+                            <View style={styles.titleContainer}>
+                                <Title color={colors.offWhite} size={50}>{mapName}</Title>
+                            </View>
+                            <View style={styles.levelBtnContainer}>
+                                {currentLevelData.map((item, index) => (
+                                    <View key={index} style={styles.singleLevelButton}>
+                                        <LevelTile
+                                            route={`/GameScreen/${mapName}/${item.link}`}
+                                            params={{
+                                                levelId: item.id,
+                                                lastAccuracy: item.accuracy,
+                                                lastHighscore: item.highscore,
+                                                lastEarnedStars: item.earnedStars,
+                                            }}
+                                            isLocked={item.isOpen}
+                                            accuracy={item.accuracy}
+                                            highscore={item.highscore}
+                                            earnedStars={item.earnedStars}
+                                            currentLevel={item.level}
+                                        >
+                                            {item.level}
+                                        </LevelTile>
+                                    </View>
+                                ))}
+                            </View>
                         </View>
-                        <View style={styles.levelBtnContainer}>
-                            {levelData.map((item, index) => (
-                                <View key={index} style={styles.singleLevelButton}>
-                                    <LevelTile
-                                        route={`/GameScreen/${mapName}/${item.link}`}
-                                        isLocked={item.isLocked}
-                                    >
-                                        {item.level}
-                                    </LevelTile>
-                                </View>
-                            ))}
-                        </View>
-                    </View>
-                }
-            </ScrollView>
-        </ImageBackground>
+                    }
+                </ScrollView>
+            </ImageBackground>
         </>
     )
 }
