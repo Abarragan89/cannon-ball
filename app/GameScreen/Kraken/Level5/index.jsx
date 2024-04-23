@@ -135,21 +135,6 @@ function ChapterFourLevelFive() {
         }
     }, [isGameOver, endGameData.current]);
 
-    const [nextLevelData, setNextLevelData] = useState(null);
-
-    // Get next level information to pass as params in the 
-    // next level button in the end of game modal
-    useEffect(() => {
-        async function getNextLevelData() {
-            const mapName = endGameData.current.nextLevel.split('/')[0];
-            const link = endGameData.current.nextLevel.split('/')[1];
-            const nextLevel = await getIndividualLevelData(mapName, link)
-            setNextLevelData(nextLevel[0])
-        }
-        getNextLevelData();
-    }, []);
-
-
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
@@ -278,10 +263,10 @@ function ChapterFourLevelFive() {
                     params={{ mapName: 'Kraken' }}
                 />
 
-                {isGameOver && nextLevelData &&
+                {isGameOver &&
                     <EndGameModal
                         endGameData={endGameData}
-                        nextLevelData={nextLevelData}
+                        nextLevelData={null}
                     />
                 }
             </GameEngine>

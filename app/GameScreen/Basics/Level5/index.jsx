@@ -125,20 +125,6 @@ function ChatperOneLevelFive() {
         }
     }, [isGameOver, endGameData.current]);
 
-    const [nextLevelData, setNextLevelData] = useState(null);
-
-    // Get next level information to pass as params in the 
-    // next level button in the end of game modal
-    useEffect(() => {
-        async function getNextLevelData() {
-            let mapName = endGameData.current.nextLevel.split('/')[0];
-            let link = endGameData.current.nextLevel.split('/')[1];
-            const nextLevel = await getIndividualLevelData(mapName, link)
-            setNextLevelData(nextLevel[0])
-        }
-        getNextLevelData();
-    }, []);
-
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/stuck.png')}
@@ -232,10 +218,10 @@ function ChatperOneLevelFive() {
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Basics' }}
                 />
-                {isGameOver && nextLevelData &&
+                {isGameOver &&
                     <EndGameModal
                         endGameData={endGameData}
-                        nextLevelData={nextLevelData}
+                        nextLevelData={null}
                     />
                 }
             </GameEngine>
