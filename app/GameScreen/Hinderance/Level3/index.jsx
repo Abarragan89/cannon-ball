@@ -242,7 +242,7 @@ function ChatperThreeLevelThree() {
                     params={{ mapName: 'Hinderance' }}
                 />
 
-                {isGameOver &&
+                {isGameOver && nextLevelData &&
                     <EndGameModal
                         endGameData={endGameData}
                         nextLevelData={nextLevelData}

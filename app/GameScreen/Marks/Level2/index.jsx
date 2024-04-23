@@ -234,7 +234,7 @@ function ChatperTwoLevelTwo() {
                     params={{ mapName: 'Marks' }}
                 />
 
-                {isGameOver &&
+                {isGameOver && nextLevelData &&
                     <EndGameModal
                         endGameData={endGameData}
                         nextLevelData={nextLevelData}

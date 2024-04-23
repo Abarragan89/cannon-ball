@@ -101,7 +101,6 @@ function ChatperOneLevelOne() {
                 currentEarnedStars = 0;
             }
             async function updateLevelData() {
-                console.log('in the basics level ', currentAccuracy, lastAccuracy)
                 // Update level to passed if not already passed
                 await updateLevelToPass(levelId)
                 // Update users highscore

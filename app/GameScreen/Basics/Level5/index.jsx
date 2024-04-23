@@ -232,7 +232,7 @@ function ChatperOneLevelFive() {
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Basics' }}
                 />
-                {isGameOver &&
+                {isGameOver && nextLevelData &&
                     <EndGameModal
                         endGameData={endGameData}
                         nextLevelData={nextLevelData}

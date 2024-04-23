@@ -269,7 +269,7 @@ function ChatperFourLevelThree() {
                     params={{ mapName: 'Kraken' }}
                 />
 
-                {isGameOver &&
+                {isGameOver && nextLevelData &&
                     <EndGameModal
                         endGameData={endGameData}
                         nextLevelData={nextLevelData}

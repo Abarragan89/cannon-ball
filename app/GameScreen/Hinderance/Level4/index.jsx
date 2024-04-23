@@ -258,7 +258,7 @@ function ChapterThreeLevelFour() {
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Hinderance' }}
                 />
-                {isGameOver &&
+                {isGameOver && nextLevelData &&
                     <EndGameModal
                         endGameData={endGameData}
                         nextLevelData={nextLevelData}

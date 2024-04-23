@@ -233,7 +233,7 @@ function ChatperOneLevelThree() {
                     params={{ mapName: 'Basics' }}
                 />
 
-                {isGameOver &&
+                {isGameOver && nextLevelData &&
                     <EndGameModal
                         endGameData={endGameData}
                         nextLevelData={nextLevelData}

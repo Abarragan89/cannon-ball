@@ -282,7 +282,7 @@ function ChapterFiveLevelThree() {
                     params={{ mapName: 'Hatch' }}
                 />
 
-                {isGameOver &&
+                {isGameOver && nextLevelData &&
                     <EndGameModal
                         endGameData={endGameData}
                         nextLevelData={nextLevelData}

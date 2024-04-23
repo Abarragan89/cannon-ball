@@ -54,19 +54,18 @@ const TNTDetectionSystem = (entities) => {
         entities.gameData.setPlayBgMusic(false)
         // TNT handle click
         if (!entities.gameData.isGameOver) entities.sounds.tntHandleClickSound.replayAsync();
+        // pass data to end game modal
+        setEndGameModalStats();
+        // calculate accuracy to center of ball being over the center or box
+        calculateAccuracy();
         //trigger the boolean to let the air-time counter stop and game aspects
         //this is different than the useState is gameover that sets the modal
         entities.gameData.isGameOver = true;
-        // pass data to end game modal
-        setEndGameModalStats();
         // Lower TNT handle
         entities.TNT.handlePosition[0] = -14;
-        calculateAccuracy();
         // pause the cannonBall
         entities.cannonBall.velocity[1] = 0
         entities.cannonBall.velocity[0] = 0
-        // calculate accuracy to center of ball being over the center or box
-
         setTimeout(() => {
             // set the ball explosion coordinates
             entities.explosion.ballPosition[0] = entities.cannonBall.position[0] + 5;

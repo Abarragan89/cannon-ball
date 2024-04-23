@@ -261,7 +261,7 @@ function ChapterFiveLevelOne() {
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Hatch' }}
                 />
-                {isGameOver &&
+                {isGameOver && nextLevelData &&
                     <EndGameModal
                         endGameData={endGameData}
                         nextLevelData={nextLevelData}
