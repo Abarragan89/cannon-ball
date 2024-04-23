@@ -78,7 +78,7 @@ function ChatperOneLevelFive() {
     const endGameData = useRef({
         accuracyFloat: 0,
         accuracyName: '',
-        winningScore: [500, 1000, 2000],
+        winningScore: [500, 2000, 4000],
         airTime: 0,
         bounces: 0,
         multiplier: 0,
@@ -90,7 +90,7 @@ function ChatperOneLevelFive() {
         // 'isGameOver' should more appropriately be named 'gameWon'
         if (isGameOver) {
             // get highscore, accuracy, and earnedStars amount after user wins
-            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime * endGameData.current.bounces)
+            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime + endGameData.current.bounces)
             const currentAccuracy = endGameData.current.accuracyFloat;
             let currentEarnedStars = 0
             // determine earned stars

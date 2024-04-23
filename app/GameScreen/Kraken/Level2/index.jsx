@@ -98,7 +98,7 @@ function ChapterFourLevelTwo() {
         // 'isGameOver' should more appropriately be named 'gameWon'
         if (isGameOver) {
             // get highscore, accuracy, and earnedStars amount after user wins
-            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime * endGameData.current.bounces)
+            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime + endGameData.current.bounces)
             const currentAccuracy = endGameData.current.accuracyFloat;
             let currentEarnedStars = 0
             // determine earned stars

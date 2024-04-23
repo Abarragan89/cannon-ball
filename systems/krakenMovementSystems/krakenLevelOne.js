@@ -22,9 +22,9 @@ const krakenLevelOne = (entities) => {
         entities.squareHindOne.position[0] = hinderanceX;
         entities.squareHindOne.position[1] = hinderanceY;
 
+        // Move TNT 
+        moveObstacleUpAndDown(entities.TNT, 160, 165, .6)
     }
-    // Move TNT 
-    moveObstacleUpAndDown(entities.TNT, 160, 165, .6)
     return entities;
 }
 

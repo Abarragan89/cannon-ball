@@ -1,12 +1,12 @@
 import { StyleSheet, View, Text } from "react-native"
 
-const ModalDetaiItemContainer = ({ itemName, itemAmount, hasBorder = 1 }) => {
+const ModalDetaiItemContainer = ({ itemName, itemAmount, hasBorder = 1, operation }) => {
 
     return (
         <View style={[styles.itemContainer, styles.itemContainerUnderline, { borderBottomWidth: hasBorder }]}>
             <Text style={styles.detailText}>{itemName}</Text>
             {hasBorder === 1 &&
-                <Text style={styles.detailText}>X</Text>
+                <Text style={styles.detailText}>{operation}</Text>
             }
             <Text style={styles.detailText}>{itemAmount}</Text>
         </View>
