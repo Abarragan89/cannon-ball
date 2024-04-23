@@ -103,7 +103,7 @@ function ChapterFiveLevelFive() {
         // 'isGameOver' should more appropriately be named 'gameWon'
         if (isGameOver) {
             // get highscore, accuracy, and earnedStars amount after user wins
-            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime * endGameData.current.bounces)
+            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime + endGameData.current.bounces)
             const currentAccuracy = endGameData.current.accuracyFloat;
             let currentEarnedStars = 0
             // determine earned stars
@@ -137,20 +137,6 @@ function ChapterFiveLevelFive() {
             updateLevelData();
         }
     }, [isGameOver, endGameData.current]);
-
-    const [nextLevelData, setNextLevelData] = useState(null);
-
-    // Get next level information to pass as params in the 
-    // next level button in the end of game modal
-    useEffect(() => {
-        async function getNextLevelData() {
-            const mapName = endGameData.current.nextLevel.split('/')[0];
-            const link = endGameData.current.nextLevel.split('/')[1];
-            const nextLevel = await getIndividualLevelData(mapName, link)
-            setNextLevelData(nextLevel[0])
-        }
-        getNextLevelData();
-    }, []);
 
     return (
         <ImageBackground

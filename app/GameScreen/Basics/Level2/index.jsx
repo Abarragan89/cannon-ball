@@ -80,7 +80,7 @@ function ChatperOneLevelTwo() {
     const endGameData = useRef({
         accuracyFloat: 0,
         accuracyName: '',
-        winningScore: [500, 1000, 2000],
+        winningScore: [500, 2000, 4000],
         airTime: 0,
         bounces: 0,
         multiplier: 0,
@@ -93,7 +93,7 @@ function ChatperOneLevelTwo() {
         // 'isGameOver' should more appropriately be named 'gameWon'
         if (isGameOver) {
             // get highscore, accuracy, and earnedStars amount after user wins
-            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime * endGameData.current.bounces)
+            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime + endGameData.current.bounces)
             const currentAccuracy = endGameData.current.accuracyFloat;
             let currentEarnedStars = 0
             // determine earned stars
@@ -188,8 +188,7 @@ function ChatperOneLevelTwo() {
                         backgroundWaveSound: gameSoundContext?.current?.backgroundWaveSound
                     },
                     cannon: {
-                        // position: [400, screenHeight - 100],
-                        position: [5, screenHeight - 100],
+                        position: [400, screenHeight - 100],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
@@ -235,7 +234,7 @@ function ChatperOneLevelTwo() {
                     params={{ mapName: 'Basics' }}
                 />
 
-                {isGameOver &&
+                {isGameOver && nextLevelData &&
                     <EndGameModal
                         endGameData={endGameData}
                         nextLevelData={nextLevelData}

@@ -84,7 +84,7 @@ function ChapterThreeLevelFive() {
     const endGameData = useRef({
         accuracyFloat: 0,
         accuracyName: '',
-        winningScore: [500, 1000, 2000],
+        winningScore: [1000, 2500, 5000],
         airTime: 0,
         bounces: 0,
         multiplier: 0,
@@ -97,7 +97,7 @@ function ChapterThreeLevelFive() {
         // 'isGameOver' should more appropriately be named 'gameWon'
         if (isGameOver) {
             // get highscore, accuracy, and earnedStars amount after user wins
-            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime * endGameData.current.bounces)
+            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime + endGameData.current.bounces)
             const currentAccuracy = endGameData.current.accuracyFloat;
             let currentEarnedStars = 0
             // determine earned stars
@@ -131,20 +131,6 @@ function ChapterThreeLevelFive() {
             updateLevelData();
         }
     }, [isGameOver, endGameData.current]);
-
-    const [nextLevelData, setNextLevelData] = useState(null);
-
-    // Get next level information to pass as params in the 
-    // next level button in the end of game modal
-    useEffect(() => {
-        async function getNextLevelData() {
-            const mapName = endGameData.current.nextLevel.split('/')[0];
-            const link = endGameData.current.nextLevel.split('/')[1];
-            const nextLevel = await getIndividualLevelData(mapName, link)
-            setNextLevelData(nextLevel[0])
-        }
-        getNextLevelData();
-    }, []);
 
     return (
         <ImageBackground
@@ -270,7 +256,7 @@ function ChapterThreeLevelFive() {
                 {isGameOver &&
                     <EndGameModal
                         endGameData={endGameData}
-                        nextLevelData={nextLevelData}
+                        nextLevelData={null}
                     />
                 }
             </GameEngine>

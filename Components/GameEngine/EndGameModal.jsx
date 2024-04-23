@@ -6,7 +6,8 @@ import { Fontisto } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 
 const EndGameModal = ({ endGameData, nextLevelData }) => {
-    const finalScore = endGameData.current.airTime * endGameData.current.bounces * endGameData.current.multiplier
+    const finalScore = (endGameData.current.airTime + endGameData.current.bounces) * endGameData.current.multiplier
+
     return (
         <View style={[styles.root,]}>
             <View style={styles.modalMainView}>
@@ -23,11 +24,13 @@ const EndGameModal = ({ endGameData, nextLevelData }) => {
                     <ModalDetaiItemContainer
                         itemName='Bounce Bonus'
                         itemAmount={endGameData.current.bounces}
+                        operation={'+'}
                     />
-                    <Text style={styles.totalText}>{endGameData.current.airTime * endGameData.current.bounces}</Text>
+                    <Text style={styles.totalText}>{endGameData.current.airTime + endGameData.current.bounces}</Text>
                     <ModalDetaiItemContainer
                         itemName='Accuracy Bonus'
                         itemAmount={endGameData.current.multiplier}
+                        operation={'x'}
                     />
                     <View style={styles.finalTotalContainer}>
                         <Text style={styles.totalText}>Total Points</Text>

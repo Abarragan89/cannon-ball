@@ -2,11 +2,6 @@ const followCannonBallOnMove = (entities, { touches }) => {
 
     touches.forEach(t => {
         if (t.type === 'move') {
-            // console.log('moving in fold ', t.event);
-            console.log('location X ', t.event.locationX)
-            console.log('location Y ', t.event.locationY)
-
-
             entities.cannonBall.position[0] = t.event.locationX;
             entities.cannonBall.position[1] = t.event.locationY;
             calculateAccuracy();
@@ -50,7 +45,6 @@ const followCannonBallOnMove = (entities, { touches }) => {
                     multiplier: 5,
                 }
             }
-            console.log('accuracy amount ', accuracyAmount)
             return accuracyAmount
         }
     })
