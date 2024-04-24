@@ -4,6 +4,7 @@ import { useLocalSearchParams } from 'expo-router';
 import Title from '../../Components/UI/Title';
 import colors from '../../constants/colors';
 import BackArrow from '../../Components/UI/BackArrow';
+import WinningScoresDisplay from '../../Components/UI/WinningScoresDisplay';
 import LevelTile from '../../Components/LevelTile';
 import { getAllLevelDataInMap } from '../../utils/db/selectQueries';
 
@@ -26,9 +27,7 @@ const LevelLobbyScreen = () => {
             <ImageBackground
                 source={require('../../assets/images/levelLobbyBgImage.png')}
                 style={styles.backgroundImg}
-
-            >
-
+            >   
                 <View style={styles.backIcon}>
                     <BackArrow
                         route='CampaignOverviewScreen'
@@ -40,6 +39,7 @@ const LevelLobbyScreen = () => {
                             <View style={styles.titleContainer}>
                                 <Title color={colors.offWhite} size={50}>{mapName}</Title>
                             </View>
+                            <WinningScoresDisplay />
                             <View style={styles.levelBtnContainer}>
                                 {currentLevelData.map((item, index) => (
                                     <View key={index} style={styles.singleLevelButton}>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     levelBtnContainer: {
         justifyContent: 'space-around',
         marginHorizontal: 50,
-        marginTop: 20,
+        marginTop: 10,
         flexWrap: 'nowrap',
         alignItems: 'center',
         flexDirection: 'row',

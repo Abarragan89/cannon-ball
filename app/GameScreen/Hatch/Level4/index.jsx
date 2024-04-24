@@ -9,6 +9,7 @@ import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
+import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import FireBtn from "../../../../Components/GameEngine/FireBtn";
 import TNT from "../../../../Components/GameEngine/TNT";
@@ -89,7 +90,7 @@ function ChapterFiveLevelFour() {
     const powerLevelRef = useRef(15)
 
     const endGameData = useRef({
-        accuracyFloat: 0,
+        accuracyFloat: 50,
         accuracyName: '',
         winningScore: [500, 1000, 2000],
         airTime: 0,
@@ -280,7 +281,10 @@ function ChapterFiveLevelFour() {
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Hatch' }}
                 />
-
+                <GameLevelInfoHeader
+                    mapName={'Hatch'}
+                    levelNumber={4}
+                />
                 {isGameOver && nextLevelData &&
                     <EndGameModal
                         endGameData={endGameData}

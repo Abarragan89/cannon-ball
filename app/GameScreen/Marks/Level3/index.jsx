@@ -5,6 +5,7 @@ import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
+import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
 import moveTNTMarksLevelThree from "../../../../systems/marksMovementSystems/marksLevelThree";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
@@ -78,7 +79,7 @@ function ChatperTwoLevelThree() {
     const powerLevelRef = useRef(15)
 
     const endGameData = useRef({
-        accuracyFloat: 0,
+        accuracyFloat: 50,
         accuracyName: '',
         winningScore: [250, 500, 1000],
         airTime: 0,
@@ -235,7 +236,10 @@ function ChatperTwoLevelThree() {
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Marks' }}
                 />
-
+                <GameLevelInfoHeader
+                    mapName={'Marks'}
+                    levelNumber={3}
+                />
                 {isGameOver && nextLevelData &&
                     <EndGameModal
                         endGameData={endGameData}
