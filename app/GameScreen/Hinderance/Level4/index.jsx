@@ -4,6 +4,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
+import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
@@ -81,7 +82,7 @@ function ChapterThreeLevelFour() {
     const powerLevelRef = useRef(15)
 
     const endGameData = useRef({
-        accuracyFloat: 0,
+        accuracyFloat: 50,
         accuracyName: '',
         winningScore: [1000, 2500, 5000],
         airTime: 0,
@@ -257,6 +258,10 @@ function ChapterThreeLevelFour() {
                 <BackArrow
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Hinderance' }}
+                />
+                <GameLevelInfoHeader
+                    mapName={'Hinderance'}
+                    levelNumber={4}
                 />
                 {isGameOver && nextLevelData &&
                     <EndGameModal

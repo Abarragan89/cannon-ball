@@ -13,6 +13,7 @@ import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
 import Explosion from "../../../../Components/GameEngine/Explosion";
+import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
 import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
@@ -40,7 +41,7 @@ function ChatperOneLevelOne() {
     const [playBgMusic, setPlayBgMusic] = useState(true)
 
     const endGameData = useRef({
-        accuracyFloat: 0,
+        accuracyFloat: 50,
         accuracyName: '',
         winningScore: [500, 2000, 4000],
         airTime: 0,
@@ -230,6 +231,11 @@ function ChatperOneLevelOne() {
                     <BackArrow
                         route={'/LevelLobbyScreen'}
                         params={{ mapName: 'Basics' }}
+                    />
+
+                    <GameLevelInfoHeader 
+                        mapName={'Basics'}
+                        levelNumber={1}
                     />
 
                     {isGameOver && nextLevelData &&

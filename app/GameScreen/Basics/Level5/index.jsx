@@ -7,6 +7,7 @@ import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
+import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
 import FireBtn from "../../../../Components/GameEngine/FireBtn";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
@@ -76,7 +77,7 @@ function ChatperOneLevelFive() {
     const powerLevelRef = useRef(15)
 
     const endGameData = useRef({
-        accuracyFloat: 0,
+        accuracyFloat: 50,
         accuracyName: '',
         winningScore: [500, 2000, 4000],
         airTime: 0,
@@ -217,6 +218,10 @@ function ChatperOneLevelFive() {
                 <BackArrow
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Basics' }}
+                />
+                <GameLevelInfoHeader
+                    mapName={'Basics'}
+                    levelNumber={5}
                 />
                 {isGameOver &&
                     <EndGameModal

@@ -3,6 +3,7 @@ import { GameEngine } from "react-native-game-engine";
 import { useLocalSearchParams } from 'expo-router';
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
+import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import moveTNTMarksLevelTwo from "../../../../systems/marksMovementSystems/marksLevelTwo";
@@ -77,7 +78,7 @@ function ChatperTwoLevelTwo() {
     const powerLevelRef = useRef(15)
 
     const endGameData = useRef({
-        accuracyFloat: 0,
+        accuracyFloat: 50,
         accuracyName: '',
         winningScore: [250, 500, 1000],
         airTime: 0,
@@ -233,7 +234,10 @@ function ChatperTwoLevelTwo() {
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Marks' }}
                 />
-
+                <GameLevelInfoHeader
+                    mapName={'Marks'}
+                    levelNumber={2}
+                />
                 {isGameOver && nextLevelData &&
                     <EndGameModal
                         endGameData={endGameData}

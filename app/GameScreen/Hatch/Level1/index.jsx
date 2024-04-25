@@ -5,6 +5,7 @@ import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
+import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
 import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
@@ -86,7 +87,7 @@ function ChapterFiveLevelOne() {
     const powerLevelRef = useRef(15)
 
     const endGameData = useRef({
-        accuracyFloat: 0,
+        accuracyFloat: 50,
         accuracyName: '',
         winningScore: [500, 1000, 2000],
         airTime: 0,
@@ -260,6 +261,10 @@ function ChapterFiveLevelOne() {
                 <BackArrow
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Hatch' }}
+                />
+                <GameLevelInfoHeader
+                    mapName={'Hatch'}
+                    levelNumber={1}
                 />
                 {isGameOver && nextLevelData &&
                     <EndGameModal
