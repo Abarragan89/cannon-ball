@@ -12,14 +12,36 @@ const LevelLobbyScreen = () => {
     const { mapName } = useLocalSearchParams();
 
     const [currentLevelData, setCurrentLevelData] = useState([])
+    const [winningStarLimits, setWinningStarLimits] = useState(null)
 
     useEffect(() => {
+        
+        function setWinningStars() {
+            switch (mapName) {
+                case 'Basics':
+                    setWinningStarLimits([500, 2000, 4000]);
+                    break;
+                case 'Marks':
+                    setWinningStarLimits([250, 500, 1000]);
+                    break;
+                case 'Hinderance':
+                    setWinningStarLimits([1000, 2500, 5000]);
+                    break;
+                case 'Kraken':
+                case 'Hatch':
+                    setWinningStarLimits([500, 1000, 2000]);
+                    break;
+            }
+        }
         async function getLevelData() {
             const levelData = await getAllLevelDataInMap(1, mapName);
             setCurrentLevelData(levelData)
         }
-        if (mapName) getLevelData();
-    }, [mapName])
+        if (mapName) {
+            getLevelData();
+            setWinningStars();
+        };
+    }, [mapName]);
 
     return (
         <>
@@ -27,19 +49,19 @@ const LevelLobbyScreen = () => {
             <ImageBackground
                 source={require('../../assets/images/levelLobbyBgImage.png')}
                 style={styles.backgroundImg}
-            >   
+            >
                 <View style={styles.backIcon}>
                     <BackArrow
                         route='CampaignOverviewScreen'
                     />
                 </View>
                 <ScrollView>
-                    {mapName && currentLevelData &&
+                    {mapName && currentLevelData && winningStarLimits &&
                         <View style={styles.root}>
                             <View style={styles.titleContainer}>
                                 <Title color={colors.offWhite} size={50}>{mapName}</Title>
                             </View>
-                            <WinningScoresDisplay />
+                            <WinningScoresDisplay winningLimits={winningStarLimits}/>
                             <View style={styles.levelBtnContainer}>
                                 {currentLevelData.map((item, index) => (
                                     <View key={index} style={styles.singleLevelButton}>
