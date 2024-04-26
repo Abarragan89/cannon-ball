@@ -111,7 +111,7 @@ const fireCannonSystem = (entities, { touches }) => {
   function showFollowArrowDetection() {
     // Offscreen Detection
     // if offscreen, show follow arrow
-    if (entities.cannonBall.position[1] <= -30) {
+    if (entities.cannonBall.position[1] <= -20) {
       entities.followArrow.displayStatus = 'block';
       entities.followArrow.leftPosition = entities.cannonBall.position[0] + 5;
     } else {

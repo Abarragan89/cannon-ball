@@ -2,8 +2,8 @@ const followCannonBallOnMove = (entities, { touches }) => {
 
     touches.forEach(t => {
         if (t.type === 'move') {
-            entities.cannonBall.position[0] = t.event.locationX;
-            entities.cannonBall.position[1] = t.event.locationY;
+            entities.cannonBall.position[0] = t.event.locationX - 150;
+            entities.cannonBall.position[1] = t.event.locationY - 150;
             calculateAccuracy();
         }
 
@@ -14,7 +14,7 @@ const followCannonBallOnMove = (entities, { touches }) => {
     
             // coordinate for the top center of the TNT
             const tntXCoord = entities.TNT.position[0] + 15;
-            const tntYCoord = entities.TNT.position[1] - 7;
+            const tntYCoord = entities.TNT.position[1] - 10;
     
             // calculate the length of both sides
             const triangleASide = Math.abs(ballXCoord - tntXCoord);
@@ -22,29 +22,9 @@ const followCannonBallOnMove = (entities, { touches }) => {
     
             const accuracyAmount = (Math.sqrt(triangleASide ** 2 + triangeBSide ** 2)).toFixed(2);
     
-            if (accuracyAmount >= 15) {
-                entities.cannonBall.accuracy =
-                {
-                    name: 'Good Shot',
-                    float: accuracyAmount,
-                    multiplier: 2,
-    
-                }
-            } else if (accuracyAmount >= 5) {
-                entities.cannonBall.accuracy =
-                {
-                    name: 'Great Shot!',
-                    float: accuracyAmount,
-                    multiplier: 3,
-                }
-            } else {
-                entities.cannonBall.accuracy =
-                {
-                    name: 'Perfect Shot!!!',
-                    float: accuracyAmount,
-                    multiplier: 5,
-                }
-            }
+            console.log('y position of impact ', entities.TNT.position[1] - 2)
+            console.log('bottom position of cannonBall ', entities.cannonBall.position[1] + 20)
+            console.log('accuracy amount ', accuracyAmount)
             return accuracyAmount
         }
     })

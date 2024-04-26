@@ -16,8 +16,8 @@ export default GameLevelInfoHeader;
 const styles = StyleSheet.create({
     root: {
         position: 'absolute',
-        bottom: 5,
-        right: 5,
+        bottom: 7,
+        right: 20,
         flexDirection: 'row'
     },
     text: {
