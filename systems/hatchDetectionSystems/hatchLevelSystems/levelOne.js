@@ -2,7 +2,8 @@ import moveObstacleLeftToRight from "../../../utils/moveObstacles/moveObstacleLe
 
 const levelOneHatchSystem = (entities) => {
     if (!entities.gameData.isGameOver) {
-        moveObstacleLeftToRight(entities.squareHindTwo, 340, 170, 1)
+        //  maxRight is where the hatchbox is located plus '50' pixels for the width of the hatchBtn
+        moveObstacleLeftToRight(entities.hatchBtn, 0, 186 + 50, 0.5)
     }
     return entities;
 }

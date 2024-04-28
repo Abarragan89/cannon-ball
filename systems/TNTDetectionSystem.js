@@ -147,7 +147,6 @@ const TNTDetectionSystem = (entities) => {
 
     ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
     if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
-        console.log('touched right')
         if (entities.cannonBall.velocity[0] < 0) {
             try {
                 entities.sounds.tntCannonBallHitSound.replayAsync();

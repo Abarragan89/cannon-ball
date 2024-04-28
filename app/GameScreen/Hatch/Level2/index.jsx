@@ -205,7 +205,7 @@ function ChapterFiveLevelTwo() {
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 2), screenHeight - 165],
+                        position: [Math.floor(screenWidth / 2), screenHeight - 160],
                         display: 'block',
                         handlePosition: [-20, 0],
                         renderer: <TNT />
@@ -307,3 +307,7 @@ const styles = StyleSheet.create({
 
 
 export default ChapterFiveLevelTwo;
+
+
+
+

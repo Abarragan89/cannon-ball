@@ -198,7 +198,7 @@ function ChapterFiveLevelFive() {
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 3) - 136, screenHeight - 172],
+                        position: [Math.floor(screenWidth / 3) - 136, screenHeight - 167],
                         display: 'block',
                         handlePosition: [-20, 0],
                         renderer: <TNT />
