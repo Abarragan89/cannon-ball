@@ -140,9 +140,9 @@ function ChatperOneLevelOne() {
     }, [])
 
     // Angle Data
-    const angleLevelRef = useRef(90)
+    const angleLevelRef = useRef(98.34928955)
     // Power Data
-    const powerLevelRef = useRef(15)
+    const powerLevelRef = useRef(30.167)
 
     return (
         <ImageBackground
@@ -197,7 +197,7 @@ function ChatperOneLevelOne() {
                         TNT: {
                             position: [250, 100],
                             display: 'block',
-                            handlePosition: [-17, 0],
+                            handlePosition: [-20, 0],
                             renderer: <TNT />
                         },
                         explosion: {

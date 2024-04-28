@@ -25,7 +25,6 @@ export default TNT;
 const styles = StyleSheet.create({
     root: {
         position: 'absolute',
-        paddingTop: 5,
     },
     boxStyles: {
         fontWeight: 'bold',
@@ -42,8 +41,8 @@ const styles = StyleSheet.create({
     },
     tntHandle: {
         position: 'absolute',
-        fontSize: 35,
-        left: 4.5,
+        fontSize: 30,
+        left: 5.5,
     },
     text: {
         color: 'yellow',
