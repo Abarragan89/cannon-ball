@@ -28,7 +28,7 @@ import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/h
 import HatchLid from "../../../../Components/GameEngine/HatchLid";
 import HatchBox from "../../../../Components/GameEngine/HatchBox";
 import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
-import levelOneHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelOne";
+import levelTwoHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelTwo";
 import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
 import { SoundContext } from "../../../../store/soundsContext";
 import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
@@ -170,7 +170,7 @@ function ChapterFiveLevelTwo() {
                     hatchBoxDetectionSystem,
                     hatchLidDetectionSystem,
                     hitHatchBtn_OpenHatchSystem,
-                    levelOneHatchSystem
+                    levelTwoHatchSystem
                 ]}
                 entities={{
                     cannonBall: {
