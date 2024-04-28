@@ -139,10 +139,24 @@ function ChatperOneLevelOne() {
         getNextLevelData();
     }, [])
 
+
+    // GETS CORNER OF TNT
     // Angle Data
-    const angleLevelRef = useRef(98.34928955)
+    // const angleLevelRef = useRef(98.34928955)
+    // // Power Data
+    // const powerLevelRef = useRef(30.3)
+
+    // GET DEAD CENTER OF TNT
+    //   // Angle Data
+    //   const angleLevelRef = useRef(97.94222)
+    //   // Power Data
+    //   const powerLevelRef = useRef(31.83)
+
+
+    // Angle Data
+    const angleLevelRef = useRef(90)
     // Power Data
-    const powerLevelRef = useRef(30.167)
+    const powerLevelRef = useRef(15)
 
     return (
         <ImageBackground
@@ -236,7 +250,7 @@ function ChatperOneLevelOne() {
                         params={{ mapName: 'Basics' }}
                     />
 
-                    <GameLevelInfoHeader 
+                    <GameLevelInfoHeader
                         mapName={'Basics'}
                         levelNumber={1}
                     />

@@ -9,14 +9,13 @@ const TNTDetectionSystem = (entities) => {
 
         // coordinate for the top center of the TNT
         const tntXCoord = entities.TNT.position[0] + 15;
-        const tntYCoord = entities.TNT.position[1] - 5;
+        const tntYCoord = entities.TNT.position[1] - 2;
 
         // calculate the length of both sides
         const triangleASide = Math.abs(ballXCoord - tntXCoord);
         const triangeBSide = Math.abs(ballYCoord - tntYCoord);
 
         const accuracyAmount = (Math.sqrt(triangleASide ** 2 + triangeBSide ** 2)).toFixed(2);
-        console.log('accuracy amount ', accuracyAmount)
         if (accuracyAmount > 10) {
             entities.cannonBall.accuracy =
             {
@@ -31,15 +30,14 @@ const TNTDetectionSystem = (entities) => {
                 float: accuracyAmount,
                 multiplier: 2,
             }
-        } else if (accuracyAmount >= 5) {
+        } else if (accuracyAmount >= 3) {
             entities.cannonBall.accuracy =
             {
                 name: 'Great Shot!',
                 float: accuracyAmount,
                 multiplier: 3,
             }
-        } else if (accuracyAmount <= 3) {
-
+        } else if (accuracyAmount < 3) {
             entities.cannonBall.accuracy =
             {
                 name: 'Perfect Shot!!!',
@@ -47,8 +45,6 @@ const TNTDetectionSystem = (entities) => {
                 multiplier: 5,
             }
         }
-        // pass data to end game modal
-        setEndGameModalStats();
     }
 
     function endGameHandler() {
@@ -63,6 +59,8 @@ const TNTDetectionSystem = (entities) => {
             }
             // calculate accuracy to center of ball being over the center or box
             calculateAccuracy();
+            // pass data to end game modal
+            setEndGameModalStats();
         };
 
         //trigger the boolean to let the air-time counter stop and game aspects
@@ -96,7 +94,6 @@ const TNTDetectionSystem = (entities) => {
     }
 
     function setEndGameModalStats() {
-        console.log('in Set End Game Modal Stats: Float ', entities.cannonBall.accuracy.float)
         // pass all the relevant data to end game modal
         entities.gameData.endGameData.current.accuracyFloat = entities.cannonBall.accuracy.float;
         entities.gameData.endGameData.current.accuracyName = entities.cannonBall.accuracy.name;
@@ -108,13 +105,13 @@ const TNTDetectionSystem = (entities) => {
 
     // LEFT LINE OF TNT BOX
     const leftLineX1 = entities.TNT.position[0] - 2;
-    const leftLineY1 = entities.TNT.position[1];
+    const leftLineY1 = entities.TNT.position[1] + 2;
     const leftLineX2 = entities.TNT.position[0] - 2;
     const leftLineY2 = entities.TNT.position[1] + 30;
 
     // RIGHT LINE OF TNT BOX
     const rightLineX1 = entities.TNT.position[0] + 32;
-    const rightLineY1 = entities.TNT.position[1];
+    const rightLineY1 = entities.TNT.position[1] + 2;
     const rightLineX2 = entities.TNT.position[0] + 32;
     const rightLineY2 = entities.TNT.position[1] + 30;
 
@@ -125,9 +122,9 @@ const TNTDetectionSystem = (entities) => {
     const bottomLineY2 = entities.TNT.position[1] + 33;
 
     // TOP LINE OF TNT BOX (The Handle)
-    const topLineX1 = entities.TNT.position[0] + 5;
+    const topLineX1 = entities.TNT.position[0] + 10;
     const topLineY1 = entities.TNT.position[1] - 5;
-    const topLineX2 = entities.TNT.position[0] + 25;
+    const topLineX2 = entities.TNT.position[0] + 20;
     const topLineY2 = entities.TNT.position[1] - 5;
 
     // CIRCLE PROPERTIES

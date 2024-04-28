@@ -22,7 +22,6 @@ const followCannonBallOnMove = (entities, { touches }) => {
 
             const accuracyAmount = (Math.sqrt(triangleASide ** 2 + triangeBSide ** 2)).toFixed(2);
             console.log('accuracy amount ', accuracyAmount)
-
         }
     })
 

@@ -195,7 +195,7 @@ function ChatperOneLevelThree() {
                     TNT: {
                         position: [200, -5],
                         display: 'block',
-                        handlePosition: [-19, 0],
+                        handlePosition: [-20, 0],
                         renderer: <TNT />
                     },
                     explosion: {

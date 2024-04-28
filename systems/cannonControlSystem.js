@@ -53,10 +53,6 @@ const cannonControlSystem = (entities, { touches }) => {
 
       // Rotate the cannon visually
       entities.cannon.rotate = `-${entities.angleMeter.angleLevel}deg`;
-
-
-      console.log('current Power ', currentPower);
-      console.log('current Angle ', currentAngle);
     }
 
   });
