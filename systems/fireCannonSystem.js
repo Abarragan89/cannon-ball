@@ -31,7 +31,13 @@ const fireCannonSystem = (entities, { touches }) => {
     // if hits bottom
     if (entities.cannonBall.position[1] > height - 34) {
       // only play sound once when isBallMoving is still true
-      if (entities.cannonBall.isBallMoving) entities.sounds.cannonBallHitSandSound.replayAsync();
+      if (entities.cannonBall.isBallMoving) {
+        try {
+          entities.sounds.cannonBallHitSandSound.replayAsync()
+        } catch (error) {
+           console.log('error in replay hit sand sound ', error)
+        }
+      };
       entities.cannonBall.isBallMoving = false;
       entities.headerStats.bounces = 0;
       // reset the fire button UI
@@ -96,14 +102,22 @@ const fireCannonSystem = (entities, { touches }) => {
     // if hits right wall
     if (entities.cannonBall.position[0] > width - 14) {
       if (!entities.gameData.isGameOver) entities.headerStats.bounces += 1;
-      entities.sounds.cannonBallBounceSound.replayAsync();
+      try {
+        entities.sounds.cannonBallBounceSound.replayAsync();
+      } catch (error) {
+        console.log('error in ball bounce sound ', error)
+      }
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
     // if hits left wall
     // I need to also make sure it is not -100 because that is the starting position off screen
     if (entities.cannonBall.position[0] < 0 && entities.cannonBall.position[0] !== -100) {
       if (!entities.gameData.isGameOver) entities.headerStats.bounces += 1;
-      entities.sounds.cannonBallBounceSound.replayAsync();
+      try {
+        entities.sounds.cannonBallBounceSound.replayAsync();
+      } catch (error) {
+        console.log('error in ball bounce sound ', error)
+      }
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
   }
@@ -111,7 +125,7 @@ const fireCannonSystem = (entities, { touches }) => {
   function showFollowArrowDetection() {
     // Offscreen Detection
     // if offscreen, show follow arrow
-    if (entities.cannonBall.position[1] <= -30) {
+    if (entities.cannonBall.position[1] <= -20) {
       entities.followArrow.displayStatus = 'block';
       entities.followArrow.leftPosition = entities.cannonBall.position[0] + 5;
     } else {
@@ -150,7 +164,11 @@ const fireCannonSystem = (entities, { touches }) => {
           return
         }
         // Play Cannon Sound
-        entities.sounds.shootCannonSound.replayAsync();
+        try {
+          entities.sounds.shootCannonSound.replayAsync();
+        } catch (error) {
+          console.log('error in shoot cannon sound ', error)
+        }
         // Change the fireBtn UI
         entities.fireBtn.isShooting = true;
         // Rest header stats

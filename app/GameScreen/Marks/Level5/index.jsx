@@ -186,7 +186,7 @@ function ChatperTwoLevelFive() {
                     TNT: {
                         position: [270, 50],
                         display: 'block',
-                        handlePosition: [-19, 0],
+                        handlePosition: [-20, 0],
                         renderer: <TNT />
                     },
                     explosion: {

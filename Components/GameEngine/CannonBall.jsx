@@ -8,7 +8,6 @@ function CannonBall({ position, display, color, gradientColor }) {
     const y = position[1];
 
     return (
-
             <LinearGradient
                 // Background Linear Gradient
                 // first color is the white shine
@@ -28,10 +27,8 @@ function CannonBall({ position, display, color, gradientColor }) {
 const styles = StyleSheet.create({
     cannonBall: {
         zIndex: 0,
-        height: 20,
         position: 'absolute',
         borderRadius: RADIUS * 2,
-        borderWidth: 1,
         width: RADIUS * 2,
         height: RADIUS * 2,
     }

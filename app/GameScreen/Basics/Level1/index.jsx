@@ -30,6 +30,8 @@ import {
     updateLevelEarnedStars
 } from "../../../../utils/db/updateQueries";
 
+import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
+
 function ChatperOneLevelOne() {
     // Grab the level Id 
     const { levelId, lastAccuracy, lastHighscore, lastEarnedStars } = useLocalSearchParams();
@@ -58,10 +60,14 @@ function ChatperOneLevelOne() {
             await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(false);
         }
         async function startMusic() {
-            await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(true);
-            await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(true);
-            await gameSoundContext.current.backgroundMusicSound.playAsync();
-            await gameSoundContext.current.backgroundWaveSound.playAsync();
+            try {
+                await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(true);
+                await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(true);
+                await gameSoundContext.current.backgroundMusicSound.playAsync();
+                await gameSoundContext.current.backgroundWaveSound.playAsync();
+            } catch (error) {
+                console.log('error starting music ', error);
+            }
         }
         if (!playBgMusic) {
             try {
@@ -77,8 +83,12 @@ function ChatperOneLevelOne() {
             }
         }
         return () => {
-            gameSoundContext.current.backgroundMusicSound.stopAsync();
-            gameSoundContext.current.backgroundWaveSound.stopAsync();
+            try {
+                gameSoundContext.current.backgroundMusicSound.stopAsync();
+                gameSoundContext.current.backgroundWaveSound.stopAsync();
+            } catch (error) {
+                console.log('error stoping bacground sounds and waves ', error)
+            }
         }
     }, [playBgMusic]);
 
@@ -137,6 +147,20 @@ function ChatperOneLevelOne() {
         getNextLevelData();
     }, [])
 
+
+    // GETS CORNER OF TNT
+    // Angle Data
+    // const angleLevelRef = useRef(98.34928955)
+    // // Power Data
+    // const powerLevelRef = useRef(30.3)
+
+    // GET DEAD CENTER OF TNT
+    //   // Angle Data
+    //   const angleLevelRef = useRef(97.94222)
+    //   // Power Data
+    //   const powerLevelRef = useRef(31.83)
+
+
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
@@ -156,7 +180,8 @@ function ChatperOneLevelOne() {
                         cannonControlSystem,
                         TNTDetectionSystem,
                         scoreCalculatorSystem,
-                        fireCannonSystem
+                        fireCannonSystem,
+                        // followCannonBallOnMove
                     ]}
                     entities={{
                         cannonBall: {
@@ -189,12 +214,13 @@ function ChatperOneLevelOne() {
                         cannon: {
                             position: [400, screenHeight - 100],
                             rotate: '-90deg',
+
                             renderer: <CannonLauncher />
                         },
                         TNT: {
                             position: [250, 100],
                             display: 'block',
-                            handlePosition: [-19, 0],
+                            handlePosition: [-20, 0],
                             renderer: <TNT />
                         },
                         explosion: {
@@ -233,7 +259,7 @@ function ChatperOneLevelOne() {
                         params={{ mapName: 'Basics' }}
                     />
 
-                    <GameLevelInfoHeader 
+                    <GameLevelInfoHeader
                         mapName={'Basics'}
                         levelNumber={1}
                     />

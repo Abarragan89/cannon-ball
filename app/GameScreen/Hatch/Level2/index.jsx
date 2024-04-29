@@ -1,17 +1,17 @@
-import { useRef, useState, useContext, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import { GameEngine } from "react-native-game-engine";
 import { useLocalSearchParams } from 'expo-router';
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
-import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
+import CannonBall from "../../../../Components/GameEngine/CannonBall";
 import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-import FireBtn from "../../../../Components/GameEngine/FireBtn";
 import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
+import FireBtn from "../../../../Components/GameEngine/FireBtn";
 import TNT from "../../../../Components/GameEngine/TNT";
 import Explosion from "../../../../Components/GameEngine/Explosion";
 import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
@@ -28,6 +28,7 @@ import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/h
 import HatchLid from "../../../../Components/GameEngine/HatchLid";
 import HatchBox from "../../../../Components/GameEngine/HatchBox";
 import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
+import levelTwoHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelTwo";
 import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
 import { SoundContext } from "../../../../store/soundsContext";
 import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
@@ -80,6 +81,7 @@ function ChapterFiveLevelTwo() {
         }
     }, [playBgMusic])
 
+
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
@@ -93,7 +95,7 @@ function ChapterFiveLevelTwo() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Hatch',
-        nextLevel: 'Hatch/Level3'
+        nextLevel: 'Hatch/Level2'
     });
 
     // Backend updates 
@@ -167,7 +169,8 @@ function ChapterFiveLevelTwo() {
                     hatchBtnDetectionSystem,
                     hatchBoxDetectionSystem,
                     hatchLidDetectionSystem,
-                    hitHatchBtn_OpenHatchSystem
+                    hitHatchBtn_OpenHatchSystem,
+                    levelTwoHatchSystem
                 ]}
                 entities={{
                     cannonBall: {
@@ -200,14 +203,14 @@ function ChapterFiveLevelTwo() {
                         backgroundWaveSound: gameSoundContext?.current?.backgroundWaveSound
                     },
                     cannon: {
-                        position: [100, screenHeight - 100],
+                        position: [300, screenHeight - 100],
                         rotate: '-90deg',
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 2), screenHeight - 165],
+                        position: [screenWidth - 186, 93],
                         display: 'block',
-                        handlePosition: [-19, 0],
+                        handlePosition: [-20, 0],
                         renderer: <TNT />
                     },
                     explosion: {
@@ -240,15 +243,15 @@ function ChapterFiveLevelTwo() {
                         topPosition: -8,
                         color: colors.bronzeStar,
                         isTriggerOnTop: true,
-                        position: [150, 120],
+                        position: [Math.floor(screenWidth / 2), 120],
                         renderer: <HatchBtnTop />
                     },
                     hatchLid: {
-                        position: [Math.floor(screenWidth / 2) - 14, screenHeight - 188],
+                        position: [screenWidth - 200, 65],
                         renderer: <HatchLid />
                     },
                     hatchBox: {
-                        position: [Math.floor(screenWidth / 2) - 14, screenHeight - 173],
+                        position: [screenWidth - 200, 80],
                         renderer: <HatchBox />
                     },
                     fireBtn: {
@@ -263,7 +266,7 @@ function ChapterFiveLevelTwo() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Hatch'}
-                    levelNumber={2}
+                    levelNumber={1}
                 />
                 {isGameOver && nextLevelData &&
                     <EndGameModal
@@ -304,6 +307,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     }
 });
-
 
 export default ChapterFiveLevelTwo;

@@ -213,9 +213,9 @@ function ChapterFiveLevelFour() {
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [screenWidth - 336, 188],
+                        position: [screenWidth - 336, 193],
                         display: 'block',
-                        handlePosition: [-19, 0],
+                        handlePosition: [-20, 0],
                         renderer: <TNT />
                     },
                     explosion: {

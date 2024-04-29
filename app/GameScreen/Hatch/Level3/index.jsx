@@ -24,7 +24,7 @@ import BackArrow from "../../../../Components/UI/BackArrow";
 import HatchBtnBottom from '../../../../Components/GameEngine/HatchButtons/HatchBtnBottom'
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
 import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
-import levelOneHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelOne";
+import levelThreeHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelThree";
 import colors from "../../../../constants/colors";
 import HatchLid from "../../../../Components/GameEngine/HatchLid";
 import HatchBox from "../../../../Components/GameEngine/HatchBox";
@@ -175,7 +175,7 @@ function ChapterFiveLevelThree() {
                     hatchLidDetectionSystem,
                     smallSquareSystemOne,
                     smallSquareSystemTwo,
-                    levelOneHatchSystem,
+                    levelThreeHatchSystem,
                 ]}
                 entities={{
                     cannonBall: {
@@ -214,9 +214,9 @@ function ChapterFiveLevelThree() {
                         renderer: <CannonLauncher />
                     },
                     TNT: {
-                        position: [screenWidth - 100, screenHeight - 125],
+                        position: [screenWidth - 100, screenHeight - 120],
                         display: 'block',
-                        handlePosition: [-19, 0],
+                        handlePosition: [-20, 0],
                         renderer: <TNT />
                     },
                     explosion: {

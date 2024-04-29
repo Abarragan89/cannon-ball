@@ -79,7 +79,7 @@ function ChatperOneLevelTwo() {
     const powerLevelRef = useRef(15)
 
     const endGameData = useRef({
-        accuracyFloat: 50,
+        accuracyFloat: 0,
         accuracyName: '',
         winningScore: [500, 2000, 4000],
         airTime: 0,
@@ -196,7 +196,7 @@ function ChatperOneLevelTwo() {
                     TNT: {
                         position: [screenWidth - 31, 60],
                         display: 'block',
-                        handlePosition: [-19, 0],
+                        handlePosition: [-20, 0],
                         renderer: <TNT />
                     },
                     explosion: {
