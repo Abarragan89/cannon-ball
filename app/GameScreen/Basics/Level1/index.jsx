@@ -62,35 +62,47 @@ function ChatperOneLevelOne() {
         async function startMusic() {
             try {
                 await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(true);
-                await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(true);
                 await gameSoundContext.current.backgroundMusicSound.playAsync();
+                await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(true);
                 await gameSoundContext.current.backgroundWaveSound.playAsync();
             } catch (error) {
                 console.log('error starting music ', error);
             }
         }
-        if (!playBgMusic) {
+        // if (!playBgMusic) {
+        //     try {
+        //         stopMusic();
+        //     } catch (e) {
+        //         console.log('error stopping music', e)
+        //     }
+        // } else if () {
+        //     try {
+        //         startMusic();
+        //     } catch (e) {
+        //         console.log('error starting music', e)
+        //     }
+        // }
+
+        if (playBgMusic &&
+            gameSoundContext.current.backgroundMusicSound &&
+            gameSoundContext.current.backgroundWaveSound
+        ) {
             try {
-                stopMusic();
-            } catch (e) {
-                console.log('error stopping music', e)
-            }
-        } else {
-            try {
-                startMusic();
-            } catch (e) {
-                console.log('error starting music', e)
+                startMusic()
+            } catch (error) {
+                console.log('in the calling of start music ', error)
             }
         }
         return () => {
             try {
+                stopMusic();
                 gameSoundContext.current.backgroundMusicSound.stopAsync();
                 gameSoundContext.current.backgroundWaveSound.stopAsync();
             } catch (error) {
                 console.log('error stoping bacground sounds and waves ', error)
             }
         }
-    }, [playBgMusic]);
+    }, [playBgMusic, gameSoundContext.current.backgrounMusicSound, gameSoundContext.current.backgroundWaveSound]);
 
 
     // Backend updates 

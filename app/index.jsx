@@ -1,5 +1,5 @@
 import { View, StyleSheet, ImageBackground } from "react-native";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import Title from "../Components/UI/Title";
 import MainButton from "../Components/UI/MainButton";
 import colors from "../constants/colors";
