@@ -3,7 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import colors from '../../constants/colors';
 
 
-const Card = ({ children }) => {
+const Card = ({ children, title }) => {
     return (
         <LinearGradient
             // Background Linear Gradient
@@ -14,6 +14,9 @@ const Card = ({ children }) => {
             end={{ x: 0.5, y: 0.3 }}
             style={styles.cardContainer}
         >
+            <View style={styles.centerDiv}>
+                <Text style={styles.cardTitle}>{title}</Text>
+            </View>
             {children}
         </LinearGradient>
     )
@@ -29,6 +32,14 @@ const styles = StyleSheet.create({
         width: 350,
         borderRadius: 8,
         padding: 15,
-        paddingTop: 20
+    },
+    centerDiv: {
+        alignItems: 'center'
+    },
+    cardTitle: {
+        fontFamily: 'textFont',
+        fontSize: 29,
+        color: colors.offWhite,
+        marginBottom: 15
     }
 })

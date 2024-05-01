@@ -1,6 +1,6 @@
 export default colors = {
     sandColor: '#b59a57',
-    skyColor: '#1f48a1c2',
+    skyColor: '#2a4787ff',
     winningStar: '#fbff00c2',
     offWhite: '#f6f2f2',
     sandColorAccent: '#d0a948',
