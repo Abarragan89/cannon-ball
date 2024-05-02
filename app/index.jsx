@@ -1,4 +1,4 @@
-import { View, StyleSheet, ImageBackground } from "react-native";
+import { View, StyleSheet, ImageBackground, StatusBar } from "react-native";
 import { useCallback } from "react";
 import Title from "../Components/UI/Title";
 import MainButton from "../Components/UI/MainButton";
@@ -35,6 +35,7 @@ const Home = () => {
 
   return (
     <SoundProvider>
+      <StatusBar barStyle='light-content' />
       {mainBtnImgSrc && bgImage &&
         <ImageBackground
           source={bgImage}

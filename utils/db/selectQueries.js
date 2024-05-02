@@ -110,3 +110,26 @@ export async function getIndividualLevelData(mapName, level) {
 
     }
 }
+
+// GET USER SETTINGS
+export async function getUserDataPreferences(userId) {
+    let data;
+    const db = openDatabaseConnection();
+    try {
+        await db.transactionAsync(async tx => {
+            const myData = await tx.executeSqlAsync(`
+                SELECT * 
+                FROM preferences p
+                WHERE p.id = (
+                    SELECT preferenceId
+                    FROM users u
+                    WHERE u.id = ${userId}
+                )
+            `);
+            data = myData.rows
+        });
+        return data;
+    } catch (error) {
+        console.log('error in individualLevelData ', error)
+    }
+};
