@@ -62,7 +62,7 @@ const SettingScreen = () => {
         setIsHapticOn(value);
     }
 
-
+    // Get user preferences
     useEffect(() => {
         async function getUserPreferences() {
             try {
@@ -71,7 +71,6 @@ const SettingScreen = () => {
                 setIsMusicOn(userPref.isSoundOn === 0 ? false : true);
                 setIsSoundEfxOn(userPref.isSoundEffectsOn === 0 ? false : true);
                 setIsHapticOn(userPref.isHapticsOn === 0 ? false : true)
-                console.log('user pref ', userPref)
                 setPreferencesGathered(true);
             } catch (error) {
                 console.log('error getting user pref in settings ', error)
@@ -84,7 +83,7 @@ const SettingScreen = () => {
 
     return (
         <>
-            {setPreferencesGathered &&
+            {preferencesGathered &&
                 <ImageBackground
                     source={require('../../assets/images/screenWoodBg.png')}
                     style={styles.rootContainer}
