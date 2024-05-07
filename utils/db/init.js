@@ -23,8 +23,9 @@ export async function initDB() {
                 await tx.executeSqlAsync(`
                 CREATE TABLE IF NOT EXISTS preferences (
                     id INTEGER PRIMARY KEY NOT NULL,
-                        soundOn INTEGER DEFAULT 1,
-                        soundEffectsOn INTEGER DEFAULT 1,
+                        isSoundOn INTEGER DEFAULT 1,
+                        isSoundEffectsOn INTEGER DEFAULT 1,
+                        isHapticsOn INTEGER DEFAULT 1,
                         hasSeenTutorial INTEGER DEFAULT 0
                     );  
                     `, []);

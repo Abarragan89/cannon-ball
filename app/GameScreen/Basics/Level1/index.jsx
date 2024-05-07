@@ -21,7 +21,7 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { SoundContext } from "../../../../store/soundsContext";
-import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
+import { getIndividualLevelData, getUserDataPreferences } from "../../../../utils/db/selectQueries";
 import {
     updateLevelToPass,
     updateLevelHighScore,
@@ -30,7 +30,7 @@ import {
     updateLevelEarnedStars
 } from "../../../../utils/db/updateQueries";
 
-import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
+// import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
 
 function ChatperOneLevelOne() {
     // Grab the level Id 
@@ -41,6 +41,7 @@ function ChatperOneLevelOne() {
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     const [playBgMusic, setPlayBgMusic] = useState(true)
+    const [userPreferences, setUserPreferences] = useState(null)
 
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -53,44 +54,52 @@ function ChatperOneLevelOne() {
         nextLevel: 'Basics/Level2'
     });
 
+
+    // Get user preferences 
+    useEffect(() => {
+        async function getUserPreferences() {
+            try {
+                setTimeout(async () => {
+                    // only one item in the array so we can destructure
+                    const [userPref] = await getUserDataPreferences(1)
+                    console.log('user pref in level on', userPref)
+                    setUserPreferences(userPref)
+                }, 2000);
+            } catch (error) {
+                console.log('error getting user pref in settings ', error)
+            }
+        }
+        getUserPreferences();
+    }, [getUserDataPreferences])
+
     // Play background noises and stop them when game is over
     useEffect(() => {
         async function stopMusic() {
-            await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(false);
-            await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(false);
+            try {
+                await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(false);
+                await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(false);
+                await gameSoundContext.current.backgroundMusicSound.stopAsync();
+                await gameSoundContext.current.backgroundWaveSound.stopAsync();
+            } catch (error) {
+                console.log('error stopping music in useEffect ', error)
+            }
         }
         async function startMusic() {
             try {
                 await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(true);
-                await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(true);
                 await gameSoundContext.current.backgroundMusicSound.playAsync();
+                await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(true);
                 await gameSoundContext.current.backgroundWaveSound.playAsync();
             } catch (error) {
                 console.log('error starting music ', error);
             }
         }
-        if (!playBgMusic) {
-            try {
-                stopMusic();
-            } catch (e) {
-                console.log('error stopping music', e)
-            }
-        } else {
-            try {
-                startMusic();
-            } catch (e) {
-                console.log('error starting music', e)
-            }
-        }
+        // start music if state is available and user preferences have soundOn
+        if (playBgMusic && gameSoundContext) startMusic();
         return () => {
-            try {
-                gameSoundContext.current.backgroundMusicSound.stopAsync();
-                gameSoundContext.current.backgroundWaveSound.stopAsync();
-            } catch (error) {
-                console.log('error stoping bacground sounds and waves ', error)
-            }
+            stopMusic();
         }
-    }, [playBgMusic]);
+    }, [playBgMusic, gameSoundContext]);
 
 
     // Backend updates 
@@ -167,11 +176,12 @@ function ChatperOneLevelOne() {
     const powerLevelRef = useRef(15)
 
     return (
+
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
-            {
+            { userPreferences &&
                 <GameEngine
                     ref={gameEngineRef}
                     style={styles.container}

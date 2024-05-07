@@ -6,7 +6,7 @@ export async function updateLevelToPass(levelId) {
     const db = openDatabaseConnection();
     try {
         await db.transactionAsync(async tx => {
-            const myData =  await tx.executeSqlAsync(`
+            const myData = await tx.executeSqlAsync(`
                     UPDATE levels
                     SET isOpen=1
                     WHERE levels.id=${+levelId + 1}
@@ -25,7 +25,7 @@ export async function updateLevelHighScore(levelId, highscore) {
     const db = openDatabaseConnection();
     try {
         await db.transactionAsync(async tx => {
-            const myData =  await tx.executeSqlAsync(`
+            const myData = await tx.executeSqlAsync(`
                     UPDATE levels
                     SET highscore=${+highscore}
                     WHERE levels.id=${+levelId} 
@@ -44,7 +44,7 @@ export async function updateLevelAccuracy(levelId, accuracy) {
     const db = openDatabaseConnection();
     try {
         await db.transactionAsync(async tx => {
-            const myData =  await tx.executeSqlAsync(`
+            const myData = await tx.executeSqlAsync(`
                     UPDATE levels
                     SET accuracy=${+accuracy}
                     WHERE levels.id=${+levelId}
@@ -63,7 +63,7 @@ export async function updateLevelEarnedStars(levelId, earnedStars) {
     const db = openDatabaseConnection();
     try {
         await db.transactionAsync(async tx => {
-            const myData =  await tx.executeSqlAsync(`
+            const myData = await tx.executeSqlAsync(`
                     UPDATE levels
                     SET earnedStars=${+earnedStars}
                     WHERE levels.id=${+levelId}
@@ -82,7 +82,7 @@ export async function updateUserTotalPoints(points) {
     const db = openDatabaseConnection();
     try {
         await db.transactionAsync(async tx => {
-            const myData =  await tx.executeSqlAsync(`
+            const myData = await tx.executeSqlAsync(`
                     UPDATE users
                     SET totalPoints = totalPoints + ${points} 
                     WHERE users.id=1
@@ -93,4 +93,73 @@ export async function updateUserTotalPoints(points) {
     } catch (error) {
         console.log('error in update in add user total ', error)
     }
-}
+};
+
+// UPDATE USER MUSIC OPTION
+export async function updateUserMusicPref(userId, isOn) {
+    let data;
+    const db = openDatabaseConnection();
+    try {
+        await db.transactionAsync(async tx => {
+            const myData = await tx.executeSqlAsync(`
+            UPDATE preferences 
+            SET isSoundOn = ${isOn}
+            WHERE id = (
+                SELECT preferenceId 
+                FROM users 
+                WHERE id = ${userId}
+            );
+            `);
+            data = myData.rows        
+        });
+        return data;
+    } catch (error) {
+        console.log('error in updating music ', error)
+    }
+};
+
+// UPDATE USER SOUND EFFECTS OPTION
+export async function updateUserSoundEfxPref(userId, isOn) {
+    let data;
+    const db = openDatabaseConnection();
+    try {
+        await db.transactionAsync(async tx => {
+            const myData = await tx.executeSqlAsync(`
+            UPDATE preferences 
+            SET isSoundEffectsOn = ${isOn}
+            WHERE id = (
+                SELECT preferenceId 
+                FROM users 
+                WHERE id = ${userId}
+            );
+            `);
+            data = myData.rows        
+        });
+        return data;
+    } catch (error) {
+        console.log('error in updating sound effects ', error)
+    }
+};
+
+// UPDATE USER MUSIC OPTION
+export async function updateUserHapticsPref(userId, isOn) {
+    let data;
+    const db = openDatabaseConnection();
+    try {
+        await db.transactionAsync(async tx => {
+            const myData = await tx.executeSqlAsync(`
+            UPDATE preferences 
+            SET isHapticsOn = ${isOn}
+            WHERE id = (
+                SELECT preferenceId 
+                FROM users 
+                WHERE id = ${userId}
+            );
+            `);
+            data = myData.rows        
+        });
+        return data;
+    } catch (error) {
+        console.log('error in updating Haptics ', error)
+    }
+};

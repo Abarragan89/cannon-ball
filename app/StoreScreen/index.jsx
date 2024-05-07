@@ -1,21 +1,142 @@
-import { StyleSheet, View } from "react-native";
-import { Link } from "expo-router"
+import {
+  StyleSheet,
+  View,
+  ImageBackground,
+  StatusBar,
+  ScrollView,
+  Pressable
+} from "react-native";
+import { useState } from "react";
 import Title from "../../Components/UI/Title";
+import BackArrow from "../../Components/UI/BackArrow";
+import Card from "../../Components/UI/Card";
 import colors from "../../constants/colors";
+import CannonBallDisplay from "../../Components/UI/CannonBallDisplay";
+import CannonLaunchDisplay from "../../Components/UI/CannonLaunchDisplay";
+import PurchaseModal from "../../Components/UI/Modals/PurchaseModal";
 
 const StoreScreen = () => {
+
+  const cannonBallArr = [
+    {
+      color: 'black',
+      gradientColor: 'rgba(52, 51, 51, 1)',
+      price: 20000,
+      title: 'Classic Black'
+    },
+    {
+      color: 'red',
+      gradientColor: '#fc8686ff',
+      price: 25000,
+      title: 'Red Raider'
+    },
+    {
+      color: 'orange',
+      gradientColor: '#ffcd70',
+      price: 45000,
+      title: 'Orange Outlaw'
+    },
+    {
+      color: '#c3c30f',
+      gradientColor: '#f9f9b2',
+      price: 60000,
+      title: 'Yellow Fellow'
+    },
+    {
+      color: 'green',
+      gradientColor: '#6ef96e',
+      price: 70000,
+      title: 'Greedy Green'
+    },
+    {
+      color: 'purple',
+      gradientColor: '#d065d0',
+      price: 80000,
+      title: 'Purple Pirate'
+    },
+  ]
+
+  const [showItemModal, setShowItemModal] = useState(false);
+  const [currentItem, setCurrentItem] = useState({});
+  const closeModal = () => setShowItemModal(false);
+
+  const displayModal = (itemInfo) => {
+    setCurrentItem(itemInfo);
+    setShowItemModal(true)
+  }
+
   return (
-    <View style={styles.rootContainer}>
-        <Title color={colors.primaryBlack} size={45}>Store</Title>
-        <Link href="/">Back To Home</Link>
-    </View>
+    <ImageBackground
+      source={require('../../assets/images/screenWoodBg.png')}
+      style={styles.rootContainer}
+    >
+      {showItemModal &&
+        <PurchaseModal
+          closeModal={closeModal}
+          cannonBallInfo={currentItem}
+        />
+      }
+      <StatusBar barStyle='light-content' />
+      <View style={styles.backIcon}>
+        <BackArrow />
+      </View>
+      <View style={styles.rootContainer}>
+        <Title color={colors.offWhite} size={45}>Store</Title>
+        <View style={styles.cardContainer}>
+          <Card
+            title={'Cannon Balls'}
+          >
+            <ScrollView horizontal={true}>
+              {cannonBallArr.map((cannonBall, index) =>
+                <Pressable key={index} onPress={() => displayModal(cannonBall)}>
+                  <View style={[styles.cannonBallContainer]}>
+                    <CannonBallDisplay
+                      color={cannonBall.color}
+                      gradientColor={cannonBall.gradientColor}
+                      size={45}
+                    />
+                  </View>
+                </Pressable>
+              )}
+            </ScrollView>
+          </Card>
+          <Card
+            title={'Cannons'}
+          >
+            <ScrollView horizontal={true}>
+              <CannonLaunchDisplay />
+              <CannonLaunchDisplay />
+              <CannonLaunchDisplay />
+              <CannonLaunchDisplay />
+              <CannonLaunchDisplay />
+              <CannonLaunchDisplay />
+              <CannonLaunchDisplay />
+            </ScrollView>
+
+          </Card>
+        </View>
+      </View>
+    </ImageBackground>
   )
-}
+};
 
 export default StoreScreen;
 
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-  }
+    paddingTop: 10,
+  },
+  cardContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  cannonBallContainer: {
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.primaryBlack,
+    borderRadius: 8,
+    padding: 5,
+    marginHorizontal: 10
+  },
 })

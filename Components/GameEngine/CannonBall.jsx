@@ -8,19 +8,19 @@ function CannonBall({ position, display, color, gradientColor }) {
     const y = position[1];
 
     return (
-            <LinearGradient
-                // Background Linear Gradient
-                // first color is the white shine
-                colors={[gradientColor, color]}
-                locations={[0.01, 0.75]}
-                start={{ x: 0.1, y: 0.3 }}
-                style={[styles.cannonBall, {
-                    left: x,
-                    top: y,
-                    display: display,
-                    borderColor: color,
-                }]}
-            />
+        <LinearGradient
+            // Background Linear Gradient
+            // first color is the white shine
+            colors={[gradientColor, color]}
+            locations={[0.01, 0.75]}
+            start={{ x: 0.1, y: 0.3 }}
+            style={[styles.cannonBall, {
+                left: x,
+                top: y,
+                display: display,
+                borderColor: color,
+            }]}
+        />
     )
 }
 
