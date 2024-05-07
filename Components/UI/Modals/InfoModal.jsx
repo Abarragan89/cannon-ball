@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, Pressable } from 'react-native';
-import colors from '../../constants/colors';
+import colors from '../../../constants/colors';
 
 
 const InfoModal = ({ starsNeeded, showModal, setShowModal }) => {

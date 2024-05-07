@@ -8,7 +8,7 @@ import LockedMap from "../../Components/UI/LockedMap";
 import lockedMapBg from '../../assets/images/lockedMap.png'
 import colors from "../../constants/colors";
 const mainBtnImgSrc = require('../../assets/images/btnWoodBg.png')
-import InfoModal from "../../Components/UI/InfoModal";
+import InfoModal from "../../Components/UI/Modals/InfoModal";
 import UserAllTimeNavStats from "../../Components/UI/UserAllTimeNavStats";
 import { getTotalStarsInMap, getTotalStars } from "../../utils/db/selectQueries";
 
