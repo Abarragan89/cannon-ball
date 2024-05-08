@@ -10,7 +10,6 @@ import { Dimensions } from "react-native";
 const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
 const bgImage = require('../assets/images/homeScreenImg.png')
 const { height } = Dimensions.get('screen');
-import { SoundProvider } from "../store/soundsContext";
 import { initDB, getPreferences } from "../utils/db/init";
 
 SplashScreen.preventAutoHideAsync();
@@ -34,7 +33,7 @@ const Home = () => {
   }
 
   return (
-    <SoundProvider>
+    <>
       <StatusBar barStyle='light-content' />
       {mainBtnImgSrc && bgImage &&
         <ImageBackground
@@ -73,7 +72,7 @@ const Home = () => {
           />
         </ImageBackground>
       }
-    </SoundProvider>
+    </>
   )
 }
 

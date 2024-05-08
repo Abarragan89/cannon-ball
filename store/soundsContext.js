@@ -15,10 +15,6 @@ const SoundProvider = ({ children }) => {
         backgroundWaveSound: null
     });
 
-    const images = useRef({
-        homescreenBgImage: null
-    })
-
     useEffect(() => {
         const loadSound = async () => {
             try {
@@ -47,17 +43,10 @@ const SoundProvider = ({ children }) => {
                     cannonBallHitSandSound,
                     backgroundWaveSound
                 }
-                // // DOWNLOAD ALL IMAGE FILES
-                // const homescreenBgImage = require('../assets/homeScreenImg.png')
-                // // SET IMAGE FILES IN REF VARIABLES
-                // images.current = {
-                //     homescreenBgImage,
-                // }
             } catch (e) {
                 console.log('ERROR LOADING IMAGES AND AUDIO FILES ', e)
             }
         }
-        
         loadSound();
     }, [])
 
@@ -66,7 +55,7 @@ const SoundProvider = ({ children }) => {
 
 
     return (
-        <SoundContext.Provider value={{ sounds, images }}>
+        <SoundContext.Provider value={{ sounds }}>
             {children}
         </SoundContext.Provider>
     );

@@ -7,15 +7,16 @@ import BackArrow from '../../Components/UI/BackArrow';
 import WinningScoresDisplay from '../../Components/UI/WinningScoresDisplay';
 import LevelTile from '../../Components/LevelTile';
 import { getAllLevelDataInMap } from '../../utils/db/selectQueries';
+import { getUserDataPreferences } from '../../utils/db/selectQueries';
 
 const LevelLobbyScreen = () => {
     const { mapName } = useLocalSearchParams();
+    const [currentLevelData, setCurrentLevelData] = useState([]);
+    const [winningStarLimits, setWinningStarLimits] = useState(null);
+    const [userPreferences, setUserPreferences] = useState(null)
 
-    const [currentLevelData, setCurrentLevelData] = useState([])
-    const [winningStarLimits, setWinningStarLimits] = useState(null)
-
+    // Set winning stars
     useEffect(() => {
-        
         function setWinningStars() {
             switch (mapName) {
                 case 'Basics':
@@ -33,6 +34,7 @@ const LevelLobbyScreen = () => {
                     break;
             }
         }
+        // get all level data
         async function getLevelData() {
             const levelData = await getAllLevelDataInMap(1, mapName);
             setCurrentLevelData(levelData)
@@ -42,6 +44,24 @@ const LevelLobbyScreen = () => {
             setWinningStars();
         };
     }, [mapName]);
+
+    // Get user preferences 
+    useEffect(() => {
+        async function getUserPreferences() {
+            try {
+                // only one item in the array so we can destructure
+                const [userPref] = await getUserDataPreferences(1)
+                setUserPreferences(userPref)
+            } catch (error) {
+                console.log('error getting user pref in level lobby ', error)
+            }
+        }
+        // setTimeout(() => {
+            getUserPreferences();
+        // }, 50);
+    }, [])
+
+
 
     return (
         <>
@@ -61,7 +81,7 @@ const LevelLobbyScreen = () => {
                             <View style={styles.titleContainer}>
                                 <Title color={colors.offWhite} size={50}>{mapName}</Title>
                             </View>
-                            <WinningScoresDisplay winningLimits={winningStarLimits}/>
+                            <WinningScoresDisplay winningLimits={winningStarLimits} />
                             <View style={styles.levelBtnContainer}>
                                 {currentLevelData.map((item, index) => (
                                     <View key={index} style={styles.singleLevelButton}>
@@ -72,6 +92,7 @@ const LevelLobbyScreen = () => {
                                                 lastAccuracy: item.accuracy,
                                                 lastHighscore: item.highscore,
                                                 lastEarnedStars: item.earnedStars,
+                                                userPreferences: userPreferences
                                             }}
                                             isLocked={item.isOpen}
                                             accuracy={item.accuracy}

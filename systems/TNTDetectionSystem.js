@@ -67,7 +67,7 @@ const TNTDetectionSystem = (entities) => {
         //this is different than the useState is gameover that sets the modal
         entities.gameData.isGameOver = true;
         // Lower TNT handle
-        entities.TNT.handlePosition[0] = -14;
+        entities.TNT.handlePosition[0] = -15;
         // // pause the cannonBall
         entities.cannonBall.velocity[1] = 0
         entities.cannonBall.velocity[0] = 0

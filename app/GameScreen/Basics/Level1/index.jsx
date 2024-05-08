@@ -21,7 +21,8 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { SoundContext } from "../../../../store/soundsContext";
-import { getIndividualLevelData, getUserDataPreferences } from "../../../../utils/db/selectQueries";
+import { PreferencesContext } from "../../../../store/preferencesContext";
+import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
 import {
     updateLevelToPass,
     updateLevelHighScore,
@@ -34,14 +35,25 @@ import {
 
 function ChatperOneLevelOne() {
     // Grab the level Id 
-    const { levelId, lastAccuracy, lastHighscore, lastEarnedStars } = useLocalSearchParams();
+    const { 
+        levelId, 
+        lastAccuracy, 
+        lastHighscore, 
+        lastEarnedStars,
+        userPreferences
+    } = useLocalSearchParams();
+
+    console.log('user preferences as route paramaters ', userPreferences)
 
     // Load sounds from context API, make gameEngineRef, and gameOver State
     const { sounds: gameSoundContext } = useContext(SoundContext);
+    // const { userPreferences } = useContext(PreferencesContext)
+
+    // console.log('user preferences from context ', userPreferences)
+
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     const [playBgMusic, setPlayBgMusic] = useState(true)
-    const [userPreferences, setUserPreferences] = useState(null)
 
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -53,24 +65,6 @@ function ChatperOneLevelOne() {
         currentLevel: 'Basics',
         nextLevel: 'Basics/Level2'
     });
-
-
-    // Get user preferences 
-    useEffect(() => {
-        async function getUserPreferences() {
-            try {
-                setTimeout(async () => {
-                    // only one item in the array so we can destructure
-                    const [userPref] = await getUserDataPreferences(1)
-                    console.log('user pref in level on', userPref)
-                    setUserPreferences(userPref)
-                }, 2000);
-            } catch (error) {
-                console.log('error getting user pref in settings ', error)
-            }
-        }
-        getUserPreferences();
-    }, [getUserDataPreferences])
 
     // Play background noises and stop them when game is over
     useEffect(() => {
@@ -181,7 +175,7 @@ function ChatperOneLevelOne() {
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
-            { userPreferences &&
+            {
                 <GameEngine
                     ref={gameEngineRef}
                     style={styles.container}

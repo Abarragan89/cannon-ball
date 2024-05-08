@@ -1,10 +1,13 @@
 import { Slot } from 'expo-router';
 import { SoundProvider } from '../store/soundsContext';
+import { PreferencesProvider } from '../store/preferencesContext';
 
 export default function HomeLayout() {
     return (
         <SoundProvider>
-            <Slot />
+            {/* <PreferencesProvider> */}
+                <Slot />
+            {/* </PreferencesProvider> */}
         </SoundProvider>
     )
 }

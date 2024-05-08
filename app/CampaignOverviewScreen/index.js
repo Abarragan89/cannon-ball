@@ -51,7 +51,6 @@ const CampaignOverview = () => {
             } catch (error) {
                 console.log('error getting map progress data ', error)
             }
-
         }
         getUserData();
     }, [])

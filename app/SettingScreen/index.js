@@ -8,7 +8,7 @@ import {
     ScrollView,
     Pressable
 } from "react-native";
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import BackArrow from "../../Components/UI/BackArrow";
 import Title from "../../Components/UI/Title";
 import colors from "../../constants/colors";
@@ -21,6 +21,9 @@ import {
     updateUserHapticsPref
 } from "../../utils/db/updateQueries";
 
+import { PreferencesContext } from "../../store/preferencesContext";
+
+
 const SettingScreen = () => {
 
     const [isMusicOn, setIsMusicOn] = useState(null);
@@ -28,13 +31,16 @@ const SettingScreen = () => {
     const [isHapticOn, setIsHapticOn] = useState(null);
     const [preferencesGathered, setPreferencesGathered] = useState(false);
     const [currentCannonBall, setCurrentCannonBall] = useState({ gradientColor: 'white', color: 'black' });
+    const imageArray = ['red', 'orange', 'yellow', 'green', 'purple'];
 
-    const imageArray = ['red', 'orange', 'yellow', 'green', 'purple']
+    // const { toggleMusic } = useContext(PreferencesContext)
+
 
     async function handleMusicPref(value) {
         try {
             const intValue = value === true ? 1 : 0;
             await updateUserMusicPref(1, intValue)
+            // toggleMusic(value)
         } catch (error) {
             console.log('error updating music preference ', error)
         }
@@ -78,7 +84,6 @@ const SettingScreen = () => {
         }
         getUserPreferences();
     }, [])
-
 
 
     return (
