@@ -21,7 +21,6 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { SoundContext } from "../../../../store/soundsContext";
-import { PreferencesContext } from "../../../../store/preferencesContext";
 import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
 import {
     updateLevelToPass,
@@ -47,9 +46,6 @@ function ChatperOneLevelOne() {
 
     // Load sounds from context API, make gameEngineRef, and gameOver State
     const { sounds: gameSoundContext } = useContext(SoundContext);
-    // const { userPreferences } = useContext(PreferencesContext)
-
-    // console.log('user preferences from context ', userPreferences)
 
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);

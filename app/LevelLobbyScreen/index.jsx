@@ -57,9 +57,7 @@ const LevelLobbyScreen = () => {
                 console.log('error getting user pref in level lobby ', error)
             }
         }
-        // setTimeout(() => {
         getUserPreferences(); 
-        // }, 50);
     }, [])
 
 
@@ -77,7 +75,7 @@ const LevelLobbyScreen = () => {
                     />
                 </View>
                 <ScrollView>
-                    {mapName && currentLevelData && winningStarLimits &&
+                    {mapName && currentLevelData && winningStarLimits && userPreferences && 
                         <View style={styles.root}>
                             <View style={styles.titleContainer}>
                                 <Title color={colors.offWhite} size={50}>{mapName}</Title>

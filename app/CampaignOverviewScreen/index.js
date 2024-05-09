@@ -32,20 +32,18 @@ const CampaignOverview = () => {
     useEffect(() => {
         async function getUserData() {
             try {
-                // const basicProgress = await getTotalStarsInMap(1, 'Basics');
-                // const marksProgress = await getTotalStarsInMap(1, 'Marks');
-                // const hinderanceProgress = await getTotalStarsInMap(1, 'Hinderance');
-                // const krakenProgress = await getTotalStarsInMap(1, 'Kraken');
-                // const hatchProgress = await getTotalStarsInMap(1, 'Hatch');
+                const basicProgress = await getTotalStarsInMap(1, 'Basics');
+                const marksProgress = await getTotalStarsInMap(1, 'Marks');
+                const hinderanceProgress = await getTotalStarsInMap(1, 'Hinderance');
+                const krakenProgress = await getTotalStarsInMap(1, 'Kraken');
+                const hatchProgress = await getTotalStarsInMap(1, 'Hatch');
                 const totalStars = await getTotalStars(1);
 
-                // setMapOneProgress(basicProgress[0].totalMapStars);
-                // setMapTwoProgress(marksProgress[0].totalMapStars);
-                // setMapThreeProgress(hinderanceProgress[0].totalMapStars);
-                // setMapFourProgress(krakenProgress[0].totalMapStars);
-                // setMapFiveProgress(hatchProgress[0].totalMapStars);
-
-                console.log('total starss ', totalStars)
+                setMapOneProgress(basicProgress[0].totalMapStars);
+                setMapTwoProgress(marksProgress[0].totalMapStars);
+                setMapThreeProgress(hinderanceProgress[0].totalMapStars);
+                setMapFourProgress(krakenProgress[0].totalMapStars);
+                setMapFiveProgress(hatchProgress[0].totalMapStars);
 
                 setTotalStars(totalStars[0].totalMapStars);
                 setIsDataLoaded(true)
