@@ -1,4 +1,4 @@
-import { useRef, useState, useContext, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useLocalSearchParams } from 'expo-router';
 import { GameEngine } from "react-native-game-engine";
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
@@ -20,7 +20,6 @@ import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import { SoundContext } from "../../../../store/soundsContext";
 import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
 import {
     updateLevelToPass,
@@ -29,27 +28,27 @@ import {
     updateUserTotalPoints,
     updateLevelEarnedStars
 } from "../../../../utils/db/updateQueries";
+import { Audio } from 'expo-av';
+
 
 // import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
 
 function ChatperOneLevelOne() {
     // Grab the level Id 
-    const { 
-        levelId, 
-        lastAccuracy, 
-        lastHighscore, 
+    const {
+        levelId,
+        lastAccuracy,
+        lastHighscore,
         lastEarnedStars,
-        userPreferences
+        isSoundOn,
+        isSoundEffectsOn,
+        isHapticsOn
     } = useLocalSearchParams();
-
-    console.log('user preferences as route paramaters ', userPreferences)
-
-    // Load sounds from context API, make gameEngineRef, and gameOver State
-    const { sounds: gameSoundContext } = useContext(SoundContext);
 
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
     const [playBgMusic, setPlayBgMusic] = useState(true)
+    const [isSoundLoaded, setIsSoundLoaded] = useState(false)
 
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -62,34 +61,93 @@ function ChatperOneLevelOne() {
         nextLevel: 'Basics/Level2'
     });
 
+    const sounds = useRef({
+        shootCannonSound: null,
+        tntCannonBallHitSound: null,
+        backgroundMusicSound: null,
+        tntExplosionSound: null,
+        tntHandleClickSound: null,
+        cannonBallBounceSound: null,
+        cannonBallHitSandSound: null,
+        backgroundWaveSound: null
+    });
+
     // Play background noises and stop them when game is over
     useEffect(() => {
         async function stopMusic() {
             try {
-                await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(false);
-                await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(false);
-                await gameSoundContext.current.backgroundMusicSound.stopAsync();
-                await gameSoundContext.current.backgroundWaveSound.stopAsync();
+                await sounds.current.backgroundMusicSound.setIsLoopingAsync(false);
+                await sounds.current.backgroundWaveSound.setIsLoopingAsync(false);
+                await sounds.current.backgroundMusicSound.stopAsync();
+                await sounds.current.backgroundWaveSound.stopAsync();
             } catch (error) {
                 console.log('error stopping music in useEffect ', error)
             }
         }
         async function startMusic() {
             try {
-                await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(true);
-                await gameSoundContext.current.backgroundMusicSound.playAsync();
-                await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(true);
-                await gameSoundContext.current.backgroundWaveSound.playAsync();
+                await sounds.current.backgroundMusicSound.setIsLoopingAsync(true);
+                await sounds.current.backgroundMusicSound.playAsync();
+                await sounds.current.backgroundWaveSound.setIsLoopingAsync(true);
+                await sounds.current.backgroundWaveSound.playAsync();
             } catch (error) {
                 console.log('error starting music ', error);
             }
         }
         // start music if state is available and user preferences have soundOn
-        if (playBgMusic && gameSoundContext) startMusic();
-        return () => {
-            stopMusic();
+        if (playBgMusic && isSoundLoaded && isSoundOn > 0) startMusic();
+        if (!playBgMusic && isSoundOn) stopMusic()
+    }, [playBgMusic, isSoundLoaded, isSoundOn]);
+
+
+    // download all the sounds
+    useEffect(() => {
+        const loadSound = async () => {
+            try {
+                //  DOWNLOAD ALL AUDIO FILES
+                const { sound: shootCannonSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonShot.mp3'));
+                const { sound: tntExplosionSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/hugeExplosion.wav'));
+                const { sound: backgroundMusicSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/backgroundMusic.mp3'), {
+                    volume: 0.1
+                });
+                const { sound: tntHandleClickSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/tntHandleClick.wav'));
+                const { sound: cannonBallBounceSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonBallBounce.wav'));
+                const { sound: tntCannonBallHitSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/woodHit.wav'));
+                const { sound: cannonBallHitSandSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonBallHitsBottom.wav'));
+                const { sound: backgroundWaveSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/backgroundWaves.wav'), {
+                    volume: 0.1
+                });
+                // SET AUDIO FILES IN REF VARIABLES
+                sounds.current = {
+                    shootCannonSound,
+                    tntCannonBallHitSound,
+                    tntExplosionSound,
+                    backgroundMusicSound,
+                    tntHandleClickSound,
+                    cannonBallBounceSound,
+                    cannonBallHitSandSound,
+                    backgroundWaveSound
+                }
+                setIsSoundLoaded(true)
+            } catch (e) {
+                console.log('ERROR LOADING IMAGES AND AUDIO FILES ', e)
+            }
         }
-    }, [playBgMusic, gameSoundContext]);
+        loadSound();
+
+        return () => {
+            sounds.current.shootCannonSound.unloadAsync();
+            sounds.current.tntCannonBallHitSound.unloadAsync();
+            sounds.current.tntExplosionSound.unloadAsync();
+            sounds.current.backgroundMusicSound.unloadAsync();
+            sounds.current.backgroundWaveSound.unloadAsync();
+            sounds.current.tntCannonBallHitSound.unloadAsync();
+            sounds.current.cannonBallBounceSound.unloadAsync();
+            sounds.current.cannonBallHitSandSound.unloadAsync();
+            sounds.current.tntHandleClickSound.unloadAsync();
+        }
+    }, [])
+
 
 
     // Backend updates 
@@ -166,12 +224,11 @@ function ChatperOneLevelOne() {
     const powerLevelRef = useRef(15)
 
     return (
-
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
-            {
+            { isSoundLoaded &&
                 <GameEngine
                     ref={gameEngineRef}
                     style={styles.container}
@@ -183,7 +240,7 @@ function ChatperOneLevelOne() {
                         fireCannonSystem,
                         // followCannonBallOnMove
                     ]}
-                    entities={{
+                    entities={{ 
                         cannonBall: {
                             position: [-100, 0],
                             gradientColor: 'rgba(0, 0, 0, .75)',
@@ -201,15 +258,16 @@ function ChatperOneLevelOne() {
                             setIsGameOver: setIsGameOver,
                         },
                         sounds: {
-                            shootCannonSound: gameSoundContext?.current?.shootCannonSound,
-                            tntExplosionSound: gameSoundContext?.current?.tntExplosionSound,
-                            tntHandleClickSound: gameSoundContext?.current?.tntHandleClickSound,
-                            backgrounMusicSound: gameSoundContext?.current?.backgrounMusicSound,
-                            fireworkSound: gameSoundContext?.current?.fireworkSound,
-                            cannonBallBounceSound: gameSoundContext?.current?.cannonBallBounceSound,
-                            tntCannonBallHitSound: gameSoundContext?.current?.tntCannonBallHitSound,
-                            cannonBallHitSandSound: gameSoundContext?.current?.cannonBallHitSandSound,
-                            backgroundWaveSound: gameSoundContext?.current?.backgroundWaveSound
+                            shootCannonSound: sounds.current.shootCannonSound,
+                            tntExplosionSound: sounds.current.tntExplosionSound,
+                            tntHandleClickSound: sounds.current.tntHandleClickSound,
+                            backgrounMusicSound: sounds.current.backgroundMusicSound,
+                            fireworkSound: sounds.current.fireworkSound,
+                            cannonBallBounceSound: sounds.current.cannonBallBounceSound,
+                            tntCannonBallHitSound: sounds.current.tntCannonBallHitSound,
+                            cannonBallHitSandSound: sounds.current.cannonBallHitSandSound,
+                            backgroundWaveSound: sounds.current.backgroundWaveSound,
+                            isSoundEffectsOn: isSoundEffectsOn
                         },
                         cannon: {
                             position: [400, screenHeight - 100],

@@ -51,7 +51,6 @@ const LevelLobbyScreen = () => {
             try {
                 // only one item in the array so we can destructure
                 const [userPref] = await getUserDataPreferences(1)
-                console.log(userPref)
                 setUserPreferences(userPref)
             } catch (error) {
                 console.log('error getting user pref in level lobby ', error)
@@ -59,8 +58,6 @@ const LevelLobbyScreen = () => {
         }
         getUserPreferences(); 
     }, [])
-
-
 
     return (
         <>
@@ -91,7 +88,10 @@ const LevelLobbyScreen = () => {
                                                 lastAccuracy: item.accuracy,
                                                 lastHighscore: item.highscore,
                                                 lastEarnedStars: item.earnedStars,
-                                                userPreferences: userPreferences
+                                                isSoundOn: userPreferences.isSoundOn,
+                                                isSoundEffectsOn: userPreferences.isSoundEffectsOn,
+                                                isHapticsOn: userPreferences.isHapticsOn
+
                                             }}
                                             isLocked={item.isOpen}
                                             accuracy={item.accuracy}

@@ -52,10 +52,12 @@ const TNTDetectionSystem = (entities) => {
         entities.gameData.setPlayBgMusic(false)
         // TNT handle click
         if (!entities.gameData.isGameOver) {
-            try {
-                entities.sounds.tntHandleClickSound.replayAsync()
-            } catch (error) {
-                console.log('error in TNT handle click ', error)
+            if (entities.sounds.isSoundEffectsOn > 0) {
+                try {
+                    entities.sounds.tntHandleClickSound.replayAsync()
+                } catch (error) {
+                    console.log('error in TNT handle click ', error)
+                }
             }
             // calculate accuracy to center of ball being over the center or box
             calculateAccuracy();
@@ -79,7 +81,13 @@ const TNTDetectionSystem = (entities) => {
             entities.explosion.position[0] = entities.TNT.position[0] + 15
             entities.explosion.position[1] = entities.TNT.position[1] + 15
             // Play Explosion Sound only once. Using startAnimation as a trigger
-            if (!entities.explosion.startAnimation) entities.sounds.tntExplosionSound.replayAsync();
+            if (!entities.explosion.startAnimation && entities.sounds.isSoundEffectsOn > 0) {
+                try {
+                    entities.sounds.tntExplosionSound.replayAsync();
+                } catch (error) {
+                    console.log('error with explosion sound ', error)
+                }
+            }
             // trigger explosion animation
             entities.explosion.startAnimation = true;
             // make tnt box and cannonBall disappear with a slight delay
@@ -135,10 +143,12 @@ const TNTDetectionSystem = (entities) => {
     ///////////// CHECKING FOR LEFT WALL DETECTION ////////////////////////
     if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[0] > 0) {
-            try {
-                entities.sounds.tntCannonBallHitSound.replayAsync();
-            } catch (error) {
-                console.log('error in TNT HIT SOUND ', error)
+            if (entities.sounds.isSoundEffectsOn > 0) {
+                try {
+                    entities.sounds.tntCannonBallHitSound.replayAsync();
+                } catch (error) {
+                    console.log('error in TNT HIT SOUND ', error)
+                }
             }
             entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
@@ -148,10 +158,12 @@ const TNTDetectionSystem = (entities) => {
     ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
     if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[0] < 0) {
-            try {
-                entities.sounds.tntCannonBallHitSound.replayAsync();
-            } catch (error) {
-                console.log('error in TNT HIT SOUND ', error)
+            if (entities.sounds.isSoundEffectsOn > 0) {
+                try {
+                    entities.sounds.tntCannonBallHitSound.replayAsync();
+                } catch (error) {
+                    console.log('error in TNT HIT SOUND ', error)
+                }
             }
             entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
@@ -161,10 +173,12 @@ const TNTDetectionSystem = (entities) => {
     ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
     if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[1] < 0) {
-            try {
-                entities.sounds.tntCannonBallHitSound.replayAsync();
-            } catch (error) {
-                console.log('error in TNT HIT SOUND ', error)
+            if (entities.sounds.isSoundEffectsOn > 0) {
+                try {
+                    entities.sounds.tntCannonBallHitSound.replayAsync();
+                } catch (error) {
+                    console.log('error in TNT HIT SOUND ', error)
+                }
             }
             entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]

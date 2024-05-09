@@ -19,7 +19,7 @@ const extraLongHindSystemOne = (entities) => {
         ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
         if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
             if (entities.cannonBall.velocity[1] < 0) {
-                cannonBallBounce(entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1)
+                cannonBallBounce(entities.sounds.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1)
             }
         }
     
