@@ -15,6 +15,7 @@ import CannonBallDisplay from "../../Components/UI/CannonBallDisplay";
 import CannonLaunchDisplay from "../../Components/UI/CannonLaunchDisplay";
 import PurchaseModal from "../../Components/UI/Modals/PurchaseModal";
 
+
 const StoreScreen = () => {
 
   const cannonBallArr = [
@@ -64,6 +65,7 @@ const StoreScreen = () => {
     setCurrentItem(itemInfo);
     setShowItemModal(true)
   }
+
 
   return (
     <ImageBackground

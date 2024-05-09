@@ -1,7 +1,7 @@
 import openDatabaseConnection from './openDB';
 
 export async function initDB() {
-    const db = openDatabaseConnection();
+    const db = await openDatabaseConnection();
     await db.transactionAsync(async tx => {
         let needInitialSetup = false;
 

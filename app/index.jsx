@@ -12,7 +12,7 @@ const bgImage = require('../assets/images/homeScreenImg.png')
 const { height } = Dimensions.get('screen');
 import { initDB, getPreferences } from "../utils/db/init";
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 const Home = () => {
   const [fontsLoaded, fontError] = useFonts({

@@ -51,13 +51,14 @@ const LevelLobbyScreen = () => {
             try {
                 // only one item in the array so we can destructure
                 const [userPref] = await getUserDataPreferences(1)
+                console.log(userPref)
                 setUserPreferences(userPref)
             } catch (error) {
                 console.log('error getting user pref in level lobby ', error)
             }
         }
         // setTimeout(() => {
-            getUserPreferences();
+        getUserPreferences(); 
         // }, 50);
     }, [])
 

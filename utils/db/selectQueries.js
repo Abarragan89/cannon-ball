@@ -3,7 +3,7 @@ import openDatabaseConnection from "./openDB";
 // GET TOTAL STARS IN SPECIFIC MAP
 export async function getTotalStarsInMap(userId, mapName) {
     let data;
-    const db = openDatabaseConnection();
+    const db = await openDatabaseConnection();
     try {
         await db.transactionAsync(async tx => {
             const myData = await tx.executeSqlAsync(`
@@ -26,22 +26,31 @@ export async function getTotalStarsInMap(userId, mapName) {
 
 // GET TOTAL USER STARS
 export async function getTotalStars(userId) {
-    let data;
-    const db = openDatabaseConnection();
+    const db = await openDatabaseConnection();
     try {
-        await db.transactionAsync(async tx => {
-            const myData = await tx.executeSqlAsync(`
-                    SELECT SUM(earnedStars) as totalMapStars
-                    FROM levels l
-                    WHERE l.mapId IN (
-                        SELECT m.id
-                        FROM users u
-                        LEFT JOIN maps m ON m.userId=${userId}
-                        GROUP BY m.mapName
-                    );`);
-            data = myData.rows
-        });
-        return data;
+        // await db.transactionAsync(async tx => {
+        //     const myData = await tx.executeSqlAsync(`
+        //             SELECT SUM(earnedStars) as totalMapStars
+        //             FROM levels l
+        //             WHERE l.mapId IN (
+        //                 SELECT m.id
+        //                 FROM users u
+        //                 LEFT JOIN maps m ON m.userId=${userId}
+        //                 GROUP BY m.mapName
+        //             );`);
+        //     data = myData.rows
+        // });
+        const myData = await db.getAllAsync(`
+            SELECT SUM(earnedStars) as totalMapStars
+            FROM levels l
+            WHERE l.mapId IN (
+                SELECT m.id
+                FROM users u
+                LEFT JOIN maps m ON m.userId=${userId}
+                GROUP BY m.mapName);
+        `)
+        console.log('data in get all stars, ', myData)
+        return myData;
     } catch (error) {
         console.log('error in getTotalStars ', error)
     }
@@ -50,7 +59,7 @@ export async function getTotalStars(userId) {
 // GET ALL LEVEL DATA IN A MAP (LEVEL LOBBY)
 export async function getAllLevelDataInMap(userId, mapName) {
     let data;
-    const db = openDatabaseConnection();
+    const db = await openDatabaseConnection();
     try {
         await db.transactionAsync(async tx => {
             const myData = await tx.executeSqlAsync(`
@@ -74,7 +83,7 @@ export async function getAllLevelDataInMap(userId, mapName) {
 // GET TOTAL USER POINTS
 export async function getUserTotalPoints(userId) {
     let data;
-    const db = openDatabaseConnection();
+    const db = await openDatabaseConnection();
     try {
         await db.transactionAsync(async tx => {
             const myData = await tx.executeSqlAsync(`
@@ -93,7 +102,7 @@ export async function getUserTotalPoints(userId) {
 // GET INDIVIDUAL LEVEL DATA
 export async function getIndividualLevelData(mapName, level) {
     let data;
-    const db = openDatabaseConnection();
+    const db = await openDatabaseConnection();
     try {
         await db.transactionAsync(async tx => {
             const myData = await tx.executeSqlAsync(`
@@ -116,7 +125,6 @@ export async function getUserDataPreferences(userId) {
     let data;
     const db = await openDatabaseConnection();
     console.log('db connection ', db)
-    console.log('user id ', userId)
     try {
         await db.transactionAsync(async tx => {
             const myData = await tx.executeSqlAsync(`
