@@ -29,7 +29,7 @@ import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLo
 import extraLongHindSystemOne from "../../../../systems/hinderanceDetection/extraLongHindSystemOne";
 import krakenLevelFiveSystems from "../../../../systems/krakenMovementSystems/krakenLevelFive";
 import cannonStandDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
-import { SoundContext } from "../../../../store/soundsContext";
+
 import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
 import {

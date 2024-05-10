@@ -30,7 +30,7 @@ import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindS
 import longHindSystemThree from "../../../../systems/hinderanceDetection/longHindSystemThree";
 import longHindSystemFour from "../../../../systems/hinderanceDetection/longHindSystemFour";
 import cannonDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
-import { SoundContext } from "../../../../store/soundsContext";
+
 import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
 import {

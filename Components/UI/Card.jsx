@@ -4,6 +4,7 @@ import colors from '../../constants/colors';
 
 
 const Card = ({ children, title }) => {
+    
     return (
         <LinearGradient
             // Background Linear Gradient
@@ -17,7 +18,7 @@ const Card = ({ children, title }) => {
             <View style={styles.centerDiv}>
                 <Text style={styles.cardTitle}>{title}</Text>
             </View>
-            {children}
+            {children({ extraData: 'extraData '})}
         </LinearGradient>
     )
 }

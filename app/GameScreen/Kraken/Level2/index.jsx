@@ -26,7 +26,7 @@ import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallS
 import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
 import smallSquareSystemThree from "../../../../systems/hinderanceDetection/smallSquareSystemThree";
 import krakenLevelTwo from "../../../../systems/krakenMovementSystems/krakenLevelTwo";
-import { SoundContext } from "../../../../store/soundsContext";
+
 import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
 import {

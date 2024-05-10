@@ -32,7 +32,7 @@ import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/h
 import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
 import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
 import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
-import { SoundContext } from "../../../../store/soundsContext";
+
 import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
 import {

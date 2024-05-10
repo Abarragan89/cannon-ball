@@ -29,7 +29,7 @@ import HatchLid from "../../../../Components/GameEngine/HatchLid";
 import HatchBox from "../../../../Components/GameEngine/HatchBox";
 import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
 import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
-import { SoundContext } from "../../../../store/soundsContext";
+
 import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
 import {
     updateLevelToPass,

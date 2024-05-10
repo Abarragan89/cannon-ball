@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { Audio } from 'expo-av';
 import { useLocalSearchParams } from 'expo-router';
 import { GameEngine } from "react-native-game-engine";
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
@@ -28,13 +29,11 @@ import {
     updateUserTotalPoints,
     updateLevelEarnedStars
 } from "../../../../utils/db/updateQueries";
-import { Audio } from 'expo-av';
-
 
 // import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
 
 function ChatperOneLevelOne() {
-    // Grab the level Id 
+    // Get Router Parameters
     const {
         levelId,
         lastAccuracy,
@@ -47,8 +46,8 @@ function ChatperOneLevelOne() {
 
     const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
-    const [playBgMusic, setPlayBgMusic] = useState(true)
-    const [isSoundLoaded, setIsSoundLoaded] = useState(false)
+    const [playBgMusic, setPlayBgMusic] = useState(true);
+    const [isSoundLoaded, setIsSoundLoaded] = useState(false);
 
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -107,16 +106,12 @@ function ChatperOneLevelOne() {
                 //  DOWNLOAD ALL AUDIO FILES
                 const { sound: shootCannonSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonShot.mp3'));
                 const { sound: tntExplosionSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/hugeExplosion.wav'));
-                const { sound: backgroundMusicSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/backgroundMusic.mp3'), {
-                    volume: 0.1
-                });
+                const { sound: backgroundMusicSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/backgroundMusic.mp3'), { volume: 0.4 });
                 const { sound: tntHandleClickSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/tntHandleClick.wav'));
                 const { sound: cannonBallBounceSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonBallBounce.wav'));
                 const { sound: tntCannonBallHitSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/woodHit.wav'));
                 const { sound: cannonBallHitSandSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/cannonBallHitsBottom.wav'));
-                const { sound: backgroundWaveSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/backgroundWaves.wav'), {
-                    volume: 0.1
-                });
+                const { sound: backgroundWaveSound } = await Audio.Sound.createAsync(require('../../../../assets/sounds/backgroundWaves.wav'), { volume: 0.4 });
                 // SET AUDIO FILES IN REF VARIABLES
                 sounds.current = {
                     shootCannonSound,
@@ -228,7 +223,7 @@ function ChatperOneLevelOne() {
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
-            { isSoundLoaded &&
+            {isSoundLoaded &&
                 <GameEngine
                     ref={gameEngineRef}
                     style={styles.container}
@@ -240,7 +235,7 @@ function ChatperOneLevelOne() {
                         fireCannonSystem,
                         // followCannonBallOnMove
                     ]}
-                    entities={{ 
+                    entities={{
                         cannonBall: {
                             position: [-100, 0],
                             gradientColor: 'rgba(0, 0, 0, .75)',

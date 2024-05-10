@@ -31,7 +31,7 @@ import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/h
 import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
 import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
 import levelFiveHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelFive";
-import { SoundContext } from "../../../../store/soundsContext";
+
 import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
 import {
