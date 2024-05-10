@@ -126,7 +126,7 @@ function ChatperOneLevelFive() {
                 }
                 setIsSoundLoaded(true)
             } catch (e) {
-                console.log('ERROR LOADING IMAGES AND AUDIO FILES ', e)
+                console.log('error downloading  music files  ', e)
             }
         }
         loadSound();
@@ -195,38 +195,38 @@ function ChatperOneLevelFive() {
             source={require('../../../../assets/images/basics/stuck.png')}
             style={styles.backgroundImg}
         >
-        { isSoundLoaded && 
-            <GameEngine
-                ref={gameEngineRef}
-                style={styles.container}
-                systems=
-                {[
-                    cannonControlSystem,
-                    TNTDetectionSystem,
-                    scoreCalculatorSystem,
-                    fireCannonSystem,
-                ]}
-                entities={{
-                    cannonBall: {
-                        position: [-100, 0],
-                        gradientColor: 'rgba(0, 0, 0, .75)',
-                        color: 'rgba(0, 0, 0, 1)',
-                        velocity: [1, 1],
-                        display: 'block',
-                        accuracy: { name: '', float: 0, multiplier: 0 },
-                        isGameOver: isGameOver,
-                        setIsGameOver: setIsGameOver,
-                        isBallMoving: false,
-                        renderer: <CannonBall />
-                    },
-                    gameData: {
-                        endGameData: endGameData,
-                        setPlayBgMusic: setPlayBgMusic,
-                        isGameOver: false,
-                        setIsGameOver: setIsGameOver,
-                    },
-                    sounds: {
-                        shootCannonSound: sounds.current.shootCannonSound,
+            {isSoundLoaded &&
+                <GameEngine
+                    ref={gameEngineRef}
+                    style={styles.container}
+                    systems=
+                    {[
+                        cannonControlSystem,
+                        TNTDetectionSystem,
+                        scoreCalculatorSystem,
+                        fireCannonSystem,
+                    ]}
+                    entities={{
+                        cannonBall: {
+                            position: [-100, 0],
+                            gradientColor: 'rgba(0, 0, 0, .75)',
+                            color: 'rgba(0, 0, 0, 1)',
+                            velocity: [1, 1],
+                            display: 'block',
+                            accuracy: { name: '', float: 0, multiplier: 0 },
+                            isGameOver: isGameOver,
+                            setIsGameOver: setIsGameOver,
+                            isBallMoving: false,
+                            renderer: <CannonBall />
+                        },
+                        gameData: {
+                            endGameData: endGameData,
+                            setPlayBgMusic: setPlayBgMusic,
+                            isGameOver: false,
+                            setIsGameOver: setIsGameOver,
+                        },
+                        sounds: {
+                            shootCannonSound: sounds.current.shootCannonSound,
                             tntExplosionSound: sounds.current.tntExplosionSound,
                             tntHandleClickSound: sounds.current.tntHandleClickSound,
                             backgrounMusicSound: sounds.current.backgroundMusicSound,
@@ -236,67 +236,67 @@ function ChatperOneLevelFive() {
                             cannonBallHitSandSound: sounds.current.cannonBallHitSandSound,
                             backgroundWaveSound: sounds.current.backgroundWaveSound,
                             isSoundEffectsOn: isSoundEffectsOn
-                    },
-                    cannon: {
-                        position: [Math.floor(screenWidth / 2) - 30, screenHeight - 120],
-                        upperTravelLimit: -1,
-                        lowerTravelLimit: 1000,
-                        rotate: '-90deg',
-                        renderer: <CannonLauncher />
-                    },
-                    TNT: {
-                        position: [Math.floor(screenWidth / 2) - 15, 150],
-                        display: 'block',
-                        handlePosition: [-20, 0],
-                        renderer: <TNT />
-                    },
-                    explosion: {
-                        position: [0, 0],
-                        ballPosition: [0, 0],
-                        ballColor: '#000000',
-                        startAnimation: false,
-                        renderer: <Explosion />
-                    },
-                    followArrow: {
-                        leftPosition: 300,
-                        displayStatus: 'none',
-                        renderer: <FollowArrow />
-                    },
-                    headerStats: {
-                        airTime: 0,
-                        bounces: 0,
-                        renderer: <HeaderStats />
-                    },
-                    angleMeter: {
-                        angleLevel: angleLevelRef.current,
-                        renderer: <AngleMeter />
-                    },
-                    powerMeter: {
-                        displayPower: powerLevelRef.current,
-                        renderer: <PowerMeter />
-                    },
-                    fireBtn: {
-                        isShooting: false,
-                        renderer: <FireBtn />
-                    }
-                }}>
-                <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Basics' }}
-                />
-                <GameLevelInfoHeader
-                    mapName={'Basics'}
-                    levelNumber={5}
-                />
-                {isGameOver &&
-                    <EndGameModal
-                        endGameData={endGameData}
-                        nextLevelData={null}
+                        },
+                        cannon: {
+                            position: [Math.floor(screenWidth / 2) - 30, screenHeight - 120],
+                            upperTravelLimit: -1,
+                            lowerTravelLimit: 1000,
+                            rotate: '-90deg',
+                            renderer: <CannonLauncher />
+                        },
+                        TNT: {
+                            position: [Math.floor(screenWidth / 2) - 15, 150],
+                            display: 'block',
+                            handlePosition: [-20, 0],
+                            renderer: <TNT />
+                        },
+                        explosion: {
+                            position: [0, 0],
+                            ballPosition: [0, 0],
+                            ballColor: '#000000',
+                            startAnimation: false,
+                            renderer: <Explosion />
+                        },
+                        followArrow: {
+                            leftPosition: 300,
+                            displayStatus: 'none',
+                            renderer: <FollowArrow />
+                        },
+                        headerStats: {
+                            airTime: 0,
+                            bounces: 0,
+                            renderer: <HeaderStats />
+                        },
+                        angleMeter: {
+                            angleLevel: angleLevelRef.current,
+                            renderer: <AngleMeter />
+                        },
+                        powerMeter: {
+                            displayPower: powerLevelRef.current,
+                            renderer: <PowerMeter />
+                        },
+                        fireBtn: {
+                            isShooting: false,
+                            renderer: <FireBtn />
+                        }
+                    }}>
+                    <StatusBar hidden={true} />
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Basics' }}
                     />
-                }
-            </GameEngine>
-        }
+                    <GameLevelInfoHeader
+                        mapName={'Basics'}
+                        levelNumber={5}
+                    />
+                    {isGameOver &&
+                        <EndGameModal
+                            endGameData={endGameData}
+                            nextLevelData={null}
+                        />
+                    }
+                </GameEngine>
+            }
         </ImageBackground>
     );
 }

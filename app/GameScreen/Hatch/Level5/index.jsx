@@ -134,7 +134,7 @@ function ChapterFiveLevelFive() {
                 }
                 setIsSoundLoaded(true)
             } catch (e) {
-                console.log('ERROR LOADING IMAGES AND AUDIO FILES ', e)
+                console.log('error downloading  music files  ', e)
             }
         }
         loadSound();
