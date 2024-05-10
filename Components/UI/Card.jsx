@@ -18,7 +18,7 @@ const Card = ({ children, title }) => {
             <View style={styles.centerDiv}>
                 <Text style={styles.cardTitle}>{title}</Text>
             </View>
-            {children({ extraData: 'extraData '})}
+            {children}
         </LinearGradient>
     )
 }

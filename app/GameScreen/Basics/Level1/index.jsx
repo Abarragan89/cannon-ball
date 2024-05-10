@@ -143,8 +143,6 @@ function ChatperOneLevelOne() {
         }
     }, [])
 
-
-
     // Backend updates 
     useEffect(() => {
         // 'isGameOver' should more appropriately be named 'gameWon'
