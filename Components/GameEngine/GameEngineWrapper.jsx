@@ -107,6 +107,7 @@ const GameEngineWrapper = ({
                         setPlayBgMusic: setPlayBgMusic,
                         isGameOver: false,
                         setIsGameOver: setIsGameOver,
+                        bounceLevel: 0.8
                     },
                 }));
                 setIsSoundLoaded(true)

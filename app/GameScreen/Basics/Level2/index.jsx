@@ -72,7 +72,6 @@ function ChatperOneLevelTwo() {
             style={styles.backgroundImg}
         >
             <GameEngineWrapper
-                style={styles.container}
                 systems=
                 {[
                     cannonControlSystem,

@@ -3,23 +3,23 @@ const moveTNTMarksLevelFive = (entities) => {
         const speed = 1;
 
         // moving right
-        if (entities.gameData.tntPixelCounter <= 300) {
+        if (entities.tntMovementCount.tntPixelCounter <= 300) {
             entities.TNT.position[0] += speed;
-            entities.gameData.tntPixelCounter++;
+            entities.tntMovementCount.tntPixelCounter++;
         // moving down
-        } else if (entities.gameData.tntPixelCounter > 300 && entities.gameData.tntPixelCounter <=450) {
+        } else if (entities.tntMovementCount.tntPixelCounter > 300 && entities.tntMovementCount.tntPixelCounter <=450) {
             entities.TNT.position[1] += speed;
-            entities.gameData.tntPixelCounter++
+            entities.tntMovementCount.tntPixelCounter++
         // moving left
-        } else if (entities.gameData.tntPixelCounter > 450 && entities.gameData.tntPixelCounter <= 750) {
+        } else if (entities.tntMovementCount.tntPixelCounter > 450 && entities.tntMovementCount.tntPixelCounter <= 750) {
             entities.TNT.position[0] -= speed;
-            entities.gameData.tntPixelCounter++;
+            entities.tntMovementCount.tntPixelCounter++;
         // moving up
-        } else if (entities.gameData.tntPixelCounter > 750 && entities.gameData.tntPixelCounter <=900) {
+        } else if (entities.tntMovementCount.tntPixelCounter > 750 && entities.tntMovementCount.tntPixelCounter <=900) {
             entities.TNT.position[1] -= speed;
-            entities.gameData.tntPixelCounter++;
-        } else if (entities.gameData.tntPixelCounter > 900) {
-            entities.gameData.tntPixelCounter = 0;
+            entities.tntMovementCount.tntPixelCounter++;
+        } else if (entities.tntMovementCount.tntPixelCounter > 900) {
+            entities.tntMovementCount.tntPixelCounter = 0;
         }
     }
     return entities;
