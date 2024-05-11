@@ -50,17 +50,12 @@ function ChatperThreeLevelOne() {
         nextLevel: 'Hinderance/Level2'
     });
 
-
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
     const powerLevelRef = useRef(15)
 
-
-
-
     const [nextLevelData, setNextLevelData] = useState(null);
-
     // Get next level information to pass as params in the 
     // next level button in the end of game modal
     useEffect(() => {

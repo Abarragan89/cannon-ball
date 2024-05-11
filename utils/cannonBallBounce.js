@@ -1,4 +1,4 @@
-export default cannonBallBounce = (isSoundOn, sounds, sound, headerStats, cannonBall, isVertical) => {
+export default cannonBallBounce = (gameData, isSoundOn, sounds, sound, headerStats, cannonBall, isVertical) => {
     if (isSoundOn > 0) {
         try {
             sounds[sound].replayAsync();
@@ -7,5 +7,5 @@ export default cannonBallBounce = (isSoundOn, sounds, sound, headerStats, cannon
         }
     }
     headerStats.bounces += 1;
-    cannonBall.velocity[isVertical] = -cannonBall.velocity[isVertical]
+    cannonBall.velocity[isVertical] = -cannonBall.velocity[isVertical] * gameData.bounceLevel
 };

@@ -8,20 +8,20 @@ const longHindSystemFour = (entities) => {
     const leftLineY1 = entities.longHindFour.position[1] + 3;
     const leftLineX2 = entities.longHindFour.position[0];
     const leftLineY2 = entities.longHindFour.position[1] + 30;
-    
+
     // RIGHT LINE OF HINDERANCE BOX
     const rightLineX1 = entities.longHindFour.position[0] + 117;
     const rightLineY1 = entities.longHindFour.position[1] + 3;
     const rightLineX2 = entities.longHindFour.position[0] + 117;
     const rightLineY2 = entities.longHindFour.position[1] + 30;
-    
-    
+
+
     // BOTTOM LINE OF HINDERANCE BOX
     const bottomLineX1 = entities.longHindFour.position[0] + 3;
     const bottomLineY1 = entities.longHindFour.position[1] + 30;
     const bottomLineX2 = entities.longHindFour.position[0] + 117;
     const bottomLineY2 = entities.longHindFour.position[1] + 30;
-    
+
     // TOP LINE OF HINDERANCE BOX
     const topLineX1 = entities.longHindFour.position[0];
     const topLineY1 = entities.longHindFour.position[1];
@@ -30,8 +30,8 @@ const longHindSystemFour = (entities) => {
 
     // CIRCLE PROPERTIES
     const radius = 10;
-    const circleX = entities.cannonBall.position[0] + 10;
-    const circleY = entities.cannonBall.position[1] + 10;
+    const circleX = entities.cannonBall.position[0] + radius;
+    const circleY = entities.cannonBall.position[1] + radius;
 
     ///////////// CHECKING FOR LEFT WALL DETECTION ////////////////////////
     if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
