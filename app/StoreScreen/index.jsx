@@ -126,8 +126,12 @@ export default StoreScreen;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    flex: 1,
-    paddingTop: 10,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    paddingTop: 15
   },
   cardContainer: {
     flexDirection: 'row',

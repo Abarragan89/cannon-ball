@@ -52,7 +52,7 @@ const TNTDetectionSystem = (entities) => {
         entities.gameData.setPlayBgMusic(false)
         // TNT handle click
         if (!entities.gameData.isGameOver) {
-            if (entities.sounds.isSoundEffectsOn > 0) {
+            if (entities.gameData.isSoundEffectsOn > 0) {
                 try {
                     entities.sounds.tntHandleClickSound.replayAsync()
                 } catch (error) {
@@ -81,7 +81,7 @@ const TNTDetectionSystem = (entities) => {
             entities.explosion.position[0] = entities.TNT.position[0] + 15
             entities.explosion.position[1] = entities.TNT.position[1] + 15
             // Play Explosion Sound only once. Using startAnimation as a trigger
-            if (!entities.explosion.startAnimation && entities.sounds.isSoundEffectsOn > 0) {
+            if (!entities.explosion.startAnimation && entities.gameData.isSoundEffectsOn > 0) {
                 try {
                     entities.sounds.tntExplosionSound.replayAsync();
                 } catch (error) {
@@ -143,7 +143,7 @@ const TNTDetectionSystem = (entities) => {
     ///////////// CHECKING FOR LEFT WALL DETECTION ////////////////////////
     if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[0] > 0) {
-            if (entities.sounds.isSoundEffectsOn > 0) {
+            if (entities.gameData.isSoundEffectsOn > 0) {
                 try {
                     entities.sounds.tntCannonBallHitSound.replayAsync();
                 } catch (error) {
@@ -158,7 +158,7 @@ const TNTDetectionSystem = (entities) => {
     ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
     if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[0] < 0) {
-            if (entities.sounds.isSoundEffectsOn > 0) {
+            if (entities.gameData.isSoundEffectsOn > 0) {
                 try {
                     entities.sounds.tntCannonBallHitSound.replayAsync();
                 } catch (error) {
@@ -173,7 +173,7 @@ const TNTDetectionSystem = (entities) => {
     ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
     if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[1] < 0) {
-            if (entities.sounds.isSoundEffectsOn > 0) {
+            if (entities.gameData.isSoundEffectsOn > 0) {
                 try {
                     entities.sounds.tntCannonBallHitSound.replayAsync();
                 } catch (error) {

@@ -113,7 +113,7 @@ export async function updateUserSoundEfxPref(userId, isOn) {
     }
 };
 
-// UPDATE USER MUSIC OPTION
+// UPDATE USER HAPTICS OPTION
 export async function updateUserHapticsPref(userId, isOn) {
     const db = await openDatabaseConnection();
     try {

@@ -25,8 +25,10 @@ const GameEngineWrapper = ({
     isSoundOn,
     isSoundEffectsOn,
     isHapticsOn
-
 }) => {
+
+    console.log('is haptics on ', isHapticsOn)
+
     const [playBgMusic, setPlayBgMusic] = useState(true)
     const [newEntities, setNewEntities] = useState(entities)
     const [isSoundLoaded, setIsSoundLoaded] = useState(false)
@@ -95,9 +97,8 @@ const GameEngineWrapper = ({
                     cannonBallBounceSound,
                     cannonBallHitSandSound,
                     backgroundWaveSound,
-                    isSoundEffectsOn: isSoundEffectsOn
                 }
-
+                
                 // add the sounds and game Data
                 setNewEntities(prev => ({
                     ...prev,
@@ -108,7 +109,9 @@ const GameEngineWrapper = ({
                         isGameOver: false,
                         setIsGameOver: setIsGameOver,
                         bounceLevel: 0.8,
-                        
+                        isSoundEffectsOn: isSoundEffectsOn,
+                        isHapticsOn: isHapticsOn
+
                     },
                 }));
                 setIsSoundLoaded(true)
