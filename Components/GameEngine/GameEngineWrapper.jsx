@@ -26,9 +26,6 @@ const GameEngineWrapper = ({
     isSoundEffectsOn,
     isHapticsOn
 }) => {
-
-    console.log('is haptics on ', isHapticsOn)
-
     const [playBgMusic, setPlayBgMusic] = useState(true)
     const [newEntities, setNewEntities] = useState(entities)
     const [isSoundLoaded, setIsSoundLoaded] = useState(false)
