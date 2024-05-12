@@ -13,16 +13,16 @@ const extraLongHindSystemOne = (entities) => {
 
     // CIRCLE PROPERTIES
     const radius = 10;
-    const circleX = entities.cannonBall.position[0] + 10;
-    const circleY = entities.cannonBall.position[1] + 10;
-    
-        ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
-        if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
-            if (entities.cannonBall.velocity[1] < 0) {
-                cannonBallBounce(entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1)
-            }
+    const circleX = entities.cannonBall.position[0] + radius;
+    const circleY = entities.cannonBall.position[1] + radius;
+
+    ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
+    if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
+        if (entities.cannonBall.velocity[1] < 0) {
+            cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1)
         }
-    
+    }
+
     return entities;
 }
 

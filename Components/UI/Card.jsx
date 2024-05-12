@@ -4,6 +4,7 @@ import colors from '../../constants/colors';
 
 
 const Card = ({ children, title }) => {
+    
     return (
         <LinearGradient
             // Background Linear Gradient

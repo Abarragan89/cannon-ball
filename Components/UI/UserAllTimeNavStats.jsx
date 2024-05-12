@@ -17,8 +17,8 @@ const UserAllTimeNavStats = () => {
       const totalPoints = await getUserTotalPoints(1);
       const totalStars = await getTotalStars(1);
 
-      setTotalPoints(totalPoints)
-      setTotalStars(totalStars)
+      setTotalPoints(totalPoints[0])
+      setTotalStars(totalStars[0])
     }
     getUserData();
   }, [])
@@ -28,11 +28,11 @@ const UserAllTimeNavStats = () => {
       {totalPoints && totalStars &&
         <View style={styles.rootContainer}>
           <View style={styles.textContainer}>
-            <Text style={styles.statsText}>{totalPoints[0].totalPoints.toLocaleString()}</Text>
+            <Text style={styles.statsText}>{totalPoints.totalPoints.toLocaleString()}</Text>
             <FontAwesome6 name="hockey-puck" size={16} color={colors.winningStar} />
           </View>
           <View style={styles.textContainer}>
-              <Text style={styles.statsText}>{totalStars[0].totalMapStars} /</Text>
+              <Text style={styles.statsText}>{totalStars.totalMapStars} /</Text>
               <Text style={styles.statsText}>75 </Text>
             <Fontisto name="star" size={15} color={colors.winningStar} />
           </View>

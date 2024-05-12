@@ -15,6 +15,7 @@ import CannonBallDisplay from "../../Components/UI/CannonBallDisplay";
 import CannonLaunchDisplay from "../../Components/UI/CannonLaunchDisplay";
 import PurchaseModal from "../../Components/UI/Modals/PurchaseModal";
 
+
 const StoreScreen = () => {
 
   const cannonBallArr = [
@@ -64,6 +65,7 @@ const StoreScreen = () => {
     setCurrentItem(itemInfo);
     setShowItemModal(true)
   }
+
 
   return (
     <ImageBackground
@@ -124,8 +126,12 @@ export default StoreScreen;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    flex: 1,
-    paddingTop: 10,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    paddingTop: 15
   },
   cardContainer: {
     flexDirection: 'row',

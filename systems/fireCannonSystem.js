@@ -32,10 +32,12 @@ const fireCannonSystem = (entities, { touches }) => {
     if (entities.cannonBall.position[1] > height - 34) {
       // only play sound once when isBallMoving is still true
       if (entities.cannonBall.isBallMoving) {
-        try {
-          entities.sounds.cannonBallHitSandSound.replayAsync()
-        } catch (error) {
-           console.log('error in replay hit sand sound ', error)
+        if (entities.gameData.isSoundEffectsOn > 0) {
+          try {
+            entities.sounds.cannonBallHitSandSound.replayAsync()
+          } catch (error) {
+            console.log('error in replay hit sand sound ', error)
+          }
         }
       };
       entities.cannonBall.isBallMoving = false;
@@ -102,10 +104,12 @@ const fireCannonSystem = (entities, { touches }) => {
     // if hits right wall
     if (entities.cannonBall.position[0] > width - 14) {
       if (!entities.gameData.isGameOver) entities.headerStats.bounces += 1;
-      try {
-        entities.sounds.cannonBallBounceSound.replayAsync();
-      } catch (error) {
-        console.log('error in ball bounce sound ', error)
+      if (entities.gameData.isSoundEffectsOn > 0) {
+        try {
+          entities.sounds.cannonBallBounceSound.replayAsync();
+        } catch (error) {
+          console.log('error in ball bounce sound ', error)
+        }
       }
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
@@ -113,10 +117,12 @@ const fireCannonSystem = (entities, { touches }) => {
     // I need to also make sure it is not -100 because that is the starting position off screen
     if (entities.cannonBall.position[0] < 0 && entities.cannonBall.position[0] !== -100) {
       if (!entities.gameData.isGameOver) entities.headerStats.bounces += 1;
-      try {
-        entities.sounds.cannonBallBounceSound.replayAsync();
-      } catch (error) {
-        console.log('error in ball bounce sound ', error)
+      if (entities.gameData.isSoundEffectsOn > 0) {
+        try {
+          entities.sounds.cannonBallBounceSound.replayAsync();
+        } catch (error) {
+          console.log('error in ball bounce sound ', error)
+        }
       }
       entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
@@ -151,8 +157,8 @@ const fireCannonSystem = (entities, { touches }) => {
       if (t.type === 'start') {
         // Reset values if ball is already moving
         if (entities.cannonBall.isBallMoving) {
-          // Vibrate for feedback
-          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+          // Vibrate for feedback if setting is set for On
+          if (entities.gameData.isHapticsOn > 0) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
           // Reset hatchBtn if in Hatch level
           if (entities.cannonBall.isBallMoving && entities.hatchBtn) {
             entities.hatchBtn.isHit = false;
@@ -164,10 +170,12 @@ const fireCannonSystem = (entities, { touches }) => {
           return
         }
         // Play Cannon Sound
-        try {
-          entities.sounds.shootCannonSound.replayAsync();
-        } catch (error) {
-          console.log('error in shoot cannon sound ', error)
+        if (entities.gameData.isSoundEffectsOn > 0) {
+          try {
+            entities.sounds.shootCannonSound.replayAsync();
+          } catch (error) {
+            console.log('error in shoot cannon sound ', error)
+          }
         }
         // Change the fireBtn UI
         entities.fireBtn.isShooting = true;
@@ -176,7 +184,7 @@ const fireCannonSystem = (entities, { touches }) => {
         entities.headerStats.bounces = 0;
         // set isBallMoving to true
         entities.cannonBall.isBallMoving = true;
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+        if (entities.gameData.isHapticsOn > 0) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
         // set initial coordinates to be where the cannon tip is located
         entities.cannonBall.position[0] = entities.cannon.position[0] + 23;
         entities.cannonBall.position[1] = entities.cannon.position[1] + 40;

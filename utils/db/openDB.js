@@ -1,9 +1,9 @@
 import * as SQLite from 'expo-sqlite';
 
 let db;
-const openDatabaseConnection = () => {
+const openDatabaseConnection = async () => {
   if (!db) {
-    db = SQLite.openDatabase('cannonBallDB', 1);
+    db = await SQLite.openDatabaseAsync('cannonBallDB');
   }
   return db;
 };

@@ -35,12 +35,12 @@ const hatchBoxDetectionSystem = (entities) => {
 
     // CIRCLE PROPERTIES
     const radius = 10;
-    const circleX = entities.cannonBall.position[0] + 10;
-    const circleY = entities.cannonBall.position[1] + 10;
+    const circleX = entities.cannonBall.position[0] + radius;
+    const circleY = entities.cannonBall.position[1] + radius;
 
     ///////////// CHECKING FOR LEFT WALL DETECTION ////////////////////////
     if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
-        if (entities.cannonBall.velocity[0] > 0) { 
+        if (entities.cannonBall.velocity[0] > 0) {
             entities.headerStats.bounces += 1;
             entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
         }
@@ -63,7 +63,7 @@ const hatchBoxDetectionSystem = (entities) => {
             entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
         }
     }
-    
+
     ////////////////// CHECKING FOR LEFT TOP WALL DETECTION /////////////////
     if (lineBallDetection(topLeftLineX1, topLeftLineY1, topLeftLineX2, topLeftLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[1] > 0) {

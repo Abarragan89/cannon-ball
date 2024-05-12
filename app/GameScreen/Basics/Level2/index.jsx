@@ -1,7 +1,7 @@
-import { useRef, useState, useContext, useEffect } from "react";
-import { GameEngine } from "react-native-game-engine";
+import { useRef, useState, useEffect } from "react";
 import { useLocalSearchParams } from 'expo-router';
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
+import GameEngineWrapper from "../../../../Components/GameEngine/GameEngineWrapper";
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
@@ -21,63 +21,22 @@ import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import { SoundContext } from "../../../../store/soundsContext";
 import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
-import {
-    updateLevelToPass,
-    updateLevelHighScore,
-    updateLevelAccuracy,
-    updateUserTotalPoints,
-    updateLevelEarnedStars
-} from "../../../../utils/db/updateQueries";
 
 
 function ChatperOneLevelTwo() {
-    // Grab the level Id 
-    const { levelId, lastAccuracy, lastHighscore, lastEarnedStars } = useLocalSearchParams();
+    // Get Router Parameters
+    const {
+        levelId,
+        lastAccuracy,
+        lastHighscore,
+        lastEarnedStars,
+        isSoundOn,
+        isSoundEffectsOn,
+        isHapticsOn
+    } = useLocalSearchParams();
 
-    // Load sounds from context API, make gameEngineRef, and gameOver State
-    const { sounds: gameSoundContext } = useContext(SoundContext);
-    const gameEngineRef = useRef(null);
     const [isGameOver, setIsGameOver] = useState(false);
-    const [playBgMusic, setPlayBgMusic] = useState(true)
-
-    // Play background noises and stop them when game is over
-    useEffect(() => {
-        async function stopMusic() {
-            await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(false);
-            await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(false);
-        }
-        async function startMusic() {
-            await gameSoundContext.current.backgroundMusicSound.setIsLoopingAsync(true);
-            await gameSoundContext.current.backgroundWaveSound.setIsLoopingAsync(true);
-            await gameSoundContext.current.backgroundMusicSound.playAsync();
-            await gameSoundContext.current.backgroundWaveSound.playAsync();
-        }
-        if (!playBgMusic) {
-            try {
-                stopMusic();
-            } catch (e) {
-                console.log('error stopping music', e)
-            }
-        } else {
-            try {
-                startMusic();
-            } catch (e) {
-                console.log('error starting music', e)
-            }
-        }
-        return () => {
-            gameSoundContext.current.backgroundMusicSound.stopAsync();
-            gameSoundContext.current.backgroundWaveSound.stopAsync();
-        }
-    }, [playBgMusic])
-
-    // Angle Data
-    const angleLevelRef = useRef(90)
-    // Power Data
-    const powerLevelRef = useRef(15)
-
     const endGameData = useRef({
         accuracyFloat: 0,
         accuracyName: '',
@@ -87,50 +46,14 @@ function ChatperOneLevelTwo() {
         multiplier: 0,
         currentLevel: 'Basics',
         nextLevel: 'Basics/Level3'
-    })
+    });
 
-    // Backend updates 
-    useEffect(() => {
-        // 'isGameOver' should more appropriately be named 'gameWon'
-        if (isGameOver) {
-            // get highscore, accuracy, and earnedStars amount after user wins
-            const currentHighScore = endGameData.current.multiplier * (endGameData.current.airTime + endGameData.current.bounces)
-            const currentAccuracy = endGameData.current.accuracyFloat;
-            let currentEarnedStars = 0
-            // determine earned stars
-            if (currentHighScore >= endGameData.current.winningScore[2]) {
-                currentEarnedStars = 3;
-            } else if (currentHighScore >= endGameData.current.winningScore[1]) {
-                currentEarnedStars = 2;
-            } else if (currentHighScore >= endGameData.current.winningScore[0]) {
-                currentEarnedStars = 1;
-            } else {
-                currentEarnedStars = 0;
-            }
-            async function updateLevelData() {
-                // Update users highscore
-                await updateUserTotalPoints(currentHighScore)
-                // Update level to passed if not already passed
-                await updateLevelToPass(levelId)
-                // Compare the highscore to the old highscore
-                if (currentHighScore > +lastHighscore) {
-                    await updateLevelHighScore(levelId, currentHighScore)
-                }
-                // Compare the accuracy with old accuracy
-                if (currentAccuracy < +lastAccuracy) {
-                    await updateLevelAccuracy(levelId, currentAccuracy)
-                }
-                // Compare earnedStars
-                if (currentEarnedStars > +lastEarnedStars) {
-                    await updateLevelEarnedStars(levelId, currentEarnedStars)
-                }
-            }
-            updateLevelData();
-        }
-    }, [isGameOver, endGameData.current])
+    // Angle Data
+    const angleLevelRef = useRef(90)
+    // Power Data
+    const powerLevelRef = useRef(15)
 
     const [nextLevelData, setNextLevelData] = useState(null);
-
     // Get next level information to pass as params in the 
     // next level button in the end of game modal
     useEffect(() => {
@@ -148,9 +71,7 @@ function ChatperOneLevelTwo() {
             source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
-            <GameEngine
-                ref={gameEngineRef}
-                style={styles.container}
+            <GameEngineWrapper
                 systems=
                 {[
                     cannonControlSystem,
@@ -170,23 +91,6 @@ function ChatperOneLevelTwo() {
                         setIsGameOver: setIsGameOver,
                         isBallMoving: false,
                         renderer: <CannonBall />
-                    },
-                    gameData: {
-                        endGameData: endGameData,
-                        setPlayBgMusic: setPlayBgMusic,
-                        isGameOver: false,
-                        setIsGameOver: setIsGameOver,
-                    },
-                    sounds: {
-                        shootCannonSound: gameSoundContext?.current?.shootCannonSound,
-                        tntExplosionSound: gameSoundContext?.current?.tntExplosionSound,
-                        tntHandleClickSound: gameSoundContext?.current?.tntHandleClickSound,
-                        backgrounMusicSound: gameSoundContext?.current?.backgrounMusicSound,
-                        fireworkSound: gameSoundContext?.current?.fireworkSound,
-                        cannonBallBounceSound: gameSoundContext?.current?.cannonBallBounceSound,
-                        tntCannonBallHitSound: gameSoundContext?.current?.tntCannonBallHitSound,
-                        cannonBallHitSandSound: gameSoundContext?.current?.cannonBallHitSandSound,
-                        backgroundWaveSound: gameSoundContext?.current?.backgroundWaveSound
                     },
                     cannon: {
                         position: [400, screenHeight - 100],
@@ -228,7 +132,18 @@ function ChatperOneLevelTwo() {
                         isShooting: false,
                         renderer: <FireBtn />
                     }
-                }}>
+                }}
+                levelId={levelId}
+                lastAccuracy={lastAccuracy}
+                endGameData={endGameData}
+                lastHighscore={lastHighscore}
+                lastEarnedStars={lastEarnedStars}
+                isSoundOn={isSoundOn}
+                isSoundEffectsOn={isSoundEffectsOn}
+                isHapticsOn={isHapticsOn}
+                isGameOver={isGameOver}
+                setIsGameOver={setIsGameOver}
+            >
                 <StatusBar hidden={true} />
                 <BackArrow
                     route={'/LevelLobbyScreen'}
@@ -244,7 +159,7 @@ function ChatperOneLevelTwo() {
                         nextLevelData={nextLevelData}
                     />
                 }
-            </GameEngine>
+            </GameEngineWrapper>
         </ImageBackground>
     );
 }
@@ -257,25 +172,6 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0
     },
-    container: {
-        position: 'absolute',
-        bottom: 0,
-        flex: 1,
-        width: '100%',
-        height: screenHeight,
-        zIndex: 16
-    },
-    backIcon: {
-        marginTop: 5,
-        marginLeft: 5,
-        opacity: .7
-    },
-    imageStyle: {
-        flex: 1,
-        flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'center',
-    }
 });
 
 

@@ -21,6 +21,7 @@ import {
     updateUserHapticsPref
 } from "../../utils/db/updateQueries";
 
+
 const SettingScreen = () => {
 
     const [isMusicOn, setIsMusicOn] = useState(null);
@@ -28,8 +29,8 @@ const SettingScreen = () => {
     const [isHapticOn, setIsHapticOn] = useState(null);
     const [preferencesGathered, setPreferencesGathered] = useState(false);
     const [currentCannonBall, setCurrentCannonBall] = useState({ gradientColor: 'white', color: 'black' });
+    const imageArray = ['red', 'orange', 'yellow', 'green', 'purple'];
 
-    const imageArray = ['red', 'orange', 'yellow', 'green', 'purple']
 
     async function handleMusicPref(value) {
         try {
@@ -78,7 +79,6 @@ const SettingScreen = () => {
         }
         getUserPreferences();
     }, [])
-
 
 
     return (
@@ -169,8 +169,12 @@ export default SettingScreen;
 
 const styles = StyleSheet.create({
     rootContainer: {
-        flex: 1,
-        paddingTop: 10
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0, 
+        right: 0,
+        paddingTop: 15
     },
     backIcon: {
         zIndex: 2
