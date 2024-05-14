@@ -102,17 +102,19 @@ const StoreScreen = () => {
             <ScrollView horizontal={true}>
               {cannonBallArr && cannonBallArr.map((cannonBall, index) => 
                 <Pressable key={index} onPress={() => displayModal(cannonBall)}>
-                  <View style={[styles.cannonBallContainer]}>
                     <CannonBallDisplay
                       color={cannonBall.color}
+                      isOwned={cannonBall.isOwned}
                       gradientColor={cannonBall.gradientColor}
                       size={45}
                     />
-                  </View>
                 </Pressable>
               )}
             </ScrollView>
           </Card>
+
+
+
           <Card
             title={'Cannons'}
           >
@@ -125,7 +127,6 @@ const StoreScreen = () => {
               <CannonLaunchDisplay />
               <CannonLaunchDisplay />
             </ScrollView>
-
           </Card>
         </View>
       </View>
@@ -148,12 +149,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  cannonBallContainer: {
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: colors.primaryBlack,
-    borderRadius: 8,
-    padding: 5,
-    marginHorizontal: 10
-  },
+  lockedCannon: {
+    backgroundColor: 'black'
+  }
 })

@@ -35,5 +35,6 @@ const styles = StyleSheet.create({
     confirmBtnPressed: {
         elevation: 0,
         shadowRadius: 0,
+        backgroundColor: colors.primaryBlack
     },
 })

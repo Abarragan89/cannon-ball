@@ -150,3 +150,18 @@ export async function updateUserCurrentCannonBall(userId, cannonBallName) {
         console.log('error in updating current cannonBall ', error)
     }
 };
+
+// UPDATE USER'S OWNED EQUIPPED CANNON BALL
+export async function updateUserCannonBallSet(cannonBallId) {
+    const db = await openDatabaseConnection();
+    try {
+        const myData = await db.runAsync(`
+            UPDATE cannonBalls 
+            SET isOwned = 1
+            WHERE id = ?;
+        `, [cannonBallId])
+        return myData;
+    } catch (error) {
+        console.log('error in updating current cannonBall ', error)
+    }
+};
