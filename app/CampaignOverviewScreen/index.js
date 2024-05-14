@@ -10,7 +10,7 @@ import colors from "../../constants/colors";
 const mainBtnImgSrc = require('../../assets/images/btnWoodBg.png')
 import InfoModal from "../../Components/UI/Modals/InfoModal";
 import UserAllTimeNavStats from "../../Components/UI/UserAllTimeNavStats";
-import { getTotalStarsInMap, getTotalStars } from "../../utils/db/selectQueries";
+import { getTotalStarsInMap, getTotalStars } from "../../db/selectQueries";
 
 const CampaignOverview = () => {
 
@@ -57,7 +57,7 @@ const CampaignOverview = () => {
 
     return (
         <>
-            { showModal &&
+            {showModal &&
                 <InfoModal
                     showModal={showModal}
                     setShowModal={setShowModal}
@@ -66,7 +66,7 @@ const CampaignOverview = () => {
             }
             <StatusBar hidden={true} />
             <>
-                { isDataLoaded &&
+                {isDataLoaded &&
                     <>
                         <View style={styles.backIcon}>
                             <BackArrow />

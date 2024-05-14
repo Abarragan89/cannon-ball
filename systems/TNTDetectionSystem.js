@@ -130,9 +130,9 @@ const TNTDetectionSystem = (entities) => {
     const bottomLineY2 = entities.TNT.position[1] + 30;
 
     // TOP LINE OF TNT BOX (The Handle)
-    const topLineX1 = entities.TNT.position[0] + 5;
+    const topLineX1 = entities.TNT.position[0] + 10;
     const topLineY1 = entities.TNT.position[1] - 5;
-    const topLineX2 = entities.TNT.position[0] + 25;
+    const topLineX2 = entities.TNT.position[0] + 20;
     const topLineY2 = entities.TNT.position[1] - 5;
 
     // CIRCLE PROPERTIES

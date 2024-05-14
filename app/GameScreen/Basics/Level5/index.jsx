@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import GameEngineWrapper from "../../../../Components/GameEngine/GameEngineWrapper";
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
@@ -23,17 +22,6 @@ const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 
 function ChatperOneLevelFive() {
-    // Get Router Parameters
-    const {
-        levelId,
-        lastAccuracy,
-        lastHighscore,
-        lastEarnedStars,
-        isSoundOn,
-        isSoundEffectsOn,
-        isHapticsOn
-    } = useLocalSearchParams();
-
     const [isGameOver, setIsGameOver] = useState(false);
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -120,14 +108,7 @@ function ChatperOneLevelFive() {
                         renderer: <FireBtn />
                     }
                 }}
-                levelId={levelId}
-                lastAccuracy={lastAccuracy}
                 endGameData={endGameData}
-                lastHighscore={lastHighscore}
-                lastEarnedStars={lastEarnedStars}
-                isSoundOn={isSoundOn}
-                isSoundEffectsOn={isSoundEffectsOn}
-                isHapticsOn={isHapticsOn}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
             >

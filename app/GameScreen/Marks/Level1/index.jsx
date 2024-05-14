@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react";
 import GameEngineWrapper from "../../../../Components/GameEngine/GameEngineWrapper";
-import { useLocalSearchParams } from 'expo-router';
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
@@ -21,20 +20,9 @@ import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height
 import BackArrow from "../../../../Components/UI/BackArrow";
-import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
+import { getIndividualLevelData } from "../../../../db/selectQueries";
 
 function ChatperTwoLevelOne() {
-    // Get Router Parameters
-    const {
-        levelId,
-        lastAccuracy,
-        lastHighscore,
-        lastEarnedStars,
-        isSoundOn,
-        isSoundEffectsOn,
-        isHapticsOn
-    } = useLocalSearchParams();
-
     const [isGameOver, setIsGameOver] = useState(false);
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -46,7 +34,6 @@ function ChatperTwoLevelOne() {
         currentLevel: 'Marks',
         nextLevel: 'Marks/Level2'
     });
-
 
     // Angle Data
     const angleLevelRef = useRef(90)
@@ -136,14 +123,7 @@ function ChatperTwoLevelOne() {
                         renderer: <FireBtn />
                     }
                 }}
-                levelId={levelId}
-                lastAccuracy={lastAccuracy}
                 endGameData={endGameData}
-                lastHighscore={lastHighscore}
-                lastEarnedStars={lastEarnedStars}
-                isSoundOn={isSoundOn}
-                isSoundEffectsOn={isSoundEffectsOn}
-                isHapticsOn={isHapticsOn}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
             >

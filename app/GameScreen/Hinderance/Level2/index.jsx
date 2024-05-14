@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from "react";
-import { useLocalSearchParams } from 'expo-router';
 import GameEngineWrapper from "../../../../Components/GameEngine/GameEngineWrapper";
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -24,20 +23,9 @@ import BackArrow from "../../../../Components/UI/BackArrow";
 import tallHindSystemOne from "../../../../systems/hinderanceDetection/tallHindSystemOne";
 import tallHindSystemTwo from "../../../../systems/hinderanceDetection/tallHindSystemTwo";
 import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
-import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
+import { getIndividualLevelData } from "../../../../db/selectQueries";
 
 function ChapterThreeLevelTwo() {
-    // Get Router Parameters
-    const {
-        levelId,
-        lastAccuracy,
-        lastHighscore,
-        lastEarnedStars,
-        isSoundOn,
-        isSoundEffectsOn,
-        isHapticsOn
-    } = useLocalSearchParams();
-
     const [isGameOver, setIsGameOver] = useState(false);
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -151,14 +139,7 @@ function ChapterThreeLevelTwo() {
                         renderer: <FireBtn />
                     }
                 }}
-                levelId={levelId}
-                lastAccuracy={lastAccuracy}
                 endGameData={endGameData}
-                lastHighscore={lastHighscore}
-                lastEarnedStars={lastEarnedStars}
-                isSoundOn={isSoundOn}
-                isSoundEffectsOn={isSoundEffectsOn}
-                isHapticsOn={isHapticsOn}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
             >

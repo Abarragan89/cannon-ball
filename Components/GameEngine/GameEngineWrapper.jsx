@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { useState, useEffect, useRef } from 'react';
+import { useLocalSearchParams } from 'expo-router';
 import { Audio } from 'expo-av';
 const screenHeight = Dimensions.get('window').height;
 import { GameEngine } from "react-native-game-engine";
@@ -9,7 +10,7 @@ import {
     updateLevelAccuracy,
     updateUserTotalPoints,
     updateLevelEarnedStars
-} from "../../utils/db/updateQueries";
+} from "../../db/updateQueries";
 
 const GameEngineWrapper = ({
     children,
@@ -18,17 +19,29 @@ const GameEngineWrapper = ({
     endGameData,
     isGameOver,
     setIsGameOver,
-    levelId,
-    lastAccuracy,
-    lastHighscore,
-    lastEarnedStars,
-    isSoundOn,
-    isSoundEffectsOn,
-    isHapticsOn
 }) => {
-    const [playBgMusic, setPlayBgMusic] = useState(true)
-    const [newEntities, setNewEntities] = useState(entities)
-    const [isSoundLoaded, setIsSoundLoaded] = useState(false)
+
+    // Get Router Parameters
+    const {
+        levelId,
+        lastAccuracy,
+        lastHighscore,
+        lastEarnedStars,
+        isSoundOn,
+        isSoundEffectsOn,
+        isHapticsOn,
+        cannonBallColor,
+        cannonBallGradientClr,
+        cannonBallBounce,
+        cannonBallWeight,
+        cannonBallSize
+    } = useLocalSearchParams();
+
+    console.log('cannon specs from params ', cannonBallBounce, cannonBallColor, cannonBallGradientClr, cannonBallWeight, cannonBallSize)
+
+    const [playBgMusic, setPlayBgMusic] = useState(true);
+    const [newEntities, setNewEntities] = useState(entities);
+    const [isSoundLoaded, setIsSoundLoaded] = useState(false);
 
     const sounds = useRef({
         shootCannonSound: null,
@@ -95,7 +108,7 @@ const GameEngineWrapper = ({
                     cannonBallHitSandSound,
                     backgroundWaveSound,
                 }
-                
+
                 // add the sounds and game Data
                 setNewEntities(prev => ({
                     ...prev,
@@ -105,7 +118,7 @@ const GameEngineWrapper = ({
                         setPlayBgMusic: setPlayBgMusic,
                         isGameOver: false,
                         setIsGameOver: setIsGameOver,
-                        bounceLevel: 0.8,
+                        bounceLevel: cannonBallBounce,
                         isSoundEffectsOn: isSoundEffectsOn,
                         isHapticsOn: isHapticsOn
 
@@ -129,7 +142,7 @@ const GameEngineWrapper = ({
             sounds.current.cannonBallHitSandSound.unloadAsync();
             sounds.current.tntHandleClickSound.unloadAsync();
         }
-    }, [])
+    }, []);
 
     //////////// BACKEND UPDATE /////////////////////
     useEffect(() => {
@@ -170,7 +183,6 @@ const GameEngineWrapper = ({
             updateLevelData();
         }
     }, [isGameOver, endGameData.current])
-
 
     return (
         <>

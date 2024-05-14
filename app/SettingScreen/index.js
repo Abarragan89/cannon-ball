@@ -14,12 +14,12 @@ import Title from "../../Components/UI/Title";
 import colors from "../../constants/colors";
 import Card from "../../Components/UI/Card";
 import CannonBallDisplay from "../../Components/UI/CannonBallDisplay";
-import { getUserDataPreferences } from "../../utils/db/selectQueries";
+import { getUserDataPreferences, getUserCannonBalls } from "../../db/selectQueries";
 import {
     updateUserMusicPref,
     updateUserSoundEfxPref,
     updateUserHapticsPref
-} from "../../utils/db/updateQueries";
+} from "../../db/updateQueries";
 
 
 const SettingScreen = () => {
@@ -29,6 +29,7 @@ const SettingScreen = () => {
     const [isHapticOn, setIsHapticOn] = useState(null);
     const [preferencesGathered, setPreferencesGathered] = useState(false);
     const [currentCannonBall, setCurrentCannonBall] = useState({ gradientColor: 'white', color: 'black' });
+    const [cannonBalls, setCannonBalls] = useState([])
     const imageArray = ['red', 'orange', 'yellow', 'green', 'purple'];
 
 
@@ -52,7 +53,6 @@ const SettingScreen = () => {
         setIsSoundEfxOn(value);
     }
 
-
     async function handleHapticsPref(value) {
         try {
             const intValue = value === true ? 1 : 0;
@@ -63,7 +63,7 @@ const SettingScreen = () => {
         setIsHapticOn(value);
     }
 
-    // Get user preferences
+    // Get user preferences and purchased cannonBalls
     useEffect(() => {
         async function getUserPreferences() {
             try {
@@ -77,13 +77,23 @@ const SettingScreen = () => {
                 console.log('error getting user pref in settings ', error)
             }
         }
+
+        async function getPurchsedCannonBalls() {
+            try {
+                const cannonBalls = await getUserCannonBalls(1);
+                setCannonBalls(cannonBalls.filter(cannonBall => cannonBall.isOwned === 1))
+            } catch (error) {
+                console.log('error getting user cannon balls ', error)
+            }
+        }
+        getPurchsedCannonBalls();
         getUserPreferences();
     }, [])
 
 
     return (
         <>
-            {preferencesGathered &&
+            {preferencesGathered && cannonBalls &&
                 <ImageBackground
                     source={require('../../assets/images/screenWoodBg.png')}
                     style={styles.rootContainer}
@@ -143,12 +153,12 @@ const SettingScreen = () => {
                                 </View>
                                 <ScrollView horizontal={true}>
                                     <View style={styles.possibleCannonOptions}>
-                                        {imageArray.map((img, index) =>
-                                            <Pressable key={index} onPress={() => setCurrentCannonBall({ color: img, gradientColor: 'white' })}>
+                                        {cannonBalls.map((cannonBall, index) =>
+                                            <Pressable key={index} onPress={() => setCurrentCannonBall({ color: cannonBall.color, gradientColor: cannonBall.gradientColor })}>
                                                 <View style={[styles.cannonBallContainer, styles.possibleCannonBallContainer]}>
                                                     <CannonBallDisplay
-                                                        color={img}
-                                                        gradientColor={'white'}
+                                                        color={cannonBall.color}
+                                                        gradientColor={cannonBall.gradientColor}
                                                         size={35}
                                                     />
                                                 </View>
@@ -172,7 +182,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0,
         bottom: 0,
-        left: 0, 
+        left: 0,
         right: 0,
         paddingTop: 15
     },

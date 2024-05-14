@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from "react";
-import { useLocalSearchParams } from 'expo-router';
 import GameEngineWrapper from "../../../../Components/GameEngine/GameEngineWrapper";
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -20,22 +19,11 @@ import { Dimensions } from 'react-native'
 import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
+import { getIndividualLevelData } from "../../../../db/selectQueries";
 
 // import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
 
 function ChatperOneLevelOne() {
-    // Get Router Parameters
-    const {
-        levelId,
-        lastAccuracy,
-        lastHighscore,
-        lastEarnedStars,
-        isSoundOn,
-        isSoundEffectsOn,
-        isHapticsOn
-    } = useLocalSearchParams();
-
     const [isGameOver, setIsGameOver] = useState(false);
 
     const endGameData = useRef({
@@ -148,14 +136,7 @@ function ChatperOneLevelOne() {
                         renderer: <FireBtn />
                     }
                 }}
-                levelId={levelId}
-                lastAccuracy={lastAccuracy}
                 endGameData={endGameData}
-                lastHighscore={lastHighscore}
-                lastEarnedStars={lastEarnedStars}
-                isSoundOn={isSoundOn}
-                isSoundEffectsOn={isSoundEffectsOn}
-                isHapticsOn={isHapticsOn}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
             >

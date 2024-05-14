@@ -1,6 +1,5 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import GameEngineWrapper from "../../../../Components/GameEngine/GameEngineWrapper";
-import { useLocalSearchParams } from 'expo-router';
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
@@ -34,17 +33,6 @@ import levelFiveHatchSystem from "../../../../systems/hatchDetectionSystems/hatc
 import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 
 function ChapterFiveLevelFive() {
-    // Get Router Parameters
-    const {
-        levelId,
-        lastAccuracy,
-        lastHighscore,
-        lastEarnedStars,
-        isSoundOn,
-        isSoundEffectsOn,
-        isHapticsOn
-    } = useLocalSearchParams();
-
     const [isGameOver, setIsGameOver] = useState(false);
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -159,14 +147,7 @@ function ChapterFiveLevelFive() {
                         renderer: <FireBtn />
                     }
                 }}
-                levelId={levelId}
-                lastAccuracy={lastAccuracy}
                 endGameData={endGameData}
-                lastHighscore={lastHighscore}
-                lastEarnedStars={lastEarnedStars}
-                isSoundOn={isSoundOn}
-                isSoundEffectsOn={isSoundEffectsOn}
-                isHapticsOn={isHapticsOn}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
             >

@@ -10,7 +10,7 @@ import { Dimensions } from "react-native";
 const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
 const bgImage = require('../assets/images/homeScreenImg.png')
 const { height } = Dimensions.get('screen');
-import { initDB, getPreferences } from "../utils/db/init";
+import { initDB, getPreferences } from "../db/init";
 
 SplashScreen.preventAutoHideAsync();
 
