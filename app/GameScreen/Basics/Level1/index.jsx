@@ -70,8 +70,6 @@ function ChatperOneLevelOne() {
                 entities={{
                     cannonBall: {
                         position: [-100, 0],
-
-
                         velocity: [1, 1],
                         display: 'block',
                         accuracy: { name: '', float: 0, multiplier: 0 },
@@ -87,7 +85,7 @@ function ChatperOneLevelOne() {
                     TNT: {
                         position: [250, 100],
                         display: 'block',
-                        handlePosition: [-20, 0],
+                        handlePosition: [-18, 0],
                         renderer: <TNT />
                     },
                     explosion: {

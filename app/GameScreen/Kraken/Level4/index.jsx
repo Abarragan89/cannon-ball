@@ -90,7 +90,7 @@ function ChapterFourLevelFour() {
                     TNT: {
                         position: [250, screenHeight - 40],
                         display: 'block',
-                        handlePosition: [-20, 0],
+                        handlePosition: [-18, 0],
                         renderer: <TNT />
                     },
                     explosion: {
