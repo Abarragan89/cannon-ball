@@ -70,8 +70,6 @@ function ChapterFourLevelFive() {
                 entities={{
                     cannonBall: {
                         position: [-100, 0],
-                        gradientColor: 'rgba(0, 0, 0, .75)',
-                        color: 'rgba(0, 0, 0, 1)',
                         velocity: [1, 1],
                         display: 'block',
                         accuracy: { name: '', float: 0, multiplier: 0 },
@@ -164,12 +162,6 @@ function ChapterFourLevelFive() {
                     mapName={'Kraken'}
                     levelNumber={5}
                 />
-                {isGameOver &&
-                    <EndGameModal
-                        endGameData={endGameData}
-                        nextLevelData={null}
-                    />
-                }
             </GameEngineWrapper>
         </ImageBackground>
     );

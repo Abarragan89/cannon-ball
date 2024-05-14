@@ -16,7 +16,6 @@ import Explosion from "../../../../Components/GameEngine/Explosion";
 import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
-import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
@@ -55,8 +54,8 @@ function ChatperOneLevelFive() {
                 entities={{
                     cannonBall: {
                         position: [-100, 0],
-                        gradientColor: 'rgba(0, 0, 0, .75)',
-                        color: 'rgba(0, 0, 0, 1)',
+
+
                         velocity: [1, 1],
                         display: 'block',
                         accuracy: { name: '', float: 0, multiplier: 0 },
@@ -121,12 +120,6 @@ function ChatperOneLevelFive() {
                     mapName={'Basics'}
                     levelNumber={5}
                 />
-                {isGameOver &&
-                    <EndGameModal
-                        endGameData={endGameData}
-                        nextLevelData={null}
-                    />
-                }
             </GameEngineWrapper>
         </ImageBackground>
     );

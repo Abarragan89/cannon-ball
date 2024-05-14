@@ -18,7 +18,8 @@ import { getUserDataPreferences, getUserCannonBalls } from "../../db/selectQueri
 import {
     updateUserMusicPref,
     updateUserSoundEfxPref,
-    updateUserHapticsPref
+    updateUserHapticsPref,
+    updateUserCurrentCannonBall
 } from "../../db/updateQueries";
 
 
@@ -30,8 +31,6 @@ const SettingScreen = () => {
     const [preferencesGathered, setPreferencesGathered] = useState(false);
     const [currentCannonBall, setCurrentCannonBall] = useState({ gradientColor: 'white', color: 'black' });
     const [cannonBalls, setCannonBalls] = useState([])
-    const imageArray = ['red', 'orange', 'yellow', 'green', 'purple'];
-
 
     async function handleMusicPref(value) {
         try {
@@ -61,6 +60,15 @@ const SettingScreen = () => {
             console.log('error updating Haptics preference ', error)
         }
         setIsHapticOn(value);
+    };
+
+    async function handleUpdateCurrentCannonBall(cannonBall) {
+        try {
+            await updateUserCurrentCannonBall(1, cannonBall.name);
+            setCurrentCannonBall({ color: cannonBall.color, gradientColor: cannonBall.gradientColor })
+        } catch (error) {
+            console.log('error updating current cannon ball ', error)
+        }
     }
 
     // Get user preferences and purchased cannonBalls
@@ -81,7 +89,7 @@ const SettingScreen = () => {
         async function getPurchsedCannonBalls() {
             try {
                 const cannonBalls = await getUserCannonBalls(1);
-                setCannonBalls(cannonBalls.filter(cannonBall => cannonBall.isOwned === 1))
+                setCannonBalls(cannonBalls.filter(cannonBall => cannonBall.isOwned === 0))
             } catch (error) {
                 console.log('error getting user cannon balls ', error)
             }
@@ -154,7 +162,7 @@ const SettingScreen = () => {
                                 <ScrollView horizontal={true}>
                                     <View style={styles.possibleCannonOptions}>
                                         {cannonBalls.map((cannonBall, index) =>
-                                            <Pressable key={index} onPress={() => setCurrentCannonBall({ color: cannonBall.color, gradientColor: cannonBall.gradientColor })}>
+                                            <Pressable key={index} onPress={() => handleUpdateCurrentCannonBall(cannonBall)}>
                                                 <View style={[styles.cannonBallContainer, styles.possibleCannonBallContainer]}>
                                                     <CannonBallDisplay
                                                         color={cannonBall.color}

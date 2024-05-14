@@ -131,3 +131,22 @@ export async function updateUserHapticsPref(userId, isOn) {
         console.log('error in updating Haptics ', error)
     }
 };
+
+// UPDATE USER'S CURRENT EQUIPPED CANNON BALL
+export async function updateUserCurrentCannonBall(userId, cannonBallName) {
+    const db = await openDatabaseConnection();
+    try {
+        const myData = await db.runAsync(`
+            UPDATE preferences 
+            SET currentCannonBallName = ?
+            WHERE id = (
+                SELECT preferenceId 
+                FROM users 
+                WHERE id = ?
+            );
+        `, [cannonBallName, userId])
+        return myData;
+    } catch (error) {
+        console.log('error in updating current cannonBall ', error)
+    }
+};

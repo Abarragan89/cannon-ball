@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import GameEngineWrapper from "../../../../Components/GameEngine/GameEngineWrapper";
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
@@ -16,10 +16,8 @@ import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
 import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
-import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import { getIndividualLevelData } from "../../../../db/selectQueries";
 
 // import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
 
@@ -36,20 +34,6 @@ function ChatperOneLevelOne() {
         currentLevel: 'Basics',
         nextLevel: 'Basics/Level2'
     });
-
-    const [nextLevelData, setNextLevelData] = useState(null);
-    // Get next level information to pass as params in the 
-    // next level button in the end of game modal
-    useEffect(() => {
-        async function getNextLevelData() {
-            const mapName = endGameData.current.nextLevel.split('/')[0];
-            const link = endGameData.current.nextLevel.split('/')[1];
-            const nextLevel = await getIndividualLevelData(mapName, link)
-            setNextLevelData(nextLevel[0])
-        }
-        getNextLevelData();
-    }, [])
-
 
     // GETS CORNER OF TNT
     // Angle Data
@@ -86,8 +70,8 @@ function ChatperOneLevelOne() {
                 entities={{
                     cannonBall: {
                         position: [-100, 0],
-                        gradientColor: 'rgba(0, 0, 0, .75)',
-                        color: 'rgba(0, 0, 0, 1)',
+
+
                         velocity: [1, 1],
                         display: 'block',
                         accuracy: { name: '', float: 0, multiplier: 0 },
@@ -145,18 +129,10 @@ function ChatperOneLevelOne() {
                     route={'/LevelLobbyScreen'}
                     params={{ mapName: 'Basics' }}
                 />
-
                 <GameLevelInfoHeader
                     mapName={'Basics'}
                     levelNumber={1}
                 />
-
-                {isGameOver && nextLevelData &&
-                    <EndGameModal
-                        endGameData={endGameData}
-                        nextLevelData={nextLevelData}
-                    />
-                }
             </GameEngineWrapper>
         </ImageBackground>
     );

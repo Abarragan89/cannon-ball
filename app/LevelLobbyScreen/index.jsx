@@ -58,6 +58,7 @@ const LevelLobbyScreen = () => {
                 const [userPref] = await getUserDataPreferences(1)
                 setUserPreferences(userPref)
                 const cannonBalls = await getUserCannonBalls(1);
+                // get the current cannonBall
                 const [currentBall] = cannonBalls.filter(cannonBall => cannonBall.name === userPref.currentCannonBallName)
                 setCurrentCannonBall(currentBall)
             } catch (error) {
@@ -66,8 +67,6 @@ const LevelLobbyScreen = () => {
         }
         getUserPreferences();
     }, [])
-
-    console.log('current cannonBAll', currentCannonBall)
 
     return (
         <>
@@ -82,7 +81,7 @@ const LevelLobbyScreen = () => {
                     />
                 </View>
                 <ScrollView>
-                    {mapName && currentLevelData && winningStarLimits && userPreferences && currentCannonBall &&
+                    {currentLevelData && userPreferences && currentCannonBall &&
                         <View style={styles.root}>
                             <View style={styles.titleContainer}>
                                 <Title color={colors.offWhite} size={50}>{mapName}</Title>

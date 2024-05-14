@@ -23,7 +23,7 @@ export async function initDB() {
                     isSoundEffectsOn INTEGER DEFAULT 1,
                     isHapticsOn INTEGER DEFAULT 1,
                     hasSeenTutorial INTEGER DEFAULT 0,
-                    currentCannonBallName STRING DEFAULT 'Classic Black'
+                    currentCannonBallName VARCHAR(50) DEFAULT 'Classic Black'
                 );  
 
                 CREATE TABLE IF NOT EXISTS cannonBallSet (
@@ -32,9 +32,9 @@ export async function initDB() {
                 
                 CREATE TABLE IF NOT EXISTS cannonBalls (
                     id INTEGER PRIMARY KEY NOT NULL,
-                    name STRING,
-                    color STRING,
-                    gradientColor STRING,
+                    name VARCHAR(50),
+                    color VARCHAR(50),
+                    gradientColor VARCHAR(50),
                     size INTEGER,
                     price INTEGER,
                     bounce INTEGER,

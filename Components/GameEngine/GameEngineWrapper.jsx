@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { Audio } from 'expo-av';
 const screenHeight = Dimensions.get('window').height;
+import { getIndividualLevelData } from "../../db/selectQueries";
+import EndGameModal from '../../Components/GameEngine/EndGameModal';
 import { GameEngine } from "react-native-game-engine";
 import {
     updateLevelToPass,
@@ -36,8 +38,6 @@ const GameEngineWrapper = ({
         cannonBallWeight,
         cannonBallSize
     } = useLocalSearchParams();
-
-    console.log('cannon specs from params ', cannonBallBounce, cannonBallColor, cannonBallGradientClr, cannonBallWeight, cannonBallSize)
 
     const [playBgMusic, setPlayBgMusic] = useState(true);
     const [newEntities, setNewEntities] = useState(entities);
@@ -121,7 +121,11 @@ const GameEngineWrapper = ({
                         bounceLevel: cannonBallBounce,
                         isSoundEffectsOn: isSoundEffectsOn,
                         isHapticsOn: isHapticsOn
-
+                    },
+                    cannonBall: {
+                        ...prev.cannonBall,
+                        color: cannonBallColor,
+                        gradientColor: cannonBallGradientClr,
                     },
                 }));
                 setIsSoundLoaded(true)
@@ -184,13 +188,40 @@ const GameEngineWrapper = ({
         }
     }, [isGameOver, endGameData.current])
 
+
+    const [nextLevelData, setNextLevelData] = useState(null);
+    // Get next level information to pass as params in the 
+    // next level button in the end of game modal
+    useEffect(() => {
+        async function getNextLevelData() {
+            const mapName = endGameData.current.nextLevel.split('/')[0];
+            const link = endGameData.current.nextLevel.split('/')[1];
+            const nextLevel = await getIndividualLevelData(mapName, link)
+            setNextLevelData(nextLevel[0])
+        }
+        getNextLevelData();
+    }, [])
+
+
     return (
         <>
             {isSoundLoaded &&
                 <GameEngine
                     style={styles.container}
                     systems={systems}
-                    entities={newEntities}>
+                    entities={newEntities}
+                >
+                    {isGameOver && nextLevelData &&
+                        <EndGameModal
+                            endGameData={endGameData}
+                            nextLevelData={levelId === '5' ? null : nextLevelData}
+                            cannonBallColor={cannonBallColor}
+                            cannonBallGradientClr={cannonBallGradientClr}
+                            cannonBallBounce={cannonBallBounce}
+                            cannonBallWeight={cannonBallWeight}
+                            cannonBallSize={cannonBallSize}
+                        />
+                    }
                     {children}
                 </GameEngine>
             }
