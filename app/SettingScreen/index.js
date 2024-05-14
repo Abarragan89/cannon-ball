@@ -29,8 +29,8 @@ const SettingScreen = () => {
     const [isSoundEfxOn, setIsSoundEfxOn] = useState(null);
     const [isHapticOn, setIsHapticOn] = useState(null);
     const [preferencesGathered, setPreferencesGathered] = useState(false);
-    const [currentCannonBall, setCurrentCannonBall] = useState({ gradientColor: 'white', color: 'black' });
-    const [cannonBalls, setCannonBalls] = useState([])
+    const [currentCannonBall, setCurrentCannonBall] = useState({});
+    const [cannonBalls, setCannonBalls] = useState([]);
 
     async function handleMusicPref(value) {
         try {
@@ -73,35 +73,32 @@ const SettingScreen = () => {
 
     // Get user preferences and purchased cannonBalls
     useEffect(() => {
-        async function getUserPreferences() {
+        async function getUserPreferencesAndCannonBalls() {
             try {
                 // only one item in the array so we can destructure
                 const [userPref] = await getUserDataPreferences(1)
                 setIsMusicOn(userPref.isSoundOn === 0 ? false : true);
                 setIsSoundEfxOn(userPref.isSoundEffectsOn === 0 ? false : true);
                 setIsHapticOn(userPref.isHapticsOn === 0 ? false : true)
+
+                const cannonBalls = await getUserCannonBalls(1);
+                setCannonBalls(cannonBalls.filter(cannonBall => cannonBall.isOwned === 1))
+                const [currentBall] = cannonBalls.filter(cannonBall => cannonBall.name === userPref.currentCannonBallName)
+                setCurrentCannonBall(currentBall)
+
                 setPreferencesGathered(true);
             } catch (error) {
                 console.log('error getting user pref in settings ', error)
             }
         }
-
-        async function getPurchsedCannonBalls() {
-            try {
-                const cannonBalls = await getUserCannonBalls(1);
-                setCannonBalls(cannonBalls.filter(cannonBall => cannonBall.isOwned === 0))
-            } catch (error) {
-                console.log('error getting user cannon balls ', error)
-            }
-        }
-        getPurchsedCannonBalls();
-        getUserPreferences();
+        getUserPreferencesAndCannonBalls();
     }, [])
 
+    console.log(' current cannon ball ', currentCannonBall)
 
     return (
         <>
-            {preferencesGathered && cannonBalls &&
+            {preferencesGathered && currentCannonBall && 
                 <ImageBackground
                     source={require('../../assets/images/screenWoodBg.png')}
                     style={styles.rootContainer}

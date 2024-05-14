@@ -1,3 +1,4 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { View, StyleSheet } from 'react-native'
 // import { LinearGradient } from 'expo-linear-gradient';
 
@@ -13,36 +14,34 @@ function CannonLauncher({ position, rotate }) {
 
             <View style={styles.standContainer}>
 
-                <View
-                    // colors={['#b55454', 'brown']}
-                    // locations={[0.01, 0.75]}
-                    // start={{ x: 0.1, y: 0.3 }}
+                <LinearGradient
+                    colors={['#b55454', 'brown']}
+                    locations={[0.01, 0.75]}
+                    start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonBallBase}
                 />
-                <View
-                
-                    // colors={['#383434', '#151010']}
-                    // locations={[0.01, 0.75]}
-                    // start={{ x: 0.1, y: 0.3 }}
+                <LinearGradient
+                    colors={['#383434', '#151010']}
+                    locations={[0.01, 0.75]}
+                    start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonBallBaseScrew}
                 />
-                <View
-                    // colors={['#7d7373', '#383232']}
-                    // locations={[0.01, 0.75]}
-                    // start={{ x: 0.1, y: 0.3 }}
+                <LinearGradient
+                    colors={['#7d7373', '#383232']}
+                    locations={[0.01, 0.75]}
+                    start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonWheelOne}
                 >
                     <View style={styles.innerWheelOne}></View>
-                </View>
-                <View
-                    // colors={['#7d7373', '#383232']}
-                    // locations={[0.01, 0.75]}
-                    // start={{ x: 0.1, y: 0.3 }}
+                </LinearGradient>
+                <LinearGradient
+                    colors={['#7d7373', '#383232']}
+                    locations={[0.01, 0.75]}
+                    start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonWheelTwo}
                 > 
                 <View style={styles.innerWheelOne}></View>
-                </View>
-
+                </LinearGradient>
             </View>
         </View>
     )
