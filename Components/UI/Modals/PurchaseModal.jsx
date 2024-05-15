@@ -11,13 +11,16 @@ import {
   updateUserCannonBallSet
 } from '../../../db/updateQueries';
 
-const PurchaseModal = ({ closeModal, cannonBallInfo }) => {
+const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurrentCannonBall }) => {
 
   const [confirmBuy, setConfirmBuy] = useState(false);
+
   // update current cannon ball of user
   async function handlerUpdateCurrentCannonBall(cannonBallName) {
     try {
       await updateUserCurrentCannonBall(1, cannonBallName)
+      setCurrentCannonBall(cannonBallName);
+      closeModal();
     } catch (error) {
       console.log('error updating user cannonBall ', error)
     }
@@ -25,7 +28,18 @@ const PurchaseModal = ({ closeModal, cannonBallInfo }) => {
 
   async function handleUpdateUserCannonBallSet(cannonBallId) {
     try {
-        await updateUserCannonBallSet(cannonBallId);
+      await updateUserCannonBallSet(cannonBallId);
+      setCannonBallArr(cannonBallArr => cannonBallArr.map((cannonBall) => {
+        if (cannonBall.name === cannonBallInfo.name) {
+          return {
+            ...cannonBall,
+            isOwned: 1
+          }
+        } else {
+          return cannonBall
+        }
+      }))
+      closeModal();
     } catch (error) {
       console.log('error updating cannon ball set ', error)
     }

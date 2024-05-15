@@ -14,7 +14,7 @@ import colors from "../../constants/colors";
 import CannonBallDisplay from "../../Components/UI/CannonBallDisplay";
 import CannonLaunchDisplay from "../../Components/UI/CannonLaunchDisplay";
 import PurchaseModal from "../../Components/UI/Modals/PurchaseModal";
-import { getUserCannonBalls } from "../../db/selectQueries";
+import { getUserCannonBalls, getUserDataPreferences } from "../../db/selectQueries";
 
 
 const StoreScreen = () => {
@@ -58,7 +58,8 @@ const StoreScreen = () => {
   //   },
   // ]
 
-  const [cannonBallArr, setCannonBallArr] = useState([])
+  const [cannonBallArr, setCannonBallArr] = useState([]);
+  const [currentCannonBall, setCurrentCannonBall] = useState(null);
   const [showItemModal, setShowItemModal] = useState(false);
   const [currentItem, setCurrentItem] = useState({});
   const closeModal = () => setShowItemModal(false);
@@ -68,15 +69,29 @@ const StoreScreen = () => {
     setShowItemModal(true)
   }
 
-  // Get User's Cannon balls
   useEffect(() => {
+    // Get User's Cannon balls
     async function getCannonBalls() {
-      const cannonBallSet = await getUserCannonBalls(1);
-      setCannonBallArr(cannonBallSet)
+      try {
+        const cannonBallSet = await getUserCannonBalls(1);
+        setCannonBallArr(cannonBallSet)
+      } catch (error) {
+        console.log('error getting cannonBall set ', error)
+      }
     }
-    getCannonBalls();
-  }, [])
+    // Get User Current CannonBall
+    async function getCurrentCannonBall() {
+      try {
+        const [userPref] = await getUserDataPreferences(1);
+        setCurrentCannonBall(userPref.currentCannonBallName)
+      } catch (error) {
+        console.log('error getting current cannonBall', error)
+      }
+    }
 
+    getCannonBalls();
+    getCurrentCannonBall();
+  }, [])
 
   return (
     <ImageBackground
@@ -87,6 +102,8 @@ const StoreScreen = () => {
         <PurchaseModal
           closeModal={closeModal}
           cannonBallInfo={currentItem}
+          setCannonBallArr={setCannonBallArr}
+          setCurrentCannonBall={setCurrentCannonBall}
         />
       }
       <StatusBar barStyle='light-content' />
@@ -100,14 +117,15 @@ const StoreScreen = () => {
             title={'Cannon Balls'}
           >
             <ScrollView horizontal={true}>
-              {cannonBallArr && cannonBallArr.map((cannonBall, index) => 
+              {cannonBallArr && currentCannonBall && cannonBallArr.map((cannonBall, index) =>
                 <Pressable key={index} onPress={() => displayModal(cannonBall)}>
-                    <CannonBallDisplay
-                      color={cannonBall.color}
-                      isOwned={cannonBall.isOwned}
-                      gradientColor={cannonBall.gradientColor}
-                      size={45}
-                    />
+                  <CannonBallDisplay
+                    color={cannonBall.color}
+                    isOwned={cannonBall.isOwned}
+                    gradientColor={cannonBall.gradientColor}
+                    size={45}
+                    isEquipped={cannonBall.name === currentCannonBall}
+                  />
                 </Pressable>
               )}
             </ScrollView>

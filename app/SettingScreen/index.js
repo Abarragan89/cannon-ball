@@ -96,7 +96,7 @@ const SettingScreen = () => {
 
     return (
         <>
-            {preferencesGathered && currentCannonBall && 
+            {preferencesGathered && currentCannonBall &&
                 <ImageBackground
                     source={require('../../assets/images/screenWoodBg.png')}
                     style={styles.rootContainer}
@@ -147,25 +147,24 @@ const SettingScreen = () => {
                             title={'Cannon Ball'}
                         >
                             <View style={styles.cannonOptionRootContainer}>
-                                <View style={[styles.currentCannonBall]}>
-                                    <CannonBallDisplay
-                                        color={currentCannonBall.color}
-                                        gradientColor={currentCannonBall.gradientColor}
-                                        size={65}
-                                        isOwned={currentCannonBall.isOwned}
-                                    />
-                                </View>
+                                <CannonBallDisplay
+                                    color={currentCannonBall.color}
+                                    gradientColor={currentCannonBall.gradientColor}
+                                    size={55}
+                                    isOwned={currentCannonBall.isOwned}
+                                    isEquipped={true}
+                                />
                                 <ScrollView horizontal={true}>
                                     <View style={styles.possibleCannonOptions}>
                                         {cannonBalls.map((cannonBall, index) =>
                                             <Pressable key={index} onPress={() => handleUpdateCurrentCannonBall(cannonBall)}>
                                                 {/* <View style={[styles.cannonBallContainer, styles.possibleCannonBallContainer]}> */}
-                                                    <CannonBallDisplay
-                                                        color={cannonBall.color}
-                                                        gradientColor={cannonBall.gradientColor}
-                                                        size={50}
-                                                        isOwned={cannonBall.isOwned}
-                                                    />
+                                                <CannonBallDisplay
+                                                    color={cannonBall.color}
+                                                    gradientColor={cannonBall.gradientColor}
+                                                    size={40}
+                                                    isOwned={cannonBall.isOwned}
+                                                />
                                                 {/* </View> */}
                                             </Pressable>
                                         )}
@@ -219,11 +218,6 @@ const styles = StyleSheet.create({
         borderColor: colors.primaryBlack,
         borderRadius: 8,
         padding: 5
-    },
-    currentCannonBall: {
-        borderColor: colors.goldStar,
-        borderWidth: 2,
-        borderRadius: 8,
     },
     possibleCannonOptions: {
         marginTop: 10,
