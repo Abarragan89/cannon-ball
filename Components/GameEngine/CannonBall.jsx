@@ -1,9 +1,6 @@
-import { StyleSheet } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 
-const RADIUS = 10
-
-function CannonBall({ position, display, color, gradientColor }) {
+function CannonBall({ position, display, color, gradientColor, cannonBallRadius }) {
     const x = position[0];
     const y = position[1];
 
@@ -14,26 +11,19 @@ function CannonBall({ position, display, color, gradientColor }) {
             colors={[gradientColor, color]}
             locations={[0.01, 0.75]}
             start={{ x: 0.1, y: 0.3 }}
-            style={[styles.cannonBall, {
+            style={{
                 left: x,
                 top: y,
                 display: display,
                 borderColor: color,
-            }]}
+                zIndex: 0,
+                position: 'absolute',
+                borderRadius: cannonBallRadius * 2,
+                width: cannonBallRadius * 2,
+                height: cannonBallRadius * 2,
+            }}
         />
     )
 }
-
-const styles = StyleSheet.create({
-    cannonBall: {
-        zIndex: 0,
-        position: 'absolute',
-        borderRadius: RADIUS * 2,
-        width: RADIUS * 2,
-        height: RADIUS * 2,
-    }
-
-})
-
 
 export default CannonBall;

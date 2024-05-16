@@ -93,21 +93,21 @@ export async function initDB() {
             await db.execAsync(`
 
                 INSERT INTO cannonBalls (name, color, gradientColor, size, price, bounce, weight, isOwned, cannonBallSetId)
-                VALUES ('Classic Black', 'black', 'rgba(52, 51, 51, 1)', 10, 20000, 0.8, 1, 1, ${cannonBallSet});
+                VALUES ('Classic Black', 'black', 'rgba(52, 51, 51, 1)', 12, 20000, 0.8, 1, 1, ${cannonBallSet});
 
                 INSERT INTO cannonBalls (name, color, gradientColor, size, price, bounce, weight, cannonBallSetId )
-                VALUES ('Red Raider', 'red', '#fc8686ff', 7, 20000, 0.5, 1, ${cannonBallSet});
-
-
-                INSERT INTO cannonBalls (name, color, gradientColor, size, price, bounce, weight, cannonBallSetId )
-                VALUES ('Orange Outlaw', 'orange', '#ffcd70', 7, 30000, 0.5, 1, ${cannonBallSet});
+                VALUES ('Red Raider', 'red', '#fc8686ff', 11, 20000, 0.5, 1, ${cannonBallSet});
 
 
                 INSERT INTO cannonBalls (name, color, gradientColor, size, price, bounce, weight, cannonBallSetId )
-                VALUES ('Yellow Fellow', '#c3c30f', '#f9f9b2', 7, 40000, 0.5, 1, ${cannonBallSet});
+                VALUES ('Orange Outlaw', 'orange', '#ffcd70', 10, 30000, 0.5, 1, ${cannonBallSet});
+
 
                 INSERT INTO cannonBalls (name, color, gradientColor, size, price, bounce, weight, cannonBallSetId )
-                VALUES ('Greedy Green', 'green', '#6ef96e', 7, 50000, 0.5, 1, ${cannonBallSet});
+                VALUES ('Yellow Fellow', '#c3c30f', '#f9f9b2', 9, 40000, 0.5, 1, ${cannonBallSet});
+
+                INSERT INTO cannonBalls (name, color, gradientColor, size, price, bounce, weight, cannonBallSetId )
+                VALUES ('Greedy Green', 'green', '#6ef96e', 8, 50000, 0.5, 1, ${cannonBallSet});
 
 
                 INSERT INTO cannonBalls (name, color, gradientColor, size, price, bounce, weight, cannonBallSetId )

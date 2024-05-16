@@ -118,13 +118,13 @@ const GameEngineWrapper = ({
                         setPlayBgMusic: setPlayBgMusic,
                         isGameOver: false,
                         setIsGameOver: setIsGameOver,
-                        // bounceLevel: cannonBallBounce,
-                        bounceLevel: 0.6,
+                        bounceLevel: cannonBallBounce,
                         isSoundEffectsOn: isSoundEffectsOn,
                         isHapticsOn: isHapticsOn
                     },
                     cannonBall: {
                         ...prev.cannonBall,
+                        cannonBallRadius: cannonBallSize,
                         color: cannonBallColor,
                         gradientColor: cannonBallGradientClr,
                     },
