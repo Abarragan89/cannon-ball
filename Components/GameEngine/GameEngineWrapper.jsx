@@ -118,7 +118,8 @@ const GameEngineWrapper = ({
                         setPlayBgMusic: setPlayBgMusic,
                         isGameOver: false,
                         setIsGameOver: setIsGameOver,
-                        bounceLevel: cannonBallBounce,
+                        // bounceLevel: cannonBallBounce,
+                        bounceLevel: 0.6,
                         isSoundEffectsOn: isSoundEffectsOn,
                         isHapticsOn: isHapticsOn
                     },

@@ -6,6 +6,6 @@ export default cannonBallBounce = (gameData, isSoundOn, sounds, sound, headerSta
             console.log('error in Cannon Ball Bounce ', error)
         }
     }
-    headerStats.bounces += 1;
+    if (!gameData.isGameOver) headerStats.bounces += 1;
     cannonBall.velocity[isVertical] = -cannonBall.velocity[isVertical] * gameData.bounceLevel
 };

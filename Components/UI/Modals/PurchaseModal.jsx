@@ -2,7 +2,8 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { useState } from 'react';
 import CannonBallDisplay from '../CannonBallDisplay';
 import ModalBtn from '../ModalBtn';
-import BaseModal from "./BaseModal"
+import BaseModal from "./BaseModal";
+import ProgressSquares from '../ProgressSquares';
 import colors from '../../../constants/colors';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -51,13 +52,26 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurren
         <FontAwesome name="close" size={24} color={colors.hinderanceColor} />
       </Pressable>
       <Text style={styles.itemTitle}>{cannonBallInfo.name}</Text>
-      <View style={styles.cannonBallDisplayContainer}>
-        <CannonBallDisplay
-          color={cannonBallInfo.color}
-          gradientColor={cannonBallInfo.gradientColor}
-          size={80}
-          isOwned={cannonBallInfo.isOwned}
-        />
+
+      <View style={styles.cannonDisplayAndDetailsContainer}>
+        <View style={styles.cannonBallDisplayContainer}>
+          <CannonBallDisplay
+            color={cannonBallInfo.color}
+            gradientColor={cannonBallInfo.gradientColor}
+            size={85}
+            isOwned={cannonBallInfo.isOwned}
+          />
+        </View>
+        <View style={styles.cannonDetails}>
+          <View>
+            <Text style={styles.statText}>Size</Text>
+            <ProgressSquares squareCount={5} />
+            <Text style={styles.statText}>Weight</Text>
+            <ProgressSquares squareCount={3} />
+            <Text style={styles.statText}>Bounce</Text>
+            <ProgressSquares squareCount={1} />
+          </View>
+        </View>
       </View>
       {!cannonBallInfo.isOwned &&
         <View style={styles.priceContainer}>
@@ -65,6 +79,8 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurren
           <FontAwesome6 name="hockey-puck" size={18} color={colors.winningStar} />
         </View>
       }
+
+      {/* BUTTONS */}
       {
         confirmBuy ?
           <>
@@ -101,8 +117,18 @@ const styles = StyleSheet.create({
     fontFamily: 'textFont',
     fontSize: 25,
   },
-  cannonBallDisplayContainer: {
+  cannonDisplayAndDetailsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    width: 250,
     marginVertical: 15
+  },
+  statText: {
+    margin: 0,
+    fontFamily: 'textFont',
+    color: colors.offWhite,
+    fontSize: 17
   },
   priceContainer: {
     flexDirection: 'row',

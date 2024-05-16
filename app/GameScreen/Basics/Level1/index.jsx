@@ -79,7 +79,6 @@ function ChatperOneLevelOne() {
                     cannon: {
                         position: [400, screenHeight - 100],
                         rotate: '-90deg',
-
                         renderer: <CannonLauncher />
                     },
                     TNT: {

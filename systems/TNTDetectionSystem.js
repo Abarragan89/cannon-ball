@@ -1,4 +1,5 @@
 import lineBallDetection from "../utils/lineBallDetection";
+import cannonBallBounce from '../utils/cannonBallBounce';
 
 const TNTDetectionSystem = (entities) => {
     /////////////////// HELPER FUNCTIONS TO END GAME //////////////
@@ -143,45 +144,22 @@ const TNTDetectionSystem = (entities) => {
     ///////////// CHECKING FOR LEFT WALL DETECTION ////////////////////////
     if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[0] > 0) {
-            if (entities.gameData.isSoundEffectsOn > 0) {
-                try {
-                    entities.sounds.tntCannonBallHitSound.replayAsync();
-                } catch (error) {
-                    console.log('error in TNT HIT SOUND ', error)
-                }
-            }
-            entities.headerStats.bounces += 1;
-            entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
+            cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0)
+
         }
     }
 
     ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
     if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[0] < 0) {
-            if (entities.gameData.isSoundEffectsOn > 0) {
-                try {
-                    entities.sounds.tntCannonBallHitSound.replayAsync();
-                } catch (error) {
-                    console.log('error in TNT HIT SOUND ', error)
-                }
-            }
-            entities.headerStats.bounces += 1;
-            entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
+            cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0)
         }
     }
 
     ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
     if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[1] < 0) {
-            if (entities.gameData.isSoundEffectsOn > 0) {
-                try {
-                    entities.sounds.tntCannonBallHitSound.replayAsync();
-                } catch (error) {
-                    console.log('error in TNT HIT SOUND ', error)
-                }
-            }
-            entities.headerStats.bounces += 1;
-            entities.cannonBall.velocity[1] = -entities.cannonBall.velocity[1]
+            cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1)
         }
     }
 
