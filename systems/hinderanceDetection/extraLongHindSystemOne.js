@@ -12,7 +12,7 @@ const extraLongHindSystemOne = (entities) => {
     const bottomLineY2 = entities.extraLongHindOne.position[1] + 10;
 
     // CIRCLE PROPERTIES
-    const radius = 10;
+    const radius = +entities.cannonBall.cannonBallRadius;
     const circleX = entities.cannonBall.position[0] + radius;
     const circleY = entities.cannonBall.position[1] + radius;
 

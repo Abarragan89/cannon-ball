@@ -36,7 +36,7 @@ const hatchBoxDetectionSystem = (entities) => {
     const topRightLineY2 = entities.hatchBox.position[1];
 
     // CIRCLE PROPERTIES
-    const radius = 10;
+    const radius = +entities.cannonBall.cannonBallRadius;
     const circleX = entities.cannonBall.position[0] + radius;
     const circleY = entities.cannonBall.position[1] + radius;
 
