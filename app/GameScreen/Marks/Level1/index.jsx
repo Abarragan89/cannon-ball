@@ -37,7 +37,7 @@ function ChatperTwoLevelOne() {
     const angleLevelRef = useRef(90)
     // Power Data
     // This powerLevel is for Display
-    const powerLevelRef = useRef(15)
+    const powerLevelRef = useRef(30)
 
     return (
         <ImageBackground

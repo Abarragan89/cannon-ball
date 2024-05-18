@@ -23,7 +23,7 @@ export async function initDB() {
                     isSoundEffectsOn INTEGER DEFAULT 1,
                     isHapticsOn INTEGER DEFAULT 1,
                     hasSeenTutorial INTEGER DEFAULT 0,
-                    currentCannonBallName VARCHAR(50) DEFAULT 'Classic Black'
+                    currentCannonBallName VARCHAR(50) DEFAULT 'Iron'
                 );  
 
                 CREATE TABLE IF NOT EXISTS cannonBallSet (
@@ -37,8 +37,8 @@ export async function initDB() {
                     gradientColor VARCHAR(50),
                     size INTEGER,
                     price INTEGER,
-                    bounce INTEGER,
-                    weight INTEGER,
+                    bounce Float,
+                    weight Float,
                     isOwned INTEGER DEFAULT 0,
                     cannonBallSetId INTEGER,
                     FOREIGN KEY (cannonBallSetId) REFERENCES cannonBallSet(id) ON DELETE CASCADE
@@ -90,29 +90,32 @@ export async function initDB() {
             const { lastInsertRowId: cannonBallSet } = await db.runAsync(`INSERT INTO cannonBallSet DEFAULT VALUES`);
 
             // Create Cannon Balls for user and attached them to cannonBallSet
+            // Cannon Ball weight are in range 0.6 - 1. The lower the decimal, the heavier the weight
             await db.execAsync(`
 
-                INSERT INTO cannonBalls (name, color, gradientColor, size, price, bounce, weight, isOwned, cannonBallSetId)
-                VALUES ('Classic Black', 'black', 'rgba(52, 51, 51, 1)', 12, 20000, 0.8, 1, 1, ${cannonBallSet});
+                INSERT INTO cannonBalls (name, color, gradientColor, price, isOwned, cannonBallSetId, size, weight, bounce)
+                VALUES ('Iron', 'black', 'rgba(52, 51, 51, 1)', 20000, 1, ${cannonBallSet}, 8, 0.11, 0.65);
 
-                INSERT INTO cannonBalls (name, color, gradientColor, size, price, bounce, weight, cannonBallSetId )
-                VALUES ('Red Raider', 'red', '#fc8686ff', 11, 20000, 0.5, 1, ${cannonBallSet});
+                INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+                VALUES ('Copper', '#ac7104', '#f1a10b', 20000, ${cannonBallSet}, 11, 0.14, 0.65);
 
+                INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+                VALUES ('Lead', '#525252', '#757575', 20000, ${cannonBallSet}, 8, 0.17, 0.55);
 
-                INSERT INTO cannonBalls (name, color, gradientColor, size, price, bounce, weight, cannonBallSetId )
-                VALUES ('Orange Outlaw', 'orange', '#ffcd70', 10, 30000, 0.5, 1, ${cannonBallSet});
+                INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+                VALUES ('Ruby', '#c60e0e', '#e04d4d', 20000, ${cannonBallSet}, 6, 0.08, 0.85);
 
+                INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+                VALUES ('Emerald', '#138503', '#5ee94b', 20000, ${cannonBallSet}, 6, 0.08, 0.75);
 
-                INSERT INTO cannonBalls (name, color, gradientColor, size, price, bounce, weight, cannonBallSetId )
-                VALUES ('Yellow Fellow', '#c3c30f', '#f9f9b2', 9, 40000, 0.5, 1, ${cannonBallSet});
+                INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+                VALUES ('Rubber', '#423f3f', '#a0a0a0', 20000, ${cannonBallSet}, 11, 0.08, 0.95);
 
-                INSERT INTO cannonBalls (name, color, gradientColor, size, price, bounce, weight, cannonBallSetId )
-                VALUES ('Greedy Green', 'green', '#6ef96e', 8, 50000, 0.5, 1, ${cannonBallSet});
+                INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+                VALUES ('Beach Ball', '#ff0000', '#0560e0', 20000, ${cannonBallSet}, 13, 0.05, 0.85);
 
-
-                INSERT INTO cannonBalls (name, color, gradientColor, size, price, bounce, weight, cannonBallSetId )
-                VALUES ('Purple Pirate', 'purple', '#d065d0', 7, 60000, 0.5, 1, ${cannonBallSet});
-
+                INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+                VALUES ('BB', '#df9e05', '#eddb51', 20000, ${cannonBallSet}, 4, 0.05, 0.65);
             `)
 
             // Create User

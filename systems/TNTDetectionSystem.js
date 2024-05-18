@@ -5,8 +5,8 @@ const TNTDetectionSystem = (entities) => {
     /////////////////// HELPER FUNCTIONS TO END GAME //////////////
     function calculateAccuracy() {
         // coordinates for the bottom of the ball
-        const ballXCoord = entities.cannonBall.position[0] + 10;
-        const ballYCoord = entities.cannonBall.position[1] + 20;
+        const ballXCoord = entities.cannonBall.position[0] + +entities.cannonBall.cannonBallRadius;
+        const ballYCoord = entities.cannonBall.position[1] + +entities.cannonBall.cannonBallRadius * 2;
 
         // coordinate for the top center of the TNT
         const tntXCoord = entities.TNT.position[0] + 15;
@@ -70,7 +70,7 @@ const TNTDetectionSystem = (entities) => {
         //this is different than the useState is gameover that sets the modal
         entities.gameData.isGameOver = true;
         // Lower TNT handle
-        entities.TNT.handlePosition[0] = -13;
+        entities.TNT.handlePosition[0] = -14;
         // // pause the cannonBall
         entities.cannonBall.velocity[1] = 0
         entities.cannonBall.velocity[0] = 0
@@ -114,27 +114,33 @@ const TNTDetectionSystem = (entities) => {
 
     // LEFT LINE OF TNT BOX
     const leftLineX1 = entities.TNT.position[0];
-    const leftLineY1 = entities.TNT.position[1] + 2;
+    const leftLineY1 = entities.TNT.position[1];
     const leftLineX2 = entities.TNT.position[0];
     const leftLineY2 = entities.TNT.position[1] + 30;
 
     // RIGHT LINE OF TNT BOX
     const rightLineX1 = entities.TNT.position[0] + 30;
-    const rightLineY1 = entities.TNT.position[1] + 2;
+    const rightLineY1 = entities.TNT.position[1];
     const rightLineX2 = entities.TNT.position[0] + 30;
     const rightLineY2 = entities.TNT.position[1] + 30;
 
     // BOTTOM LINE OF TNT BOX
-    const bottomLineX1 = entities.TNT.position[0] + 3;
+    const bottomLineX1 = entities.TNT.position[0];
     const bottomLineY1 = entities.TNT.position[1] + 30;
-    const bottomLineX2 = entities.TNT.position[0] + 27;
+    const bottomLineX2 = entities.TNT.position[0] + 30;
     const bottomLineY2 = entities.TNT.position[1] + 30;
 
     // TOP LINE OF TNT BOX (The Handle)
-    const topLineX1 = entities.TNT.position[0] + 10;
-    const topLineY1 = entities.TNT.position[1] - 5;
-    const topLineX2 = entities.TNT.position[0] + 20;
-    const topLineY2 = entities.TNT.position[1] - 5;
+    const handleBarX1 = entities.TNT.position[0] + 7;
+    const handleBarY1 = entities.TNT.position[1] - 5;
+    const handleBarX2 = entities.TNT.position[0] + 23;
+    const handleBarY2 = entities.TNT.position[1] - 5;
+
+    // TOP LINE OF TNT BOX (The Handle)
+    const topLineX1 = entities.TNT.position[0];
+    const topLineY1 = entities.TNT.position[1];
+    const topLineX2 = entities.TNT.position[0] + 30;
+    const topLineY2 = entities.TNT.position[1];
 
     // CIRCLE PROPERTIES
     const radius = +entities.cannonBall.cannonBallRadius
@@ -145,7 +151,6 @@ const TNTDetectionSystem = (entities) => {
     if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[0] > 0) {
             cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0)
-
         }
     }
 
@@ -161,11 +166,20 @@ const TNTDetectionSystem = (entities) => {
         if (entities.cannonBall.velocity[1] < 0) {
             cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1)
         }
+    };
+
+    ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
+    if (lineBallDetection(topLineX1, topLineY1, topLineX2, topLineY2, circleX, circleY, radius)) {
+        if (entities.cannonBall.velocity[1] > 0) {
+            cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1)
+        }
     }
 
     ////////////////// CHECKING FOR TOP WALL DETECTION /////////////////
-    if (lineBallDetection(topLineX1, topLineY1, topLineX2, topLineY2, circleX, circleY, radius)) {
-        endGameHandler();
+    if (lineBallDetection(handleBarX1, handleBarY1, handleBarX2, handleBarY2, circleX, circleY, radius)) {
+        if (entities.cannonBall.velocity[1] > 0) {
+            endGameHandler();
+        }
     }
 
     return entities;

@@ -41,8 +41,9 @@ const styles = StyleSheet.create({
     },
     tntHandle: {
         position: 'absolute',
-        fontSize: 30,
-        left: 5.5,
+        fontSize: 27,
+        fontWeight: 'bold',
+        left: 6.5,
     },
     text: {
         color: 'yellow',

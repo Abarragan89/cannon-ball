@@ -9,8 +9,8 @@ const followCannonBallOnMove = (entities, { touches }) => {
 
         function calculateAccuracy() {
             // coordinates for the bottom of the ball
-            const ballXCoord = entities.cannonBall.position[0] + 10;
-            const ballYCoord = entities.cannonBall.position[1] + 20;
+            const ballXCoord = entities.cannonBall.position[0] + +entities.cannonBall.cannonBallRadius;
+            const ballYCoord = entities.cannonBall.position[1] + +entities.cannonBall.cannonBallRadius * 2;
 
             // coordinate for the top center of the TNT
             const tntXCoord = entities.TNT.position[0] + 15;

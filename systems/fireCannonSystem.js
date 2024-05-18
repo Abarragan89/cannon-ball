@@ -16,8 +16,8 @@ const fireBtnPos = {
 
 const fireCannonSystem = (entities, { touches }) => {
   function shootCannonBall() {
-    // set the gravity, angle and power before launch
-    const GRAVITY = .05;
+    // set the gravity, angle, and power before launch
+    const GRAVITY = +entities.cannonBall.cannonBallWeight;
     if (entities.cannonBall.isBallMoving) {
       // Update the X and Y based on the arc velocity
       entities.cannonBall.position[0] += entities.cannonBall.velocity[0]
@@ -166,11 +166,16 @@ const fireCannonSystem = (entities, { touches }) => {
         // set isBallMoving to true
         entities.cannonBall.isBallMoving = true;
         if (entities.gameData.isHapticsOn > 0) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
-        // set initial coordinates to be where the cannon tip is located
-        entities.cannonBall.position[0] = entities.cannon.position[0] + 23;
+        // set initial coordinates to be where the cannon base is located
+        // calibrate exit point based on cannonball size
+        const cannonBallSizeCalibration = 13 - entities.cannonBall.cannonBallRadius
+        entities.cannonBall.position[0] = entities.cannon.position[0] + 20 + cannonBallSizeCalibration
         entities.cannonBall.position[1] = entities.cannon.position[1] + 40;
+        
         // set the POWER and ANGLE  settings
         let ANGLE = entities.angleMeter.angleLevel;
+        // Multiply the power by the weight
+        // let POWER = entities.powerMeter.displayPower * entities.cannonBall.cannonBallWeight;
         let POWER = entities.powerMeter.displayPower;
         const angleInRadians = (ANGLE * Math.PI) / 180;
         // set the velocity

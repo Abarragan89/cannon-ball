@@ -46,7 +46,7 @@ function ChapterFourLevelFive() {
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
-    const powerLevelRef = useRef(15)
+    const powerLevelRef = useRef(30)
 
     return (
         <ImageBackground
