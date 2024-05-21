@@ -27,7 +27,7 @@ export default Card;
 
 const styles = StyleSheet.create({
     cardContainer: {
-        marginTop: 25,
+        marginTop: 10,
         borderWidth: 1,
         borderColor: colors.primaryBlack,
         width: 350,

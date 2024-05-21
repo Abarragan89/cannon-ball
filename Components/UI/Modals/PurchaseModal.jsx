@@ -7,26 +7,12 @@ import BaseModal from "./BaseModal";
 import colors from '../../../constants/colors';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import {
-  updateUserCurrentCannonBall,
-  updateUserCannonBallSet
-} from '../../../db/updateQueries';
+import { updateUserCannonBallSet } from '../../../db/updateQueries';
 
 const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurrentCannonBall }) => {
 
   const [confirmBuy, setConfirmBuy] = useState(false);
   const [cannonBallInfoState, setCannonBallInfoState] = useState(cannonBallInfo)
-
-  // update current cannon ball of user
-  async function handlerUpdateCurrentCannonBall(cannonBallName) {
-    try {
-      await updateUserCurrentCannonBall(1, cannonBallName)
-      setCurrentCannonBall(cannonBallName);
-      closeModal();
-    } catch (error) {
-      console.log('error updating user cannonBall ', error)
-    }
-  }
 
   async function handleUpdateUserCannonBallSet(cannonBallId) {
     try {
@@ -42,7 +28,7 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurren
         }
       }))
       setCannonBallInfoState(prev => ({ ...prev, isOwned: 1 }));
-      setConfirmBuy(false);
+      closeModal();
     } catch (error) {
       console.log('error updating cannon ball set ', error)
     }
@@ -92,16 +78,10 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurren
             />
           </>
           :
-          cannonBallInfoState.isOwned ?
-            <ModalBtn
-              text={'Equip'}
-              handler={() => handlerUpdateCurrentCannonBall(cannonBallInfoState.name)}
-            />
-            :
-            <ModalBtn
-              text={'Purchase'}
-              handler={() => setConfirmBuy(true)}
-            />
+          <ModalBtn
+            text={'Purchase'}
+            handler={() => setConfirmBuy(true)}
+          />
       }
     </BaseModal>
   )

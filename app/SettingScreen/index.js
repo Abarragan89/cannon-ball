@@ -14,14 +14,12 @@ import Title from "../../Components/UI/Title";
 import colors from "../../constants/colors";
 import Card from "../../Components/UI/Card";
 import CannonBallDisplay from "../../Components/UI/CannonBallDisplay";
-import { getUserDataPreferences, getUserCannonBalls } from "../../db/selectQueries";
+import { getUserDataPreferences } from "../../db/selectQueries";
 import {
     updateUserMusicPref,
     updateUserSoundEfxPref,
     updateUserHapticsPref,
-    updateUserCurrentCannonBall
 } from "../../db/updateQueries";
-import CannonBallStats from "../../Components/UI/CannonBallStats";
 
 
 const SettingScreen = () => {
@@ -30,8 +28,6 @@ const SettingScreen = () => {
     const [isSoundEfxOn, setIsSoundEfxOn] = useState(null);
     const [isHapticOn, setIsHapticOn] = useState(null);
     const [preferencesGathered, setPreferencesGathered] = useState(false);
-    const [currentCannonBall, setCurrentCannonBall] = useState({});
-    const [cannonBalls, setCannonBalls] = useState([]);
 
     async function handleMusicPref(value) {
         try {
@@ -63,16 +59,6 @@ const SettingScreen = () => {
         setIsHapticOn(value);
     };
 
-    async function handleUpdateCurrentCannonBall(cannonBall) {
-        try {
-            await updateUserCurrentCannonBall(1, cannonBall.name);
-            console.log(cannonBall);
-            setCurrentCannonBall(cannonBall);
-        } catch (error) {
-            console.log('error updating current cannon ball ', error)
-        }
-    }
-
     // Get user preferences and purchased cannonBalls
     useEffect(() => {
         async function getUserPreferencesAndCannonBalls() {
@@ -82,12 +68,6 @@ const SettingScreen = () => {
                 setIsMusicOn(userPref.isSoundOn === 0 ? false : true);
                 setIsSoundEfxOn(userPref.isSoundEffectsOn === 0 ? false : true);
                 setIsHapticOn(userPref.isHapticsOn === 0 ? false : true)
-
-                const cannonBalls = await getUserCannonBalls(1);
-                setCannonBalls(cannonBalls.filter(cannonBall => cannonBall.isOwned === 1))
-                const [currentBall] = cannonBalls.filter(cannonBall => cannonBall.name === userPref.currentCannonBallName)
-                setCurrentCannonBall(currentBall)
-
                 setPreferencesGathered(true);
             } catch (error) {
                 console.log('error getting user pref in settings ', error)
@@ -98,7 +78,7 @@ const SettingScreen = () => {
 
     return (
         <>
-            {preferencesGathered && currentCannonBall &&
+            {preferencesGathered &&
                 <ImageBackground
                     source={require('../../assets/images/screenWoodBg.png')}
                     style={styles.rootContainer}
@@ -144,46 +124,6 @@ const SettingScreen = () => {
                                 />
                             </View>
                         </Card>
-                        {/* Cannon Ball Card */}
-                        <Card
-                            title={'Cannon Ball'}
-                        >
-                            <View style={styles.cannonOptionRootContainer}>
-                                <View style={styles.currentCannonBallAndStatsView}>
-                                    <CannonBallDisplay
-                                        color={currentCannonBall.color}
-                                        gradientColor={currentCannonBall.gradientColor}
-                                        size={55}
-                                        isOwned={currentCannonBall.isOwned}
-                                        name={currentCannonBall.name}
-                                        isEquipped={true}
-                                    />
-                                    <View style={styles.currentBallStatsView}>
-                                        <CannonBallStats
-                                            size={currentCannonBall.size}
-                                            weight={currentCannonBall.weight}
-                                            bounce={currentCannonBall.bounce}
-                                        />
-                                    </View>
-
-                                </View>
-                                <ScrollView horizontal={true}>
-                                    <View style={styles.possibleCannonOptions}>
-                                        {cannonBalls.map((cannonBall, index) =>
-                                            <Pressable key={index} onPress={() => handleUpdateCurrentCannonBall(cannonBall)}>
-                                                <CannonBallDisplay
-                                                    color={cannonBall.color}
-                                                    gradientColor={cannonBall.gradientColor}
-                                                    size={cannonBall.size}
-                                                    isOwned={cannonBall.isOwned}
-                                                    name={cannonBall.name}
-                                                />
-                                            </Pressable>
-                                        )}
-                                    </View>
-                                </ScrollView>
-                            </View>
-                        </Card>
                     </View>
                 </ImageBackground>
             }
@@ -206,9 +146,7 @@ const styles = StyleSheet.create({
         zIndex: 2
     },
     cardContainer: {
-        marginTop: 5,
-        justifyContent: 'space-evenly',
-        flexDirection: 'row'
+        alignItems: 'center'
     },
     labelAndInputRow: {
         flexDirection: 'row',
@@ -219,30 +157,5 @@ const styles = StyleSheet.create({
         fontFamily: 'textFont',
         fontSize: 23,
         color: colors.offWhite
-    },
-    cannonOptionRootContainer: {
-        alignItems: 'center',
-    },
-    currentCannonBallAndStatsView: {
-        flexDirection: 'row'
-    },
-    cannonBallContainer: {
-        alignItems: 'center',
-        borderWidth: 1,
-        width: 60,
-        borderColor: colors.primaryBlack,
-        borderRadius: 8,
-        padding: 5
-    },
-    possibleCannonOptions: {
-        marginTop: 10,
-        flexDirection: 'row',
-    },
-    possibleCannonBallContainer: {
-        margin: 10,
-    },
-    image: {
-        width: 50,
-        height: 50,
     },
 })
