@@ -4,8 +4,6 @@ import ProgressSquares from '../../Components/UI/ProgressSquares';
 
 const CannonBallStats = ({ size, weight, bounce }) => {
 
-    console.log(typeof size)
-
     const [adjustedSize, setAdjustedSize] = useState(null);
     const [adjustedWeight, setAdjustedWeight] = useState(null);
     const [adjustedBounce, setAdjustedBounce] = useState(null);
@@ -59,7 +57,7 @@ const CannonBallStats = ({ size, weight, bounce }) => {
             case 0.95:
                 setAdjustedBounce(5);
         }
-    }, []);
+    }, [size, weight, bounce]);
 
     return (
         <View>

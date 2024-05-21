@@ -1,14 +1,19 @@
 
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet } from "react-native";
+import { useEffect, useState } from 'react';
 import colors from "../../constants/colors";
 
 const ProgressSquares = ({ squareCount }) => {
 
-    const countArray = Array.from({ length: 5 }, (x, i) => i);
+    const [countArray, setCountArray] = useState(null);
 
+    useEffect(() => {
+        setCountArray(Array.from({ length: 5 }, (x, i) => i));
+    }, [squareCount])
+    
     return (
         <View style={styles.container}>
-            {countArray.map((item) =>
+            {squareCount && countArray && countArray.map((item) =>
                 <View key={item} style={[styles.countSquare, item >= squareCount && styles.emptyCountSquare]} />
             )}
         </View>
@@ -30,6 +35,6 @@ const styles = StyleSheet.create({
         marginHorizontal: .5
     },
     emptyCountSquare: { 
-        backgroundColor: 'none'
+        backgroundColor: 'transparent'
     },
 })

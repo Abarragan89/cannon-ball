@@ -47,7 +47,7 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurren
   }
 
   return (
-    <BaseModal>
+    <BaseModal closeModal={closeModal}>
       <Pressable onPress={closeModal} style={styles.closeModalPressable}>
         <FontAwesome name="close" size={24} color={colors.hinderanceColor} />
       </Pressable>
@@ -60,6 +60,7 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurren
             gradientColor={cannonBallInfo.gradientColor}
             size={70}
             isOwned={cannonBallInfo.isOwned}
+            name={cannonBallInfo.name}
           />
         </View>
         <CannonBallStats

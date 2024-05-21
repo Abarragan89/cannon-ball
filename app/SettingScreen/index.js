@@ -66,7 +66,8 @@ const SettingScreen = () => {
     async function handleUpdateCurrentCannonBall(cannonBall) {
         try {
             await updateUserCurrentCannonBall(1, cannonBall.name);
-            setCurrentCannonBall(cannonBall)
+            console.log(cannonBall);
+            setCurrentCannonBall(cannonBall);
         } catch (error) {
             console.log('error updating current cannon ball ', error)
         }
@@ -154,6 +155,7 @@ const SettingScreen = () => {
                                         gradientColor={currentCannonBall.gradientColor}
                                         size={55}
                                         isOwned={currentCannonBall.isOwned}
+                                        name={currentCannonBall.name}
                                         isEquipped={true}
                                     />
                                     <View style={styles.currentBallStatsView}>
@@ -169,14 +171,13 @@ const SettingScreen = () => {
                                     <View style={styles.possibleCannonOptions}>
                                         {cannonBalls.map((cannonBall, index) =>
                                             <Pressable key={index} onPress={() => handleUpdateCurrentCannonBall(cannonBall)}>
-                                                {/* <View style={[styles.cannonBallContainer, styles.possibleCannonBallContainer]}> */}
                                                 <CannonBallDisplay
                                                     color={cannonBall.color}
                                                     gradientColor={cannonBall.gradientColor}
                                                     size={cannonBall.size}
                                                     isOwned={cannonBall.isOwned}
+                                                    name={cannonBall.name}
                                                 />
-                                                {/* </View> */}
                                             </Pressable>
                                         )}
                                     </View>

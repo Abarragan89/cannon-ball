@@ -4,7 +4,7 @@ import { Fontisto } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 import { useEffect, useState } from 'react';
 
-const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped }) => {
+const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped, name }) => {
 
     const [adjustedCannonBallSize, setAdjustedCannonBallSize] = useState(null);
     const [adjustedContainerSize, setAdjustedContainerSize] = useState(null);
@@ -71,7 +71,7 @@ const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped }) 
                 />
 
             </View>
-            <Text style={styles.cannonBallNameText}>Ruby</Text>
+            <Text style={styles.cannonBallNameText}>{name}</Text>
         </View>
     )
 }
