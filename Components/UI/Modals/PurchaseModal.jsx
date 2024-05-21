@@ -15,6 +15,7 @@ import {
 const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurrentCannonBall }) => {
 
   const [confirmBuy, setConfirmBuy] = useState(false);
+  const [cannonBallInfoState, setCannonBallInfoState] = useState(cannonBallInfo)
 
   // update current cannon ball of user
   async function handlerUpdateCurrentCannonBall(cannonBallName) {
@@ -40,7 +41,8 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurren
           return cannonBall
         }
       }))
-      closeModal();
+      setCannonBallInfoState(prev => ({ ...prev, isOwned: 1 }));
+      setConfirmBuy(false);
     } catch (error) {
       console.log('error updating cannon ball set ', error)
     }
@@ -51,27 +53,31 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurren
       <Pressable onPress={closeModal} style={styles.closeModalPressable}>
         <FontAwesome name="close" size={24} color={colors.hinderanceColor} />
       </Pressable>
-      <Text style={styles.itemTitle}>{cannonBallInfo.name}</Text>
+      {cannonBallInfoState &&
+        <>
+          <Text style={styles.itemTitle}>{cannonBallInfoState.name}</Text>
 
-      <View style={styles.cannonDisplayAndDetailsContainer}>
-        <View style={styles.cannonBallDisplayContainer}>
-          <CannonBallDisplay
-            color={cannonBallInfo.color}
-            gradientColor={cannonBallInfo.gradientColor}
-            size={70}
-            isOwned={cannonBallInfo.isOwned}
-            name={cannonBallInfo.name}
-          />
-        </View>
-        <CannonBallStats
-          size={cannonBallInfo.size}
-          weight={cannonBallInfo.weight}
-          bounce={cannonBallInfo.bounce}
-        />
-      </View>
-      {!cannonBallInfo.isOwned &&
+          <View style={styles.cannonDisplayAndDetailsContainer}>
+            <View style={styles.cannonBallDisplayContainer}>
+              <CannonBallDisplay
+                color={cannonBallInfoState.color}
+                gradientColor={cannonBallInfoState.gradientColor}
+                size={70}
+                isOwned={cannonBallInfoState.isOwned}
+                name={cannonBallInfoState.name}
+              />
+            </View>
+            <CannonBallStats
+              size={cannonBallInfoState.size}
+              weight={cannonBallInfoState.weight}
+              bounce={cannonBallInfoState.bounce}
+            />
+          </View>
+        </>
+      }
+      {!cannonBallInfoState.isOwned &&
         <View style={styles.priceContainer}>
-          <Text style={styles.priceText}>{cannonBallInfo.price.toLocaleString()}</Text>
+          <Text style={styles.priceText}>{cannonBallInfoState.price.toLocaleString()}</Text>
           <FontAwesome6 name="hockey-puck" size={18} color={colors.winningStar} />
         </View>
       }
@@ -82,14 +88,14 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurren
           <>
             <ModalBtn
               text={'Confirm Purchase'}
-              handler={() => handleUpdateUserCannonBallSet(cannonBallInfo.id)}
+              handler={() => handleUpdateUserCannonBallSet(cannonBallInfoState.id)}
             />
           </>
           :
-          cannonBallInfo.isOwned ?
+          cannonBallInfoState.isOwned ?
             <ModalBtn
               text={'Equip'}
-              handler={() => handlerUpdateCurrentCannonBall(cannonBallInfo.name)}
+              handler={() => handlerUpdateCurrentCannonBall(cannonBallInfoState.name)}
             />
             :
             <ModalBtn
