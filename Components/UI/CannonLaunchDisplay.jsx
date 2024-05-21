@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
-
-function CannonLaunchDisplay({ }) {
+import colors from '../../constants/colors';
+function CannonLaunchDisplay() {
 
     return (
         <View style={[styles.rootContainer]}>
@@ -12,14 +12,14 @@ function CannonLaunchDisplay({ }) {
             </View>
 
             <View style={styles.standContainer}>
-                <LinearGradient
-                    colors={['#b55454', 'brown']}
-                    locations={[0.01, 0.75]}
-                    start={{ x: 0.1, y: 0.3 }}
+                <View
+                    // colors={['#b55454', 'brown']}
+                    // locations={[0.01, 0.75]}
+                    // start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonBallBase}
-                />
+                >
+                </View>
                 <LinearGradient
-                
                     colors={['#383434', '#151010']}
                     locations={[0.01, 0.75]}
                     start={{ x: 0.1, y: 0.3 }}
@@ -38,8 +38,8 @@ function CannonLaunchDisplay({ }) {
                     locations={[0.01, 0.75]}
                     start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonWheelTwo}
-                > 
-                <View style={styles.innerWheelOne}></View>
+                >
+                    <View style={styles.innerWheelOne}></View>
                 </LinearGradient>
 
             </View>
@@ -51,7 +51,7 @@ export default CannonLaunchDisplay;
 
 const styles = StyleSheet.create({
     rootContainer: {
-        transform: [{ scale: .75}, {translateY: -15}],
+        transform: [{ scale: .75 }, { translateY: -15 }],
         marginHorizontal: 10,
     },
     cannonContainer: {
@@ -79,13 +79,13 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 6,
         left: 1,
+        borderWidth: 32,
         height: 0,
         width: 0,
-        borderWidth: 32,
         borderBottomColor: colors.primaryBrown,
-        borderTopColor: 'transparent',
-        borderRightColor: 'transparent',
-        borderLeftColor: 'transparent',
+        borderTopColor: '#7204e100',
+        borderRightColor: '#08e51300',
+        borderLeftColor: '#d3bf1000',
     },
     cannonBallBaseScrew: {
         position: 'relative',

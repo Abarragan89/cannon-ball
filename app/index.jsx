@@ -10,7 +10,7 @@ import { Dimensions } from "react-native";
 const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
 const bgImage = require('../assets/images/homeScreenImg.png')
 const { height } = Dimensions.get('screen');
-import { initDB, getPreferences } from "../db/init";
+import { initDB } from "../db/init";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,7 +23,6 @@ const Home = () => {
   const onLayoutRootView = useCallback(async () => {
     if ((fontsLoaded || fontError) && bgImage && mainBtnImgSrc) {
       await initDB();
-      await getPreferences();
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded, fontError, bgImage, mainBtnImgSrc]);

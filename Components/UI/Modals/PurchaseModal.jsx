@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { useState } from 'react';
 import CannonBallDisplay from '../CannonBallDisplay';
+import CannonBallStats from '../CannonBallStats';
 import ModalBtn from '../ModalBtn';
 import BaseModal from "./BaseModal";
-import ProgressSquares from '../ProgressSquares';
 import colors from '../../../constants/colors';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -58,20 +58,15 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurren
           <CannonBallDisplay
             color={cannonBallInfo.color}
             gradientColor={cannonBallInfo.gradientColor}
-            size={85}
+            size={70}
             isOwned={cannonBallInfo.isOwned}
           />
         </View>
-        <View style={styles.cannonDetails}>
-          <View>
-            <Text style={styles.statText}>Size</Text>
-            <ProgressSquares squareCount={5} />
-            <Text style={styles.statText}>Weight</Text>
-            <ProgressSquares squareCount={3} />
-            <Text style={styles.statText}>Bounce</Text>
-            <ProgressSquares squareCount={1} />
-          </View>
-        </View>
+        <CannonBallStats
+          size={cannonBallInfo.size}
+          weight={cannonBallInfo.weight}
+          bounce={cannonBallInfo.bounce}
+        />
       </View>
       {!cannonBallInfo.isOwned &&
         <View style={styles.priceContainer}>
@@ -119,16 +114,10 @@ const styles = StyleSheet.create({
   },
   cannonDisplayAndDetailsContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-evenly',
     width: 250,
     marginVertical: 15
-  },
-  statText: {
-    margin: 0,
-    fontFamily: 'textFont',
-    color: colors.offWhite,
-    fontSize: 17
   },
   priceContainer: {
     flexDirection: 'row',

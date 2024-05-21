@@ -21,6 +21,7 @@ import {
     updateUserHapticsPref,
     updateUserCurrentCannonBall
 } from "../../db/updateQueries";
+import CannonBallStats from "../../Components/UI/CannonBallStats";
 
 
 const SettingScreen = () => {
@@ -147,13 +148,23 @@ const SettingScreen = () => {
                             title={'Cannon Ball'}
                         >
                             <View style={styles.cannonOptionRootContainer}>
-                                <CannonBallDisplay
-                                    color={currentCannonBall.color}
-                                    gradientColor={currentCannonBall.gradientColor}
-                                    size={55}
-                                    isOwned={currentCannonBall.isOwned}
-                                    isEquipped={true}
-                                />
+                                <View style={styles.currentCannonBallAndStatsView}>
+                                    <CannonBallDisplay
+                                        color={currentCannonBall.color}
+                                        gradientColor={currentCannonBall.gradientColor}
+                                        size={55}
+                                        isOwned={currentCannonBall.isOwned}
+                                        isEquipped={true}
+                                    />
+                                    <View style={styles.currentBallStatsView}>
+                                        <CannonBallStats
+                                            size={currentCannonBall.size}
+                                            weight={currentCannonBall.weight}
+                                            bounce={currentCannonBall.bounce}
+                                        />
+                                    </View>
+
+                                </View>
                                 <ScrollView horizontal={true}>
                                     <View style={styles.possibleCannonOptions}>
                                         {cannonBalls.map((cannonBall, index) =>
@@ -162,7 +173,7 @@ const SettingScreen = () => {
                                                 <CannonBallDisplay
                                                     color={cannonBall.color}
                                                     gradientColor={cannonBall.gradientColor}
-                                                    size={40}
+                                                    size={cannonBall.size}
                                                     isOwned={cannonBall.isOwned}
                                                 />
                                                 {/* </View> */}
@@ -210,6 +221,9 @@ const styles = StyleSheet.create({
     },
     cannonOptionRootContainer: {
         alignItems: 'center',
+    },
+    currentCannonBallAndStatsView: {
+        flexDirection: 'row'
     },
     cannonBallContainer: {
         alignItems: 'center',

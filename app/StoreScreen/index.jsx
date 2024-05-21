@@ -19,45 +19,6 @@ import { getUserCannonBalls, getUserDataPreferences } from "../../db/selectQueri
 
 const StoreScreen = () => {
 
-  // const cannonBallArr = [
-  //   {
-  //     color: 'black',
-  //     gradientColor: 'rgba(52, 51, 51, 1)',
-  //     price: 20000,
-  //     title: 'Classic Black'
-  //   },
-  //   {
-  //     color: 'red',
-  //     gradientColor: '#fc8686ff',
-  //     price: 25000,
-  //     title: 'Red Raider'
-  //   },
-  //   {
-  //     color: 'orange',
-  //     gradientColor: '#ffcd70',
-  //     price: 45000,
-  //     title: 'Orange Outlaw'
-  //   },
-  //   {
-  //     color: '#c3c30f',
-  //     gradientColor: '#f9f9b2',
-  //     price: 60000,
-  //     title: 'Yellow Fellow'
-  //   },
-  //   {
-  //     color: 'green',
-  //     gradientColor: '#6ef96e',
-  //     price: 70000,
-  //     title: 'Greedy Green'
-  //   },
-  //   {
-  //     color: 'purple',
-  //     gradientColor: '#d065d0',
-  //     price: 80000,
-  //     title: 'Purple Pirate'
-  //   },
-  // ]
-
   const [cannonBallArr, setCannonBallArr] = useState([]);
   const [currentCannonBall, setCurrentCannonBall] = useState(null);
   const [showItemModal, setShowItemModal] = useState(false);
@@ -123,7 +84,7 @@ const StoreScreen = () => {
                     color={cannonBall.color}
                     isOwned={cannonBall.isOwned}
                     gradientColor={cannonBall.gradientColor}
-                    size={45}
+                    size={cannonBall.size}
                     isEquipped={cannonBall.name === currentCannonBall}
                   />
                 </Pressable>
@@ -161,7 +122,10 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     left: 0,
-    paddingTop: 15
+    paddingTop: 15,
+  },
+  backIcon: {
+    zIndex: 3
   },
   cardContainer: {
     flexDirection: 'row',

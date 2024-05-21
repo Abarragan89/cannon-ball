@@ -1,17 +1,55 @@
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Fontisto } from '@expo/vector-icons';
 import colors from '../../constants/colors';
+import { useEffect, useState } from 'react';
 
 const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped }) => {
+
+    const [adjustedCannonBallSize, setAdjustedCannonBallSize] = useState(null);
+    const [adjustedContainerSize, setAdjustedContainerSize] = useState(null);
+
+    useEffect(() => {
+        switch (size) {
+            case 4:
+                setAdjustedCannonBallSize(8);
+                setAdjustedContainerSize(60);
+                break;
+            case 6:
+                setAdjustedCannonBallSize(20);
+                setAdjustedContainerSize(60);
+                break;
+            case 8:
+                setAdjustedCannonBallSize(30);
+                setAdjustedContainerSize(60);
+                break;
+            case 11:
+                setAdjustedCannonBallSize(40);
+                setAdjustedContainerSize(60);
+                break;
+            case 13:
+                setAdjustedCannonBallSize(45);
+                setAdjustedContainerSize(60);
+                break;
+            default:
+                setAdjustedCannonBallSize(size);
+                setAdjustedContainerSize(85);
+                break;
+        }
+    }, [])
+
     return (
-        <>
+        <View>
             <View style={[
                 styles.cannonBallContainer,
+                {
+                    height: adjustedContainerSize,
+                    width: adjustedContainerSize
+                },
                 isOwned && { backgroundColor: colors.offWhite },
                 isEquipped && {
                     borderColor: colors.limeGreen,
-                    borderWidth: 4,
+                    borderWidth: 3,
                     borderRadius: 8,
                 }
             ]}>
@@ -26,13 +64,15 @@ const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped }) 
                     start={{ x: 0.1, y: 0.3 }}
                     style={{
                         borderColor: color,
-                        width: size,
-                        height: size,
-                        borderRadius: size,
+                        width: adjustedCannonBallSize,
+                        height: adjustedCannonBallSize,
+                        borderRadius: adjustedCannonBallSize,
                     }}
                 />
+
             </View>
-        </>
+            <Text style={styles.cannonBallNameText}>Ruby</Text>
+        </View>
     )
 }
 
@@ -55,10 +95,20 @@ const styles = StyleSheet.create({
     },
     cannonBallContainer: {
         alignItems: 'center',
+        justifyContent: 'center',
         borderWidth: 1,
         borderColor: colors.primaryBlack,
         borderRadius: 8,
         padding: 8,
-        marginHorizontal: 10
+        marginHorizontal: 10,
+        width: 65,
+        height: 65
     },
+    cannonBallNameText: {
+        textAlign: 'center',
+        color: 'white',
+        fontFamily: 'textFont',
+        fontSize: 18,
+        paddingBottom: 10
+    }
 })
