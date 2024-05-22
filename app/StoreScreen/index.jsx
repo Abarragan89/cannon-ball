@@ -117,7 +117,7 @@ const StoreScreen = () => {
                       isOwned={cannonBall.isOwned}
                       gradientColor={cannonBall.gradientColor}
                       size={cannonBall.size}
-                      isEquipped={cannonBall.name === currentCannonBall}
+                      isEquipped={cannonBall.name === currentCannonBall.name}
                       name={cannonBall.name}
                     />
                   </Pressable>

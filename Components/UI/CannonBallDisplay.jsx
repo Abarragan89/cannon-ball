@@ -63,7 +63,8 @@ const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped, na
                     locations={[0.01, 0.75]}
                     start={{ x: 0.1, y: 0.3 }}
                     style={{
-                        borderColor: color,
+                        borderColor: '#3b3b3ba0',
+                        borderWidth: .5,
                         width: adjustedCannonBallSize,
                         height: adjustedCannonBallSize,
                         borderRadius: adjustedCannonBallSize,
