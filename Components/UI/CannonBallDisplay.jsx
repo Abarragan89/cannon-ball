@@ -58,22 +58,43 @@ const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped, na
                         <Fontisto name="locked" size={28} color={colors.primaryBlack} />
                     </View>
                 }
-                <LinearGradient
-                    colors={[gradientColor, color]}
-                    locations={[0.01, 0.75]}
-                    start={{ x: 0.1, y: 0.3 }}
-                    style={{
-                        borderColor: '#3b3b3ba0',
-                        borderWidth: .5,
-                        width: adjustedCannonBallSize,
-                        height: adjustedCannonBallSize,
-                        borderRadius: adjustedCannonBallSize,
-                    }}
-                />
-
+                {/* Render the special 8 ball */}
+                {gradientColor === 'eightBall' ?
+                    <View
+                        style={{
+                            borderColor: '#3b3b3ba0',
+                            borderWidth: .5,
+                            width: adjustedCannonBallSize,
+                            height: adjustedCannonBallSize,
+                            borderRadius: adjustedCannonBallSize,
+                            backgroundColor: 'black',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <View style={styles.eightBallTextView}>
+                            <Text style={[styles.eightBallText,
+                            { fontSize: size === 11 ? 12 : 16 }
+                            ]}>8</Text>
+                        </View>
+                    </View>
+                    :
+                    <LinearGradient
+                        colors={[gradientColor, color]}
+                        locations={[0.01, 0.75]}
+                        start={{ x: 0.1, y: 0.3 }}
+                        style={{
+                            borderColor: '#3b3b3ba0',
+                            borderWidth: .5,
+                            width: adjustedCannonBallSize,
+                            height: adjustedCannonBallSize,
+                            borderRadius: adjustedCannonBallSize,
+                        }}
+                    />
+                }
             </View>
             <Text style={styles.cannonBallNameText}>{name}</Text>
-        </View>
+        </View >
     )
 }
 
@@ -109,7 +130,20 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
         fontFamily: 'textFont',
-        fontSize: 18,
+        fontSize: 16,
         paddingBottom: 10
+    },
+    eightBallTextView: {
+        backgroundColor: colors.offWhite,
+        borderRadius: 20,
+        width: '45%',
+        height: '45%',
+        marginBottom: 5
+    },
+    eightBallText: {
+        marginTop: 1,
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: 'bold',
     }
 })

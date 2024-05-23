@@ -131,9 +131,9 @@ const TNTDetectionSystem = (entities) => {
     const bottomLineY2 = entities.TNT.position[1] + 30;
 
     // TOP LINE OF TNT BOX (The Handle)
-    const handleBarX1 = entities.TNT.position[0] + 7;
+    const handleBarX1 = entities.TNT.position[0] + 5;
     const handleBarY1 = entities.TNT.position[1] - 5;
-    const handleBarX2 = entities.TNT.position[0] + 23;
+    const handleBarX2 = entities.TNT.position[0] + 25;
     const handleBarY2 = entities.TNT.position[1] - 5;
 
     // TOP LINE OF TNT BOX (The Handle)
