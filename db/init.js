@@ -9,8 +9,10 @@ export async function initDB() {
         await db.getFirstAsync('SELECT * FROM users');
 
     } catch (error) {
-        console.log('error in looking up user ', error)
-        needInitialSetup = true
+        // Set variable to trigger set up
+        const errorMsg = error.message;
+        if (errorMsg.includes('no such table')) {needInitialSetup = true};
+        console.log('error in init ', error);
     }
 
     // do Initial set up if no user found
@@ -94,31 +96,31 @@ export async function initDB() {
             await db.execAsync(`
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, isOwned, cannonBallSetId, size, weight, bounce)
-                VALUES ('Iron', 'black', 'rgba(140, 140, 140, 1)', 20000, 1, ${cannonBallSet}, 8, 0.11, 0.65);
+                VALUES ('Iron', '#a19d94', 'rgba(212, 208, 208, 1)', 20000, 1, ${cannonBallSet}, 8, 0.11, 0.65);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Copper', '#cb8b14', '#f7d89d', 20000, ${cannonBallSet}, 11, 0.14, 0.65);
+                VALUES ('Copper', '#b87333', '#d89924', 20000, ${cannonBallSet}, 11, 0.14, 0.65);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Lead', '#323131', '#ffffff', 20000, ${cannonBallSet}, 8, 0.17, 0.55);
+                VALUES ('Lead', '#212121', '#4f4d4d', 20000, ${cannonBallSet}, 8, 0.17, 0.55);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Ruby', '#c60e0e', '#f3a4a4', 20000, ${cannonBallSet}, 6, 0.08, 0.85);
+                VALUES ('Ruby', '#E0115F', '#ed5252', 20000, ${cannonBallSet}, 6, 0.11, 0.85);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Emerald', '#138503', '#a8f49e', 20000, ${cannonBallSet}, 6, 0.08, 0.75);
+                VALUES ('Emerald', '#50C878', '#a8f49e', 20000, ${cannonBallSet}, 6, 0.08, 0.75);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Rubber', '#1f1a1a', '#d7c7c7', 20000, ${cannonBallSet}, 11, 0.08, 0.95);
+                VALUES ('Rubber', '#090808', '#252121', 20000, ${cannonBallSet}, 11, 0.08, 0.95);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
                 VALUES ('Beach Ball', '#ff0000', '#0560e0', 20000, ${cannonBallSet}, 13, 0.05, 0.85);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('BB', '#b78309', '#f3e892', 20000, ${cannonBallSet}, 4, 0.05, 0.65);
+                VALUES ('BB', '#ff7c02', '#faed99', 20000, ${cannonBallSet}, 4, 0.05, 0.65);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Eight Ball', 'black', 'eightBall', 20000, ${cannonBallSet}, 11, 0.05, 0.65);
+                VALUES ('Eight Ball', 'black', 'eightBall', 20000, ${cannonBallSet}, 11, 0.08, 0.65);
             `)
 
             // Create User
@@ -132,7 +134,7 @@ export async function initDB() {
             const { lastInsertRowId: mapFiveId } = await db.runAsync(`INSERT INTO maps (mapName, userId) VALUES ('Hatch', ${newUserId});`);
 
             // // Create Levels for Map One
-            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, earnedStars, mapId) VALUES ('Level One', 'Level1', 1, 47, ${mapOneId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapOneId});`);
             // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapOneId});`);
             // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapOneId});`);
             // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapOneId});`);
