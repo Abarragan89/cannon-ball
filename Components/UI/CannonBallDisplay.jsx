@@ -3,6 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Fontisto } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 import { useEffect, useState } from 'react';
+import SpecialCannonBallDisplay from './SpecialCannonBallDisplay';
 
 const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped, name }) => {
 
@@ -58,27 +59,8 @@ const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped, na
                         <Fontisto name="locked" size={28} color={colors.primaryBlack} />
                     </View>
                 }
-                {/* Render the special 8 ball */}
-                {gradientColor === 'eightBall' ?
-                    <View
-                        style={{
-                            borderColor: '#3b3b3ba0',
-                            borderWidth: .5,
-                            width: adjustedCannonBallSize,
-                            height: adjustedCannonBallSize,
-                            borderRadius: adjustedCannonBallSize,
-                            backgroundColor: 'black',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}
-                    >
-                        <View style={styles.eightBallTextView}>
-                            <Text style={[styles.eightBallText,
-                            { fontSize: size === 11 ? 12 : 16 }
-                            ]}>8</Text>
-                        </View>
-                    </View>
-                    :
+                {/* Render the special balls if no gradient hexidecimal */}
+                {gradientColor.startsWith('#') ?
                     <LinearGradient
                         colors={[gradientColor, color]}
                         locations={[0.01, 0.75]}
@@ -91,6 +73,13 @@ const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped, na
                             borderRadius: adjustedCannonBallSize,
                         }}
                     />
+                    :
+                    <SpecialCannonBallDisplay
+                        gradientColor={gradientColor}
+                        adjustedCannonBallSize={adjustedCannonBallSize}
+                        size={size}
+                    />
+
                 }
             </View>
             <Text style={styles.cannonBallNameText}>{name}</Text>
@@ -133,17 +122,4 @@ const styles = StyleSheet.create({
         fontSize: 16,
         paddingBottom: 10
     },
-    eightBallTextView: {
-        backgroundColor: colors.offWhite,
-        borderRadius: 20,
-        width: '45%',
-        height: '45%',
-        marginBottom: 5
-    },
-    eightBallText: {
-        marginTop: 1,
-        textAlign: 'center',
-        fontSize: 18,
-        fontWeight: 'bold',
-    }
 })

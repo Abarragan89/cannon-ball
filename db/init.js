@@ -11,7 +11,7 @@ export async function initDB() {
     } catch (error) {
         // Set variable to trigger set up
         const errorMsg = error.message;
-        if (errorMsg.includes('no such table')) {needInitialSetup = true};
+        if (errorMsg.includes('no such table')) { needInitialSetup = true };
         console.log('error in init ', error);
     }
 
@@ -96,7 +96,7 @@ export async function initDB() {
             await db.execAsync(`
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, isOwned, cannonBallSetId, size, weight, bounce)
-                VALUES ('Iron', '#a19d94', 'rgba(212, 208, 208, 1)', 20000, 1, ${cannonBallSet}, 8, 0.11, 0.65);
+                VALUES ('Iron', '#a19d94', '#D4D0D0', 20000, 1, ${cannonBallSet}, 8, 0.11, 0.65);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
                 VALUES ('Copper', '#b87333', '#d89924', 20000, ${cannonBallSet}, 11, 0.14, 0.65);
@@ -121,6 +121,9 @@ export async function initDB() {
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
                 VALUES ('Eight Ball', 'black', 'eightBall', 20000, ${cannonBallSet}, 11, 0.08, 0.65);
+
+                INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+                VALUES ('Skull', 'black', 'skull', 20000, ${cannonBallSet}, 11, 0.08, 0.65);
             `)
 
             // Create User
@@ -211,7 +214,7 @@ export async function initDB() {
         }
     }
 
-
+    // DROP ALL TABLES TO RESET GAME
     // try {
     //     await db.runAsync(`DROP TABLE IF EXISTS users;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS preferences;`, []);
@@ -220,20 +223,5 @@ export async function initDB() {
     // } catch (error) {
     //     console.log('error in deleting ', error)
     // }
-}
-
-export async function getPreferences() {
-    // const totalStarsInAMap = await getTotalStarsInMap(1, 'basics');
-    // const totalStars = await getTotalStars(1);
-    // const totalPoints = await getUserTotalPoints(1);
-    // const individuallevelData = await getAllLevelDataInMap(1, 'basics')
-
-    // const individualLevel = await getIndividualLevelData('Basics', 'Level1')
-    // console.log('indidivual level data ', individuallevelData)
-    // console.log('individual level data', individualLevel)
-    // console.log('total Stars In A Map', totalStarsInAMap);
-    // console.log('total Stars ', totalStars);
-    // console.log('total Points', totalPoints);
-
 }
 
