@@ -123,7 +123,7 @@ export async function initDB() {
                 VALUES ('Eight Ball', 'black', 'eightBall', 20000, ${cannonBallSet}, 11, 0.08, 0.65);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Skull', 'black', 'skull', 20000, ${cannonBallSet}, 11, 0.08, 0.65);
+                VALUES ('Skull', 'black', 'skull', 20000, ${cannonBallSet}, 6, 0.08, 0.65);
             `)
 
             // Create User

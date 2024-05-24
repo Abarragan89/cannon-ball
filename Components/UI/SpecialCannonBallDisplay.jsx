@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 const SpecialCannonBallDisplay = ({
   gradientColor,
@@ -44,7 +44,11 @@ const SpecialCannonBallDisplay = ({
           }}
         >
           <View style={styles.skullContainer}>
-            <MaterialCommunityIcons name="skull-crossbones" size={50} color={colors.offWhite} />
+            <Ionicons
+              name="skull"
+              size={24}
+              color="White"
+            />
           </View>
         </View>
       }

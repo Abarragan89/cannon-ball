@@ -1,22 +1,17 @@
 import lineBallDetection from "../utils/lineBallDetection";
 import cannonBallBounce from '../utils/cannonBallBounce';
+import isCircleInRectangle from "../utils/circleRectangleDetection";
 
 const TNTDetectionSystem = (entities) => {
     /////////////////// HELPER FUNCTIONS TO END GAME //////////////
     function calculateAccuracy() {
         // coordinates for the bottom of the ball
         const ballXCoord = entities.cannonBall.position[0] + +entities.cannonBall.cannonBallRadius;
-        const ballYCoord = entities.cannonBall.position[1] + +entities.cannonBall.cannonBallRadius * 2;
-
         // coordinate for the top center of the TNT
         const tntXCoord = entities.TNT.position[0] + 15;
-        const tntYCoord = entities.TNT.position[1] - 2;
+        // calculate distance for both X positions
+        const accuracyAmount = Math.abs(ballXCoord - tntXCoord).toFixed(2)
 
-        // calculate the length of both sides
-        const triangleASide = Math.abs(ballXCoord - tntXCoord);
-        const triangeBSide = Math.abs(ballYCoord - tntYCoord);
-
-        const accuracyAmount = (Math.sqrt(triangleASide ** 2 + triangeBSide ** 2)).toFixed(2);
         if (accuracyAmount > 10) {
             entities.cannonBall.accuracy =
             {
@@ -70,7 +65,10 @@ const TNTDetectionSystem = (entities) => {
         //this is different than the useState is gameover that sets the modal
         entities.gameData.isGameOver = true;
         // Lower TNT handle
-        entities.TNT.handlePosition[0] = -14;
+        // entities.TNT.handlePosition[0] = -15;
+        const cannonBallTopTNTDistance = (entities.cannonBall.position[1] + +entities.cannonBall.cannonBallRadius) - entities.TNT.position[1]
+        entities.TNT.handlePosition[0] = cannonBallTopTNTDistance;
+
         // // pause the cannonBall
         entities.cannonBall.velocity[1] = 0
         entities.cannonBall.velocity[0] = 0
@@ -130,17 +128,15 @@ const TNTDetectionSystem = (entities) => {
     const bottomLineX2 = entities.TNT.position[0] + 30;
     const bottomLineY2 = entities.TNT.position[1] + 30;
 
-    // TOP LINE OF TNT BOX (The Handle)
-    const handleBarX1 = entities.TNT.position[0] + 5;
-    const handleBarY1 = entities.TNT.position[1] - 5;
-    const handleBarX2 = entities.TNT.position[0] + 25;
-    const handleBarY2 = entities.TNT.position[1] - 5;
-
-    // TOP LINE OF TNT BOX (The Handle)
+    // TOP LINE OF TNT BOX (The TNT TOP)
     const topLineX1 = entities.TNT.position[0];
     const topLineY1 = entities.TNT.position[1];
     const topLineX2 = entities.TNT.position[0] + 30;
     const topLineY2 = entities.TNT.position[1];
+
+    // TOP LINE OF TNT BOX (The Handle)
+    const handleBarX1 = entities.TNT.position[0] + 8;
+    const handleBarY1 = entities.TNT.position[1] - 7;
 
     // CIRCLE PROPERTIES
     const radius = +entities.cannonBall.cannonBallRadius
@@ -168,15 +164,17 @@ const TNTDetectionSystem = (entities) => {
         }
     };
 
-    ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
+    ////////////////// CHECKING FOR TOP (TNT) WALL DETECTION /////////////////
     if (lineBallDetection(topLineX1, topLineY1, topLineX2, topLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[1] > 0) {
             cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1)
         }
     }
 
-    ////////////////// CHECKING FOR TOP WALL DETECTION /////////////////
-    if (lineBallDetection(handleBarX1, handleBarY1, handleBarX2, handleBarY2, circleX, circleY, radius)) {
+
+    // CHECKING FOR HANLDE COLLISION USING A SEPARATE FUNCTION
+    // TO HANDLE TELEPORTATION WHEN MOVING AT HIGH VELOCITY 
+    if (isCircleInRectangle(circleX, circleY, radius, handleBarX1, handleBarY1, 14, 7)) {
         if (entities.cannonBall.velocity[1] > 0) {
             endGameHandler();
         }

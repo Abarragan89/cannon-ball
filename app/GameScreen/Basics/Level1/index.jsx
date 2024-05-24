@@ -25,6 +25,7 @@ function ChatperOneLevelOne() {
     const [isGameOver, setIsGameOver] = useState(false);
 
     const endGameData = useRef({
+        // start with impossible accuracy float to compare on first win
         accuracyFloat: 50,
         accuracyName: '',
         winningScore: [500, 2000, 4000],
@@ -84,7 +85,7 @@ function ChatperOneLevelOne() {
                     TNT: {
                         position: [250, 100],
                         display: 'block',
-                        handlePosition: [-18, 0],
+                        handlePosition: [-20, 0],
                         renderer: <TNT />
                     },
                     explosion: {
