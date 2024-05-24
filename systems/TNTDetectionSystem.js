@@ -64,14 +64,15 @@ const TNTDetectionSystem = (entities) => {
         //trigger the boolean to let the air-time counter stop and game aspects
         //this is different than the useState is gameover that sets the modal
         entities.gameData.isGameOver = true;
-        // Lower TNT handle
-        // entities.TNT.handlePosition[0] = -15;
-        const cannonBallTopTNTDistance = (entities.cannonBall.position[1] + +entities.cannonBall.cannonBallRadius) - entities.TNT.position[1]
-        entities.TNT.handlePosition[0] = cannonBallTopTNTDistance;
-
-        // // pause the cannonBall
         entities.cannonBall.velocity[1] = 0
         entities.cannonBall.velocity[0] = 0
+        // Lower TNT handle
+        const bottomOfCannonBall = entities.cannonBall.position[1] + (+entities.cannonBall.cannonBallRadius * 2)
+        const cannonBallTopTNTDistance = bottomOfCannonBall - +entities.TNT.position[1]
+        // subtract from 9 because -10px is bottoming out on TNT. Used 9 for a little bit of overlap
+        entities.TNT.handlePosition[0] = Math.round(cannonBallTopTNTDistance) - 9;
+
+        // // pause the cannonBall
         setTimeout(() => {
             // set the ball explosion coordinates
             entities.explosion.ballPosition[0] = entities.cannonBall.position[0] + 5;
@@ -136,7 +137,7 @@ const TNTDetectionSystem = (entities) => {
 
     // TOP LINE OF TNT BOX (The Handle)
     const handleBarX1 = entities.TNT.position[0] + 8;
-    const handleBarY1 = entities.TNT.position[1] - 7;
+    const handleBarY1 = entities.TNT.position[1] - 9;
 
     // CIRCLE PROPERTIES
     const radius = +entities.cannonBall.cannonBallRadius
@@ -171,10 +172,9 @@ const TNTDetectionSystem = (entities) => {
         }
     }
 
-
     // CHECKING FOR HANLDE COLLISION USING A SEPARATE FUNCTION
     // TO HANDLE TELEPORTATION WHEN MOVING AT HIGH VELOCITY 
-    if (isCircleInRectangle(circleX, circleY, radius, handleBarX1, handleBarY1, 14, 7)) {
+    if (isCircleInRectangle(circleX, circleY, radius, handleBarX1, handleBarY1, 14, 9)) {
         if (entities.cannonBall.velocity[1] > 0) {
             endGameHandler();
         }
