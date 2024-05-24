@@ -78,7 +78,7 @@ function ChapterThreeLevelFour() {
                     TNT: {
                         position: [350, 150],
                         display: 'block',
-                        handlePosition: [-18, 0],
+                        handlePosition: [-22, 0],
                         renderer: <TNT />
                     },
                     explosion: {

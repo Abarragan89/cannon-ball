@@ -24,7 +24,7 @@ const SpecialCannonBallDisplay = ({
         >
           <View style={styles.eightBallTextView}>
             <Text style={[styles.eightBallText,
-            { fontSize: size === 11 ? 12 : 16 }
+            { fontSize: size === 11 ? 12 : 20 }
             ]}>8</Text>
           </View>
         </View>
@@ -46,8 +46,14 @@ const SpecialCannonBallDisplay = ({
           <View style={styles.skullContainer}>
             <Ionicons
               name="skull"
-              size={24}
-              color="White"
+              // size 8 = in small slider
+              // size 70 = in modal
+              // else cannonball is in equipped display
+              size={size === 8 ? 25 : size === 70 ? 65 : 50}
+              color="white"
+              style={{
+                paddingBottom: 0.5
+              }}
             />
           </View>
         </View>
@@ -64,10 +70,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: '45%',
     height: '45%',
-    marginBottom: 5
+    marginBottom: 5,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   eightBallText: {
-    marginTop: 1,
     textAlign: 'center',
     fontSize: 18,
     fontWeight: 'bold',

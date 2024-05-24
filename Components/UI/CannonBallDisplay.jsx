@@ -56,7 +56,7 @@ const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped, na
             ]}>
                 {!isOwned &&
                     <View style={[styles.overlay, styles.lockedOverlay]}>
-                        <Fontisto name="locked" size={28} color={colors.primaryBlack} />
+                        {/* <Fontisto name="locked" size={28} color={colors.primaryBlack} /> */}
                     </View>
                 }
                 {/* Render the special balls if no gradient hexidecimal */}
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     lockedOverlay: {
-        backgroundColor: '#00000057',
+        backgroundColor: '#0000008d',
     },
     cannonBallContainer: {
         alignItems: 'center',

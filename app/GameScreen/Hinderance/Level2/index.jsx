@@ -78,7 +78,7 @@ function ChapterThreeLevelTwo() {
                     TNT: {
                         position: [screenWidth - 200, 170],
                         display: 'block',
-                        handlePosition: [-18, 0],
+                        handlePosition: [-22, 0],
                         renderer: <TNT />
                     },
                     explosion: {

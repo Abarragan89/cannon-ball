@@ -38,8 +38,8 @@ function SpecialCannonBall({
                     </View>
                 </View>
             }
-            {/* Skull and CrossBones */}
-            {gradientColor === 'Skull' &&
+            {/* Skull */}
+            {gradientColor === 'skull' &&
                 <View
                     style={{
                         left: x,
@@ -60,8 +60,11 @@ function SpecialCannonBall({
                     <View style={styles.skullContainer}>
                         <Ionicons
                             name="skull"
-                            size={24}
-                            color="black"
+                            size={14}
+                            color="white"
+                            style={{
+                                paddingBottom: 0.5
+                            }}
                         />
                     </View>
                 </View>
