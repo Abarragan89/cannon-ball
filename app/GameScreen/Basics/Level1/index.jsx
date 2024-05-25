@@ -18,7 +18,6 @@ import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
-
 // import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
 
 function ChatperOneLevelOne() {
@@ -36,23 +35,15 @@ function ChatperOneLevelOne() {
         nextLevel: 'Basics/Level2'
     });
 
-    // GETS CORNER OF TNT
-    // Angle Data
-    // const angleLevelRef = useRef(98.34928955)
-    // // Power Data
-    // const powerLevelRef = useRef(30.3)
-
-    // GET DEAD CENTER OF TNT
-    //   // Angle Data
-    //   const angleLevelRef = useRef(97.94222)
-    //   // Power Data
-    //   const powerLevelRef = useRef(31.83)
-
-
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
     const powerLevelRef = useRef(30)
+
+    // works with ruby cannonBall
+    // const angleLevelRef = useRef(95)
+    // // Power Data
+    // const powerLevelRef = useRef(56.5)
 
     return (
         <ImageBackground

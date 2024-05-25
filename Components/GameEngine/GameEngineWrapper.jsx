@@ -129,6 +129,10 @@ const GameEngineWrapper = ({
                         color: cannonBallColor,
                         gradientColor: cannonBallGradientClr,
                     },
+                    explosion: {
+                        ...prev.explosion,
+                        ballColor: cannonBallColor
+                    }
                 }));
                 setIsSoundLoaded(true)
             } catch (e) {

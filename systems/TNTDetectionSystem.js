@@ -12,33 +12,45 @@ const TNTDetectionSystem = (entities) => {
         // calculate distance for both X positions
         const accuracyAmount = Math.abs(ballXCoord - tntXCoord).toFixed(2)
 
-        if (accuracyAmount > 10) {
+        // Less than 1 px
+        if (accuracyAmount < 1) {
+            entities.cannonBall.accuracy =
+            {
+                name: 'Perfect Shot!!!',
+                float: accuracyAmount,
+                multiplier: 10,
+            }
+        // Less than 3 px
+        } else if (accuracyAmount < 3) {
+            entities.cannonBall.accuracy =
+            {
+                name: 'Great Shot!!',
+                float: accuracyAmount,
+                multiplier: 5,
+            }
+        // Less than 5 px
+        } else if (accuracyAmount < 5) {
+            entities.cannonBall.accuracy =
+            {
+                name: 'Good Shot!',
+                float: accuracyAmount,
+                multiplier: 3,
+            }
+        // Less than 10px
+        } else if (accuracyAmount < 10) {
+            entities.cannonBall.accuracy =
+            {
+                name: 'Decent Shot',
+                float: accuracyAmount,
+                multiplier: 2,
+            }
+            // Greater than 10px
+        } else if (accuracyAmount > 10) {
             entities.cannonBall.accuracy =
             {
                 name: 'Hit',
                 float: accuracyAmount,
                 multiplier: 1,
-            }
-        } else if (accuracyAmount >= 10) {
-            entities.cannonBall.accuracy =
-            {
-                name: 'Good Shot',
-                float: accuracyAmount,
-                multiplier: 2,
-            }
-        } else if (accuracyAmount >= 3) {
-            entities.cannonBall.accuracy =
-            {
-                name: 'Great Shot!',
-                float: accuracyAmount,
-                multiplier: 3,
-            }
-        } else if (accuracyAmount < 3) {
-            entities.cannonBall.accuracy =
-            {
-                name: 'Perfect Shot!!!',
-                float: accuracyAmount,
-                multiplier: 5,
             }
         }
     }

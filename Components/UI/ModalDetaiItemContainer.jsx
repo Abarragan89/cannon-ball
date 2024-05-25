@@ -15,8 +15,6 @@ const ModalDetaiItemContainer = ({ itemName, itemAmount, hasBorder = 1, operatio
 
 export default ModalDetaiItemContainer;
 
-
-
 const styles = StyleSheet.create({
     itemContainer: {
         flexDirection: 'row',
@@ -29,7 +27,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     detailText: {
-        fontSize: 23,
+        fontSize: 20,
         color: 'black',
         fontFamily: 'textFont'
     },
