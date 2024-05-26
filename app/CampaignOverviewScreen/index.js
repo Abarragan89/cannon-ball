@@ -65,12 +65,12 @@ const CampaignOverview = () => {
                 />
             }
             <StatusBar hidden={true} />
+            <View style={styles.backIcon}>
+                <BackArrow />
+            </View>
             <>
                 {isDataLoaded &&
                     <>
-                        <View style={styles.backIcon}>
-                            <BackArrow />
-                        </View>
                         <UserAllTimeNavStats />
                         <ImageBackground
                             source={require('../../assets/images/treasureMapBg.png')}

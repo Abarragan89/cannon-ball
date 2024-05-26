@@ -111,19 +111,25 @@ export async function initDB() {
                 VALUES ('Emerald', '#50C878', '#a8f49e', 20000, ${cannonBallSet}, 6, 0.08, 0.75);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Rubber', '#090808', '#252121', 20000, ${cannonBallSet}, 11, 0.08, 0.95);
+                VALUES ('Ice', '#26afcb', '#f0fbef', 20000, ${cannonBallSet}, 4, 0.08, 0.55);
+
+                INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+                VALUES ('Rubber', '#090808', '#252121', 20000, ${cannonBallSet}, 11, 0.11, 0.95);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
                 VALUES ('Beach Ball', '#ff0000', '#0560e0', 20000, ${cannonBallSet}, 13, 0.05, 0.85);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('BB', '#ff7c02', '#faed99', 20000, ${cannonBallSet}, 4, 0.05, 0.65);
+                VALUES ('BB', '#ff7c02', '#faed99', 20000, ${cannonBallSet}, 4, 0.05, 0.75);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
                 VALUES ('Eight Ball', 'black', 'eightBall', 20000, ${cannonBallSet}, 11, 0.08, 0.55);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Skull', 'black', 'skull', 20000, ${cannonBallSet}, 8, 0.08, 0.65);
+                VALUES ('Skull', '#c6c6c6', 'skull', 20000, ${cannonBallSet}, 8, 0.08, 0.65);
+
+                INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+                VALUES ('Ghost', '#ffffff', 'ghost', 20000, ${cannonBallSet}, 13, 0.08, 0.95);
             `)
 
             // Create User

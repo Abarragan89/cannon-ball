@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 
 function SpecialCannonBall({
     position,
     display,
-    color,
     gradientColor,
     cannonBallRadius
 }) {
@@ -45,14 +45,11 @@ function SpecialCannonBall({
                         left: x,
                         top: y,
                         display: display,
-                        borderColor: '#3b3b3ba0',
-                        borderWidth: 0.5,
                         zIndex: 0,
                         position: 'absolute',
                         borderRadius: cannonBallRadius * 2,
                         width: cannonBallRadius * 2,
                         height: cannonBallRadius * 2,
-                        backgroundColor: 'black',
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
@@ -60,11 +57,32 @@ function SpecialCannonBall({
                     <View style={styles.skullContainer}>
                         <Ionicons
                             name="skull"
-                            size={14}
-                            color="white"
-                            style={{
-                                paddingBottom: 0.5
-                            }}
+                            size={16}
+                            color="#d1cfcf"
+                        />
+                    </View>
+                </View>
+            }
+            {gradientColor === 'ghost' &&
+                <View
+                    style={{
+                        left: x,
+                        top: y,
+                        display: display,
+                        zIndex: 0,
+                        position: 'absolute',
+                        borderRadius: cannonBallRadius * 2,
+                        width: cannonBallRadius * 2,
+                        height: cannonBallRadius * 2,
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                >
+                    <View style={styles.skullContainer}>
+                        <MaterialCommunityIcons
+                            name="ghost"
+                            size={26}
+                            color="#f9f9f977"
                         />
                     </View>
                 </View>
