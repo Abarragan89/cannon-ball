@@ -75,7 +75,6 @@ const StoreScreen = () => {
           closeModal={closeModal}
           cannonBallInfo={currentItem}
           setCannonBallArr={setCannonBallArr}
-          setCurrentCannonBall={setCurrentCannonBall}
         />
       }
       <StatusBar barStyle='light-content' />

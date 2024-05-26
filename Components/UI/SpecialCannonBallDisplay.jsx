@@ -7,7 +7,6 @@ const SpecialCannonBallDisplay = ({
   adjustedCannonBallSize,
   size,
 }) => {
-  console.log('size in there ', size)
 
   return (
     <>

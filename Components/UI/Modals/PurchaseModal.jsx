@@ -7,16 +7,18 @@ import BaseModal from "./BaseModal";
 import colors from '../../../constants/colors';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import { updateUserCannonBallSet } from '../../../db/updateQueries';
+import { updateUserCannonBallSet, updateUserCoins } from '../../../db/updateQueries';
 
-const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, setCurrentCannonBall }) => {
+const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr }) => {
 
   const [confirmBuy, setConfirmBuy] = useState(false);
-  const [cannonBallInfoState, setCannonBallInfoState] = useState(cannonBallInfo)
+  const [cannonBallInfoState, setCannonBallInfoState] = useState(cannonBallInfo);
 
   async function handleUpdateUserCannonBallSet(cannonBallId) {
     try {
       await updateUserCannonBallSet(cannonBallId);
+      // deduct coins from the user for purchase
+      await updateUserCoins(1, cannonBallInfo.price)
       setCannonBallArr(cannonBallArr => cannonBallArr.map((cannonBall) => {
         if (cannonBall.name === cannonBallInfo.name) {
           return {

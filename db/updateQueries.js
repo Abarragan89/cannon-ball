@@ -67,7 +67,7 @@ export async function updateUserTotalPoints(points) {
         const myData = await db.runAsync(`
             UPDATE users
             SET totalPoints = totalPoints + ${points} 
-            WHERE users.id=1;
+            WHERE id=1;
         `)
         return myData;
     } catch (error) {
@@ -165,3 +165,17 @@ export async function updateUserCannonBallSet(cannonBallId) {
         console.log('error in updating current cannonBall ', error)
     }
 };
+
+export async function updateUserCoins(userId, purchaseAmount) {
+    const db = await openDatabaseConnection();
+    try {
+        const myData = await db.runAsync(`
+            UPDATE users 
+            SET totalPoints = totalPoints - ?
+            WHERE id = ?;
+        `, [purchaseAmount, userId])
+        return myData;
+    } catch (error) {
+        console.log('error in updating current cannonBall ', error)
+    }
+}
