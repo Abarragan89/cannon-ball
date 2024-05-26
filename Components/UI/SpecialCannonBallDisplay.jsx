@@ -50,7 +50,7 @@ const SpecialCannonBallDisplay = ({
               // size 70 = in modal
               // else cannonball is in equipped display
               size={size === 8 ? 25 : size === 70 ? 65 : 50}
-              color="#d1cfcf"
+              color="#0c0c01"
               style={{
                 paddingBottom: 0.5
               }}

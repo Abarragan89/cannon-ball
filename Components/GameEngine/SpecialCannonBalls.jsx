@@ -58,7 +58,7 @@ function SpecialCannonBall({
                         <Ionicons
                             name="skull"
                             size={16}
-                            color="#d1cfcf"
+                            color="black"
                         />
                     </View>
                 </View>

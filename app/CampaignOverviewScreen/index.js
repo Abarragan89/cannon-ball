@@ -65,9 +65,6 @@ const CampaignOverview = () => {
                 />
             }
             <StatusBar hidden={true} />
-            <View style={styles.backIcon}>
-                <BackArrow />
-            </View>
             <>
                 {isDataLoaded &&
                     <>
@@ -78,6 +75,9 @@ const CampaignOverview = () => {
                                 !mainBtnImgSrc ? { display: 'none' } : {},
                                 styles.rootContainer
                             ]}>
+                            <View style={styles.backIcon}>
+                                <BackArrow />
+                            </View>
                             <View style={styles.headerRoot}>
                                 <Title color={colors.offWhite} size={50}>Campaign</Title>
                             </View>

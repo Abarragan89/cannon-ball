@@ -22,7 +22,7 @@ export default BackArrow;
 const styles = StyleSheet.create({
     root: {
         position: 'absolute',
-        marginLeft: 15,
+        marginLeft: 30,
         marginTop: 15
     }
 })
