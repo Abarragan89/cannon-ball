@@ -99,10 +99,10 @@ export async function initDB() {
                 VALUES ('Iron', '#a19d94', '#D4D0D0', 0, 1, ${cannonBallSet}, 8, 0.11, 0.65);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Copper', '#b87333', '#d89924', 20000, ${cannonBallSet}, 11, 0.14, 0.65);
+                VALUES ('Copper', '#b87333', '#d89924', 5000, ${cannonBallSet}, 11, 0.14, 0.65);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Lead', '#212121', '#4f4d4d', 20000, ${cannonBallSet}, 8, 0.17, 0.55);
+                VALUES ('Lead', '#212121', '#4f4d4d', 10000, ${cannonBallSet}, 8, 0.17, 0.55);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
                 VALUES ('Ruby', '#E0115F', '#ed5252', 30000, ${cannonBallSet}, 6, 0.11, 0.85);
@@ -133,7 +133,7 @@ export async function initDB() {
             `)
 
             // Create User
-            const { lastInsertRowId: newUserId } = await db.runAsync(`INSERT INTO users (name, preferenceId, cannonBallSetId) VALUES ('mike', ${preferenceId}, ${cannonBallSet});`);
+            const { lastInsertRowId: newUserId } = await db.runAsync(`INSERT INTO users (name, preferenceId, cannonBallSetId, totalPoints) VALUES ('mike', ${preferenceId}, ${cannonBallSet}, 25000);`);
 
             // Create Maps
             const { lastInsertRowId: mapOneId } = await db.runAsync(`INSERT INTO maps (mapName, userId) VALUES ('Basics', ${newUserId});`);

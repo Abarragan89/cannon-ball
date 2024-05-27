@@ -8,8 +8,9 @@ import colors from '../../../constants/colors';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { updateUserCannonBallSet, updateUserCoins } from '../../../db/updateQueries';
+import { Entypo } from '@expo/vector-icons';
 
-const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr }) => {
+const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, userCoins }) => {
 
   const [confirmBuy, setConfirmBuy] = useState(false);
   const [cannonBallInfoState, setCannonBallInfoState] = useState(cannonBallInfo);
@@ -44,14 +45,13 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr }) => {
       {cannonBallInfoState &&
         <>
           <Text style={styles.itemTitle}>{cannonBallInfoState.name}</Text>
-
           <View style={styles.cannonDisplayAndDetailsContainer}>
             <View style={styles.cannonBallDisplayContainer}>
               <CannonBallDisplay
                 color={cannonBallInfoState.color}
                 gradientColor={cannonBallInfoState.gradientColor}
                 size={70}
-                isOwned={cannonBallInfoState.isOwned}
+                isOwned={1}
                 name={cannonBallInfoState.name}
               />
             </View>
@@ -61,29 +61,35 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr }) => {
               bounce={cannonBallInfoState.bounce}
             />
           </View>
-        </>
-      }
-      {!cannonBallInfoState.isOwned &&
-        <View style={styles.priceContainer}>
-          <Text style={styles.priceText}>{cannonBallInfoState.price.toLocaleString()}</Text>
-          <FontAwesome6 name="hockey-puck" size={18} color={colors.winningStar} />
-        </View>
-      }
+          {/* Only show the price if user has enough coins */}
 
-      {/* BUTTONS */}
-      {
-        confirmBuy ?
-          <>
-            <ModalBtn
-              text={'Confirm Purchase'}
-              handler={() => handleUpdateUserCannonBallSet(cannonBallInfoState.id)}
-            />
-          </>
-          :
-          <ModalBtn
-            text={'Purchase'}
-            handler={() => setConfirmBuy(true)}
-          />
+          <View style={styles.priceContainer}>
+            <Text style={styles.priceText}>{cannonBallInfoState.price.toLocaleString()}</Text>
+            <FontAwesome6 name="hockey-puck" size={18} color={colors.winningStar} />
+          </View>
+
+          {/* BUTTONS */}
+          {
+            confirmBuy ?
+              <>
+                <ModalBtn
+                  text={'Confirm Purchase'}
+                  handler={() => handleUpdateUserCannonBallSet(cannonBallInfoState.id)}
+                />
+              </>
+              :
+              cannonBallInfo.price > userCoins ?
+                <ModalBtn
+                  text={'Purchase'}
+                  disabled={true}
+                />
+                :
+                <ModalBtn
+                  text={'Purchase'}
+                  handler={() => setConfirmBuy(true)}
+                />
+          }
+        </>
       }
     </BaseModal>
   )
@@ -106,14 +112,15 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'space-evenly',
     width: 250,
-    marginVertical: 15
+    marginTop: 15
   },
   priceContainer: {
     flexDirection: 'row',
+    alignItems: 'center'
   },
   priceText: {
     fontFamily: 'textFont',
-    fontSize: 23,
+    fontSize: 21,
     color: colors.primaryBlack,
     marginRight: 10
   },

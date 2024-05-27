@@ -14,14 +14,16 @@ import colors from "../../constants/colors";
 import CannonBallStats from "../../Components/UI/CannonBallStats";
 import CannonBallDisplay from "../../Components/UI/CannonBallDisplay";
 import CannonLaunchDisplay from "../../Components/UI/CannonLaunchDisplay";
+import UserAllTimeNavStats from "../../Components/UI/UserAllTimeNavStats";
 import PurchaseModal from "../../Components/UI/Modals/PurchaseModal";
-import { getUserCannonBalls, getUserDataPreferences } from "../../db/selectQueries";
+import { getUserCannonBalls, getUserDataPreferences, getUserTotalPoints } from "../../db/selectQueries";
 import { updateUserCurrentCannonBall } from "../../db/updateQueries";
 
 const StoreScreen = () => {
 
   const [cannonBallArr, setCannonBallArr] = useState([]);
   const [currentCannonBall, setCurrentCannonBall] = useState(null);
+  const [userCoins, setUserCoins] = useState(null)
   const [showItemModal, setShowItemModal] = useState(false);
   const [currentItem, setCurrentItem] = useState({});
   const closeModal = () => setShowItemModal(false);
@@ -45,7 +47,7 @@ const StoreScreen = () => {
   }
 
   useEffect(() => {
-    // Get User's Cannon balls
+    // Get User's Cannon balls and Coin amount
     async function getCannonBalls() {
       try {
         // Get user preferences
@@ -58,6 +60,11 @@ const StoreScreen = () => {
         // Get the Current Cannon Ball
         const [currentBall] = cannonBallSet.filter(cannonBall => cannonBall.name === userPref.currentCannonBallName)
         setCurrentCannonBall(currentBall)
+
+        // Get user Coins to pass to Purchase Modal
+        const [{ totalPoints }] = await getUserTotalPoints(1);
+        setUserCoins(totalPoints)
+
       } catch (error) {
         console.log('error getting cannonBall set ', error)
       }
@@ -66,83 +73,88 @@ const StoreScreen = () => {
   }, [])
 
   return (
-    <ImageBackground
-      source={require('../../assets/images/screenWoodBg.png')}
-      style={styles.rootContainer}
-    >
-      {showItemModal &&
-        <PurchaseModal
-          closeModal={closeModal}
-          cannonBallInfo={currentItem}
-          setCannonBallArr={setCannonBallArr}
-        />
-      }
-      <StatusBar barStyle='light-content' />
-      <View style={styles.backIcon}>
-        <BackArrow />
-      </View>
-      {currentCannonBall &&
-        <View style={styles.rootContainer}>
-          <Title color={colors.offWhite} size={45}>Store</Title>
-          <View style={styles.cardContainer}>
-            <Card
-              title={'Cannon Balls'}
-            >
-              <View style={styles.currentCannonBallAndStatsView}>
-                <CannonBallDisplay
-                  color={currentCannonBall.color}
-                  gradientColor={currentCannonBall.gradientColor}
-                  size={55}
-                  isOwned={currentCannonBall.isOwned}
-                  name={currentCannonBall.name}
-                  isEquipped={true}
-                />
-                <View style={styles.currentBallStatsView}>
-                  <CannonBallStats
-                    size={currentCannonBall.size}
-                    weight={currentCannonBall.weight}
-                    bounce={currentCannonBall.bounce}
-                  />
-                </View>
-
-              </View>
-              <ScrollView horizontal={true}>
-                {cannonBallArr && currentCannonBall && cannonBallArr.map((cannonBall, index) =>
-                  // Pressable callback will only show modal if the cannonBall is not already owned
-                  // else it will just set that cannonball to current cannonBall
-                  <Pressable key={index} onPress={() => cannonBall.isOwned ? handlerUpdateCurrentCannonBall(cannonBall) : displayModal(cannonBall)}>
-                    <CannonBallDisplay
-                      color={cannonBall.color}
-                      isOwned={cannonBall.isOwned}
-                      gradientColor={cannonBall.gradientColor}
-                      size={cannonBall.size}
-                      isEquipped={cannonBall.name === currentCannonBall.name}
-                      name={cannonBall.name}
-                    />
-                  </Pressable>
-                )}
-              </ScrollView>
-            </Card>
-
-
-
-            <Card
-              title={'Cannons'}
-            >
-              <ScrollView horizontal={true}>
-                <CannonLaunchDisplay />
-                <CannonLaunchDisplay />
-                <CannonLaunchDisplay />
-                <CannonLaunchDisplay />
-                <CannonLaunchDisplay />
-                <CannonLaunchDisplay />
-                <CannonLaunchDisplay />
-              </ScrollView>
-            </Card>
-          </View>
+    <>
+      <UserAllTimeNavStats />
+      <ImageBackground
+        source={require('../../assets/images/screenWoodBg.png')}
+        style={styles.rootContainer}
+      >
+        {showItemModal &&
+          <PurchaseModal
+            closeModal={closeModal}
+            cannonBallInfo={currentItem}
+            setCannonBallArr={setCannonBallArr}
+            userCoins={userCoins}
+          />
+        }
+        <StatusBar barStyle='light-content' />
+        <View style={styles.backIcon}>
+          <BackArrow />
         </View>
-      }
-    </ImageBackground>
+
+        {currentCannonBall &&
+          <View style={styles.rootContainer}>
+            <Title color={colors.offWhite} size={45}>Store</Title>
+            <View style={styles.cardContainer}>
+              <Card
+                title={'Cannon Balls'}
+              >
+                <View style={styles.currentCannonBallAndStatsView}>
+                  <CannonBallDisplay
+                    color={currentCannonBall.color}
+                    gradientColor={currentCannonBall.gradientColor}
+                    size={55}
+                    isOwned={currentCannonBall.isOwned}
+                    name={currentCannonBall.name}
+                    isEquipped={true}
+                  />
+                  <View style={styles.currentBallStatsView}>
+                    <CannonBallStats
+                      size={currentCannonBall.size}
+                      weight={currentCannonBall.weight}
+                      bounce={currentCannonBall.bounce}
+                    />
+                  </View>
+
+                </View>
+                <ScrollView horizontal={true}>
+                  {cannonBallArr && currentCannonBall && cannonBallArr.map((cannonBall, index) =>
+                    // Pressable callback will only show modal if the cannonBall is not already owned
+                    // else it will just set that cannonball to current cannonBall
+                    <Pressable key={index} onPress={() => cannonBall.isOwned ? handlerUpdateCurrentCannonBall(cannonBall) : displayModal(cannonBall)}>
+                      <CannonBallDisplay
+                        color={cannonBall.color}
+                        isOwned={cannonBall.isOwned}
+                        gradientColor={cannonBall.gradientColor}
+                        size={cannonBall.size}
+                        isEquipped={cannonBall.name === currentCannonBall.name}
+                        name={cannonBall.name}
+                      />
+                    </Pressable>
+                  )}
+                </ScrollView>
+              </Card>
+
+
+
+              <Card
+                title={'Cannons'}
+              >
+                <ScrollView horizontal={true}>
+                  <CannonLaunchDisplay />
+                  <CannonLaunchDisplay />
+                  <CannonLaunchDisplay />
+                  <CannonLaunchDisplay />
+                  <CannonLaunchDisplay />
+                  <CannonLaunchDisplay />
+                  <CannonLaunchDisplay />
+                </ScrollView>
+              </Card>
+            </View>
+          </View>
+        }
+      </ImageBackground>
+    </>
   )
 };
 
