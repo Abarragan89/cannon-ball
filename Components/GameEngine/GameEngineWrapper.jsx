@@ -226,6 +226,9 @@ const GameEngineWrapper = ({
                             cannonBallBounce={cannonBallBounce}
                             cannonBallWeight={cannonBallWeight}
                             cannonBallSize={cannonBallSize}
+                            isSoundOn={isSoundOn}
+                            isSoundEffectsOn={isSoundEffectsOn}
+                            isHapticsOn={isHapticsOn}
                         />
                     }
                     {children}
