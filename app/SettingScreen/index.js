@@ -83,7 +83,7 @@ const SettingScreen = () => {
                     source={require('../../assets/images/screenWoodBg.png')}
                     style={styles.rootContainer}
                 >
-                    <StatusBar barStyle='light-content' />
+                    <StatusBar hidden={true} />
                     <View style={styles.backIcon}>
                         <BackArrow />
                     </View>
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 0,
         right: 0,
-        paddingTop: 15
+        paddingTop: 5
     },
     backIcon: {
         zIndex: 2

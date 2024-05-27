@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { useState, useEffect, useRef } from 'react';
+import colors from "../../constants/colors";
 import { useLocalSearchParams } from 'expo-router';
 import { Audio } from 'expo-av';
 const screenHeight = Dimensions.get('window').height;
@@ -132,7 +133,21 @@ const GameEngineWrapper = ({
                     explosion: {
                         ...prev.explosion,
                         ballColor: cannonBallColor
+                    },
+                    cannon: {
+                        ...prev.cannon,
+                        barrelColor: '#1e1e1e',
+                        tipColor: '#000000',
+                        barrelColor: '#1e1e1e',
+                        tipColor: 'black',
+                        cannonBaseColor: colors.primaryBrown,
+                        cannonBallBolt: '#151010',
+                        cannonBallBoltHighlight: '#383434',
+                        wheelColor: '#383232',
+                        wheelColorHighlight: '#7d7373',
+                        scale: 1
                     }
+
                 }));
                 setIsSoundLoaded(true)
             } catch (e) {

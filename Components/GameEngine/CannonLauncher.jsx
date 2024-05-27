@@ -1,46 +1,53 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { View, StyleSheet } from 'react-native'
-// import { LinearGradient } from 'expo-linear-gradient';
 
-function CannonLauncher({ position, rotate }) {
-
+function CannonLauncher({
+    position,
+    rotate,
+    barrelColor,
+    tipColor,
+    cannonBaseColor,
+    cannonBallBolt,
+    cannonBallBoltHighlight,
+    wheelColor,
+    wheelColorHighlight,
+}) {
     return (
         <View style={[styles.rootContainer, { left: position[0], top: position[1] }]}>
             <View style={[styles.cannonContainer]}>
-                <View style={[styles.cannonBarrel, { transform: [{ rotate: rotate }] }]}>
-                    <View style={styles.cannonTip}></View>
+                <View style={[styles.cannonBarrel, { transform: [{ rotate: rotate }], backgroundColor: barrelColor }]}>
+                    <View style={[styles.cannonTip, { backgroundColor: tipColor }]}></View>
                 </View>
             </View>
 
             <View style={styles.standContainer}>
-
+                {/* This is a view because linearGradient doesn't work on just border */}
                 <View
-                    // colors={['#b55454', 'brown']}
-                    // locations={[0.01, 0.75]}
-                    // start={{ x: 0.1, y: 0.3 }}
-                    style={styles.cannonBallBase}
+                    style={[styles.cannonBallBase, {
+                        borderBottomColor: cannonBaseColor
+                    }]}
                 />
                 <LinearGradient
-                    colors={['#383434', '#151010']}
+                    colors={[cannonBallBoltHighlight, cannonBallBolt]}
                     locations={[0.01, 0.75]}
                     start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonBallBaseScrew}
                 />
                 <LinearGradient
-                    colors={['#7d7373', '#383232']}
+                    colors={[wheelColorHighlight, wheelColor]}
                     locations={[0.01, 0.75]}
                     start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonWheelOne}
                 >
-                    <View style={styles.innerWheelOne}></View>
+                    <View style={[styles.innerWheelOne, { backgroundColor: cannonBaseColor }]}></View>
                 </LinearGradient>
                 <LinearGradient
-                    colors={['#7d7373', '#383232']}
+                    colors={[wheelColorHighlight, wheelColor]}
                     locations={[0.01, 0.75]}
                     start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonWheelTwo}
-                > 
-                <View style={styles.innerWheelOne}></View>
+                >
+                    <View style={[styles.innerWheelOne, { backgroundColor: cannonBaseColor }]}></View>
                 </LinearGradient>
             </View>
         </View>
@@ -51,7 +58,6 @@ export default CannonLauncher;
 
 const styles = StyleSheet.create({
     rootContainer: {
-        position: 'absolute',
         zIndex: 0,
     },
     cannonContainer: {
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
         height: 27,
         width: 70,
         borderRadius: 50,
-        backgroundColor: '#1a1919',
+        backgroundColor: '#2b2828',
         transformOrigin: '30%'
     },
     cannonTip: {
@@ -104,7 +110,6 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         borderRadius: 40,
-        backgroundColor: '#4a4646'
     },
     cannonWheelTwo: {
         position: 'absolute',
@@ -113,7 +118,6 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         borderRadius: 40,
-        backgroundColor: '#4a4646'
     },
     innerWheelOne: {
         position: 'absolute',
@@ -121,27 +125,16 @@ const styles = StyleSheet.create({
         left: 5,
         height: 10,
         width: 10,
-        backgroundColor: colors.primaryBrown,
         borderRadius: 10
     },
     innerWheelTwo: {
         position: 'absolute',
         height: 10,
         width: 10,
-        backgroundColor: colors.primaryBrown,
         borderRadius: 10
     },
-
-    // cannonImage: {
-    //     width: 105,
-    //     height: 105
-    // }, 
     standContainer: {
         position: 'absolute',
         top: 0
-    },
-    // standImage: {
-    //     width: 65,
-    //     height: 65
-    // }
+    }
 })

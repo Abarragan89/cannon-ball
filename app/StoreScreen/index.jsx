@@ -4,7 +4,8 @@ import {
   ImageBackground,
   StatusBar,
   ScrollView,
-  Pressable
+  Pressable,
+  Text
 } from "react-native";
 import { useState, useEffect } from "react";
 import Title from "../../Components/UI/Title";
@@ -14,6 +15,7 @@ import colors from "../../constants/colors";
 import CannonBallStats from "../../Components/UI/CannonBallStats";
 import CannonBallDisplay from "../../Components/UI/CannonBallDisplay";
 import CannonLaunchDisplay from "../../Components/UI/CannonLaunchDisplay";
+import CannonLauncher from "../../Components/GameEngine/CannonLauncher";
 import UserAllTimeNavStats from "../../Components/UI/UserAllTimeNavStats";
 import PurchaseModal from "../../Components/UI/Modals/PurchaseModal";
 import { getUserCannonBalls, getUserDataPreferences, getUserTotalPoints } from "../../db/selectQueries";
@@ -70,6 +72,11 @@ const StoreScreen = () => {
       }
     }
     getCannonBalls();
+
+
+    function generateCannonLaunchers(colors) {
+
+    }
   }, [])
 
   return (
@@ -87,7 +94,7 @@ const StoreScreen = () => {
             userCoins={userCoins}
           />
         }
-        <StatusBar barStyle='light-content' />
+        <StatusBar hidden={true} />
         <View style={styles.backIcon}>
           <BackArrow />
         </View>
@@ -141,13 +148,48 @@ const StoreScreen = () => {
                 title={'Cannons'}
               >
                 <ScrollView horizontal={true}>
-                  <CannonLaunchDisplay />
-                  <CannonLaunchDisplay />
-                  <CannonLaunchDisplay />
-                  <CannonLaunchDisplay />
-                  <CannonLaunchDisplay />
-                  <CannonLaunchDisplay />
-                  <CannonLaunchDisplay />
+                  <View style={[styles.cardContainer, { flexDirection: 'row' }]}>
+                    <View style={styles.cannonLaunchContainer}>
+                      <CannonLaunchDisplay
+                        rotate={'-50deg'}
+                        tipColor={'black'}
+                        barrelColor={'#1e1e1e'}
+                        cannonBaseColor={colors.primaryBrown}
+                        cannonBallBolt={'#151010'}
+                        cannonBallBoltHighlight={'#383434'}
+                        wheelColor={'#383232'}
+                        wheelColorHighlight={'#7d7373'}
+                        scale={0.75}
+                      />
+                    </View>
+                    <View style={styles.cannonLaunchContainer}>
+                      <CannonLaunchDisplay
+
+                        rotate={'-50deg'}
+                        barrelColor={'#1e1e1e'}
+                        tipColor={'black'}
+                        cannonBaseColor={colors.primaryBrown}
+                        cannonBallBolt={'#151010'}
+                        cannonBallBoltHighlight={'#383434'}
+                        wheelColor={'#383232'}
+                        wheelColorHighlight={'#7d7373'}
+                        scale={0.75}
+                      />
+                    </View>
+                    <View style={styles.cannonLaunchContainer}>
+                      <CannonLaunchDisplay
+                        rotate={'-50deg'}
+                        barrelColor={'#1e1e1e'}
+                        tipColor={'black'}
+                        cannonBaseColor={colors.primaryBrown}
+                        cannonBallBolt={'#151010'}
+                        cannonBallBoltHighlight={'#383434'}
+                        wheelColor={'#383232'}
+                        wheelColorHighlight={'#7d7373'}
+                        scale={0.75}
+                      />
+                    </View>
+                  </View>
                 </ScrollView>
               </Card>
             </View>
@@ -167,7 +209,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     left: 0,
-    paddingTop: 15,
+    paddingTop: 5,
   },
   backIcon: {
     zIndex: 3
@@ -179,7 +221,8 @@ const styles = StyleSheet.create({
   currentCannonBallAndStatsView: {
     flexDirection: 'row'
   },
-  lockedCannon: {
-    backgroundColor: 'black'
+  cannonLaunchContainer: {
+    position: 'relative',
+    flex: 1
   }
 })

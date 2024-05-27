@@ -33,7 +33,7 @@ const Home = () => {
 
   return (
     <>
-      <StatusBar barStyle='light-content' />
+      <StatusBar hidden={true} />
       {mainBtnImgSrc && bgImage &&
         <ImageBackground
           source={bgImage}
@@ -66,8 +66,16 @@ const Home = () => {
             </MainButton>
           </View>
           <CannonLauncher
-            position={[80, height - 100]}
+            position={[80, height - 105]}
             rotate={'-50deg'}
+            barrelColor={'#1e1e1e'}
+            tipColor={'black'}
+            cannonBaseColor={colors.primaryBrown}
+            cannonBallBolt={'#151010'}
+            cannonBallBoltHighlight={'#383434'}
+            wheelColor={'#383232'}
+            wheelColorHighlight={'#7d7373'}
+            scale={1}
           />
         </ImageBackground>
       }

@@ -1,47 +1,56 @@
 import { View, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import colors from '../../constants/colors';
-function CannonLaunchDisplay() {
 
+////////// NEEDED TO MAKE DISPLAY BECAUSE ACTUAL CANNONLAUNCHER DOES NOT WORK IN SCROLLVIEW //////
+function CannonLaunchDisplay({
+    rotate,
+    barrelColor,
+    tipColor,
+    cannonBaseColor,
+    cannonBallBolt,
+    cannonBallBoltHighlight,
+    wheelColor,
+    wheelColorHighlight,
+    scale
+}) {
     return (
-        <View style={[styles.rootContainer]}>
+        <View style={[styles.rootContainer, { transform: [{scale: scale}] }]}>
             <View style={[styles.cannonContainer]}>
-                <View style={[styles.cannonBarrel, { transform: [{ rotate: '300deg' }] }]}>
-                    <View style={styles.cannonTip}></View>
+                <View style={[styles.cannonBarrel, { transform: [{ rotate: rotate }], backgroundColor: barrelColor }]}>
+                    <View style={[styles.cannonTip, { backgroundColor: tipColor }]}></View>
                 </View>
             </View>
 
             <View style={styles.standContainer}>
+                {/* This is a view because linearGradient doesn't work on just border */}
                 <View
-                    // colors={['#b55454', 'brown']}
-                    // locations={[0.01, 0.75]}
-                    // start={{ x: 0.1, y: 0.3 }}
-                    style={styles.cannonBallBase}
-                >
-                </View>
+                    style={[styles.cannonBallBase, {
+                        borderBottomColor: cannonBaseColor
+                    }]}
+                />
                 <LinearGradient
-                    colors={['#383434', '#151010']}
+                    colors={[cannonBallBoltHighlight, cannonBallBolt]}
                     locations={[0.01, 0.75]}
                     start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonBallBaseScrew}
                 />
                 <LinearGradient
-                    colors={['#7d7373', '#383232']}
+                    colors={[wheelColorHighlight, wheelColor]}
                     locations={[0.01, 0.75]}
                     start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonWheelOne}
                 >
-                    <View style={styles.innerWheelOne}></View>
+                    <View style={[styles.innerWheelOne, { backgroundColor: cannonBaseColor }]}></View>
                 </LinearGradient>
                 <LinearGradient
-                    colors={['#7d7373', '#383232']}
+                    colors={[wheelColorHighlight, wheelColor]}
                     locations={[0.01, 0.75]}
                     start={{ x: 0.1, y: 0.3 }}
                     style={styles.cannonWheelTwo}
                 >
-                    <View style={styles.innerWheelOne}></View>
+                    <View style={[styles.innerWheelOne, { backgroundColor: cannonBaseColor }]}></View>
                 </LinearGradient>
-
             </View>
         </View>
     )
