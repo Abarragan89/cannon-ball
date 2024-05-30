@@ -270,9 +270,6 @@ export async function initDB() {
     //     await db.runAsync(`DROP TABLE IF EXISTS preferences;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS maps;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS levels;`, []);
-    //     await db.runAsync(`DROP TABLE IF EXISTS cannons;`, []);
-    //     await db.runAsync(`DROP TABLE IF EXISTS cannonSet;`, []);
-    //     await db.runAsync(`DROP TABLE IF EXISTS cannonBallSet;`, []);
     // } catch (error) {
     //     console.log('error in deleting ', error)
     // }

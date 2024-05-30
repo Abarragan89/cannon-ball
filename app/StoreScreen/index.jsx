@@ -22,7 +22,13 @@ import {
   getUserTotalPoints,
   getUserCannons
 } from "../../db/selectQueries";
-import { updateUserCurrentCannonBall, updateUserCannonSet, updateUserCannonBallSet, updateUserCurrentCannon } from "../../db/updateQueries";
+import {
+  updateUserCurrentCannonBall,
+  updateUserCurrentCannon,
+  updateUserCannonSet,
+  updateUserCannonBallSet,
+  updateUserCoins
+} from "../../db/updateQueries";
 
 const StoreScreen = () => {
 
@@ -72,6 +78,8 @@ const StoreScreen = () => {
   }, [])
 
   const displayModal = (itemInfo, isCannonItem) => {
+    // this variable is used to conditionally render the Purchase Modal
+    // depending on what type of item the user is buying (cannon or cannonBalls)
     isCannonItemChange.current = isCannonItem
     setCurrentItem(itemInfo);
     setShowItemModal(true);
@@ -90,29 +98,27 @@ const StoreScreen = () => {
     }
   };
 
-  // async function handleUpdateUserCannonBallSet(itemId) {
-  //   try {
-  //     await updateUserCannonBallSet(itemId);
-  //     // deduct coins from the user for purchase
-  //     await updateUserCoins(1, itemInfo.price)
-  //     setItemArray(itemInfoState => itemInfoState.map((item) => {
-  //       if (item.name === itemInfo.name) {
-  //         return {
-  //           ...item,
-  //           isOwned: 1
-  //         }
-  //       } else {
-  //         return item
-  //       }
-  //     }))
-  //     setItemInfoState(prev => ({ ...prev, isOwned: 1 }));
-  //     closeModal();
-  //   } catch (error) {
-  //     console.log('error updating cannon ball set ', error)
-  //   }
-  // }
-
-  console.log('cannon array ', cannonArr)
+  async function handlePurchaseNewItem(itemInfo, itemSQLUpdateFn, setItemArray) {
+    try {
+      await itemSQLUpdateFn(itemInfo.id);
+      // deduct coins from the user for purchase
+      await updateUserCoins(1, itemInfo.price);
+      // Update the itemArray so it will rerender on screen
+      setItemArray(singleItem => singleItem.map((item) => {
+        if (item.name === itemInfo.name) {
+          return {
+            ...item,
+            isOwned: 1
+          }
+        } else {
+          return item
+        }
+      }))
+      closeModal();
+    } catch (error) {
+      console.log('error updating cannon ball set ', error)
+    }
+  }
 
   return (
     <>
@@ -125,9 +131,13 @@ const StoreScreen = () => {
           <PurchaseModal
             closeModal={closeModal}
             itemInfo={currentItem}
-            setItemArray={isCannonItemChange ? setCannonArr : setCannonBallArr}
+            setItemArray={isCannonItemChange.current ? setCannonArr : setCannonBallArr}
             userCoins={userCoins}
             isCannonItemChange={isCannonItemChange.current}
+            SQLUpdateFn={isCannonItemChange.current ?
+              () => handlePurchaseNewItem(currentItem, updateUserCannonSet, setCannonArr)
+              :
+              () => handlePurchaseNewItem(currentItem, updateUserCannonBallSet, setCannonBallArr)}
           />
         }
         <StatusBar hidden={true} />
@@ -180,8 +190,6 @@ const StoreScreen = () => {
                   )}
                 </ScrollView>
               </Card>
-
-
 
               <Card
                 title={'Cannons'}
