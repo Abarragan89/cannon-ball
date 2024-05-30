@@ -178,7 +178,7 @@ export async function initDB() {
             `)
 
             // Create User
-            const { lastInsertRowId: newUserId } = await db.runAsync(`INSERT INTO users (name, preferenceId, cannonBallSetId, cannonSetId, totalPoints) VALUES ('mike', ${preferenceId}, ${cannonBallSet}, ${cannonSet}, 25000);`);
+            const { lastInsertRowId: newUserId } = await db.runAsync(`INSERT INTO users (name, preferenceId, cannonBallSetId, cannonSetId, totalPoints) VALUES ('mike', ${preferenceId}, ${cannonBallSet}, ${cannonSet}, 250000);`);
 
             // Create Maps
             const { lastInsertRowId: mapOneId } = await db.runAsync(`INSERT INTO maps (mapName, userId) VALUES ('Basics', ${newUserId});`);
@@ -267,11 +267,11 @@ export async function initDB() {
 
     // DROP ALL TABLES TO RESET GAME
     // try {
-        // await db.runAsync(`DROP TABLE IF EXISTS users;`, []);
-        // await db.runAsync(`DROP TABLE IF EXISTS preferences;`, []);
-        // await db.runAsync(`DROP TABLE IF EXISTS maps;`, []);
-        // await db.runAsync(`DROP TABLE IF EXISTS levels;`, []);
-        // await db.runAsync(`DROP TABLE IF EXISTS cannons;`, []);
+    //     await db.runAsync(`DROP TABLE IF EXISTS users;`, []);
+    //     await db.runAsync(`DROP TABLE IF EXISTS preferences;`, []);
+    //     await db.runAsync(`DROP TABLE IF EXISTS maps;`, []);
+    //     await db.runAsync(`DROP TABLE IF EXISTS levels;`, []);
+    //     await db.runAsync(`DROP TABLE IF EXISTS cannons;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS cannonSet;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS cannonBallSet;`, []);
     // } catch (error) {

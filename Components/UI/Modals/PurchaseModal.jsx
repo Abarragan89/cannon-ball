@@ -8,29 +8,28 @@ import colors from '../../../constants/colors';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { updateUserCannonBallSet, updateUserCoins } from '../../../db/updateQueries';
-import { Entypo } from '@expo/vector-icons';
 
-const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, userCoins }) => {
+const PurchaseModal = ({ closeModal, itemInfo, setItemArray, userCoins }) => {
 
   const [confirmBuy, setConfirmBuy] = useState(false);
-  const [cannonBallInfoState, setCannonBallInfoState] = useState(cannonBallInfo);
+  const [itemInfoState, setItemInfoState] = useState(itemInfo);
 
-  async function handleUpdateUserCannonBallSet(cannonBallId) {
+  async function handleUpdateUserCannonBallSet(itemId) {
     try {
-      await updateUserCannonBallSet(cannonBallId);
+      await updateUserCannonBallSet(itemId);
       // deduct coins from the user for purchase
-      await updateUserCoins(1, cannonBallInfo.price)
-      setCannonBallArr(cannonBallArr => cannonBallArr.map((cannonBall) => {
-        if (cannonBall.name === cannonBallInfo.name) {
+      await updateUserCoins(1, itemInfo.price)
+      setItemArray(itemInfoState => itemInfoState.map((item) => {
+        if (item.name === itemInfo.name) {
           return {
-            ...cannonBall,
+            ...item,
             isOwned: 1
           }
         } else {
-          return cannonBall
+          return item
         }
       }))
-      setCannonBallInfoState(prev => ({ ...prev, isOwned: 1 }));
+      setItemInfoState(prev => ({ ...prev, isOwned: 1 }));
       closeModal();
     } catch (error) {
       console.log('error updating cannon ball set ', error)
@@ -42,29 +41,29 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, userCoins
       <Pressable onPress={closeModal} style={styles.closeModalPressable}>
         <FontAwesome name="close" size={24} color={colors.hinderanceColor} />
       </Pressable>
-      {cannonBallInfoState &&
+      {itemInfoState &&
         <>
-          <Text style={styles.itemTitle}>{cannonBallInfoState.name}</Text>
+          <Text style={styles.itemTitle}>{itemInfoState.name}</Text>
           <View style={styles.cannonDisplayAndDetailsContainer}>
             <View style={styles.cannonBallDisplayContainer}>
               <CannonBallDisplay
-                color={cannonBallInfoState.color}
-                gradientColor={cannonBallInfoState.gradientColor}
+                color={itemInfoState.color}
+                gradientColor={itemInfoState.gradientColor}
                 size={70}
                 isOwned={1}
-                name={cannonBallInfoState.name}
+                name={itemInfoState.name}
               />
             </View>
             <CannonBallStats
-              size={cannonBallInfoState.size}
-              weight={cannonBallInfoState.weight}
-              bounce={cannonBallInfoState.bounce}
+              size={itemInfoState.size}
+              weight={itemInfoState.weight}
+              bounce={itemInfoState.bounce}
             />
           </View>
           {/* Only show the price if user has enough coins */}
 
           <View style={styles.priceContainer}>
-            <Text style={styles.priceText}>{cannonBallInfoState.price.toLocaleString()}</Text>
+            <Text style={styles.priceText}>{itemInfoState.price.toLocaleString()}</Text>
             <FontAwesome6 name="hockey-puck" size={18} color={colors.winningStar} />
           </View>
 
@@ -74,11 +73,11 @@ const PurchaseModal = ({ closeModal, cannonBallInfo, setCannonBallArr, userCoins
               <>
                 <ModalBtn
                   text={'Confirm Purchase'}
-                  handler={() => handleUpdateUserCannonBallSet(cannonBallInfoState.id)}
+                  handler={() => handleUpdateUserCannonBallSet(itemInfoState.id)}
                 />
               </>
               :
-              cannonBallInfo.price > userCoins ?
+              itemInfoState.price > userCoins ?
                 <ModalBtn
                   text={'Purchase'}
                   disabled={true}

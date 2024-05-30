@@ -22,7 +22,7 @@ import {
   getUserTotalPoints,
   getUserCannons
 } from "../../db/selectQueries";
-import { updateUserCurrentCannonBall } from "../../db/updateQueries";
+import { updateUserCurrentCannonBall, updateUserCannonBallSet } from "../../db/updateQueries";
 
 const StoreScreen = () => {
 
@@ -35,23 +35,6 @@ const StoreScreen = () => {
   const [currentItem, setCurrentItem] = useState({});
   const closeModal = () => setShowItemModal(false);
 
-  const displayModal = (itemInfo) => {
-    setCurrentItem(itemInfo);
-    setShowItemModal(true)
-  }
-
-  // update current cannon ball of user
-  async function handlerUpdateCurrentCannonBall(cannonBallName) {
-    try {
-      //  Only need the name to update it in preferences
-      await updateUserCurrentCannonBall(1, cannonBallName.name)
-      // Need to set the entire object in currentCannonBall
-      setCurrentCannonBall(cannonBallName);
-      closeModal();
-    } catch (error) {
-      console.log('error updating user cannonBall ', error)
-    }
-  }
 
   useEffect(() => {
     // Get User's Cannon balls and Coin amount
@@ -87,6 +70,46 @@ const StoreScreen = () => {
     getStoreData();
   }, [])
 
+  const displayModal = (itemInfo, itemArray) => {
+    setCurrentItem(itemInfo);
+    setShowItemModal(true);
+  }
+
+  // update current cannon ball of user
+  async function handlerUpdateCurrentCannonBall(cannonBallName) {
+    try {
+      //  Only need the name to update it in preferences
+      await updateUserCurrentCannonBall(1, cannonBallName.name)
+      // Need to set the entire object in currentCannonBall
+      setCurrentCannonBall(cannonBallName);
+      closeModal();
+    } catch (error) {
+      console.log('error updating user cannonBall ', error)
+    }
+  };
+
+  async function handleUpdateUserCannonBallSet(itemId) {
+    try {
+      await updateUserCannonBallSet(itemId);
+      // deduct coins from the user for purchase
+      await updateUserCoins(1, itemInfo.price)
+      setItemArray(itemInfoState => itemInfoState.map((item) => {
+        if (item.name === itemInfo.name) {
+          return {
+            ...item,
+            isOwned: 1
+          }
+        } else {
+          return item
+        }
+      }))
+      setItemInfoState(prev => ({ ...prev, isOwned: 1 }));
+      closeModal();
+    } catch (error) {
+      console.log('error updating cannon ball set ', error)
+    }
+  }
+
   console.log('cannon array ', currentCannon)
 
   return (
@@ -99,8 +122,8 @@ const StoreScreen = () => {
         {showItemModal &&
           <PurchaseModal
             closeModal={closeModal}
-            cannonBallInfo={currentItem}
-            setCannonBallArr={setCannonBallArr}
+            itemInfo={currentItem}
+            setItemArray={setCannonBallArr}
             userCoins={userCoins}
           />
         }
@@ -140,7 +163,7 @@ const StoreScreen = () => {
                     // else it will just set that cannonball to current cannonBall
                     <Pressable
                       key={index}
-                      onPress={() => cannonBall.isOwned ? handlerUpdateCurrentCannonBall(cannonBall) : displayModal(cannonBall)}
+                      onPress={() => cannonBall.isOwned ? handlerUpdateCurrentCannonBall(cannonBall) : displayModal(cannonBall, setCannonBallArr)}
                     >
                       <CannonBallDisplay
                         color={cannonBall.color}
@@ -182,7 +205,7 @@ const StoreScreen = () => {
                     // else it will just set that cannon to current cannon
                     <Pressable
                       key={index}
-                      onPress={() => console.log('pressable in cannon is working')}
+                      onPress={() => cannon.isOwned ? handlerUpdateCurrentCannonBall(cannon) : displayModal(cannon, setCannonArr)}
                     >
                       <CannonLaunchDisplay
                         rotate={'-80deg'}
