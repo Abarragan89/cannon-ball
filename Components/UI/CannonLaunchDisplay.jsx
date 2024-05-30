@@ -13,7 +13,7 @@ function CannonLaunchDisplay({
     wheelColor,
     wheelColorHighlight,
     scale,
-    displayName,
+    name,
     isOwned
 }) {
     return (
@@ -66,7 +66,7 @@ function CannonLaunchDisplay({
                     </View>
                 </View>
             </View>
-            <Text style={styles.cannonName}>{displayName}</Text>
+            <Text style={styles.cannonName}>{name}</Text>
         </View>
     )
 }

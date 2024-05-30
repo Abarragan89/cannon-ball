@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { useState } from 'react';
 import CannonBallDisplay from '../CannonBallDisplay';
+import CannonLaunchDisplay from '../CannonLaunchDisplay';
 import CannonBallStats from '../CannonBallStats';
 import ModalBtn from '../ModalBtn';
 import BaseModal from "./BaseModal";
@@ -9,7 +10,7 @@ import { FontAwesome6 } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { updateUserCannonBallSet, updateUserCoins } from '../../../db/updateQueries';
 
-const PurchaseModal = ({ closeModal, itemInfo, setItemArray, userCoins }) => {
+const PurchaseModal = ({ closeModal, itemInfo, setItemArray, userCoins, isCannonItemChange }) => {
 
   const [confirmBuy, setConfirmBuy] = useState(false);
   const [itemInfoState, setItemInfoState] = useState(itemInfo);
@@ -35,6 +36,7 @@ const PurchaseModal = ({ closeModal, itemInfo, setItemArray, userCoins }) => {
       console.log('error updating cannon ball set ', error)
     }
   }
+  console.log('infoStat ', itemInfo)
 
   return (
     <BaseModal closeModal={closeModal}>
@@ -45,20 +47,38 @@ const PurchaseModal = ({ closeModal, itemInfo, setItemArray, userCoins }) => {
         <>
           <Text style={styles.itemTitle}>{itemInfoState.name}</Text>
           <View style={styles.cannonDisplayAndDetailsContainer}>
-            <View style={styles.cannonBallDisplayContainer}>
-              <CannonBallDisplay
-                color={itemInfoState.color}
-                gradientColor={itemInfoState.gradientColor}
-                size={70}
-                isOwned={1}
-                name={itemInfoState.name}
+            {isCannonItemChange ?
+              <CannonLaunchDisplay
+                rotate={'-80deg'}
+                barrelColor={colors[itemInfo.name].barrel}
+                tipColor={colors[itemInfo.name].tip}
+                cannonBaseColor={colors[itemInfo.name].cannonBase}
+                cannonBallBolt={colors[itemInfo.name].cannonBallBolt}
+                cannonBallBoltHighlight={colors[itemInfo.name].cannonBallBoltHighlight}
+                wheelColor={colors[itemInfo.name].wheelColor}
+                wheelColorHighlight={colors[itemInfo.name].wheelColorHighlight}
+                scale={1}
+                name={itemInfo.name}
+                isOwned={itemInfo.isOwned}
               />
-            </View>
-            <CannonBallStats
-              size={itemInfoState.size}
-              weight={itemInfoState.weight}
-              bounce={itemInfoState.bounce}
-            />
+              :
+              <>
+                <View style={styles.cannonBallDisplayContainer}>
+                  <CannonBallDisplay
+                    color={itemInfoState.color}
+                    gradientColor={itemInfoState.gradientColor}
+                    size={70}
+                    isOwned={1}
+                    name={itemInfoState.name}
+                  />
+                </View>
+                <CannonBallStats
+                  size={itemInfoState.size}
+                  weight={itemInfoState.weight}
+                  bounce={itemInfoState.bounce}
+                />
+              </>
+            }
           </View>
           {/* Only show the price if user has enough coins */}
 

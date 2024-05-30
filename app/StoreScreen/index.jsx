@@ -6,7 +6,7 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Title from "../../Components/UI/Title";
 import BackArrow from "../../Components/UI/BackArrow";
 import Card from "../../Components/UI/Card";
@@ -22,7 +22,7 @@ import {
   getUserTotalPoints,
   getUserCannons
 } from "../../db/selectQueries";
-import { updateUserCurrentCannonBall, updateUserCannonBallSet } from "../../db/updateQueries";
+import { updateUserCurrentCannonBall, updateUserCannonSet, updateUserCannonBallSet, updateUserCurrentCannon } from "../../db/updateQueries";
 
 const StoreScreen = () => {
 
@@ -33,6 +33,7 @@ const StoreScreen = () => {
   const [userCoins, setUserCoins] = useState(null);
   const [showItemModal, setShowItemModal] = useState(false);
   const [currentItem, setCurrentItem] = useState({});
+  const isCannonItemChange = useRef();
   const closeModal = () => setShowItemModal(false);
 
 
@@ -70,47 +71,48 @@ const StoreScreen = () => {
     getStoreData();
   }, [])
 
-  const displayModal = (itemInfo, itemArray) => {
+  const displayModal = (itemInfo, isCannonItem) => {
+    isCannonItemChange.current = isCannonItem
     setCurrentItem(itemInfo);
     setShowItemModal(true);
   }
 
-  // update current cannon ball of user
-  async function handlerUpdateCurrentCannonBall(cannonBallName) {
+  // // update current cannon ball of user
+  async function handleUpdateCurrentItem(item, itemSQLUpdateFn, setItemState) {
     try {
       //  Only need the name to update it in preferences
-      await updateUserCurrentCannonBall(1, cannonBallName.name)
+      await itemSQLUpdateFn(1, item.name)
       // Need to set the entire object in currentCannonBall
-      setCurrentCannonBall(cannonBallName);
+      setItemState(item);
       closeModal();
     } catch (error) {
       console.log('error updating user cannonBall ', error)
     }
   };
 
-  async function handleUpdateUserCannonBallSet(itemId) {
-    try {
-      await updateUserCannonBallSet(itemId);
-      // deduct coins from the user for purchase
-      await updateUserCoins(1, itemInfo.price)
-      setItemArray(itemInfoState => itemInfoState.map((item) => {
-        if (item.name === itemInfo.name) {
-          return {
-            ...item,
-            isOwned: 1
-          }
-        } else {
-          return item
-        }
-      }))
-      setItemInfoState(prev => ({ ...prev, isOwned: 1 }));
-      closeModal();
-    } catch (error) {
-      console.log('error updating cannon ball set ', error)
-    }
-  }
+  // async function handleUpdateUserCannonBallSet(itemId) {
+  //   try {
+  //     await updateUserCannonBallSet(itemId);
+  //     // deduct coins from the user for purchase
+  //     await updateUserCoins(1, itemInfo.price)
+  //     setItemArray(itemInfoState => itemInfoState.map((item) => {
+  //       if (item.name === itemInfo.name) {
+  //         return {
+  //           ...item,
+  //           isOwned: 1
+  //         }
+  //       } else {
+  //         return item
+  //       }
+  //     }))
+  //     setItemInfoState(prev => ({ ...prev, isOwned: 1 }));
+  //     closeModal();
+  //   } catch (error) {
+  //     console.log('error updating cannon ball set ', error)
+  //   }
+  // }
 
-  console.log('cannon array ', currentCannon)
+  console.log('cannon array ', cannonArr)
 
   return (
     <>
@@ -123,8 +125,9 @@ const StoreScreen = () => {
           <PurchaseModal
             closeModal={closeModal}
             itemInfo={currentItem}
-            setItemArray={setCannonBallArr}
+            setItemArray={isCannonItemChange ? setCannonArr : setCannonBallArr}
             userCoins={userCoins}
+            isCannonItemChange={isCannonItemChange.current}
           />
         }
         <StatusBar hidden={true} />
@@ -163,7 +166,7 @@ const StoreScreen = () => {
                     // else it will just set that cannonball to current cannonBall
                     <Pressable
                       key={index}
-                      onPress={() => cannonBall.isOwned ? handlerUpdateCurrentCannonBall(cannonBall) : displayModal(cannonBall, setCannonBallArr)}
+                      onPress={() => cannonBall.isOwned ? handleUpdateCurrentItem(cannonBall, updateUserCurrentCannonBall, setCurrentCannonBall) : displayModal(cannonBall, false)}
                     >
                       <CannonBallDisplay
                         color={cannonBall.color}
@@ -194,7 +197,7 @@ const StoreScreen = () => {
                     wheelColor={colors[currentCannon.name].wheelColor}
                     wheelColorHighlight={colors[currentCannon.name].wheelColorHighlight}
                     scale={1}
-                    displayName={currentCannon.displayName}
+                    name={currentCannon.name}
                     isOwned={1}
                   />
                 </View>
@@ -205,7 +208,7 @@ const StoreScreen = () => {
                     // else it will just set that cannon to current cannon
                     <Pressable
                       key={index}
-                      onPress={() => cannon.isOwned ? handlerUpdateCurrentCannonBall(cannon) : displayModal(cannon, setCannonArr)}
+                      onPress={() => cannon.isOwned ? handleUpdateCurrentItem(cannon, updateUserCurrentCannon, setCurrentCannon) : displayModal(cannon, true)}
                     >
                       <CannonLaunchDisplay
                         rotate={'-80deg'}
@@ -217,7 +220,7 @@ const StoreScreen = () => {
                         wheelColor={colors[cannon.name].wheelColor}
                         wheelColorHighlight={colors[cannon.name].wheelColorHighlight}
                         scale={0.75}
-                        displayName={cannon.displayName}
+                        name={cannon.name}
                         isOwned={cannon.isOwned}
                       />
                     </Pressable>

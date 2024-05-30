@@ -26,7 +26,7 @@ export async function initDB() {
                     isHapticsOn INTEGER DEFAULT 1,
                     hasSeenTutorial INTEGER DEFAULT 0,
                     currentCannonBallName VARCHAR(50) DEFAULT 'Iron',
-                    currentCannonName VARCHAR(50) DEFAULT 'defaultCannon'
+                    currentCannonName VARCHAR(50) DEFAULT 'Classic'
                 );  
 
                 CREATE TABLE IF NOT EXISTS cannonBallSet (
@@ -54,7 +54,6 @@ export async function initDB() {
                 CREATE TABLE IF NOT EXISTS cannons (
                     id INTEGER PRIMARY KEY NOT NULL,
                     name VARCHAR(50),
-                    displayName VARCHAR(50),
                     price INTEGER,
                     isOwned INTEGER,
                     cannonSetId INTEGER,
@@ -157,23 +156,23 @@ export async function initDB() {
             // Fill up the cannon set with cannon entries
             await db.execAsync(`
 
-                INSERT INTO cannons (name, displayName, price, isOwned, cannonSetId)
-                VALUES ('defaultCannon', 'Classic', 20000, 1, ${cannonSet});
+                INSERT INTO cannons (name, price, isOwned, cannonSetId)
+                VALUES ('Classic', 20000, 1, ${cannonSet});
 
-                INSERT INTO cannons (name, displayName, price, cannonSetId)
-                VALUES ('purpleCannon', 'Pajunga', 20000, ${cannonSet});
+                INSERT INTO cannons (name, price, isOwned, cannonSetId)
+                VALUES ('Pajunga', 20000, 1, ${cannonSet});
 
-                INSERT INTO cannons (name, displayName, price, cannonSetId)
-                VALUES ('brownCannon', 'Bruno', 20000, ${cannonSet});
+                INSERT INTO cannons (name, price, cannonSetId)
+                VALUES ('Bruno', 20000, ${cannonSet});
 
-                INSERT INTO cannons (name, displayName, price, cannonSetId)
-                VALUES ('whiteCannon', 'Polaris', 20000, ${cannonSet});
+                INSERT INTO cannons (name, price, cannonSetId)
+                VALUES ('Polaris', 20000, ${cannonSet});
 
-                INSERT INTO cannons (name, displayName, price, cannonSetId)
-                VALUES ('blackCannon', 'Midnight', 20000, ${cannonSet});
+                INSERT INTO cannons (name, price, cannonSetId)
+                VALUES ('Midnight', 20000, ${cannonSet});
 
-                INSERT INTO cannons (name, displayName, price, cannonSetId)
-                VALUES ('greenCannon', 'Arbor', 20000, ${cannonSet});
+                INSERT INTO cannons (name, price, cannonSetId)
+                VALUES ('Arbor', 20000, ${cannonSet});
 
             `)
 

@@ -15,7 +15,7 @@ export default colors = {
     limeGreen: '#08cf08',
 
     // Default cannon colors
-    defaultCannon: {
+    Classic: {
         tip: '#0f0101',
         barrel: '#292828',
         cannonBase: '#592a10',
@@ -24,7 +24,7 @@ export default colors = {
         wheelColor: '#151515',
         wheelColorHighlight: '#7d7373',
     },
-    purpleCannon: {
+    Pajunga: {
         tip: '#310a46',
         barrel: '#740f9d',
         cannonBase: '#310a46',
@@ -33,7 +33,7 @@ export default colors = {
         wheelColor: '#0e0606',
         wheelColorHighlight: '#aca6a6',
     },
-    brownCannon: {
+    Bruno: {
         tip: '#3a2604',
         barrel: '#8f5f07',
         cannonBase: '#191716',
@@ -42,7 +42,7 @@ export default colors = {
         wheelColor: '#383232',
         wheelColorHighlight: '#7d7373',
     },
-    whiteCannon: {
+    Polaris: {
         tip: '#060504',
         barrel: '#dedede',
         cannonBase: '#191716',
@@ -51,7 +51,7 @@ export default colors = {
         wheelColor: '#a49a9a',
         wheelColorHighlight: '#ffffff',
     },
-    blackCannon: {
+    Midnight: {
         tip: '#000000',
         barrel: '#141414',
         cannonBase: '#0d0c0c',
@@ -60,7 +60,7 @@ export default colors = {
         wheelColor: '#0b0a0a',
         wheelColorHighlight: '#686666',
     },
-    greenCannon: {
+    Arbor: {
         tip: '#07fd0f',
         barrel: '#209815',
         cannonBase: '#7ebc00',

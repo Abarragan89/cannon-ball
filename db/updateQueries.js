@@ -166,6 +166,41 @@ export async function updateUserCannonBallSet(cannonBallId) {
     }
 };
 
+// UPDATE USER'S CURRENT EQUIPPED CANNON
+export async function updateUserCurrentCannon(userId, cannonName) {
+    const db = await openDatabaseConnection();
+    try {
+        const myData = await db.runAsync(`
+            UPDATE preferences 
+            SET currentCannonName = ?
+            WHERE id = (
+                SELECT preferenceId 
+                FROM users 
+                WHERE id = ?
+            );
+        `, [cannonName, userId])
+        return myData;
+    } catch (error) {
+        console.log('error in updating current cannonBall ', error)
+    }
+};
+
+// UPDATE USER'S OWNED EQUIPPED CANNON
+export async function updateUserCannonSet(cannonId) {
+    const db = await openDatabaseConnection();
+    try {
+        const myData = await db.runAsync(`
+            UPDATE cannons
+            SET isOwned = 1
+            WHERE id = ?;
+        `, [cannonId])
+        return myData;
+    } catch (error) {
+        console.log('error in updating current cannonBall ', error)
+    }
+};
+
+// UPDATE USER COINS
 export async function updateUserCoins(userId, purchaseAmount) {
     const db = await openDatabaseConnection();
     try {

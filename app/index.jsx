@@ -68,13 +68,13 @@ const Home = () => {
           <CannonLauncher
             position={[80, height - 105]}
             rotate={'-50deg'}
-            barrelColor={colors.defaultCannon.barrel}
-            tipColor={colors.defaultCannon.tip}
-            cannonBaseColor={colors.defaultCannon.cannonBase}
-            cannonBallBolt={colors.defaultCannon.cannonBallBolt}
-            cannonBallBoltHighlight={colors.defaultCannon.cannonBallBoltHighlight}
-            wheelColor={colors.defaultCannon.wheelColor}
-            wheelColorHighlight={colors.defaultCannon.wheelColorHighlight}
+            barrelColor={colors.Classic.barrel}
+            tipColor={colors.Classic.tip}
+            cannonBaseColor={colors.Classic.cannonBase}
+            cannonBallBolt={colors.Classic.cannonBallBolt}
+            cannonBallBoltHighlight={colors.Classic.cannonBallBoltHighlight}
+            wheelColor={colors.Classic.wheelColor}
+            wheelColorHighlight={colors.Classic.wheelColorHighlight}
           />
         </ImageBackground>
       }
