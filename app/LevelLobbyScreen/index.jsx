@@ -18,6 +18,7 @@ const LevelLobbyScreen = () => {
     const [winningStarLimits, setWinningStarLimits] = useState(null);
     const [userPreferences, setUserPreferences] = useState(null);
     const [currentCannonBall, setCurrentCannonBall] = useState({});
+    const [currentCannon, setCurrentCannon] = useState(null)
 
     useEffect(() => {
         // Set winning stars
@@ -104,8 +105,8 @@ const LevelLobbyScreen = () => {
                                                 cannonBallGradientClr: currentCannonBall.gradientColor,
                                                 cannonBallBounce: currentCannonBall.bounce,
                                                 cannonBallWeight: currentCannonBall.weight,
-                                                cannonBallSize: currentCannonBall.size
-
+                                                cannonBallSize: currentCannonBall.size,
+                                                cannonColor: userPreferences.currentCannonName
                                             }}
                                             isLocked={item.isOpen}
                                             accuracy={item.accuracy}

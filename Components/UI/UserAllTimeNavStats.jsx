@@ -5,12 +5,10 @@ import { Fontisto } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { getUserTotalPoints, getTotalStars } from '../../db/selectQueries';
 
-const UserAllTimeNavStats = () => {
+const UserAllTimeNavStats = ({ refresh }) => {
 
   const [totalPoints, setTotalPoints] = useState(null);
   const [totalStars, setTotalStars] = useState(null);
-
-
 
   useEffect(() => {
     async function getUserData() {
@@ -21,7 +19,7 @@ const UserAllTimeNavStats = () => {
       setTotalStars(totalStars[0])
     }
     getUserData();
-  }, [])
+  }, [refresh])
 
   return (
     <>

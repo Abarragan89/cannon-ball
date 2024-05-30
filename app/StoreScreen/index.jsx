@@ -39,6 +39,7 @@ const StoreScreen = () => {
   const [userCoins, setUserCoins] = useState(null);
   const [showItemModal, setShowItemModal] = useState(false);
   const [currentItem, setCurrentItem] = useState({});
+  const [refreshCoins, setRefreshCoins] = useState(false)
   const isCannonItemChange = useRef();
   const closeModal = () => setShowItemModal(false);
 
@@ -114,6 +115,7 @@ const StoreScreen = () => {
           return item
         }
       }))
+      setRefreshCoins([prev => !prev])
       closeModal();
     } catch (error) {
       console.log('error updating cannon ball set ', error)
@@ -122,7 +124,7 @@ const StoreScreen = () => {
 
   return (
     <>
-      <UserAllTimeNavStats />
+      <UserAllTimeNavStats refresh={refreshCoins} />
       <ImageBackground
         source={require('../../assets/images/screenWoodBg.png')}
         style={styles.rootContainer}
