@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Fontisto } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 import { useEffect, useState } from 'react';
 import SpecialCannonBallDisplay from './SpecialCannonBallDisplay';
@@ -55,9 +54,7 @@ const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped, na
                 }
             ]}>
                 {!isOwned &&
-                    <View style={[styles.overlay, styles.lockedOverlay]}>
-                        {/* <Fontisto name="locked" size={28} color={colors.primaryBlack} /> */}
-                    </View>
+                    <View style={[styles.lockedOverlay]} />
                 }
                 {/* Render the special balls if no gradient hexidecimal */}
                 {gradientColor.startsWith('#') ?
@@ -90,7 +87,7 @@ const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped, na
 export default CannonBallDisplay;
 
 const styles = StyleSheet.create({
-    overlay: {
+    lockedOverlay: {
         position: 'absolute',
         top: 0,
         bottom: 0,
@@ -99,10 +96,8 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         zIndex: 3,
         justifyContent: 'center',
-        alignItems: 'center'
-    },
-    lockedOverlay: {
-        backgroundColor: '#0000008d',
+        alignItems: 'center',
+        backgroundColor: '#00000072',
     },
     cannonBallContainer: {
         alignItems: 'center',

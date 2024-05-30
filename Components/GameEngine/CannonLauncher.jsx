@@ -58,7 +58,7 @@ export default CannonLauncher;
 
 const styles = StyleSheet.create({
     rootContainer: {
-        zIndex: 0,
+        zIndex: 10,
     },
     cannonContainer: {
         position: 'absolute',
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
         height: 27,
         width: 70,
         borderRadius: 50,
+        borderWidth: 0.5,
         backgroundColor: '#2b2828',
         transformOrigin: '30%'
     },

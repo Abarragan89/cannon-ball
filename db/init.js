@@ -25,7 +25,8 @@ export async function initDB() {
                     isSoundEffectsOn INTEGER DEFAULT 1,
                     isHapticsOn INTEGER DEFAULT 1,
                     hasSeenTutorial INTEGER DEFAULT 0,
-                    currentCannonBallName VARCHAR(50) DEFAULT 'Iron'
+                    currentCannonBallName VARCHAR(50) DEFAULT 'Iron',
+                    currentCannonName VARCHAR(50) DEFAULT 'defaultCannon'
                 );  
 
                 CREATE TABLE IF NOT EXISTS cannonBallSet (
@@ -46,14 +47,30 @@ export async function initDB() {
                     FOREIGN KEY (cannonBallSetId) REFERENCES cannonBallSet(id) ON DELETE CASCADE
                 );
 
+                CREATE TABLE IF NOT EXISTS cannonSet (
+                    id INTEGER PRIMARY KEY NOT NULL
+                );
+
+                CREATE TABLE IF NOT EXISTS cannons (
+                    id INTEGER PRIMARY KEY NOT NULL,
+                    name VARCHAR(50),
+                    displayName VARCHAR(50),
+                    price INTEGER,
+                    isOwned INTEGER,
+                    cannonSetId INTEGER,
+                    FOREIGN KEY (cannonSetId) REFERENCES cannonSet(id) ON DELETE CASCADE
+                );
+
                 CREATE TABLE IF NOT EXISTS users (
                     id INTEGER PRIMARY KEY NOT NULL,
                     name VARCHAR(50),
                     totalPoints INTEGER DEFAULT 0,
                     preferenceId INTEGER,
                     cannonBallSetId INTEGER,
+                    cannonSetId INTEGER,
                     FOREIGN KEY (preferenceId) REFERENCES preferences(id) ON DELETE CASCADE,
                     FOREIGN KEY (cannonBallSetId) REFERENCES cannonBallSet(id) ON DELETE CASCADE
+                    FOREIGN KEY (cannonSetId) REFERENCES cannonSet(id) ON DELETE CASCADE
                 );
 
                 CREATE TABLE IF NOT EXISTS maps (
@@ -92,7 +109,9 @@ export async function initDB() {
             const { lastInsertRowId: cannonBallSet } = await db.runAsync(`INSERT INTO cannonBallSet DEFAULT VALUES`);
 
             // Create Cannon Balls for user and attached them to cannonBallSet
-            // Cannon Ball weight are in range 0.6 - 1. The lower the decimal, the heavier the weight
+            // Cannon Ball weight are in range 0.05 - 0.17. 
+            // Cannon Ball size are in range 4 - 13
+            // Cannon Ball Bounce are in range 0.55 - 0.95
             await db.execAsync(`
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, isOwned, cannonBallSetId, size, weight, bounce)
@@ -132,8 +151,34 @@ export async function initDB() {
                 VALUES ('Ghost', '#e0d9d9', 'ghost', 40000, ${cannonBallSet}, 13, 0.08, 0.95);
             `)
 
+            // Create Cannon Set
+            const { lastInsertRowId: cannonSet } = await db.runAsync(`INSERT INTO cannonSet DEFAULT VALUES`);
+
+            // Fill up the cannon set with cannon entries
+            await db.execAsync(`
+
+                INSERT INTO cannons (name, displayName, price, isOwned, cannonSetId)
+                VALUES ('defaultCannon', 'Classic', 20000, 1, ${cannonSet});
+
+                INSERT INTO cannons (name, displayName, price, cannonSetId)
+                VALUES ('purpleCannon', 'Pajunga', 20000, ${cannonSet});
+
+                INSERT INTO cannons (name, displayName, price, cannonSetId)
+                VALUES ('brownCannon', 'Bruno', 20000, ${cannonSet});
+
+                INSERT INTO cannons (name, displayName, price, cannonSetId)
+                VALUES ('whiteCannon', 'Polaris', 20000, ${cannonSet});
+
+                INSERT INTO cannons (name, displayName, price, cannonSetId)
+                VALUES ('blackCannon', 'Midnight', 20000, ${cannonSet});
+
+                INSERT INTO cannons (name, displayName, price, cannonSetId)
+                VALUES ('greenCannon', 'Arbor', 20000, ${cannonSet});
+
+            `)
+
             // Create User
-            const { lastInsertRowId: newUserId } = await db.runAsync(`INSERT INTO users (name, preferenceId, cannonBallSetId, totalPoints) VALUES ('mike', ${preferenceId}, ${cannonBallSet}, 25000);`);
+            const { lastInsertRowId: newUserId } = await db.runAsync(`INSERT INTO users (name, preferenceId, cannonBallSetId, cannonSetId, totalPoints) VALUES ('mike', ${preferenceId}, ${cannonBallSet}, ${cannonSet}, 25000);`);
 
             // Create Maps
             const { lastInsertRowId: mapOneId } = await db.runAsync(`INSERT INTO maps (mapName, userId) VALUES ('Basics', ${newUserId});`);
@@ -222,10 +267,13 @@ export async function initDB() {
 
     // DROP ALL TABLES TO RESET GAME
     // try {
-    //     await db.runAsync(`DROP TABLE IF EXISTS users;`, []);
-    //     await db.runAsync(`DROP TABLE IF EXISTS preferences;`, []);
-    //     await db.runAsync(`DROP TABLE IF EXISTS maps;`, []);
-    //     await db.runAsync(`DROP TABLE IF EXISTS levels;`, []);
+        // await db.runAsync(`DROP TABLE IF EXISTS users;`, []);
+        // await db.runAsync(`DROP TABLE IF EXISTS preferences;`, []);
+        // await db.runAsync(`DROP TABLE IF EXISTS maps;`, []);
+        // await db.runAsync(`DROP TABLE IF EXISTS levels;`, []);
+        // await db.runAsync(`DROP TABLE IF EXISTS cannons;`, []);
+    //     await db.runAsync(`DROP TABLE IF EXISTS cannonSet;`, []);
+    //     await db.runAsync(`DROP TABLE IF EXISTS cannonBallSet;`, []);
     // } catch (error) {
     //     console.log('error in deleting ', error)
     // }

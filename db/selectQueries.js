@@ -125,3 +125,19 @@ export async function getUserCannonBalls(userId) {
         console.log('error in individualLevelData ', error)
     }
 };
+
+// GET USER CANNONSET
+export async function getUserCannons(userId) {
+    const db = await openDatabaseConnection();
+    try {
+        const myData = await db.getAllAsync(`
+            SELECT cannons.*
+            FROM cannons
+            JOIN users ON cannons.cannonSetId = users.cannonSetId
+            WHERE users.id = ${userId};
+        `)
+        return myData;
+    } catch (error) {
+        console.log('error in individualLevelData ', error)
+    }
+};
