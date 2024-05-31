@@ -5,8 +5,7 @@ import ProgressSquares from '../../Components/UI/ProgressSquares';
 const CannonStats = ({ power }) => {
 
     const [adjustedPower, setAdjustedPower] = useState(null);
-    console.log('power ', power)
-
+    
     useEffect(() => {
         switch (power) {
             case 1:
