@@ -218,7 +218,7 @@ const StoreScreen = () => {
                     isOwned={1}
                   />
                   <CannonStats
-                    power={8}
+                    power={currentCannon.power}
                   />
                 </View>
 

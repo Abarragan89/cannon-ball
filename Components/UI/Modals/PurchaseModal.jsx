@@ -45,7 +45,7 @@ const PurchaseModal = ({
                   isOwned={1}
                 />
                 <CannonStats
-                  power={3}
+                  power={itemInfo.power}
                 />
               </>
               :

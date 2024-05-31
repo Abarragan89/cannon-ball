@@ -24,6 +24,7 @@ const CannonBallStats = ({ size, weight, bounce }) => {
                 break;
             case 13:
                 setAdjustedSize(5);
+                break;
         }
         switch (weight) {
             case 0.05:
@@ -40,6 +41,7 @@ const CannonBallStats = ({ size, weight, bounce }) => {
                 break;
             case 0.17:
                 setAdjustedWeight(5);
+                break;
         }
         switch (bounce) {
             case 0.55:
@@ -56,6 +58,7 @@ const CannonBallStats = ({ size, weight, bounce }) => {
                 break;
             case 0.95:
                 setAdjustedBounce(5);
+                break;
         }
     }, [size, weight, bounce]);
 
