@@ -42,7 +42,7 @@ export default colors = {
         wheelColor: '#383232',
         wheelColorHighlight: '#7d7373',
     },
-    Polaris: {
+    Tuxedo: {
         tip: '#060504',
         barrel: '#dedede',
         cannonBase: '#191716',
@@ -59,6 +59,15 @@ export default colors = {
         cannonBallBoltHighlight: '#b1a8a8',
         wheelColor: '#0b0a0a',
         wheelColorHighlight: '#686666',
+    },
+    Gumbo: {
+        tip: '#fdd807',
+        barrel: '#868b85',
+        cannonBase: '#1c250b',
+        cannonBallBolt: '#c5c5c5',
+        cannonBallBoltHighlight: '#fbfbfbff',
+        wheelColor: '#045304',
+        wheelColorHighlight: '#a8cbac',
     },
     Arbor: {
         tip: '#07fd0f',

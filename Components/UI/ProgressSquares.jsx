@@ -3,13 +3,13 @@ import { View, StyleSheet } from "react-native";
 import { useEffect, useState } from 'react';
 import colors from "../../constants/colors";
 
-const ProgressSquares = ({ squareCount }) => {
+const ProgressSquares = ({ squareCount, maxAmount }) => {
 
     const [countArray, setCountArray] = useState(null);
 
     useEffect(() => {
-        setCountArray(Array.from({ length: 5 }, (x, i) => i));
-    }, [squareCount])
+        setCountArray(Array.from({ length: maxAmount }, (x, i) => i));
+    }, [squareCount, maxAmount])
     
     return (
         <View style={styles.container}>

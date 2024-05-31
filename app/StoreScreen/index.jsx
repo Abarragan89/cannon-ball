@@ -12,6 +12,7 @@ import BackArrow from "../../Components/UI/BackArrow";
 import Card from "../../Components/UI/Card";
 import colors from "../../constants/colors";
 import CannonBallStats from "../../Components/UI/CannonBallStats";
+import CannonStats from "../../Components/UI/CannonStats";
 import CannonBallDisplay from "../../Components/UI/CannonBallDisplay";
 import CannonLaunchDisplay from "../../Components/UI/CannonLaunchDisplay";
 import UserAllTimeNavStats from "../../Components/UI/UserAllTimeNavStats";
@@ -122,8 +123,11 @@ const StoreScreen = () => {
     }
   }
 
+  console.log('cannon Array', cannonArr)
+
   return (
     <>
+      <StatusBar hidden={true} />
       <UserAllTimeNavStats refresh={refreshCoins} />
       <ImageBackground
         source={require('../../assets/images/screenWoodBg.png')}
@@ -142,7 +146,6 @@ const StoreScreen = () => {
               () => handlePurchaseNewItem(currentItem, updateUserCannonBallSet, setCannonBallArr)}
           />
         }
-        <StatusBar hidden={true} />
         <View style={styles.backIcon}>
           <BackArrow />
         </View>
@@ -178,7 +181,10 @@ const StoreScreen = () => {
                     // else it will just set that cannonball to current cannonBall
                     <Pressable
                       key={index}
-                      onPress={() => cannonBall.isOwned ? handleUpdateCurrentItem(cannonBall, updateUserCurrentCannonBall, setCurrentCannonBall) : displayModal(cannonBall, false)}
+                      onPress={() => cannonBall.isOwned ?
+                        handleUpdateCurrentItem(cannonBall, updateUserCurrentCannonBall, setCurrentCannonBall)
+                        :
+                        displayModal(cannonBall, false)}
                     >
                       <CannonBallDisplay
                         color={cannonBall.color}
@@ -196,7 +202,7 @@ const StoreScreen = () => {
               <Card
                 title={'Cannons'}
               >
-                <View style={styles.currentCannonBallAndStatsView}>
+                <View style={styles.currentCannonView}>
                   <CannonLaunchDisplay
                     rotate={'-80deg'}
                     barrelColor={colors[currentCannon.name].barrel}
@@ -206,9 +212,13 @@ const StoreScreen = () => {
                     cannonBallBoltHighlight={colors[currentCannon.name].cannonBallBoltHighlight}
                     wheelColor={colors[currentCannon.name].wheelColor}
                     wheelColorHighlight={colors[currentCannon.name].wheelColorHighlight}
-                    scale={1}
+                    scale={.9}
+                    isEquipped={true}
                     name={currentCannon.name}
                     isOwned={1}
+                  />
+                  <CannonStats
+                    power={8}
                   />
                 </View>
 
@@ -218,7 +228,10 @@ const StoreScreen = () => {
                     // else it will just set that cannon to current cannon
                     <Pressable
                       key={index}
-                      onPress={() => cannon.isOwned ? handleUpdateCurrentItem(cannon, updateUserCurrentCannon, setCurrentCannon) : displayModal(cannon, true)}
+                      onPress={() => cannon.isOwned ?
+                        handleUpdateCurrentItem(cannon, updateUserCurrentCannon, setCurrentCannon)
+                        :
+                        displayModal(cannon, true)}
                     >
                       <CannonLaunchDisplay
                         rotate={'-80deg'}
@@ -229,7 +242,8 @@ const StoreScreen = () => {
                         cannonBallBoltHighlight={colors[cannon.name].cannonBallBoltHighlight}
                         wheelColor={colors[cannon.name].wheelColor}
                         wheelColorHighlight={colors[cannon.name].wheelColorHighlight}
-                        scale={0.75}
+                        isEquipped={cannon.name === currentCannon.name}
+                        scale={0.7}
                         name={cannon.name}
                         isOwned={cannon.isOwned}
                       />
@@ -264,6 +278,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   currentCannonBallAndStatsView: {
+    flexDirection: 'row',
+  },
+  currentCannonView: {
     flexDirection: 'row',
   }
 })

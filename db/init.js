@@ -55,6 +55,7 @@ export async function initDB() {
                     id INTEGER PRIMARY KEY NOT NULL,
                     name VARCHAR(50),
                     price INTEGER,
+                    power FLOAT,
                     isOwned INTEGER,
                     cannonSetId INTEGER,
                     FOREIGN KEY (cannonSetId) REFERENCES cannonSet(id) ON DELETE CASCADE
@@ -156,23 +157,26 @@ export async function initDB() {
             // Fill up the cannon set with cannon entries
             await db.execAsync(`
 
-                INSERT INTO cannons (name, price, isOwned, cannonSetId)
-                VALUES ('Classic', 20000, 1, ${cannonSet});
+                INSERT INTO cannons (name, price, isOwned, power, cannonSetId)
+                VALUES ('Classic', 0, 1, 1, ${cannonSet});
 
-                INSERT INTO cannons (name, price, isOwned, cannonSetId)
-                VALUES ('Pajunga', 20000, 1, ${cannonSet});
+                INSERT INTO cannons (name, price, power, cannonSetId)
+                VALUES ('Pajunga', 5000, 1.3, ${cannonSet});
 
-                INSERT INTO cannons (name, price, cannonSetId)
-                VALUES ('Bruno', 20000, ${cannonSet});
+                INSERT INTO cannons (name, price, power, cannonSetId)
+                VALUES ('Bruno', 5000, 1.3, ${cannonSet});
+                
+                INSERT INTO cannons (name, price, power, cannonSetId)
+                VALUES ('Arbor', 15000, 1.6, ${cannonSet});
 
-                INSERT INTO cannons (name, price, cannonSetId)
-                VALUES ('Polaris', 20000, ${cannonSet});
+                INSERT INTO cannons (name, price, power, cannonSetId)
+                VALUES ('Gumbo', 15000, 1.6, ${cannonSet});
 
-                INSERT INTO cannons (name, price, cannonSetId)
-                VALUES ('Midnight', 20000, ${cannonSet});
+                INSERT INTO cannons (name, price, power, cannonSetId)
+                VALUES ('Tuxedo', 30000, 1.9, ${cannonSet});
 
-                INSERT INTO cannons (name, price, cannonSetId)
-                VALUES ('Arbor', 20000, ${cannonSet});
+                INSERT INTO cannons (name, price, power, cannonSetId)
+                VALUES ('Midnight', 30000, 1.9, ${cannonSet});
 
             `)
 
@@ -266,10 +270,12 @@ export async function initDB() {
 
     // DROP ALL TABLES TO RESET GAME
     // try {
+    //     await db.runAsync(`DROP TABLE IF EXISTS cannons;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS users;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS preferences;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS maps;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS levels;`, []);
+
     // } catch (error) {
     //     console.log('error in deleting ', error)
     // }

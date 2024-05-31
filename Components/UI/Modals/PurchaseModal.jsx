@@ -3,6 +3,7 @@ import { useState } from 'react';
 import CannonBallDisplay from '../CannonBallDisplay';
 import CannonLaunchDisplay from '../CannonLaunchDisplay';
 import CannonBallStats from '../CannonBallStats';
+import CannonStats from '../CannonStats';
 import ModalBtn from '../ModalBtn';
 import BaseModal from "./BaseModal";
 import colors from '../../../constants/colors';
@@ -12,7 +13,6 @@ import { FontAwesome } from '@expo/vector-icons';
 const PurchaseModal = ({
   closeModal,
   itemInfo,
-  setItemArray,
   userCoins,
   isCannonItemChange,
   SQLUpdateFn
@@ -28,24 +28,29 @@ const PurchaseModal = ({
         <>
           <Text style={styles.itemTitle}>{itemInfo.name}</Text>
           <View style={styles.cannonDisplayAndDetailsContainer}>
-          {/* Display Cannon Launch if click on a cannon */}
+            {/* Display Cannon Launch if click on a cannon */}
             {isCannonItemChange ?
-              <CannonLaunchDisplay
-                rotate={'-80deg'}
-                barrelColor={colors[itemInfo.name].barrel}
-                tipColor={colors[itemInfo.name].tip}
-                cannonBaseColor={colors[itemInfo.name].cannonBase}
-                cannonBallBolt={colors[itemInfo.name].cannonBallBolt}
-                cannonBallBoltHighlight={colors[itemInfo.name].cannonBallBoltHighlight}
-                wheelColor={colors[itemInfo.name].wheelColor}
-                wheelColorHighlight={colors[itemInfo.name].wheelColorHighlight}
-                scale={1}
-                name={itemInfo.name}
-                isOwned={itemInfo.isOwned}
-              />
+              <>
+                <CannonLaunchDisplay
+                  rotate={'-80deg'}
+                  barrelColor={colors[itemInfo.name].barrel}
+                  tipColor={colors[itemInfo.name].tip}
+                  cannonBaseColor={colors[itemInfo.name].cannonBase}
+                  cannonBallBolt={colors[itemInfo.name].cannonBallBolt}
+                  cannonBallBoltHighlight={colors[itemInfo.name].cannonBallBoltHighlight}
+                  wheelColor={colors[itemInfo.name].wheelColor}
+                  wheelColorHighlight={colors[itemInfo.name].wheelColorHighlight}
+                  scale={1}
+                  name={itemInfo.name}
+                  isOwned={1}
+                />
+                <CannonStats
+                  power={3}
+                />
+              </>
               :
               <>
-              {/* Display Cannon Ball if clicked on Ball */}
+                {/* Display Cannon Ball if clicked on Ball */}
                 <View style={styles.cannonBallDisplayContainer}>
                   <CannonBallDisplay
                     color={itemInfo.color}

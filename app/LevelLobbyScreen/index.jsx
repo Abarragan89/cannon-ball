@@ -9,7 +9,8 @@ import LevelTile from '../../Components/LevelTile';
 import {
     getAllLevelDataInMap,
     getUserDataPreferences,
-    getUserCannonBalls
+    getUserCannonBalls,
+    getUserCannons
 } from '../../db/selectQueries';
 
 const LevelLobbyScreen = () => {
@@ -18,7 +19,7 @@ const LevelLobbyScreen = () => {
     const [winningStarLimits, setWinningStarLimits] = useState(null);
     const [userPreferences, setUserPreferences] = useState(null);
     const [currentCannonBall, setCurrentCannonBall] = useState({});
-    const [currentCannon, setCurrentCannon] = useState(null)
+    const [currentCannon, setCurrentCannon] = useState({})
 
     useEffect(() => {
         // Set winning stars
@@ -58,10 +59,14 @@ const LevelLobbyScreen = () => {
                 // only one item in the array so we can destructure
                 const [userPref] = await getUserDataPreferences(1)
                 setUserPreferences(userPref)
-                const cannonBalls = await getUserCannonBalls(1);
                 // get the current cannonBall
+                const cannonBalls = await getUserCannonBalls(1);
                 const [currentBall] = cannonBalls.filter(cannonBall => cannonBall.name === userPref.currentCannonBallName)
                 setCurrentCannonBall(currentBall)
+                // get the current cannon (need to power)
+                const cannons = await getUserCannons(1);
+                const [currentCannon] = cannons.filter(cannon => cannon.name === userPref.currentCannonName)
+                setCurrentCannon(currentCannon)
             } catch (error) {
                 console.log('error getting user pref in level lobby ', error)
             }
@@ -106,7 +111,8 @@ const LevelLobbyScreen = () => {
                                                 cannonBallBounce: currentCannonBall.bounce,
                                                 cannonBallWeight: currentCannonBall.weight,
                                                 cannonBallSize: currentCannonBall.size,
-                                                cannonColor: userPreferences.currentCannonName
+                                                cannonColor: currentCannon.name,
+                                                cannonPower: currentCannon.power
                                             }}
                                             isLocked={item.isOpen}
                                             accuracy={item.accuracy}

@@ -38,11 +38,9 @@ const GameEngineWrapper = ({
         cannonBallBounce,
         cannonBallWeight,
         cannonBallSize,
-        cannonColor
+        cannonColor,
+        cannonPower
     } = useLocalSearchParams();
-
-
-    console.log('cannon color', cannonColor)
 
     const [playBgMusic, setPlayBgMusic] = useState(true);
     const [newEntities, setNewEntities] = useState(entities);
@@ -125,7 +123,7 @@ const GameEngineWrapper = ({
                         setIsGameOver: setIsGameOver,
                         bounceLevel: cannonBallBounce,
                         isSoundEffectsOn: isSoundEffectsOn,
-                        isHapticsOn: isHapticsOn
+                        isHapticsOn: isHapticsOn,
                     },
                     cannonBall: {
                         ...prev.cannonBall,
@@ -147,6 +145,7 @@ const GameEngineWrapper = ({
                         cannonBallBoltHighlight: colors[cannonColor].cannonBallBoltHighlight,
                         wheelColor: colors[cannonColor].wheelColor,
                         wheelColorHighlight: colors[cannonColor].wheelColorHighlight,
+                        cannonPower: cannonPower
                     }
 
                 }));
@@ -245,6 +244,7 @@ const GameEngineWrapper = ({
                             isSoundOn={isSoundOn}
                             isSoundEffectsOn={isSoundEffectsOn}
                             isHapticsOn={isHapticsOn}
+                            cannonColor={cannonColor}
                         />
                     }
                     {children}

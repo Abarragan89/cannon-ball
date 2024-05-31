@@ -4,8 +4,14 @@ import colors from '../../constants/colors';
 import { useEffect, useState } from 'react';
 import SpecialCannonBallDisplay from './SpecialCannonBallDisplay';
 
-const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped, name }) => {
-
+const CannonBallDisplay = ({
+    color,
+    gradientColor,
+    size,
+    isOwned,
+    isEquipped,
+    name
+}) => {
     const [adjustedCannonBallSize, setAdjustedCannonBallSize] = useState(null);
     const [adjustedContainerSize, setAdjustedContainerSize] = useState(null);
 
@@ -13,23 +19,23 @@ const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped, na
         switch (size) {
             case 4:
                 setAdjustedCannonBallSize(8);
-                setAdjustedContainerSize(60);
+                setAdjustedContainerSize(65);
                 break;
             case 6:
                 setAdjustedCannonBallSize(20);
-                setAdjustedContainerSize(60);
+                setAdjustedContainerSize(65);
                 break;
             case 8:
                 setAdjustedCannonBallSize(30);
-                setAdjustedContainerSize(60);
+                setAdjustedContainerSize(65);
                 break;
             case 11:
                 setAdjustedCannonBallSize(40);
-                setAdjustedContainerSize(60);
+                setAdjustedContainerSize(65);
                 break;
             case 13:
                 setAdjustedCannonBallSize(45);
-                setAdjustedContainerSize(60);
+                setAdjustedContainerSize(65);
                 break;
             default:
                 setAdjustedCannonBallSize(size);
@@ -79,7 +85,11 @@ const CannonBallDisplay = ({ color, gradientColor, size, isOwned, isEquipped, na
 
                 }
             </View>
-            <Text style={styles.cannonBallNameText}>{name}</Text>
+            {isEquipped && adjustedContainerSize === 65 ?
+                <Text style={[styles.cannonBallNameText, styles.armedText]}>Armed</Text>
+                :
+                <Text style={styles.cannonBallNameText}>{name}</Text>
+            }
         </View >
     )
 }
@@ -107,14 +117,15 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 8,
         marginHorizontal: 10,
-        width: 65,
-        height: 65
     },
     cannonBallNameText: {
         textAlign: 'center',
         color: 'white',
         fontFamily: 'textFont',
-        fontSize: 16,
+        fontSize: 17,
         paddingBottom: 10
     },
+    armedText: {
+        color: colors.limeGreen,
+    }
 })

@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
         top: -1.5,
         height: 30,
         width: 10,
+        borderWidth: 0.5,
         borderRadius: 50,
         backgroundColor: '#0c0c0c',
     },
@@ -111,6 +112,7 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         borderRadius: 40,
+        borderWidth: 0.5
     },
     cannonWheelTwo: {
         position: 'absolute',
@@ -119,11 +121,13 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         borderRadius: 40,
+        borderWidth: 0.5
+
     },
     innerWheelOne: {
         position: 'absolute',
-        top: 5,
-        left: 5,
+        top: 4,
+        left: 4,
         height: 10,
         width: 10,
         borderRadius: 10

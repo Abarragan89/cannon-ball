@@ -14,14 +14,21 @@ function CannonLaunchDisplay({
     wheelColorHighlight,
     scale,
     name,
-    isOwned
+    isOwned,
+    isEquipped
 }) {
     return (
         <View>
             <View style={[
                 styles.outerCannonContainer,
                 isOwned && { backgroundColor: colors.offWhite },
-                scale === 1 ? { width: 90, height: 90 } : { width: 70, height: 70 }
+                // we scale it to 0.7 when in scroll view and 'current display' it at a bigger rate
+                scale !== 0.7 ? { width: 85, height: 85 } : { width: 65, height: 65 },
+                isEquipped && {
+                    borderColor: colors.limeGreen,
+                    borderWidth: 3,
+                    borderRadius: 8,
+                }
             ]}>
                 {!isOwned &&
                     <View style={[styles.lockedOverlay]} />
@@ -66,7 +73,11 @@ function CannonLaunchDisplay({
                     </View>
                 </View>
             </View>
-            <Text style={styles.cannonName}>{name}</Text>
+            {isEquipped && scale === 0.7 ?
+                <Text style={[styles.cannonName, styles.armedText]}>Armed</Text>
+                :
+                <Text style={styles.cannonName}>{name}</Text>
+            }
         </View>
     )
 }
@@ -88,12 +99,10 @@ const styles = StyleSheet.create({
     },
     outerCannonContainer: {
         position: 'relative',
-        marginHorizontal: 5,
+        marginHorizontal: 10,
         borderWidth: 1,
         borderColor: colors.primaryBlack,
         borderRadius: 8,
-        width: 70,
-        height: 70,
         alignItems: 'center',
     },
     cannonContainer: {
@@ -118,6 +127,7 @@ const styles = StyleSheet.create({
         width: 10,
         borderRadius: 50,
         backgroundColor: '#0c0c0c',
+        borderWidth: 0.5
     },
     cannonBallBase: {
         position: 'absolute',
@@ -147,7 +157,8 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         borderRadius: 40,
-        backgroundColor: '#4a4646'
+        backgroundColor: '#4a4646',
+        borderWidth: 0.5,
     },
     cannonWheelTwo: {
         position: 'absolute',
@@ -156,12 +167,13 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         borderRadius: 40,
+        borderWidth: 0.5,
         backgroundColor: '#4a4646'
     },
     innerWheelOne: {
         position: 'absolute',
-        top: 5,
-        left: 5,
+        top: 4,
+        left: 4.3,
         height: 10,
         width: 10,
         backgroundColor: colors.primaryBrown,
@@ -182,7 +194,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
         fontFamily: 'textFont',
-        fontSize: 16,
+        fontSize: 17,
         paddingBottom: 10
+    },
+    armedText: {
+        color: colors.limeGreen,
     }
 })

@@ -62,11 +62,11 @@ const CannonBallStats = ({ size, weight, bounce }) => {
     return (
         <View>
             <Text style={styles.statText}>Size</Text>
-            <ProgressSquares squareCount={adjustedSize} />
+            <ProgressSquares squareCount={adjustedSize} maxAmount={5}/>
             <Text style={styles.statText}>Weight</Text>
-            <ProgressSquares squareCount={adjustedWeight} />
+            <ProgressSquares squareCount={adjustedWeight} maxAmount={5} />
             <Text style={styles.statText}>Bounce</Text>
-            <ProgressSquares squareCount={adjustedBounce} />
+            <ProgressSquares squareCount={adjustedBounce} maxAmount={5} />
         </View>
     )
 }
@@ -78,6 +78,6 @@ const styles = StyleSheet.create({
         margin: 0,
         fontFamily: 'textFont',
         color: colors.offWhite,
-        fontSize: 17
+        fontSize: 14
     },
 })
