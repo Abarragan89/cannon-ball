@@ -4,19 +4,10 @@ import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
-import CannonBall from "../../../../Components/GameEngine/CannonBall";
-import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
-import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
 import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
-import FireBtn from "../../../../Components/GameEngine/FireBtn";
-import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
-import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
-import Explosion from "../../../../Components/GameEngine/Explosion";
-import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
-import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
@@ -43,11 +34,6 @@ function ChapterFourLevelFive() {
         nextLevel: 'Hatch/Level1'
     });
 
-    // Angle Data
-    const angleLevelRef = useRef(90)
-    // Power Data
-    const powerLevelRef = useRef(30)
-
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
@@ -68,53 +54,16 @@ function ChapterFourLevelFive() {
                     krakenLevelFiveSystems
                 ]}
                 entities={{
-                    cannonBall: {
-                        position: [-100, 0],
-                        velocity: [1, 1],
-                        display: 'block',
-                        accuracy: { name: '', float: 0, multiplier: 0 },
-                        isGameOver: isGameOver,
-                        setIsGameOver: setIsGameOver,
-                        isBallMoving: false,
-                        renderer: <CannonBall />
-                    },
                     cannon: {
                         position: [screenWidth - 78, 75],
                         upperTravelLimit: -1,
-                        lowerTravelLimit: 1000,
-                        rotate: '-90deg',
-                        renderer: <CannonLauncher />
+                        lowerTravelLimit: 1000
                     },
                     TNT: {
                         position: [250, 150],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
-                    },
-                    explosion: {
-                        position: [0, 0],
-                        ballPosition: [0, 0],
-                        ballColor: '#000000',
-                        startAnimation: false,
-                        renderer: <Explosion />
-                    },
-                    followArrow: {
-                        leftPosition: 300,
-                        displayStatus: 'none',
-                        renderer: <FollowArrow />
-                    },
-                    headerStats: {
-                        airTime: 0,
-                        bounces: 0,
-                        renderer: <HeaderStats />
-                    },
-                    angleMeter: {
-                        angleLevel: angleLevelRef.current,
-                        renderer: <AngleMeter />
-                    },
-                    powerMeter: {
-                        displayPower: powerLevelRef.current,
-                        renderer: <PowerMeter />
                     },
                     extraLongHindOne: {
                         position: [-5, -2],
@@ -126,7 +75,6 @@ function ChapterFourLevelFive() {
                         height: 30,
                         renderer: <Hinderance />
                     },
-                    // this is the square closest to the cannon
                     squareHindOne: {
                         position: [Math.floor(screenWidth / 2), screenHeight - 50],
                         width: 40,
@@ -142,12 +90,7 @@ function ChapterFourLevelFive() {
                     cannonStand: {
                         position: [screenWidth - 82, 150],
                         renderer: <CannonStand />
-                    },
-                    fireBtn: {
-                        isShooting: false,
-                        renderer: <FireBtn />
                     }
-
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}

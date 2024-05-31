@@ -35,11 +35,6 @@ function ChatperTwoLevelFive() {
         nextLevel: 'Hinderance/Level1'
     });
 
-    // Angle Data
-    const angleLevelRef = useRef(90);
-    // Power Data
-    const powerLevelRef = useRef(30);
-
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/stuck.png')}
@@ -55,16 +50,6 @@ function ChatperTwoLevelFive() {
                     moveTNTMarksLevelFive
                 ]}
                 entities={{
-                    cannonBall: {
-                        position: [-100, 0],
-                        velocity: [1, 1],
-                        display: 'block',
-                        accuracy: { name: '', float: 0, multiplier: 0 },
-                        isGameOver: isGameOver,
-                        setIsGameOver: setIsGameOver,
-                        isBallMoving: false,
-                        renderer: <CannonBall />
-                    },
                     tntMovementCount: {
                         tntPixelCounter: 0
                     },
@@ -72,43 +57,12 @@ function ChatperTwoLevelFive() {
                         position: [Math.floor(screenWidth / 2) - 30, screenHeight - 120],
                         upperTravelLimit: -1,
                         lowerTravelLimit: 1000,
-                        rotate: '-90deg',
-                        renderer: <CannonLauncher />
                     },
                     TNT: {
                         position: [270, 50],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
-                    },
-                    explosion: {
-                        position: [0, 0],
-                        ballPosition: [0, 0],
-                        ballColor: '#000000',
-                        startAnimation: false,
-                        renderer: <Explosion />
-                    },
-                    followArrow: {
-                        leftPosition: 300,
-                        displayStatus: 'none',
-                        renderer: <FollowArrow />
-                    },
-                    headerStats: {
-                        airTime: 0,
-                        bounces: 0,
-                        renderer: <HeaderStats />
-                    },
-                    angleMeter: {
-                        angleLevel: angleLevelRef.current,
-                        renderer: <AngleMeter />
-                    },
-                    powerMeter: {
-                        displayPower: powerLevelRef.current,
-                        renderer: <PowerMeter />
-                    },
-                    fireBtn: {
-                        isShooting: false,
-                        renderer: <FireBtn />
                     }
                 }}
                 endGameData={endGameData}

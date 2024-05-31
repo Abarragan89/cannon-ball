@@ -36,11 +36,6 @@ function ChatperThreeLevelOne() {
         nextLevel: 'Hinderance/Level2'
     });
 
-    // Angle Data
-    const angleLevelRef = useRef(90)
-    // Power Data
-    const powerLevelRef = useRef(30)
-
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
@@ -57,51 +52,14 @@ function ChatperThreeLevelOne() {
                     longHindSystemTwo
                 ]}
                 entities={{
-                    cannonBall: {
-                        position: [-100, 0],
-                        velocity: [1, 1],
-                        display: 'block',
-                        accuracy: { name: '', float: 0, multiplier: 0 },
-                        isGameOver: isGameOver,
-                        setIsGameOver: setIsGameOver,
-                        isBallMoving: false,
-                        renderer: <CannonBall />
-                    },
                     cannon: {
                         position: [400, screenHeight - 100],
-                        rotate: '-90deg',
-                        renderer: <CannonLauncher />
                     },
                     TNT: {
                         position: [screenWidth - 100, 100],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
-                    },
-                    explosion: {
-                        position: [0, 0],
-                        ballPosition: [0, 0],
-                        ballColor: '#000000',
-                        startAnimation: false,
-                        renderer: <Explosion />
-                    },
-                    followArrow: {
-                        leftPosition: 300,
-                        displayStatus: 'none',
-                        renderer: <FollowArrow />
-                    },
-                    headerStats: {
-                        airTime: 0,
-                        bounces: 0,
-                        renderer: <HeaderStats />
-                    },
-                    angleMeter: {
-                        angleLevel: angleLevelRef.current,
-                        renderer: <AngleMeter />
-                    },
-                    powerMeter: {
-                        displayPower: powerLevelRef.current,
-                        renderer: <PowerMeter />
                     },
                     longHindOne: {
                         position: [screenWidth - 210, 60],
@@ -114,10 +72,6 @@ function ChatperThreeLevelOne() {
                         width: 120,
                         height: 30,
                         renderer: <Hinderance />
-                    },
-                    fireBtn: {
-                        isShooting: false,
-                        renderer: <FireBtn />
                     }
                 }}
                 endGameData={endGameData}

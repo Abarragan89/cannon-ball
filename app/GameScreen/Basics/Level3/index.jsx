@@ -5,19 +5,11 @@ import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
-import CannonBall from "../../../../Components/GameEngine/CannonBall";
-import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
-import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-import FireBtn from "../../../../Components/GameEngine/FireBtn";
-import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
-import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
-import Explosion from "../../../../Components/GameEngine/Explosion";
-import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
-import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
-import { Dimensions } from 'react-native'
+import { Dimensions } from "react-native";
 const screenHeight = Dimensions.get('window').height;
+import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import BackArrow from "../../../../Components/UI/BackArrow";
 
 function ChatperOneLevelThree() {
@@ -33,11 +25,6 @@ function ChatperOneLevelThree() {
         nextLevel: 'Basics/Level4'
     });
 
-    // Angle Data
-    const angleLevelRef = useRef(90)
-    // Power Data
-    const powerLevelRef = useRef(30)
-
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
@@ -52,55 +39,14 @@ function ChatperOneLevelThree() {
                     fireCannonSystem,
                 ]}
                 entities={{
-                    cannonBall: {
-                        position: [-100, 0],
-                        velocity: [1, 1],
-                        display: 'block',
-                        accuracy: { name: '', float: 0, multiplier: 0 },
-                        isGameOver: isGameOver,
-                        setIsGameOver: setIsGameOver,
-                        isBallMoving: false,
-                        renderer: <CannonBall />
-                    },
                     cannon: {
                         position: [400, screenHeight - 100],
-                        rotate: '-90deg',
-                        renderer: <CannonLauncher />
                     },
                     TNT: {
                         position: [200, -5],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
-                    },
-                    explosion: {
-                        position: [0, 0],
-                        ballPosition: [0, 0],
-                        ballColor: '#000000',
-                        startAnimation: false,
-                        renderer: <Explosion />
-                    },
-                    followArrow: {
-                        leftPosition: 300,
-                        displayStatus: 'none',
-                        renderer: <FollowArrow />
-                    },
-                    headerStats: {
-                        airTime: 0,
-                        bounces: 0,
-                        renderer: <HeaderStats />
-                    },
-                    angleMeter: {
-                        angleLevel: angleLevelRef.current,
-                        renderer: <AngleMeter />
-                    },
-                    powerMeter: {
-                        displayPower: powerLevelRef.current,
-                        renderer: <PowerMeter />
-                    },
-                    fireBtn: {
-                        isShooting: false,
-                        renderer: <FireBtn />
                     }
                 }}
                 endGameData={endGameData}
