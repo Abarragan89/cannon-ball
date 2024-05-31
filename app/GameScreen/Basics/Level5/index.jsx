@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import GameEngineWrapper from "../../../../Components/GameEngine/GameEngineWrapper";
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
@@ -17,28 +16,16 @@ import Explosion from "../../../../Components/GameEngine/Explosion";
 import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
-import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 
 function ChatperOneLevelFive() {
-    // Get Router Parameters
-    const {
-        levelId,
-        lastAccuracy,
-        lastHighscore,
-        lastEarnedStars,
-        isSoundOn,
-        isSoundEffectsOn,
-        isHapticsOn
-    } = useLocalSearchParams();
-
     const [isGameOver, setIsGameOver] = useState(false);
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
-        winningScore: [500, 2000, 4000],
+        winningScore: [100, 2000, 4000],
         airTime: 0,
         bounces: 0,
         multiplier: 0,
@@ -49,7 +36,7 @@ function ChatperOneLevelFive() {
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
-    const powerLevelRef = useRef(15)
+    const powerLevelRef = useRef(30)
 
     return (
         <ImageBackground
@@ -67,8 +54,8 @@ function ChatperOneLevelFive() {
                 entities={{
                     cannonBall: {
                         position: [-100, 0],
-                        gradientColor: 'rgba(0, 0, 0, .75)',
-                        color: 'rgba(0, 0, 0, 1)',
+
+
                         velocity: [1, 1],
                         display: 'block',
                         accuracy: { name: '', float: 0, multiplier: 0 },
@@ -87,7 +74,7 @@ function ChatperOneLevelFive() {
                     TNT: {
                         position: [Math.floor(screenWidth / 2) - 15, 150],
                         display: 'block',
-                        handlePosition: [-20, 0],
+                        handlePosition: [-22, 0],
                         renderer: <TNT />
                     },
                     explosion: {
@@ -120,14 +107,7 @@ function ChatperOneLevelFive() {
                         renderer: <FireBtn />
                     }
                 }}
-                levelId={levelId}
-                lastAccuracy={lastAccuracy}
                 endGameData={endGameData}
-                lastHighscore={lastHighscore}
-                lastEarnedStars={lastEarnedStars}
-                isSoundOn={isSoundOn}
-                isSoundEffectsOn={isSoundEffectsOn}
-                isHapticsOn={isHapticsOn}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
             >
@@ -140,12 +120,6 @@ function ChatperOneLevelFive() {
                     mapName={'Basics'}
                     levelNumber={5}
                 />
-                {isGameOver &&
-                    <EndGameModal
-                        endGameData={endGameData}
-                        nextLevelData={null}
-                    />
-                }
             </GameEngineWrapper>
         </ImageBackground>
     );

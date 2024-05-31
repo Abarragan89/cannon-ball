@@ -1,6 +1,5 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import GameEngineWrapper from "../../../../Components/GameEngine/GameEngineWrapper";
-import { useLocalSearchParams } from 'expo-router';
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
@@ -28,17 +27,6 @@ import giantTallSystemTwo from "../../../../systems/hinderanceDetection/giantTal
 import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
 
 function ChapterThreeLevelFive() {
-    // Get Router Parameters
-    const {
-        levelId,
-        lastAccuracy,
-        lastHighscore,
-        lastEarnedStars,
-        isSoundOn,
-        isSoundEffectsOn,
-        isHapticsOn
-    } = useLocalSearchParams();
-
     const [isGameOver, setIsGameOver] = useState(false);
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -54,7 +42,7 @@ function ChapterThreeLevelFive() {
     // Angle Data
     const angleLevelRef = useRef(90)
     // Power Data
-    const powerLevelRef = useRef(15)
+    const powerLevelRef = useRef(30)
 
     return (
         <ImageBackground
@@ -76,8 +64,6 @@ function ChapterThreeLevelFive() {
                 entities={{
                     cannonBall: {
                         position: [-100, 0],
-                        gradientColor: 'rgba(0, 0, 0, .75)',
-                        color: 'rgba(0, 0, 0, 1)',
                         velocity: [1, 1],
                         display: 'block',
                         accuracy: { name: '', float: 0, multiplier: 0 },
@@ -95,7 +81,7 @@ function ChapterThreeLevelFive() {
                     TNT: {
                         position: [Math.floor(screenWidth / 2), 220],
                         display: 'block',
-                        handlePosition: [-20, 0],
+                        handlePosition: [-22, 0],
                         renderer: <TNT />
                     },
                     explosion: {
@@ -152,14 +138,7 @@ function ChapterThreeLevelFive() {
                         renderer: <FireBtn />
                     }
                 }}
-                levelId={levelId}
-                lastAccuracy={lastAccuracy}
                 endGameData={endGameData}
-                lastHighscore={lastHighscore}
-                lastEarnedStars={lastEarnedStars}
-                isSoundOn={isSoundOn}
-                isSoundEffectsOn={isSoundEffectsOn}
-                isHapticsOn={isHapticsOn}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
             >
@@ -172,12 +151,6 @@ function ChapterThreeLevelFive() {
                     mapName={'Hinderance'}
                     levelNumber={5}
                 />
-                {isGameOver &&
-                    <EndGameModal
-                        endGameData={endGameData}
-                        nextLevelData={null}
-                    />
-                }
             </GameEngineWrapper>
         </ImageBackground>
     );

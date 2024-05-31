@@ -1,14 +1,15 @@
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import colors from '../../../constants/colors';
 
 
-const BaseModal = ({ children }) => {
+const BaseModal = ({ children, closeModal }) => {
     return (
-        <View style={styles.modalBackdrop}>
-            <View style={styles.modalContainer}>
+        <Pressable onPress={closeModal} style={styles.modalBackdrop}>
+            {/* This nested pressable prevents the modal from closing if modalContainer is touched */}
+            <Pressable onPress={() => { }} style={styles.modalContainer}>
                 {children}
-            </View>
-        </View>
+            </Pressable>
+        </Pressable>
     )
 }
 
@@ -39,5 +40,5 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         shadowOffset: { width: 1, height: 1 },
         shadowRadius: 5,
-    },
+    }
 })

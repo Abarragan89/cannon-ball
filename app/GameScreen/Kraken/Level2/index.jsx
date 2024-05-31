@@ -1,6 +1,5 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import GameEngineWrapper from "../../../../Components/GameEngine/GameEngineWrapper";
-import { useLocalSearchParams } from 'expo-router';
 import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
@@ -17,7 +16,6 @@ import Explosion from "../../../../Components/GameEngine/Explosion";
 import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
-import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
@@ -27,20 +25,8 @@ import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallS
 import smallSquareSystemThree from "../../../../systems/hinderanceDetection/smallSquareSystemThree";
 import krakenLevelTwo from "../../../../systems/krakenMovementSystems/krakenLevelTwo";
 import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
-import { getIndividualLevelData } from "../../../../utils/db/selectQueries";
 
 function ChapterFourLevelTwo() {
-    // Get Router Parameters
-    const {
-        levelId,
-        lastAccuracy,
-        lastHighscore,
-        lastEarnedStars,
-        isSoundOn,
-        isSoundEffectsOn,
-        isHapticsOn
-    } = useLocalSearchParams();
-
     const [isGameOver, setIsGameOver] = useState(false);
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -56,21 +42,7 @@ function ChapterFourLevelTwo() {
     // Angle Data
     const angleLevelRef = useRef(90);
     // Power Data
-    const powerLevelRef = useRef(15);
-
-    const [nextLevelData, setNextLevelData] = useState(null);
-    // Get next level information to pass as params in the 
-    // next level button in the end of game modal
-    useEffect(() => {
-        async function getNextLevelData() {
-            const mapName = endGameData.current.nextLevel.split('/')[0];
-            const link = endGameData.current.nextLevel.split('/')[1];
-            const nextLevel = await getIndividualLevelData(mapName, link)
-            setNextLevelData(nextLevel[0])
-        }
-        getNextLevelData();
-    }, []);
-
+    const powerLevelRef = useRef(30);
 
     return (
 
@@ -94,8 +66,6 @@ function ChapterFourLevelTwo() {
                 entities={{
                     cannonBall: {
                         position: [-100, 0],
-                        gradientColor: 'rgba(0, 0, 0, .75)',
-                        color: 'rgba(0, 0, 0, 1)',
                         velocity: [1, 1],
                         display: 'block',
                         accuracy: { name: '', float: 0, multiplier: 0 },
@@ -113,7 +83,7 @@ function ChapterFourLevelTwo() {
                     TNT: {
                         position: [250, screenHeight - 110],
                         display: 'block',
-                        handlePosition: [-20, 0],
+                        handlePosition: [-22, 0],
                         renderer: <TNT />
                     },
                     explosion: {
@@ -170,14 +140,7 @@ function ChapterFourLevelTwo() {
                         renderer: <FireBtn />
                     }
                 }}
-                levelId={levelId}
-                lastAccuracy={lastAccuracy}
                 endGameData={endGameData}
-                lastHighscore={lastHighscore}
-                lastEarnedStars={lastEarnedStars}
-                isSoundOn={isSoundOn}
-                isSoundEffectsOn={isSoundEffectsOn}
-                isHapticsOn={isHapticsOn}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
             >
@@ -190,12 +153,6 @@ function ChapterFourLevelTwo() {
                     mapName={'Kraken'}
                     levelNumber={2}
                 />
-                {isGameOver && nextLevelData &&
-                    <EndGameModal
-                        endGameData={endGameData}
-                        nextLevelData={nextLevelData}
-                    />
-                }
             </GameEngineWrapper>
         </ImageBackground>
     );

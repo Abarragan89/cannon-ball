@@ -1,7 +1,11 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { useState, useEffect, useRef } from 'react';
+import colors from "../../constants/colors";
+import { useLocalSearchParams } from 'expo-router';
 import { Audio } from 'expo-av';
 const screenHeight = Dimensions.get('window').height;
+import { getIndividualLevelData } from "../../db/selectQueries";
+import EndGameModal from '../../Components/GameEngine/EndGameModal';
 import { GameEngine } from "react-native-game-engine";
 import {
     updateLevelToPass,
@@ -9,7 +13,7 @@ import {
     updateLevelAccuracy,
     updateUserTotalPoints,
     updateLevelEarnedStars
-} from "../../utils/db/updateQueries";
+} from "../../db/updateQueries";
 
 const GameEngineWrapper = ({
     children,
@@ -18,17 +22,29 @@ const GameEngineWrapper = ({
     endGameData,
     isGameOver,
     setIsGameOver,
-    levelId,
-    lastAccuracy,
-    lastHighscore,
-    lastEarnedStars,
-    isSoundOn,
-    isSoundEffectsOn,
-    isHapticsOn
 }) => {
-    const [playBgMusic, setPlayBgMusic] = useState(true)
-    const [newEntities, setNewEntities] = useState(entities)
-    const [isSoundLoaded, setIsSoundLoaded] = useState(false)
+
+    // Get Router Parameters
+    const {
+        levelId,
+        lastAccuracy,
+        lastHighscore,
+        lastEarnedStars,
+        isSoundOn,
+        isSoundEffectsOn,
+        isHapticsOn,
+        cannonBallColor,
+        cannonBallGradientClr,
+        cannonBallBounce,
+        cannonBallWeight,
+        cannonBallSize,
+        cannonColor,
+        cannonPower
+    } = useLocalSearchParams();
+
+    const [playBgMusic, setPlayBgMusic] = useState(true);
+    const [newEntities, setNewEntities] = useState(entities);
+    const [isSoundLoaded, setIsSoundLoaded] = useState(false);
 
     const sounds = useRef({
         shootCannonSound: null,
@@ -77,12 +93,12 @@ const GameEngineWrapper = ({
                 //  DOWNLOAD ALL AUDIO FILES
                 const { sound: shootCannonSound } = await Audio.Sound.createAsync(require('../../assets/sounds/cannonShot.mp3'));
                 const { sound: tntExplosionSound } = await Audio.Sound.createAsync(require('../../assets/sounds/hugeExplosion.wav'));
-                const { sound: backgroundMusicSound } = await Audio.Sound.createAsync(require('../../assets/sounds/backgroundMusic.mp3'), { volume: 0.4 });
+                const { sound: backgroundMusicSound } = await Audio.Sound.createAsync(require('../../assets/sounds/backgroundMusic.mp3'), { volume: 0.1 });
                 const { sound: tntHandleClickSound } = await Audio.Sound.createAsync(require('../../assets/sounds/tntHandleClick.wav'));
                 const { sound: cannonBallBounceSound } = await Audio.Sound.createAsync(require('../../assets/sounds/cannonBallBounce.wav'));
                 const { sound: tntCannonBallHitSound } = await Audio.Sound.createAsync(require('../../assets/sounds/woodHit.wav'));
                 const { sound: cannonBallHitSandSound } = await Audio.Sound.createAsync(require('../../assets/sounds/cannonBallHitsBottom.wav'));
-                const { sound: backgroundWaveSound } = await Audio.Sound.createAsync(require('../../assets/sounds/backgroundWaves.wav'), { volume: 0.4 });
+                const { sound: backgroundWaveSound } = await Audio.Sound.createAsync(require('../../assets/sounds/backgroundWaves.wav'), { volume: 0.1 });
 
                 // SET AUDIO FILES IN REF VARIABLES
                 sounds.current = {
@@ -95,7 +111,7 @@ const GameEngineWrapper = ({
                     cannonBallHitSandSound,
                     backgroundWaveSound,
                 }
-                
+
                 // add the sounds and game Data
                 setNewEntities(prev => ({
                     ...prev,
@@ -105,11 +121,33 @@ const GameEngineWrapper = ({
                         setPlayBgMusic: setPlayBgMusic,
                         isGameOver: false,
                         setIsGameOver: setIsGameOver,
-                        bounceLevel: 0.8,
+                        bounceLevel: cannonBallBounce,
                         isSoundEffectsOn: isSoundEffectsOn,
-                        isHapticsOn: isHapticsOn
-
+                        isHapticsOn: isHapticsOn,
                     },
+                    cannonBall: {
+                        ...prev.cannonBall,
+                        cannonBallRadius: cannonBallSize,
+                        cannonBallWeight: cannonBallWeight,
+                        color: cannonBallColor,
+                        gradientColor: cannonBallGradientClr,
+                    },
+                    explosion: {
+                        ...prev.explosion,
+                        ballColor: cannonBallColor
+                    },
+                    cannon: {
+                        ...prev.cannon,
+                        tipColor: colors[cannonColor].tip,
+                        barrelColor: colors[cannonColor].barrel,
+                        cannonBaseColor: colors[cannonColor].cannonBase,
+                        cannonBallBolt: colors[cannonColor].cannonBallBolt,
+                        cannonBallBoltHighlight: colors[cannonColor].cannonBallBoltHighlight,
+                        wheelColor: colors[cannonColor].wheelColor,
+                        wheelColorHighlight: colors[cannonColor].wheelColorHighlight,
+                        cannonPower: cannonPower
+                    }
+
                 }));
                 setIsSoundLoaded(true)
             } catch (e) {
@@ -129,7 +167,7 @@ const GameEngineWrapper = ({
             sounds.current.cannonBallHitSandSound.unloadAsync();
             sounds.current.tntHandleClickSound.unloadAsync();
         }
-    }, [])
+    }, []);
 
     //////////// BACKEND UPDATE /////////////////////
     useEffect(() => {
@@ -172,13 +210,43 @@ const GameEngineWrapper = ({
     }, [isGameOver, endGameData.current])
 
 
+    const [nextLevelData, setNextLevelData] = useState(null);
+    // Get next level information to pass as params in the 
+    // next level button in the end of game modal
+    useEffect(() => {
+        async function getNextLevelData() {
+            const mapName = endGameData.current.nextLevel.split('/')[0];
+            const link = endGameData.current.nextLevel.split('/')[1];
+            const nextLevel = await getIndividualLevelData(mapName, link)
+            setNextLevelData(nextLevel[0])
+        }
+        getNextLevelData();
+    }, [])
+
+
     return (
         <>
             {isSoundLoaded &&
                 <GameEngine
                     style={styles.container}
                     systems={systems}
-                    entities={newEntities}>
+                    entities={newEntities}
+                >
+                    {isGameOver && nextLevelData &&
+                        <EndGameModal
+                            endGameData={endGameData}
+                            nextLevelData={levelId === '5' ? null : nextLevelData}
+                            cannonBallColor={cannonBallColor}
+                            cannonBallGradientClr={cannonBallGradientClr}
+                            cannonBallBounce={cannonBallBounce}
+                            cannonBallWeight={cannonBallWeight}
+                            cannonBallSize={cannonBallSize}
+                            isSoundOn={isSoundOn}
+                            isSoundEffectsOn={isSoundEffectsOn}
+                            isHapticsOn={isHapticsOn}
+                            cannonColor={cannonColor}
+                        />
+                    }
                     {children}
                 </GameEngine>
             }

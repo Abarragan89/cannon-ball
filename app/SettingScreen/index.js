@@ -14,12 +14,12 @@ import Title from "../../Components/UI/Title";
 import colors from "../../constants/colors";
 import Card from "../../Components/UI/Card";
 import CannonBallDisplay from "../../Components/UI/CannonBallDisplay";
-import { getUserDataPreferences } from "../../utils/db/selectQueries";
+import { getUserDataPreferences } from "../../db/selectQueries";
 import {
     updateUserMusicPref,
     updateUserSoundEfxPref,
-    updateUserHapticsPref
-} from "../../utils/db/updateQueries";
+    updateUserHapticsPref,
+} from "../../db/updateQueries";
 
 
 const SettingScreen = () => {
@@ -28,9 +28,6 @@ const SettingScreen = () => {
     const [isSoundEfxOn, setIsSoundEfxOn] = useState(null);
     const [isHapticOn, setIsHapticOn] = useState(null);
     const [preferencesGathered, setPreferencesGathered] = useState(false);
-    const [currentCannonBall, setCurrentCannonBall] = useState({ gradientColor: 'white', color: 'black' });
-    const imageArray = ['red', 'orange', 'yellow', 'green', 'purple'];
-
 
     async function handleMusicPref(value) {
         try {
@@ -52,7 +49,6 @@ const SettingScreen = () => {
         setIsSoundEfxOn(value);
     }
 
-
     async function handleHapticsPref(value) {
         try {
             const intValue = value === true ? 1 : 0;
@@ -61,11 +57,11 @@ const SettingScreen = () => {
             console.log('error updating Haptics preference ', error)
         }
         setIsHapticOn(value);
-    }
+    };
 
-    // Get user preferences
+    // Get user preferences and purchased cannonBalls
     useEffect(() => {
-        async function getUserPreferences() {
+        async function getUserPreferencesAndCannonBalls() {
             try {
                 // only one item in the array so we can destructure
                 const [userPref] = await getUserDataPreferences(1)
@@ -77,9 +73,8 @@ const SettingScreen = () => {
                 console.log('error getting user pref in settings ', error)
             }
         }
-        getUserPreferences();
+        getUserPreferencesAndCannonBalls();
     }, [])
-
 
     return (
         <>
@@ -88,7 +83,7 @@ const SettingScreen = () => {
                     source={require('../../assets/images/screenWoodBg.png')}
                     style={styles.rootContainer}
                 >
-                    <StatusBar barStyle='light-content' />
+                    <StatusBar hidden={true} />
                     <View style={styles.backIcon}>
                         <BackArrow />
                     </View>
@@ -129,35 +124,6 @@ const SettingScreen = () => {
                                 />
                             </View>
                         </Card>
-                        {/* Cannon Ball Card */}
-                        <Card
-                            title={'Cannon Ball'}
-                        >
-                            <View style={styles.cannonOptionRootContainer}>
-                                <View style={[styles.cannonBallContainer, styles.currentCannonBall]}>
-                                    <CannonBallDisplay
-                                        color={currentCannonBall.color}
-                                        gradientColor={currentCannonBall.gradientColor}
-                                        size={45}
-                                    />
-                                </View>
-                                <ScrollView horizontal={true}>
-                                    <View style={styles.possibleCannonOptions}>
-                                        {imageArray.map((img, index) =>
-                                            <Pressable key={index} onPress={() => setCurrentCannonBall({ color: img, gradientColor: 'white' })}>
-                                                <View style={[styles.cannonBallContainer, styles.possibleCannonBallContainer]}>
-                                                    <CannonBallDisplay
-                                                        color={img}
-                                                        gradientColor={'white'}
-                                                        size={35}
-                                                    />
-                                                </View>
-                                            </Pressable>
-                                        )}
-                                    </View>
-                                </ScrollView>
-                            </View>
-                        </Card>
                     </View>
                 </ImageBackground>
             }
@@ -172,17 +138,15 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0,
         bottom: 0,
-        left: 0, 
+        left: 0,
         right: 0,
-        paddingTop: 15
+        paddingTop: 5
     },
     backIcon: {
         zIndex: 2
     },
     cardContainer: {
-        marginTop: 5,
-        justifyContent: 'space-evenly',
-        flexDirection: 'row'
+        alignItems: 'center'
     },
     labelAndInputRow: {
         flexDirection: 'row',
@@ -193,31 +157,5 @@ const styles = StyleSheet.create({
         fontFamily: 'textFont',
         fontSize: 23,
         color: colors.offWhite
-    },
-    cannonOptionRootContainer: {
-        alignItems: 'center',
-    },
-    cannonBallContainer: {
-        alignItems: 'center',
-        borderWidth: 1,
-        width: 60,
-        borderColor: colors.primaryBlack,
-        borderRadius: 8,
-        padding: 5
-    },
-    currentCannonBall: {
-        borderColor: colors.goldStar,
-        borderWidth: 2
-    },
-    possibleCannonOptions: {
-        marginTop: 10,
-        flexDirection: 'row',
-    },
-    possibleCannonBallContainer: {
-        margin: 10,
-    },
-    image: {
-        width: 50,
-        height: 50,
     },
 })

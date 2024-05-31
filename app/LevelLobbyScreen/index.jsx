@@ -6,21 +6,27 @@ import colors from '../../constants/colors';
 import BackArrow from '../../Components/UI/BackArrow';
 import WinningScoresDisplay from '../../Components/UI/WinningScoresDisplay';
 import LevelTile from '../../Components/LevelTile';
-import { getAllLevelDataInMap } from '../../utils/db/selectQueries';
-import { getUserDataPreferences } from '../../utils/db/selectQueries';
+import {
+    getAllLevelDataInMap,
+    getUserDataPreferences,
+    getUserCannonBalls,
+    getUserCannons
+} from '../../db/selectQueries';
 
 const LevelLobbyScreen = () => {
     const { mapName } = useLocalSearchParams();
     const [currentLevelData, setCurrentLevelData] = useState([]);
     const [winningStarLimits, setWinningStarLimits] = useState(null);
-    const [userPreferences, setUserPreferences] = useState(null)
+    const [userPreferences, setUserPreferences] = useState(null);
+    const [currentCannonBall, setCurrentCannonBall] = useState({});
+    const [currentCannon, setCurrentCannon] = useState({})
 
-    // Set winning stars
     useEffect(() => {
+        // Set winning stars
         function setWinningStars() {
             switch (mapName) {
                 case 'Basics':
-                    setWinningStarLimits([500, 2000, 4000]);
+                    setWinningStarLimits([100, 2000, 4000]);
                     break;
                 case 'Marks':
                     setWinningStarLimits([250, 500, 1000]);
@@ -34,29 +40,38 @@ const LevelLobbyScreen = () => {
                     break;
             }
         }
-        // get all level data
+        // Get all level data
         async function getLevelData() {
             const levelData = await getAllLevelDataInMap(1, mapName);
             setCurrentLevelData(levelData)
         }
+
         if (mapName) {
             getLevelData();
             setWinningStars();
         };
     }, [mapName]);
 
-    // Get user preferences 
+    // Get user preferences and current cannonBall
     useEffect(() => {
         async function getUserPreferences() {
             try {
                 // only one item in the array so we can destructure
                 const [userPref] = await getUserDataPreferences(1)
                 setUserPreferences(userPref)
+                // get the current cannonBall
+                const cannonBalls = await getUserCannonBalls(1);
+                const [currentBall] = cannonBalls.filter(cannonBall => cannonBall.name === userPref.currentCannonBallName)
+                setCurrentCannonBall(currentBall)
+                // get the current cannon (need to power)
+                const cannons = await getUserCannons(1);
+                const [currentCannon] = cannons.filter(cannon => cannon.name === userPref.currentCannonName)
+                setCurrentCannon(currentCannon)
             } catch (error) {
                 console.log('error getting user pref in level lobby ', error)
             }
         }
-        getUserPreferences(); 
+        getUserPreferences();
     }, [])
 
     return (
@@ -72,7 +87,7 @@ const LevelLobbyScreen = () => {
                     />
                 </View>
                 <ScrollView>
-                    {mapName && currentLevelData && winningStarLimits && userPreferences && 
+                    {currentLevelData && userPreferences && currentCannonBall &&
                         <View style={styles.root}>
                             <View style={styles.titleContainer}>
                                 <Title color={colors.offWhite} size={50}>{mapName}</Title>
@@ -90,8 +105,14 @@ const LevelLobbyScreen = () => {
                                                 lastEarnedStars: item.earnedStars,
                                                 isSoundOn: userPreferences.isSoundOn,
                                                 isSoundEffectsOn: userPreferences.isSoundEffectsOn,
-                                                isHapticsOn: userPreferences.isHapticsOn
-
+                                                isHapticsOn: userPreferences.isHapticsOn,
+                                                cannonBallColor: currentCannonBall.color,
+                                                cannonBallGradientClr: currentCannonBall.gradientColor,
+                                                cannonBallBounce: currentCannonBall.bounce,
+                                                cannonBallWeight: currentCannonBall.weight,
+                                                cannonBallSize: currentCannonBall.size,
+                                                cannonColor: currentCannon.name,
+                                                cannonPower: currentCannon.power
                                             }}
                                             isLocked={item.isOpen}
                                             accuracy={item.accuracy}

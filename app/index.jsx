@@ -10,7 +10,7 @@ import { Dimensions } from "react-native";
 const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
 const bgImage = require('../assets/images/homeScreenImg.png')
 const { height } = Dimensions.get('screen');
-import { initDB, getPreferences } from "../utils/db/init";
+import { initDB } from "../db/init";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,7 +23,6 @@ const Home = () => {
   const onLayoutRootView = useCallback(async () => {
     if ((fontsLoaded || fontError) && bgImage && mainBtnImgSrc) {
       await initDB();
-      await getPreferences();
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded, fontError, bgImage, mainBtnImgSrc]);
@@ -34,7 +33,7 @@ const Home = () => {
 
   return (
     <>
-      <StatusBar barStyle='light-content' />
+      <StatusBar hidden={true} />
       {mainBtnImgSrc && bgImage &&
         <ImageBackground
           source={bgImage}
@@ -67,8 +66,15 @@ const Home = () => {
             </MainButton>
           </View>
           <CannonLauncher
-            position={[80, height - 100]}
+            position={[80, height - 105]}
             rotate={'-50deg'}
+            barrelColor={colors.Classic.barrel}
+            tipColor={colors.Classic.tip}
+            cannonBaseColor={colors.Classic.cannonBase}
+            cannonBallBolt={colors.Classic.cannonBallBolt}
+            cannonBallBoltHighlight={colors.Classic.cannonBallBoltHighlight}
+            wheelColor={colors.Classic.wheelColor}
+            wheelColorHighlight={colors.Classic.wheelColorHighlight}
           />
         </ImageBackground>
       }

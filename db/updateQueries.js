@@ -67,7 +67,7 @@ export async function updateUserTotalPoints(points) {
         const myData = await db.runAsync(`
             UPDATE users
             SET totalPoints = totalPoints + ${points} 
-            WHERE users.id=1;
+            WHERE id=1;
         `)
         return myData;
     } catch (error) {
@@ -131,3 +131,86 @@ export async function updateUserHapticsPref(userId, isOn) {
         console.log('error in updating Haptics ', error)
     }
 };
+
+// UPDATE USER'S CURRENT EQUIPPED CANNON BALL
+export async function updateUserCurrentCannonBall(userId, cannonBallName) {
+    const db = await openDatabaseConnection();
+    try {
+        const myData = await db.runAsync(`
+            UPDATE preferences 
+            SET currentCannonBallName = ?
+            WHERE id = (
+                SELECT preferenceId 
+                FROM users 
+                WHERE id = ?
+            );
+        `, [cannonBallName, userId])
+        return myData;
+    } catch (error) {
+        console.log('error in updating current cannonBall ', error)
+    }
+};
+
+// UPDATE USER'S OWNED EQUIPPED CANNON BALL
+export async function updateUserCannonBallSet(cannonBallId) {
+    const db = await openDatabaseConnection();
+    try {
+        const myData = await db.runAsync(`
+            UPDATE cannonBalls 
+            SET isOwned = 1
+            WHERE id = ?;
+        `, [cannonBallId])
+        return myData;
+    } catch (error) {
+        console.log('error in updating current cannonBall ', error)
+    }
+};
+
+// UPDATE USER'S CURRENT EQUIPPED CANNON
+export async function updateUserCurrentCannon(userId, cannonName) {
+    const db = await openDatabaseConnection();
+    try {
+        const myData = await db.runAsync(`
+            UPDATE preferences 
+            SET currentCannonName = ?
+            WHERE id = (
+                SELECT preferenceId 
+                FROM users 
+                WHERE id = ?
+            );
+        `, [cannonName, userId])
+        return myData;
+    } catch (error) {
+        console.log('error in updating current cannonBall ', error)
+    }
+};
+
+// UPDATE USER'S OWNED EQUIPPED CANNON
+export async function updateUserCannonSet(cannonId) {
+    const db = await openDatabaseConnection();
+    try {
+        const myData = await db.runAsync(`
+            UPDATE cannons
+            SET isOwned = 1
+            WHERE id = ?;
+        `, [cannonId])
+        return myData;
+    } catch (error) {
+        console.log('error in updating current cannonBall ', error)
+    }
+};
+
+// UPDATE USER COINS
+export async function updateUserCoins(userId, purchaseAmount) {
+    const db = await openDatabaseConnection();
+    try {
+        const myData = await db.runAsync(`
+            UPDATE users 
+            SET totalPoints = totalPoints - ?
+            WHERE id = ?;
+        `, [purchaseAmount, userId])
+        return myData;
+    } catch (error) {
+        console.log('error in updating current cannonBall ', error)
+    }
+}

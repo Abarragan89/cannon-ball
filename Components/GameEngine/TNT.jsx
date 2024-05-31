@@ -12,7 +12,6 @@ function TNT({ position, handlePosition, display }) {
             <View style={[styles.root, { left: x, top: y }]}>
                 <Text style={[styles.tntHandle, { top: handlePosition[0], right: handlePosition[1] }]}>T</Text>
                 <View style={[styles.boxStyles, {display: display, width: WIDTH, height: HEIGHT}]}>
-                    {/* <Image style={{ width: WIDTH, height: HEIGHT}} source={require('../../assets/images/TNTBox.png')} /> */}
                     <Text style={styles.text}>TNT</Text>
                 </View>
             </View>
@@ -41,8 +40,9 @@ const styles = StyleSheet.create({
     },
     tntHandle: {
         position: 'absolute',
-        fontSize: 30,
-        left: 5.5,
+        fontSize: 27,
+        // fontWeight: 'bold',
+        left: 6.5,
     },
     text: {
         color: 'yellow',

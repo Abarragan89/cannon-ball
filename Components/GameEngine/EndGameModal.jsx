@@ -5,7 +5,19 @@ import SecondaryButton from '../UI/SecondaryButton';
 import { Fontisto } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 
-const EndGameModal = ({ endGameData, nextLevelData }) => {
+const EndGameModal = ({
+    endGameData,
+    nextLevelData,
+    cannonBallColor,
+    cannonBallGradientClr,
+    cannonBallBounce,
+    cannonBallWeight,
+    cannonBallSize,
+    isSoundOn,
+    isSoundEffectsOn,
+    isHapticsOn,
+    cannonColor
+}) => {
     const finalScore = (endGameData.current.airTime + endGameData.current.bounces) * endGameData.current.multiplier
 
     return (
@@ -63,6 +75,15 @@ const EndGameModal = ({ endGameData, nextLevelData }) => {
                                 lastAccuracy: nextLevelData.accuracy,
                                 lastHighscore: nextLevelData.highscore,
                                 lastEarnedStars: nextLevelData.earnedStars,
+                                cannonBallColor,
+                                cannonBallGradientClr,
+                                cannonBallBounce,
+                                cannonBallWeight,
+                                cannonBallSize,
+                                isSoundOn,
+                                isSoundEffectsOn,
+                                isHapticsOn,
+                                cannonColor
                             }}
                         >Next Level</SecondaryButton>
                     }

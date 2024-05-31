@@ -40,11 +40,11 @@ const cannonControlSystem = (entities, { touches }) => {
         // Control the POWER and the ANGLE
         let currentPower = entities.powerMeter.displayPower;
         let currentAngle = entities.angleMeter.angleLevel;
-        const angleSensitivity = 0.08;
+        const angleSensitivity = 0.05;
         const powerSensitiviy = 0.05
         
         // Interpolate power changes based on vertical movement
-        const powerChange = -deltaY * powerSensitiviy;
+        const powerChange = (-deltaY / 1.3) * powerSensitiviy;
         entities.powerMeter.displayPower = Math.max(0, Math.min(75, currentPower + powerChange));
         
         // Interpolate angle changes based on horizontal movement

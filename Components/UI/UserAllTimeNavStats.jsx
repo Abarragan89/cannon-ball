@@ -3,14 +3,12 @@ import { useEffect, useState } from 'react';
 import colors from '../../constants/colors';
 import { Fontisto } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
-import { getUserTotalPoints, getTotalStars } from '../../utils/db/selectQueries';
+import { getUserTotalPoints, getTotalStars } from '../../db/selectQueries';
 
-const UserAllTimeNavStats = () => {
+const UserAllTimeNavStats = ({ refresh }) => {
 
   const [totalPoints, setTotalPoints] = useState(null);
   const [totalStars, setTotalStars] = useState(null);
-
-
 
   useEffect(() => {
     async function getUserData() {
@@ -21,7 +19,7 @@ const UserAllTimeNavStats = () => {
       setTotalStars(totalStars[0])
     }
     getUserData();
-  }, [])
+  }, [refresh])
 
   return (
     <>
@@ -32,8 +30,8 @@ const UserAllTimeNavStats = () => {
             <FontAwesome6 name="hockey-puck" size={16} color={colors.winningStar} />
           </View>
           <View style={styles.textContainer}>
-              <Text style={styles.statsText}>{totalStars.totalMapStars} /</Text>
-              <Text style={styles.statsText}>75 </Text>
+            <Text style={styles.statsText}>{totalStars.totalMapStars} /</Text>
+            <Text style={styles.statsText}>75 </Text>
             <Fontisto name="star" size={15} color={colors.winningStar} />
           </View>
         </View>

@@ -1,5 +1,6 @@
 import { Dimensions } from 'react-native';
 import * as Haptics from 'expo-haptics';
+import cannonBallBounce from '../utils/cannonBallBounce';
 const { width, height } = Dimensions.get('window')
 
 const fireBtnPos = {
@@ -14,119 +15,101 @@ const fireBtnPos = {
 }
 
 const fireCannonSystem = (entities, { touches }) => {
-
   function shootCannonBall() {
-    // set the gravity, angle and power before launch
-    const GRAVITY = .05;
+    // set the gravity, angle, and power before launch
+    const GRAVITY = +entities.cannonBall.cannonBallWeight;
     if (entities.cannonBall.isBallMoving) {
       // Update the X and Y based on the arc velocity
       entities.cannonBall.position[0] += entities.cannonBall.velocity[0]
       entities.cannonBall.position[1] += entities.cannonBall.velocity[1]
-      // Increase gravity to slowly bring ball back down. 
-      entities.cannonBall.velocity[1] += GRAVITY
+      // Increase gravity to slowly bring ball back down.
+      if (entities.cannonBall.velocity[1] < 8.5) {
+        entities.cannonBall.velocity[1] += GRAVITY
+      } 
     }
   }
 
   function wallDetection() {
-    // if hits bottom
-    if (entities.cannonBall.position[1] > height - 34) {
-      // only play sound once when isBallMoving is still true
-      if (entities.cannonBall.isBallMoving) {
-        if (entities.gameData.isSoundEffectsOn > 0) {
-          try {
-            entities.sounds.cannonBallHitSandSound.replayAsync()
-          } catch (error) {
-            console.log('error in replay hit sand sound ', error)
-          }
-        }
-      };
-      entities.cannonBall.isBallMoving = false;
-      entities.headerStats.bounces = 0;
-      // reset the fire button UI
-      entities.fireBtn.isShooting = false;
-
-
-      /////////// THIS TRIGGERS THE WIN SEQUENCE IF HITS BOTTOM FOR TESTING PURPOSES /////////
-      ////////////// ERASE THIS ///////////////////////////
-      // entities.gameData.isGameOver = true;
-      // entities.gameData.setIsGameOver(true);
-
-      // // coordinates for the bottom of the ball
-      // const ballXCoord = entities.cannonBall.position[0] + 10;
-      // const ballYCoord = entities.cannonBall.position[1] + 20;
-
-      // // coordinate for the top center of the TNT
-      // const tntXCoord = entities.TNT.position[0] + 15;
-      // const tntYCoord = entities.TNT.position[1] - 2;
-
-      // // calculate the length of both sides
-      // const triangleASide = Math.abs(ballXCoord - tntXCoord);
-      // const triangeBSide = Math.abs(ballYCoord - tntYCoord);
-
-      // const accuracyAmount = (Math.sqrt(triangleASide ** 2 + triangeBSide ** 2)).toFixed(2);
-
-      // if (accuracyAmount >= 15) {
-      //   entities.cannonBall.accuracy =
-      //   {
-      //     name: 'Good Shot',
-      //     float: accuracyAmount,
-      //     multiplier: 2,
-
-      //   }
-      // } else if (accuracyAmount >= 5) {
-      //   entities.cannonBall.accuracy =
-      //   {
-      //     name: 'Great Shot!',
-      //     float: accuracyAmount,
-      //     multiplier: 3,
-      //   }
-      // } else {
-      //   entities.cannonBall.accuracy =
-      //   {
-      //     name: 'Perfect Shot!!!',
-      //     float: accuracyAmount,
-      //     multiplier: 5,
-      //   }
-      // }
-
-      // // pass all the relevant data to end game modal
-      // entities.gameData.endGameData.current.accuracyFloat = entities.cannonBall.accuracy.float;
-      // entities.gameData.endGameData.current.accuracyName = entities.cannonBall.accuracy.name;
-      // entities.gameData.endGameData.current.multiplier = entities.cannonBall.accuracy.multiplier
-      // entities.gameData.endGameData.current.airTime = entities.headerStats.airTime;
-      // entities.gameData.endGameData.current.bounces = entities.headerStats.bounces + 1;
-
-      // /////////////////////////////////////////////////////////////
-
-
-
-    }
-    // if hits right wall
-    if (entities.cannonBall.position[0] > width - 14) {
-      if (!entities.gameData.isGameOver) entities.headerStats.bounces += 1;
-      if (entities.gameData.isSoundEffectsOn > 0) {
-        try {
-          entities.sounds.cannonBallBounceSound.replayAsync();
-        } catch (error) {
-          console.log('error in ball bounce sound ', error)
+    if (entities.cannonBall.isBallMoving) {
+      // if hits bottom
+      if (entities.cannonBall.position[1] > height - 34) {
+        // only play sound once when isBallMoving is still true
+        cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallHitSandSound', entities.headerStats, entities.cannonBall, 0)
+        // End the Game and reset critical variables
+        entities.cannonBall.isBallMoving = false;
+        entities.headerStats.bounces = 0;
+        // resets the fire button UI
+        entities.fireBtn.isShooting = false;
+      }
+      // if hits right wall
+      if (entities.cannonBall.position[0] > width - 14) {
+        if (entities.cannonBall.velocity[0] > 0) {
+          cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallBounceSound', entities.headerStats, entities.cannonBall, 0)
         }
       }
-      entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
-    }
-    // if hits left wall
-    // I need to also make sure it is not -100 because that is the starting position off screen
-    if (entities.cannonBall.position[0] < 0 && entities.cannonBall.position[0] !== -100) {
-      if (!entities.gameData.isGameOver) entities.headerStats.bounces += 1;
-      if (entities.gameData.isSoundEffectsOn > 0) {
-        try {
-          entities.sounds.cannonBallBounceSound.replayAsync();
-        } catch (error) {
-          console.log('error in ball bounce sound ', error)
+      // if hits left wall
+      // I need to also make sure it is not -100 because that is the starting position off screen
+      if (entities.cannonBall.position[0] < 0 && entities.cannonBall.position[0] !== -100) {
+        if (entities.cannonBall.velocity[0] < 0) {
+          cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallBounceSound', entities.headerStats, entities.cannonBall, 0)
         }
       }
-      entities.cannonBall.velocity[0] = -entities.cannonBall.velocity[0]
     }
+
+
+    /////////// THIS TRIGGERS THE WIN SEQUENCE IF HITS BOTTOM FOR TESTING PURPOSES /////////
+    ////////////// ERASE THIS ///////////////////////////
+    // entities.gameData.isGameOver = true;
+    // entities.gameData.setIsGameOver(true);
+
+    // // coordinates for the bottom of the ball
+    // const ballXCoord = entities.cannonBall.position[0] + 10;
+    // const ballYCoord = entities.cannonBall.position[1] + 20;
+
+    // // coordinate for the top center of the TNT
+    // const tntXCoord = entities.TNT.position[0] + 15;
+    // const tntYCoord = entities.TNT.position[1] - 2;
+
+    // // calculate the length of both sides
+    // const triangleASide = Math.abs(ballXCoord - tntXCoord);
+    // const triangeBSide = Math.abs(ballYCoord - tntYCoord);
+
+    // const accuracyAmount = (Math.sqrt(triangleASide ** 2 + triangeBSide ** 2)).toFixed(2);
+
+    // if (accuracyAmount >= 15) {
+    //   entities.cannonBall.accuracy =
+    //   {
+    //     name: 'Good Shot',
+    //     float: accuracyAmount,
+    //     multiplier: 2,
+
+    //   }
+    // } else if (accuracyAmount >= 5) {
+    //   entities.cannonBall.accuracy =
+    //   {
+    //     name: 'Great Shot!',
+    //     float: accuracyAmount,
+    //     multiplier: 3,
+    //   }
+    // } else {
+    //   entities.cannonBall.accuracy =
+    //   {
+    //     name: 'Perfect Shot!!!',
+    //     float: accuracyAmount,
+    //     multiplier: 5,
+    //   }
+    // }
+
+    // // pass all the relevant data to end game modal
+    // entities.gameData.endGameData.current.accuracyFloat = entities.cannonBall.accuracy.float;
+    // entities.gameData.endGameData.current.accuracyName = entities.cannonBall.accuracy.name;
+    // entities.gameData.endGameData.current.multiplier = entities.cannonBall.accuracy.multiplier
+    // entities.gameData.endGameData.current.airTime = entities.headerStats.airTime;
+    // entities.gameData.endGameData.current.bounces = entities.headerStats.bounces + 1;
+
+    // /////////////////////////////////////////////////////////////
   }
+
 
   function showFollowArrowDetection() {
     // Offscreen Detection
@@ -185,12 +168,16 @@ const fireCannonSystem = (entities, { touches }) => {
         // set isBallMoving to true
         entities.cannonBall.isBallMoving = true;
         if (entities.gameData.isHapticsOn > 0) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
-        // set initial coordinates to be where the cannon tip is located
-        entities.cannonBall.position[0] = entities.cannon.position[0] + 23;
+        // set initial coordinates to be where the cannon base is located
+        // calibrate exit point based on cannonball size
+        const cannonBallSizeCalibration = 13 - entities.cannonBall.cannonBallRadius
+        entities.cannonBall.position[0] = entities.cannon.position[0] + 20 + cannonBallSizeCalibration
         entities.cannonBall.position[1] = entities.cannon.position[1] + 40;
+        
         // set the POWER and ANGLE  settings
         let ANGLE = entities.angleMeter.angleLevel;
-        let POWER = entities.powerMeter.displayPower;
+        // Multiply the power by the weight
+        let POWER = entities.powerMeter.displayPower * entities.cannon.cannonPower;
         const angleInRadians = (ANGLE * Math.PI) / 180;
         // set the velocity
         entities.cannonBall.velocity[0] = POWER * Math.cos(angleInRadians) * 0.195;
