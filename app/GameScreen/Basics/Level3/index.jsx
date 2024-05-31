@@ -25,7 +25,7 @@ function ChatperOneLevelThree() {
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
-        winningScore: [500, 2000, 4000],
+        winningScore: [100, 2000, 4000],
         airTime: 0,
         bounces: 0,
         multiplier: 0,

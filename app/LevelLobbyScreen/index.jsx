@@ -26,7 +26,7 @@ const LevelLobbyScreen = () => {
         function setWinningStars() {
             switch (mapName) {
                 case 'Basics':
-                    setWinningStarLimits([500, 2000, 4000]);
+                    setWinningStarLimits([100, 2000, 4000]);
                     break;
                 case 'Marks':
                     setWinningStarLimits([250, 500, 1000]);
