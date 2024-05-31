@@ -1,4 +1,12 @@
 import { StyleSheet, Dimensions } from "react-native";
+import CannonBall from "./CannonBall";
+import CannonLauncher from "./CannonLauncher";
+import HeaderStats from "./HeaderStats";
+import AngleMeter from "./AngleMeter";
+import PowerMeter from "./ PowerMeter";
+import FireBtn from "./FireBtn";
+import FollowArrow from "./FollowArrow";
+import Explosion from "./Explosion";
 import { useState, useEffect, useRef } from 'react';
 import colors from "../../constants/colors";
 import { useLocalSearchParams } from 'expo-router';
@@ -45,6 +53,16 @@ const GameEngineWrapper = ({
     const [playBgMusic, setPlayBgMusic] = useState(true);
     const [newEntities, setNewEntities] = useState(entities);
     const [isSoundLoaded, setIsSoundLoaded] = useState(false);
+
+    // Angle Data
+    const angleLevelRef = useRef(90)
+    // Power Data
+    const powerLevelRef = useRef(30)
+
+    // works with ruby cannonBall
+    // const angleLevelRef = useRef(95)
+    // // Power Data
+    // const powerLevelRef = useRef(56.5)
 
     const sounds = useRef({
         shootCannonSound: null,
@@ -126,18 +144,28 @@ const GameEngineWrapper = ({
                         isHapticsOn: isHapticsOn,
                     },
                     cannonBall: {
-                        ...prev.cannonBall,
+                        position: [-100, 0],
+                        velocity: [1, 1],
+                        display: 'block',
+                        accuracy: { name: '', float: 0, multiplier: 0 },
+                        isBallMoving: false,
                         cannonBallRadius: cannonBallSize,
                         cannonBallWeight: cannonBallWeight,
                         color: cannonBallColor,
                         gradientColor: cannonBallGradientClr,
+                        renderer: <CannonBall />
                     },
                     explosion: {
-                        ...prev.explosion,
-                        ballColor: cannonBallColor
+                        position: [0, 0],
+                        ballPosition: [0, 0],
+                        ballColor: '#000000',
+                        startAnimation: false,
+                        ballColor: cannonBallColor,
+                        renderer: <Explosion />
                     },
                     cannon: {
                         ...prev.cannon,
+                        rotate: '-90deg',
                         tipColor: colors[cannonColor].tip,
                         barrelColor: colors[cannonColor].barrel,
                         cannonBaseColor: colors[cannonColor].cannonBase,
@@ -145,7 +173,30 @@ const GameEngineWrapper = ({
                         cannonBallBoltHighlight: colors[cannonColor].cannonBallBoltHighlight,
                         wheelColor: colors[cannonColor].wheelColor,
                         wheelColorHighlight: colors[cannonColor].wheelColorHighlight,
-                        cannonPower: cannonPower
+                        cannonPower: cannonPower,
+                        renderer: <CannonLauncher />
+                    },
+                    followArrow: {
+                        leftPosition: 300,
+                        displayStatus: 'none',
+                        renderer: <FollowArrow />
+                    },
+                    headerStats: {
+                        airTime: 0,
+                        bounces: 0,
+                        renderer: <HeaderStats />
+                    },
+                    angleMeter: {
+                        angleLevel: angleLevelRef.current,
+                        renderer: <AngleMeter />
+                    },
+                    powerMeter: {
+                        displayPower: powerLevelRef.current,
+                        renderer: <PowerMeter />
+                    },
+                    fireBtn: {
+                        isShooting: false,
+                        renderer: <FireBtn />
                     }
 
                 }));

@@ -4,19 +4,10 @@ import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
-import CannonBall from "../../../../Components/GameEngine/CannonBall";
-import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
-import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-import FireBtn from "../../../../Components/GameEngine/FireBtn";
-import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
 import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
-import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
-import Explosion from "../../../../Components/GameEngine/Explosion";
-import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
-import EndGameModal from "../../../../Components/GameEngine/EndGameModal";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
@@ -39,11 +30,6 @@ function ChapterThreeLevelFive() {
         nextLevel: 'Kraken/Level1'
     });
 
-    // Angle Data
-    const angleLevelRef = useRef(90)
-    // Power Data
-    const powerLevelRef = useRef(30)
-
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
@@ -62,52 +48,15 @@ function ChapterThreeLevelFive() {
                     longHindSystemOne
                 ]}
                 entities={{
-                    cannonBall: {
-                        position: [-100, 0],
-                        velocity: [1, 1],
-                        display: 'block',
-                        accuracy: { name: '', float: 0, multiplier: 0 },
-                        isGameOver: isGameOver,
-                        setIsGameOver: setIsGameOver,
-                        isBallMoving: false,
-                        renderer: <CannonBall />
-                    },
                     cannon: {
                         position: [40, screenHeight - 100],
                         upperTravelLimit: Math.floor(screenWidth / 2) - 245,
-                        rotate: '-90deg',
-                        renderer: <CannonLauncher />
                     },
                     TNT: {
                         position: [Math.floor(screenWidth / 2), 220],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
-                    },
-                    explosion: {
-                        position: [0, 0],
-                        ballPosition: [0, 0],
-                        ballColor: '#000000',
-                        startAnimation: false,
-                        renderer: <Explosion />
-                    },
-                    followArrow: {
-                        leftPosition: 300,
-                        displayStatus: 'none',
-                        renderer: <FollowArrow />
-                    },
-                    headerStats: {
-                        airTime: 0,
-                        bounces: 0,
-                        renderer: <HeaderStats />
-                    },
-                    angleMeter: {
-                        angleLevel: angleLevelRef.current,
-                        renderer: <AngleMeter />
-                    },
-                    powerMeter: {
-                        displayPower: powerLevelRef.current,
-                        renderer: <PowerMeter />
                     },
                     giantTallOne: {
                         position: [Math.floor(screenWidth / 2) - 170, screenHeight - 315],
@@ -133,10 +82,6 @@ function ChapterThreeLevelFive() {
                         height: 30,
                         renderer: <Hinderance />
                     },
-                    fireBtn: {
-                        isShooting: false,
-                        renderer: <FireBtn />
-                    }
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}

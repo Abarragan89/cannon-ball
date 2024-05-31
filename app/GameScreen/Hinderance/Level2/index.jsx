@@ -36,11 +36,6 @@ function ChapterThreeLevelTwo() {
         nextLevel: 'Hinderance/Level3'
     });
 
-    // Angle Data
-    const angleLevelRef = useRef(90)
-    // Power Data
-    const powerLevelRef = useRef(30)
-
     return (
 
         <ImageBackground
@@ -58,53 +53,16 @@ function ChapterThreeLevelTwo() {
                     tallHindSystemTwo
                 ]}
                 entities={{
-                    cannonBall: {
-                        position: [-100, 0],
-                        velocity: [1, 1],
-                        display: 'block',
-                        accuracy: { name: '', float: 0, multiplier: 0 },
-                        isGameOver: isGameOver,
-                        setIsGameOver: setIsGameOver,
-                        isBallMoving: false,
-                        renderer: <CannonBall />
-                    },
                     cannon: {
                         position: [180, screenHeight - 100],
                         upperTravelLimit: Math.floor(screenWidth / 3.3),
                         lowerTravelLimit: 5,
-                        rotate: '-90deg',
-                        renderer: <CannonLauncher />
                     },
                     TNT: {
                         position: [screenWidth - 200, 170],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
-                    },
-                    explosion: {
-                        position: [0, 0],
-                        ballPosition: [0, 0],
-                        ballColor: '#000000',
-                        startAnimation: false,
-                        renderer: <Explosion />
-                    },
-                    followArrow: {
-                        leftPosition: 300,
-                        displayStatus: 'none',
-                        renderer: <FollowArrow />
-                    },
-                    headerStats: {
-                        airTime: 0,
-                        bounces: 0,
-                        renderer: <HeaderStats />
-                    },
-                    angleMeter: {
-                        angleLevel: angleLevelRef.current,
-                        renderer: <AngleMeter />
-                    },
-                    powerMeter: {
-                        displayPower: powerLevelRef.current,
-                        renderer: <PowerMeter />
                     },
                     tallHindOne: {
                         position: [screenWidth - 173, 70],
@@ -117,10 +75,6 @@ function ChapterThreeLevelTwo() {
                         width: 30,
                         height: 120,
                         renderer: <Hinderance />
-                    },
-                    fireBtn: {
-                        isShooting: false,
-                        renderer: <FireBtn />
                     }
                 }}
                 endGameData={endGameData}
