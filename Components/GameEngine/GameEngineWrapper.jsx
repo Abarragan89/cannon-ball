@@ -7,7 +7,7 @@ import PowerMeter from "./ PowerMeter";
 import FireBtn from "./FireBtn";
 import FollowArrow from "./FollowArrow";
 import Explosion from "./Explosion";
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import colors from "../../constants/colors";
 import { useLocalSearchParams } from 'expo-router';
 import { Audio } from 'expo-av';
@@ -47,7 +47,7 @@ const GameEngineWrapper = ({
         cannonBallWeight,
         cannonBallSize,
         cannonColor,
-        cannonPower
+        cannonPower,
     } = useLocalSearchParams();
 
     const [playBgMusic, setPlayBgMusic] = useState(true);
@@ -105,17 +105,17 @@ const GameEngineWrapper = ({
     }, [playBgMusic, isSoundLoaded, isSoundOn]);
 
     ////////////////// DOWNLOAD ALL GAME SOUNDS AND SAVE THEM IN REF /////////////////
-    useEffect(() => {
-        const loadSound = async () => {
+    useLayoutEffect(() => {
+        const loadSoundsAndEntities = async () => {
             try {
                 //  DOWNLOAD ALL AUDIO FILES
-                const { sound: shootCannonSound } = await Audio.Sound.createAsync(require('../../assets/sounds/cannonShot.mp3'));
-                const { sound: tntExplosionSound } = await Audio.Sound.createAsync(require('../../assets/sounds/hugeExplosion.wav'));
+                const { sound: shootCannonSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonShot.mp3'));
+                const { sound: tntExplosionSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/hugeExplosion.wav'));
+                const { sound: tntHandleClickSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/tntHandleClick.wav'));
+                const { sound: cannonBallBounceSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonBallBounce.wav'));
+                const { sound: tntCannonBallHitSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/woodHit.wav'));
+                const { sound: cannonBallHitSandSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonBallHitsBottom.wav'));
                 const { sound: backgroundMusicSound } = await Audio.Sound.createAsync(require('../../assets/sounds/backgroundMusic.mp3'), { volume: 0.1 });
-                const { sound: tntHandleClickSound } = await Audio.Sound.createAsync(require('../../assets/sounds/tntHandleClick.wav'));
-                const { sound: cannonBallBounceSound } = await Audio.Sound.createAsync(require('../../assets/sounds/cannonBallBounce.wav'));
-                const { sound: tntCannonBallHitSound } = await Audio.Sound.createAsync(require('../../assets/sounds/woodHit.wav'));
-                const { sound: cannonBallHitSandSound } = await Audio.Sound.createAsync(require('../../assets/sounds/cannonBallHitsBottom.wav'));
                 const { sound: backgroundWaveSound } = await Audio.Sound.createAsync(require('../../assets/sounds/backgroundWaves.wav'), { volume: 0.1 });
 
                 // SET AUDIO FILES IN REF VARIABLES
@@ -158,7 +158,6 @@ const GameEngineWrapper = ({
                     explosion: {
                         position: [0, 0],
                         ballPosition: [0, 0],
-                        ballColor: '#000000',
                         startAnimation: false,
                         ballColor: cannonBallColor,
                         renderer: <Explosion />
@@ -198,14 +197,14 @@ const GameEngineWrapper = ({
                         isShooting: false,
                         renderer: <FireBtn />
                     }
-
                 }));
                 setIsSoundLoaded(true)
             } catch (e) {
                 console.log('error downloading  music files  ', e)
             }
         }
-        loadSound();
+        loadSoundsAndEntities();
+
 
         return () => {
             sounds.current.shootCannonSound.unloadAsync();
@@ -218,8 +217,9 @@ const GameEngineWrapper = ({
             sounds.current.cannonBallHitSandSound.unloadAsync();
             sounds.current.tntHandleClickSound.unloadAsync();
         }
-    }, []);
+    }, [levelId]);
 
+    console.log('power ref ', powerLevelRef.current)
     //////////// BACKEND UPDATE /////////////////////
     useEffect(() => {
         // 'isGameOver' should more appropriately be named 'gameWon'

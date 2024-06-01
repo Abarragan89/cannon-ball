@@ -123,8 +123,6 @@ const StoreScreen = () => {
     }
   }
 
-  console.log('cannon Array', cannonArr)
-
   return (
     <>
       <StatusBar hidden={true} />

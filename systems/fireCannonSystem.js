@@ -25,7 +25,7 @@ const fireCannonSystem = (entities, { touches }) => {
       // Increase gravity to slowly bring ball back down.
       if (entities.cannonBall.velocity[1] < 8.5) {
         entities.cannonBall.velocity[1] += GRAVITY
-      } 
+      }
     }
   }
 
