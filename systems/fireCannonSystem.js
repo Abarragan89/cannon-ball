@@ -25,7 +25,7 @@ const fireCannonSystem = (entities, { touches }) => {
       // Increase gravity to slowly bring ball back down.
       if (entities.cannonBall.velocity[1] < 8.5) {
         entities.cannonBall.velocity[1] += GRAVITY
-      } 
+      }
     }
   }
 
@@ -173,7 +173,7 @@ const fireCannonSystem = (entities, { touches }) => {
         const cannonBallSizeCalibration = 13 - entities.cannonBall.cannonBallRadius
         entities.cannonBall.position[0] = entities.cannon.position[0] + 20 + cannonBallSizeCalibration
         entities.cannonBall.position[1] = entities.cannon.position[1] + 40;
-        
+
         // set the POWER and ANGLE  settings
         let ANGLE = entities.angleMeter.angleLevel;
         // Multiply the power by the weight

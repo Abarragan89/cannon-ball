@@ -48,7 +48,7 @@ function ChatperOneLevelTwo() {
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
-                    },
+                    }
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}

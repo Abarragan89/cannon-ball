@@ -16,7 +16,8 @@ const EndGameModal = ({
     isSoundOn,
     isSoundEffectsOn,
     isHapticsOn,
-    cannonColor
+    cannonColor,
+    cannonPower,
 }) => {
     const finalScore = (endGameData.current.airTime + endGameData.current.bounces) * endGameData.current.multiplier
 
@@ -83,7 +84,8 @@ const EndGameModal = ({
                                 isSoundOn,
                                 isSoundEffectsOn,
                                 isHapticsOn,
-                                cannonColor
+                                cannonColor,
+                                cannonPower
                             }}
                         >Next Level</SecondaryButton>
                     }

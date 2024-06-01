@@ -158,7 +158,6 @@ const GameEngineWrapper = ({
                     explosion: {
                         position: [0, 0],
                         ballPosition: [0, 0],
-                        ballColor: '#000000',
                         startAnimation: false,
                         ballColor: cannonBallColor,
                         renderer: <Explosion />
@@ -198,7 +197,6 @@ const GameEngineWrapper = ({
                         isShooting: false,
                         renderer: <FireBtn />
                     }
-
                 }));
                 setIsSoundLoaded(true)
             } catch (e) {
@@ -218,7 +216,7 @@ const GameEngineWrapper = ({
             sounds.current.cannonBallHitSandSound.unloadAsync();
             sounds.current.tntHandleClickSound.unloadAsync();
         }
-    }, []);
+    }, [levelId]);
 
     //////////// BACKEND UPDATE /////////////////////
     useEffect(() => {
@@ -296,6 +294,7 @@ const GameEngineWrapper = ({
                             isSoundEffectsOn={isSoundEffectsOn}
                             isHapticsOn={isHapticsOn}
                             cannonColor={cannonColor}
+                            cannonPower={cannonPower}
                         />
                     }
                     {children}
