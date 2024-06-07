@@ -9,11 +9,18 @@ import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { Dimensions } from "react-native";
+import GameTutorial from "../../../../Components/GameEngine/GameTutorial";
 const screenHeight = Dimensions.get('window').height;
 // import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
 
 function ChatperOneLevelOne() {
     const [isGameOver, setIsGameOver] = useState(false);
+
+    const [tutorialStep, setTutorialStep] = useState(0);
+
+    function increaseTutorialStep() {
+        setTutorialStep(prev => prev + 1)
+    }
 
     const endGameData = useRef({
         // start with impossible accuracy float to compare on first win
@@ -65,6 +72,13 @@ function ChatperOneLevelOne() {
                     mapName={'Basics'}
                     levelNumber={1}
                 />
+
+                {tutorialStep < 4 &&
+                    <GameTutorial
+                        tutorialStep={tutorialStep}
+                        increaseTutorialStep={increaseTutorialStep}
+                    />
+                }
             </GameEngineWrapper>
         </ImageBackground>
     );
@@ -79,6 +93,5 @@ const styles = StyleSheet.create({
         right: 0
     }
 });
-
 
 export default ChatperOneLevelOne;
