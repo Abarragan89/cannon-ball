@@ -1,7 +1,7 @@
 import { StyleSheet, Text, Pressable } from 'react-native';
 import colors from '../../constants/colors';
 
-const ModalBtn = ({ handler, text, disabled }) => {
+const ModalBtn = ({ handler, text, disabled, color }) => {
 
     if (disabled) {
         return (
@@ -12,7 +12,13 @@ const ModalBtn = ({ handler, text, disabled }) => {
     }
 
     return (
-        <Pressable style={({ pressed }) => [styles.confirmBtn, pressed && styles.confirmBtnPressed]} onPress={handler}>
+        <Pressable style={({ pressed }) => [
+            styles.confirmBtn, 
+            pressed && styles.confirmBtnPressed,
+            {
+                backgroundColor: color
+            }
+            ]} onPress={handler}>
             <Text style={styles.text}>{text}</Text>
         </Pressable>
     )

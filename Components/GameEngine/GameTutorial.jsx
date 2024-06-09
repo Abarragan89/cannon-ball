@@ -11,14 +11,18 @@ const screenWidth = Dimensions.get('window').width;
 const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
 
     // Create the variable to hold the value of animation
+    // If the initial value is set to the last thing in a sequence, it will animate smoothly with no jumping
     const translateX = useRef(new Animated.Value(-50)).current;
     const translateY = useRef(new Animated.Value(-20)).current;
-    const translateXSecond = useRef(new Animated.Value(0)).current;
-    const [triggerUseEffect, setTriggerUseEffect] = useState(false)
+    const translateXSecond = useRef(new Animated.Value(-20)).current;
+    const moveShootHandXPos = useRef(new Animated.Value(0)).current;
+    const moveShootHandYPos = useRef(new Animated.Value(0)).current;
 
+    // Refs for the animation loops to stop them
     const aimingAnimationRef = useRef();
     const powerAnimationRef = useRef();
     const moveCannonAnimationRef = useRef();
+    const moveShootHandRef = useRef();
 
     // Create the first animation to show user how to aim
     const aimingAnimation = () => {
@@ -26,12 +30,12 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
             Animated.sequence([
                 Animated.timing(translateX, {
                     toValue: 50,
-                    duration: 2000,
+                    duration: 1000,
                     useNativeDriver: true,
                 }),
                 Animated.timing(translateX, {
                     toValue: -50,
-                    duration: 2000,
+                    duration: 1000,
                     useNativeDriver: true
                 })
             ])
@@ -56,20 +60,52 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
         ).start();
     }
 
-    // Create the first animation to show user how to aim
+    // Create the first animation to show user how to move cannon
     const moveCannonAnimation = () => {
         moveCannonAnimationRef.current = Animated.loop(
             Animated.sequence([
                 Animated.timing(translateXSecond, {
-                    toValue: -30,
+                    toValue: 30,
                     duration: 1000,
                     useNativeDriver: true,
                 }),
                 Animated.timing(translateXSecond, {
-                    toValue: 20,
+                    toValue: -20,
                     duration: 1000,
                     useNativeDriver: true
-                })
+                }),
+            ])
+        ).start();
+    }
+
+    // Create the shot canon animation. Need to change the X and Y in parallel to move diagonally
+    const moveShootHand = () => {
+        moveShootHandRef.current = Animated.loop(
+            Animated.sequence([
+                Animated.parallel([
+                    Animated.timing(moveShootHandXPos, {
+                        toValue: 30,
+                        duration: 1000,
+                        useNativeDriver: true,
+                    }),
+                    Animated.timing(moveShootHandYPos, {
+                        toValue: 30,
+                        duration: 1000,
+                        useNativeDriver: true,
+                    }),
+                ]),
+                Animated.parallel([
+                    Animated.timing(moveShootHandXPos, {
+                        toValue: 0,
+                        duration: 1000,
+                        useNativeDriver: true
+                    }),
+                    Animated.timing(moveShootHandYPos, {
+                        toValue: 0,
+                        duration: 1000,
+                        useNativeDriver: true
+                    }),
+                ])
             ])
         ).start();
     }
@@ -95,6 +131,10 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
         };
         if (tutorialStep === 3) {
             stopAllAnimations();
+            moveShootHand();
+        };
+        if (tutorialStep === 4) {
+            stopAllAnimations();
         };
 
         return () => {
@@ -116,7 +156,7 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
                 {
                     tutorialStep === 0 &&
                     <>
-                        <Animated.View style={{ transform: [{ translateX }] }}>
+                        <Animated.View style={{ transform: [{ translateX }], marginBottom: 20 }}>
                             <FontAwesome
                                 name="hand-pointer-o"
                                 size={80}
@@ -127,13 +167,17 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
                         <ModalBtn
                             text='Next'
                             handler={increaseTutorialStep}
+                            color={colors.limeGreen}
                         />
                     </>
                 }
                 {
                     tutorialStep === 1 &&
                     <>
-                        <Animated.View style={{ transform: [{ translateY }] }}>
+                        <Animated.View style={{
+                            transform: [{ translateY }, { rotate: "300deg" }]
+                        }}
+                        >
                             <FontAwesome
                                 name="hand-pointer-o"
                                 size={80}
@@ -144,6 +188,7 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
                         <ModalBtn
                             text='Next'
                             handler={increaseTutorialStep}
+                            color={colors.limeGreen}
                         />
                     </>
                 }
@@ -154,6 +199,7 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
                         <Animated.View style={[{
                             position: 'absolute',
                             top: screenHeight - 250,
+                            left: -10,
                             transform: [{ translateX: translateXSecond }]
                         }]}>
                             <FontAwesome
@@ -165,6 +211,7 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
                         <ModalBtn
                             text='Next'
                             handler={increaseTutorialStep}
+                            color={colors.limeGreen}
                         />
                     </>
                 }
@@ -172,7 +219,15 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
                     tutorialStep === 3 &&
                     <>
                         <Text style={styles.tutorialText}>Fire!</Text>
-                        <Animated.View style={[styles.fireCannonPointer, { transform: [{ translateX: translateXSecond }] }]}>
+                        <Animated.View style={[
+                            styles.fireCannonPointer,
+                            {
+                                transform: [
+                                    { translateX: moveShootHandXPos },
+                                    { translateY: moveShootHandYPos},
+                                    { rotate: "140deg" }
+                                ],
+                            }]}>
                             <FontAwesome
                                 name="hand-pointer-o"
                                 size={80}
@@ -182,6 +237,7 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
                         <ModalBtn
                             text={`Let's Play`}
                             handler={increaseTutorialStep}
+                            color={colors.limeGreen}
                         />
                     </>
                 }
@@ -201,7 +257,7 @@ const styles = StyleSheet.create({
         left: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#00000075',
+        backgroundColor: '#00000065',
     },
     textIconContainer: {
         justifyContent: 'center',
@@ -218,7 +274,7 @@ const styles = StyleSheet.create({
     },
     fireCannonPointer: {
         position: 'absolute',
-        right: 10,
-        bottom: -170
+        right: -(screenWidth / 2) + 190,
+        bottom: -85
     }
 })
