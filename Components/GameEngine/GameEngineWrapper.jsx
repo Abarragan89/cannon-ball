@@ -23,6 +23,7 @@ import {
     updateLevelEarnedStars
 } from "../../db/updateQueries";
 
+
 const GameEngineWrapper = ({
     children,
     systems,
@@ -296,6 +297,7 @@ const GameEngineWrapper = ({
                             isSoundEffectsOn={isSoundEffectsOn}
                             isHapticsOn={isHapticsOn}
                             cannonColor={cannonColor}
+                            cannonPower={cannonPower}
                         />
                     }
                     {children}

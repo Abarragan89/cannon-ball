@@ -15,6 +15,7 @@ import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/h
 import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
 import levelThreeHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelThree";
 import colors from "../../../../constants/colors";
+import TNT from "../../../../Components/GameEngine/TNT";
 import HatchLid from "../../../../Components/GameEngine/HatchLid";
 import HatchBox from "../../../../Components/GameEngine/HatchBox";
 import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
@@ -60,6 +61,12 @@ function ChapterFiveLevelThree() {
                     cannon: {
                         position: [100, screenHeight - 100],
                         upperTravelLimit: 220,
+                    },
+                    TNT: {
+                        position: [screenWidth - 100, screenHeight - 120],
+                        display: 'block',
+                        handlePosition: [-22, 0],
+                        renderer: <TNT />
                     },
                     hatchBtn: {
                         isHit: false,

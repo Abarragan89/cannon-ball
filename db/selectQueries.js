@@ -74,6 +74,22 @@ export async function getUserTotalPoints(userId) {
     }
 }
 
+// GET HAS USER SEEN TUTORIAL STATUS
+export async function getHasSeenTutorial(userId) {
+    const db = await openDatabaseConnection();
+    try {
+        const myData = await db.getAllAsync(`
+            SELECT hasSeenTutorial
+            FROM preferences
+            LEFT JOIN users
+            WHERE users.id=${userId};
+        `)
+        return myData;
+    } catch (error) {
+        console.log('error in get has seen tutorial ', error)
+    }
+}
+
 // GET INDIVIDUAL LEVEL DATA
 export async function getIndividualLevelData(mapName, level) {
     const db = await openDatabaseConnection();

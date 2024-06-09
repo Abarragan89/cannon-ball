@@ -270,7 +270,7 @@ export async function initDB() {
 
     // DROP ALL TABLES TO RESET GAME
     // try {
-    //     await db.runAsync(`DROP TABLE IF EXISTS cannons;`, []);
+    //     // await db.runAsync(`DROP TABLE IF EXISTS cannons;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS users;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS preferences;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS maps;`, []);
