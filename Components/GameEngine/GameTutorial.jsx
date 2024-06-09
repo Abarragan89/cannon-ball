@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Animated, Dimensions } from 'react-native';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
+import { updateHasSeenTutorial } from '../../db/updateQueries';
 import colors from '../../constants/colors';
 import ModalBtn from '../UI/ModalBtn';
 const screenHeight = Dimensions.get('window').height;
@@ -110,12 +111,26 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
         ).start();
     }
 
+    const setHasSeenTutorialTrue = async (userId) => {
+        try {
+            await updateHasSeenTutorial(userId);
+        } catch (error) {
+            console.log('error in updating tutorial ', error)
+        }
+    }
+
     const stopAllAnimations = () => {
         if (aimingAnimationRef.current) aimingAnimationRef.current.stop();
         if (powerAnimationRef.current) powerAnimationRef.current.stop();
         if (moveCannonAnimationRef.current) moveCannonAnimationRef.current.stop();
     }
 
+    // handles the update to the DB to set seen Tutorial
+    useEffect(() => {
+      setHasSeenTutorialTrue(1)
+    }, [])
+    
+    // handles the different animation triggers
     useEffect(() => {
 
         if (tutorialStep === 0) {

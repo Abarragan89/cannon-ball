@@ -214,3 +214,22 @@ export async function updateUserCoins(userId, purchaseAmount) {
         console.log('error in updating current cannonBall ', error)
     }
 }
+
+// UPDATE USER HAS SEEN TUTORIAL
+export async function updateHasSeenTutorial(userId) {
+    const db = await openDatabaseConnection();
+    try {
+        const myData = await db.runAsync(`
+            UPDATE preferences 
+            SET hasSeenTutorial = 1
+            WHERE id = (
+                SELECT preferenceId
+                FROM users
+                WHERE id = ${userId}
+            );
+        `, [userId])
+        return myData;
+    } catch (error) {
+        console.log('error in updating has seen tutorial', error)
+    }
+}
