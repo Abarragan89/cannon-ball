@@ -122,9 +122,7 @@ const StoreScreen = () => {
       console.log('error updating cannon ball set ', error)
     }
   }
-
-  console.log('cannon Array', cannonArr)
-
+  
   return (
     <>
       <StatusBar hidden={true} />

@@ -82,6 +82,7 @@ const PurchaseModal = ({
                 <ModalBtn
                   text={'Confirm Purchase'}
                   handler={SQLUpdateFn}
+                  color={colors.hinderanceColor}
                 />
               </>
               :
@@ -89,11 +90,13 @@ const PurchaseModal = ({
                 <ModalBtn
                   text={'Purchase'}
                   disabled={true}
+                  color={colors.hinderanceColor}
                 />
                 :
                 <ModalBtn
                   text={'Purchase'}
                   handler={() => setConfirmBuy(true)}
+                  color={colors.hinderanceColor}
                 />
           }
         </>

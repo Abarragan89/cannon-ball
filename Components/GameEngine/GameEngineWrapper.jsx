@@ -23,6 +23,7 @@ import {
     updateLevelEarnedStars
 } from "../../db/updateQueries";
 
+
 const GameEngineWrapper = ({
     children,
     systems,
@@ -109,13 +110,13 @@ const GameEngineWrapper = ({
         const loadSound = async () => {
             try {
                 //  DOWNLOAD ALL AUDIO FILES
-                const { sound: shootCannonSound } = await Audio.Sound.createAsync(require('../../assets/sounds/cannonShot.mp3'));
-                const { sound: tntExplosionSound } = await Audio.Sound.createAsync(require('../../assets/sounds/hugeExplosion.wav'));
+                const { sound: shootCannonSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonShot.mp3'));
+                const { sound: tntExplosionSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/hugeExplosion.wav'));
+                const { sound: tntHandleClickSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/tntHandleClick.wav'));
+                const { sound: cannonBallBounceSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonBallBounce.wav'));
+                const { sound: tntCannonBallHitSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/woodHit.wav'));
+                const { sound: cannonBallHitSandSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonBallHitsBottom.wav'));
                 const { sound: backgroundMusicSound } = await Audio.Sound.createAsync(require('../../assets/sounds/backgroundMusic.mp3'), { volume: 0.1 });
-                const { sound: tntHandleClickSound } = await Audio.Sound.createAsync(require('../../assets/sounds/tntHandleClick.wav'));
-                const { sound: cannonBallBounceSound } = await Audio.Sound.createAsync(require('../../assets/sounds/cannonBallBounce.wav'));
-                const { sound: tntCannonBallHitSound } = await Audio.Sound.createAsync(require('../../assets/sounds/woodHit.wav'));
-                const { sound: cannonBallHitSandSound } = await Audio.Sound.createAsync(require('../../assets/sounds/cannonBallHitsBottom.wav'));
                 const { sound: backgroundWaveSound } = await Audio.Sound.createAsync(require('../../assets/sounds/backgroundWaves.wav'), { volume: 0.1 });
 
                 // SET AUDIO FILES IN REF VARIABLES
@@ -158,7 +159,6 @@ const GameEngineWrapper = ({
                     explosion: {
                         position: [0, 0],
                         ballPosition: [0, 0],
-                        ballColor: '#000000',
                         startAnimation: false,
                         ballColor: cannonBallColor,
                         renderer: <Explosion />
@@ -198,7 +198,6 @@ const GameEngineWrapper = ({
                         isShooting: false,
                         renderer: <FireBtn />
                     }
-
                 }));
                 setIsSoundLoaded(true)
             } catch (e) {
@@ -296,6 +295,7 @@ const GameEngineWrapper = ({
                             isSoundEffectsOn={isSoundEffectsOn}
                             isHapticsOn={isHapticsOn}
                             cannonColor={cannonColor}
+                            cannonPower={cannonPower}
                         />
                     }
                     {children}
