@@ -220,7 +220,6 @@ const GameEngineWrapper = ({
         }
     }, [levelId]);
 
-    console.log('power ref ', powerLevelRef.current)
     //////////// BACKEND UPDATE /////////////////////
     useEffect(() => {
         // 'isGameOver' should more appropriately be named 'gameWon'
@@ -269,8 +268,8 @@ const GameEngineWrapper = ({
         async function getNextLevelData() {
             const mapName = endGameData.current.nextLevel.split('/')[0];
             const link = endGameData.current.nextLevel.split('/')[1];
-            const nextLevel = await getIndividualLevelData(mapName, link)
-            setNextLevelData(nextLevel[0])
+            const [nextLevel] = await getIndividualLevelData(mapName, link)
+            setNextLevelData(nextLevel)
         }
         getNextLevelData();
     }, [])
@@ -287,7 +286,7 @@ const GameEngineWrapper = ({
                     {isGameOver && nextLevelData &&
                         <EndGameModal
                             endGameData={endGameData}
-                            nextLevelData={levelId === '5' ? null : nextLevelData}
+                            nextLevelData={levelId === '6' ? null : nextLevelData}
                             cannonBallColor={cannonBallColor}
                             cannonBallGradientClr={cannonBallGradientClr}
                             cannonBallBounce={cannonBallBounce}
@@ -318,4 +317,4 @@ const styles = StyleSheet.create({
         height: screenHeight,
         zIndex: 16
     },
-})
+});

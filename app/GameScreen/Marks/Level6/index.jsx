@@ -5,15 +5,15 @@ import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
-import moveTNTMarksLevelFive from "../../../../systems/marksMovementSystems/marksLevelFive";
 import TNT from "../../../../Components/GameEngine/TNT";
+import moveTNTMarksLevelSix from "../../../../systems/marksMovementSystems/marksLevelSix";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 
-function ChatperTwoLevelFive() {
+function ChatperTwoLevelSix() {
     const [isGameOver, setIsGameOver] = useState(false);
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -23,12 +23,12 @@ function ChatperTwoLevelFive() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Marks',
-        nextLevel: 'Marks/Level6'
+        nextLevel: 'Hinderance/Level1'
     });
 
     return (
         <ImageBackground
-            source={require('../../../../assets/images/basics/stuck.png')}
+            source={require('../../../../assets/images/basics/short.png')}
             style={styles.backgroundImg}
         >
             <GameEngineWrapper
@@ -38,19 +38,19 @@ function ChatperTwoLevelFive() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    moveTNTMarksLevelFive
+                    moveTNTMarksLevelSix
                 ]}
                 entities={{
                     tntMovementCount: {
                         tntPixelCounter: 0
                     },
                     cannon: {
-                        position: [Math.floor(screenWidth / 2) - 30, screenHeight - 120],
-                        upperTravelLimit: -1,
-                        lowerTravelLimit: 1000,
+                        position: [150, screenHeight - 100],
+                        upperTravelLimit: Math.floor(screenWidth / 3.3),
+                        lowerTravelLimit: 5,
                     },
                     TNT: {
-                        position: [270, 50],
+                        position: [Math.floor(screenWidth / 3), 50],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
@@ -67,7 +67,7 @@ function ChatperTwoLevelFive() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Marks'}
-                    levelNumber={5}
+                    levelNumber={6}
                 />
             </GameEngineWrapper>
         </ImageBackground>
@@ -85,4 +85,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChatperTwoLevelFive;
+export default ChatperTwoLevelSix;
