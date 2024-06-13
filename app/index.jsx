@@ -25,9 +25,9 @@ const Home = () => {
       await initDB();
       await SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, fontError, bgImage, mainBtnImgSrc]);
+  }, [fontsLoaded]);
 
-  if ((!fontsLoaded && !fontError)) {
+  if ((!fontsLoaded)) {
     return null;
   }
 

@@ -9,7 +9,7 @@ const cannonControlSystem = (entities, { touches }) => {
       const deltaY = t.delta.pageY;
       const deltaX = t.delta.pageX;
       
-      // LOGIC FOR FOR MOVING CANNON LAUNCH
+      // LOGIC FOR FOR MOVING CANNON LAUNCH. MOVE IS WITHIN THIS RANGE
       if (
         locationX >= entities.cannon.position[0] &&
         locationX <= entities.cannon.position[0] + 80 &&
@@ -18,7 +18,6 @@ const cannonControlSystem = (entities, { touches }) => {
         ) {
           // Check if it is inbounds to move more or less
           const currentPosition = entities.cannon.position[0]
-          const deltaX = t.delta.pageX;
           // Interpolate power changes based on vertical movement
           const movementChange = deltaX * 1;
           // Check for travel limits on certain maps
@@ -37,7 +36,7 @@ const cannonControlSystem = (entities, { touches }) => {
           return;
         }
         
-        // Control the POWER and the ANGLE
+        // IF MOVE IS AWAY FROM CANNON, THEN ADJUST POWER OR ANGLE
         let currentPower = entities.powerMeter.displayPower;
         let currentAngle = entities.angleMeter.angleLevel;
         const angleSensitivity = 0.05;
