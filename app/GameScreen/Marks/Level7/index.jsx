@@ -50,7 +50,7 @@ function ChatperTwoLevelSeven() {
                         lowerTravelLimit: 5,
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 1.5), 50],
+                        position: [screenWidth - 250, 50],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />

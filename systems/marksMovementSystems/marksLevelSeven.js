@@ -9,16 +9,16 @@ const moveTNTMarksLevelSeven = (entities) => {
                 entities.TNT.position[1] += speed;
                 entities.tntMovementCount.tntPixelCounter++;
                 // Move To Right
-            } else if (entities.tntMovementCount.tntPixelCounter > 200 && entities.tntMovementCount.tntPixelCounter <= 400) {
+            } else if (entities.tntMovementCount.tntPixelCounter > 200 && entities.tntMovementCount.tntPixelCounter <= 600) {
                 entities.TNT.position[0] += speed;
                 entities.tntMovementCount.tntPixelCounter++
                 // Move Diagonal Up Left
-            } else if (entities.tntMovementCount.tntPixelCounter > 400 && entities.tntMovementCount.tntPixelCounter <= 600) {
+            } else if (entities.tntMovementCount.tntPixelCounter > 600 && entities.tntMovementCount.tntPixelCounter <= 800) {
                 entities.TNT.position[1] -= speed;
                 entities.TNT.position[0] -= speed;
                 entities.tntMovementCount.tntPixelCounter++;
                 // Move Diagonal Right Up
-            } else if (entities.tntMovementCount.tntPixelCounter > 600) {
+            } else if (entities.tntMovementCount.tntPixelCounter > 800) {
                 entities.tntMovementCount.tntPixelCounter = 0;
             }
         }
