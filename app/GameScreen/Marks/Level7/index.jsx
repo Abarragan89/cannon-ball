@@ -6,14 +6,14 @@ import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
 import TNT from "../../../../Components/GameEngine/TNT";
-import moveTNTMarksLevelSix from "../../../../systems/marksMovementSystems/marksLevelSix";
+import moveTNTMarksLevelSeven from "../../../../systems/marksMovementSystems/marksLevelSeven";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 
-function ChatperTwoLevelSix() {
+function ChatperTwoLevelSeven() {
     const [isGameOver, setIsGameOver] = useState(false);
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -28,7 +28,7 @@ function ChatperTwoLevelSix() {
 
     return (
         <ImageBackground
-            source={require('../../../../assets/images/basics/level1.png')}
+            source={require('../../../../assets/images/basics/short.png')}
             style={styles.backgroundImg}
         >
             <GameEngineWrapper
@@ -38,17 +38,19 @@ function ChatperTwoLevelSix() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    moveTNTMarksLevelSix
+                    moveTNTMarksLevelSeven
                 ]}
                 entities={{
                     tntMovementCount: {
                         tntPixelCounter: 0
                     },
                     cannon: {
-                        position: [200, screenHeight - 100],
+                        position: [150, screenHeight - 100],
+                        upperTravelLimit: Math.floor(screenWidth / 3.3),
+                        lowerTravelLimit: 5,
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 3), 50],
+                        position: [Math.floor(screenWidth / 1.5), 50],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
@@ -83,4 +85,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChatperTwoLevelSix;
+export default ChatperTwoLevelSeven;
