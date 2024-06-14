@@ -286,7 +286,7 @@ const GameEngineWrapper = ({
                     {isGameOver && nextLevelData &&
                         <EndGameModal
                             endGameData={endGameData}
-                            nextLevelData={levelId === '6' ? null : nextLevelData}
+                            nextLevelData={levelId === '8' ? null : nextLevelData}
                             cannonBallColor={cannonBallColor}
                             cannonBallGradientClr={cannonBallGradientClr}
                             cannonBallBounce={cannonBallBounce}

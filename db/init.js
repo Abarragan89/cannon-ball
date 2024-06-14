@@ -244,6 +244,8 @@ export async function initDB() {
             await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Six', 'Level6', 1, ${mapTwoId});`);
             await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Seven', 'Level7', 1, ${mapTwoId});`);
             await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Eight', 'Level8', 1, ${mapTwoId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Nine', 'Level9', 1, ${mapTwoId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Ten', 'Level10', 1, ${mapTwoId});`);
 
             // Create Levels for Map Three
             await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapThreeId});`);
@@ -271,7 +273,7 @@ export async function initDB() {
         }
     }
 
-    // DROP ALL TABLES TO RESET GAME
+    // // DROP ALL TABLES TO RESET GAME
     // try {
     //     // await db.runAsync(`DROP TABLE IF EXISTS cannons;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS users;`, []);

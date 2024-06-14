@@ -13,7 +13,7 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 
-function ChatperTwoLevelEight() {
+function ChatperTwoLevelTen() {
     const [isGameOver, setIsGameOver] = useState(false);
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -67,7 +67,7 @@ function ChatperTwoLevelEight() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Marks'}
-                    levelNumber={8}
+                    levelNumber={10}
                 />
             </GameEngineWrapper>
         </ImageBackground>
@@ -85,4 +85,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChatperTwoLevelEight;
+export default ChatperTwoLevelTen;

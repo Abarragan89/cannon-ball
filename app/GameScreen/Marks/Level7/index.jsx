@@ -67,7 +67,7 @@ function ChatperTwoLevelSeven() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Marks'}
-                    levelNumber={6}
+                    levelNumber={7}
                 />
             </GameEngineWrapper>
         </ImageBackground>
