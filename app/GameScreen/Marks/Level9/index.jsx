@@ -14,8 +14,8 @@ const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 
 function ChatperTwoLevelNine() {
-const [isGameOver, setIsGameOver] = useState(false);
-const endGameData = useRef({
+    const [isGameOver, setIsGameOver] = useState(false);
+    const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
         winningScore: [250, 500, 1000],
@@ -41,10 +41,10 @@ const endGameData = useRef({
                     moveTNTMarksLevelNine
                 ]}
                 entities={{
-                    tntMovementCount: {
-                        tntPixelCounter: 0,
-                        timeStampLastPaused: 0
-                    },
+                    tntPixelCounter: 2.5,
+                    timeStampLastPaused: 0,
+                    randomDelayTime: 2000,
+                    
                     cannon: {
                         position: [Math.floor(screenWidth / 2) - 30, screenHeight - 120],
                         upperTravelLimit: -1,
