@@ -42,7 +42,8 @@ const endGameData = useRef({
                 ]}
                 entities={{
                     tntMovementCount: {
-                        tntPixelCounter: 0
+                        tntPixelCounter: 0,
+                        timeStampLastPaused: 0
                     },
                     cannon: {
                         position: [Math.floor(screenWidth / 2) - 30, screenHeight - 120],

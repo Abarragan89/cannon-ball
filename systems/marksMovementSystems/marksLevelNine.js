@@ -1,7 +1,6 @@
 const marksNineSpeed = 2.5;
-const marksNineTimeDelay = 0.01
 
-const moveTNTMarksLevelNine = (entities) => {
+const moveTNTMarksLevelNine = (entities, { time }) => {
 
     const moveDiagonalDownLeft = () => {
         entities.TNT.position[0] -= marksNineSpeed;
@@ -26,76 +25,71 @@ const moveTNTMarksLevelNine = (entities) => {
 
     if (!entities.gameData.isGameOver) {
         const { tntPixelCounter } = entities.tntMovementCount;
+        let timePassed;
 
-        // PAUSE
-        if (tntPixelCounter < 2) {
-            entities.tntMovementCount.tntPixelCounter += marksNineTimeDelay;
+        // Time delta is zero only on the first iteration
+        if (time.delta === 0) {
+            entities.timeStampLastPaused = Math.floor(time.current);
+            timePassed = 0;
+        } else {
+            timePassed = time.current - Math.floor(entities.timeStampLastPaused)
         }
+
+        // console.log('time passed ', timePassed)
+        console.log('tntPixels ', tntPixelCounter)
+        // PAUSE
+        if (timePassed < 50) {
+            return entities;
+        }
+
+        
+        //////////// FORWARD ///////////////
         // Move Diagonal Down
-        else if (tntPixelCounter > 2 && tntPixelCounter <= 200) {
+        if (tntPixelCounter <= 200) {
+            if (tntPixelCounter === 200) entities.timeStampLastPaused = Math.floor(time.current);
             moveDiagonalDownLeft();
-        }
-        // PAUSE
-        else if (tntPixelCounter > 200 && tntPixelCounter <= 204) {
-            entities.tntMovementCount.tntPixelCounter += marksNineTimeDelay;
         }
         // Move Diagonal Up
-        else if (tntPixelCounter > 202 && tntPixelCounter <= 400) {
+        else if (tntPixelCounter >= 200 && tntPixelCounter <= 400) {
+            if (tntPixelCounter === 400) entities.timeStampLastPaused = Math.floor(time.current);
             moveDiagonalUpLeft();
         }
-        // PAUSE
-        else if (tntPixelCounter > 400 && tntPixelCounter <= 402) {
-            console.log('tntPixelCounter in pause ', tntPixelCounter)
-            entities.tntMovementCount.tntPixelCounter += marksNineTimeDelay;
-        }
         // Move Diagonal Down Right
-        else if (tntPixelCounter > 402 && tntPixelCounter <= 600) {
+        else if (tntPixelCounter >= 400 && tntPixelCounter <= 600) {
+            if (tntPixelCounter === 600) entities.timeStampLastPaused = Math.floor(time.current);
             moveDiagonalDownLeft();
         }
-        // PAUSE
-        else if (tntPixelCounter > 600 && tntPixelCounter <= 602) {
-            entities.tntMovementCount.tntPixelCounter += marksNineTimeDelay;
-        }
         // Move Diagonal Up Left
-        else if (tntPixelCounter > 602 && tntPixelCounter <= 800) {
+        else if (tntPixelCounter >= 600 && tntPixelCounter <= 800) {
+            if (tntPixelCounter === 800) entities.timeStampLastPaused = Math.floor(time.current);
             moveDiagonalUpLeft();
         }
 
         //////////// REVERSE ///////////////
-        // PAUSE
-        else if (tntPixelCounter > 800 && tntPixelCounter <= 802) {
-            entities.tntMovementCount.tntPixelCounter += marksNineTimeDelay;
-        }
         // Move Diagonal Down Right
-        else if (tntPixelCounter > 802 && tntPixelCounter <= 1000) {
+        else if (tntPixelCounter >= 800 && tntPixelCounter <= 1000) {
+            if (tntPixelCounter === 1000) entities.timeStampLastPaused = Math.floor(time.current);
             moveDiagonalDownRight();
         }
-        // PAUSE
-        else if (tntPixelCounter > 1000 && tntPixelCounter <= 1002) {
-            entities.tntMovementCount.tntPixelCounter += marksNineTimeDelay;
-        }
         // Move Diagonal Up Right
-        else if (tntPixelCounter > 1002 && tntPixelCounter <= 1200) {
+        else if (tntPixelCounter >= 1000 && tntPixelCounter <= 1200) {
+            if (tntPixelCounter === 1200) entities.timeStampLastPaused = Math.floor(time.current);
             moveDiagonalUpRight();
-        }
-        // PAUSE
-        else if (tntPixelCounter > 1200 && tntPixelCounter <= 1202) {
-            entities.tntMovementCount.tntPixelCounter += marksNineTimeDelay;
         }
         // Move Diagonal Down Right
-        else if (tntPixelCounter > 1202 && tntPixelCounter <= 1400) {
+        else if (tntPixelCounter >= 1200 && tntPixelCounter <= 1400) {
+            if (tntPixelCounter === 1400) entities.timeStampLastPaused = Math.floor(time.current);
             moveDiagonalDownRight();
         }
-        // PAUSE
-        else if (tntPixelCounter > 1400 && tntPixelCounter <= 1402) {
-            entities.tntMovementCount.tntPixelCounter += marksNineTimeDelay;
-        }
         // Move Diagonal Up Right
-        else if (tntPixelCounter > 1402 && tntPixelCounter <= 1600) {
+        else if (tntPixelCounter >= 1400 && tntPixelCounter <= 1600) {
+            if (tntPixelCounter === 1600) entities.timeStampLastPaused = Math.floor(time.current);
             moveDiagonalUpRight();
         }
+
         // Reset counter after completing a cycle
-        else if (tntPixelCounter > 1600) {
+        else if (tntPixelCounter >= 1600) {
+            entities.timeStampLastPaused = Math.floor(time.current);
             entities.tntMovementCount.tntPixelCounter = 0;
         }
     }
