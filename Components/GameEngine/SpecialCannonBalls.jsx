@@ -11,7 +11,6 @@ function SpecialCannonBall({
 }) {
     const x = position[0];
     const y = position[1];
-    console.log('x ', typeof x, x);
     
     return (
         <>

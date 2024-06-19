@@ -23,7 +23,7 @@ function ChatperTwoLevelNine() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Marks',
-        nextLevel: 'Marks/Level8'
+        nextLevel: 'Marks/Level10'
     });
 
     return (

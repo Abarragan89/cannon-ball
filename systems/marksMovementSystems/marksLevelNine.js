@@ -8,14 +8,11 @@ const possiblePauseTimes = [
     2000,
     3000,
     3000,
-    3000,
-    4000,
     4000,
     4000,
     5000,
     5000,
     6000,
-    6000
 ]
 
 const moveTNTMarksLevelNine = (entities, { time }) => {
@@ -48,7 +45,6 @@ const moveTNTMarksLevelNine = (entities, { time }) => {
 
     if (!entities.gameData.isGameOver) {
         const { tntPixelCounter, randomDelayTime } = entities;
-        console.log(randomDelayTime)
         let timePassed;
 
         // Time delta is zero only on the first iteration
@@ -56,15 +52,14 @@ const moveTNTMarksLevelNine = (entities, { time }) => {
             entities.timeStampLastPaused = Math.floor(time.current);
             timePassed = 0;
         } else {
+            // Determine how long it has been since last timeStamp
             timePassed = time.current - Math.floor(entities.timeStampLastPaused)
         }
 
-
-        // Pause if timelapse hasn't been met yet
+        // PAUSE if timelapse hasn't been met yet
         if (timePassed < randomDelayTime) {
             return entities;
         }
-
 
         //////////// FORWARD ///////////////
         // Move Diagonal Down

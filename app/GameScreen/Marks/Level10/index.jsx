@@ -5,7 +5,7 @@ import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
-import moveTNTMarksLevelEight from "../../../../systems/marksMovementSystems/marksLevelEight";
+import moveTNTMarksLevelTen from "../../../../systems/marksMovementSystems/marksLevelTen";
 import TNT from "../../../../Components/GameEngine/TNT";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
@@ -23,12 +23,12 @@ function ChatperTwoLevelTen() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Marks',
-        nextLevel: 'Marks/Level8'
+        nextLevel: 'Hinderance/Level1'
     });
 
     return (
         <ImageBackground
-            source={require('../../../../assets/images/basics/stuck.png')}
+            source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
             <GameEngineWrapper
@@ -38,19 +38,22 @@ function ChatperTwoLevelTen() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    moveTNTMarksLevelEight
+                    moveTNTMarksLevelTen
                 ]}
                 entities={{
-                    tntMovementCounter: {
-                        tntPixelCounter: 0
+                    tntMovementCount: {
+                        tntPixelCounter: 0,
+                        tntPixelCounterLimit: 200,
+                        angle: 0,
+                        timeStampLastPaused: 0
                     },
+                    randomDelayTime: 2000,
                     cannon: {
-                        position: [Math.floor(screenWidth / 2) - 30, screenHeight - 120],
-                        upperTravelLimit: -1,
-                        lowerTravelLimit: 1000,
+                        position: [Math.floor(screenWidth / 2) - 30, screenHeight - 120]
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 2) - 15, 150],
+                        position: [Math.floor(screenWidth / 2) - 15, 100],
+                        initialPosition: [Math.floor(screenWidth / 2) - 15, 100],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
