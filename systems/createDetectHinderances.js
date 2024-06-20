@@ -1,8 +1,8 @@
-import lineBallDetection from "../../utils/lineBallDetection";
-import cannonBallBounce from "../../utils/cannonBallBounce";
+import lineBallDetection from "../utils/lineBallDetection";
+import cannonBallBounce from "../utils/cannonBallBounce";
 
 
-const giantTallSystemOne = (entities) => {
+const createDetectHinderanceSystem = (entities) => {
 
     // Creates Hinderance positioning and listens for detection
     function createHinderanceAndDetect(width, height, hinderanceName) {
@@ -80,4 +80,4 @@ const giantTallSystemOne = (entities) => {
     return entities;
 }
 
-export default giantTallSystemOne;
+export default createDetectHinderanceSystem;

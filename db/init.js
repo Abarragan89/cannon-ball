@@ -253,6 +253,11 @@ export async function initDB() {
             await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Three', 'Level3', 1, ${mapThreeId});`);
             await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Four', 'Level4', 1, ${mapThreeId});`);
             await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Five', 'Level5', 1, ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Six', 'Level6', 1, ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Seven', 'Level7', 1, ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Eight', 'Level8', 1, ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Nine', 'Level9', 1, ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Ten', 'Level10', 1, ${mapThreeId});`);
 
             // Create Levels for Map Four
             await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapFourId});`);
