@@ -5,23 +5,14 @@ import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
-import CannonBall from "../../../../Components/GameEngine/CannonBall";
-import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
-import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-import FireBtn from "../../../../Components/GameEngine/FireBtn";
-import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
-import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
-import Explosion from "../../../../Components/GameEngine/Explosion";
-import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChatperThreeLevelOne() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -48,8 +39,7 @@ function ChatperThreeLevelOne() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    longHindSystemOne,
-                    longHindSystemTwo
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {

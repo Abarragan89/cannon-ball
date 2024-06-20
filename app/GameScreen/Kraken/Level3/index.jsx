@@ -11,13 +11,9 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
-import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLongHind";
-import extraLongHindSystemOne from "../../../../systems/hinderanceDetection/extraLongHindSystemOne";
-import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import krakenLevelThree from "../../../../systems/krakenMovementSystems/krakenLevelThree";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChatperFourLevelThree() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -44,10 +40,7 @@ function ChatperFourLevelThree() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    longHindSystemOne,
-                    longHindSystemTwo,
-                    extraLongHindSystemOne,
-                    smallSquareSystemOne,
+                    createDetectHinderanceSystem,
                     krakenLevelThree
                 ]}
                 entities={{

@@ -10,8 +10,8 @@ import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChatperThreeLevelThree() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -38,7 +38,7 @@ function ChatperThreeLevelThree() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    giantTallSystemOne
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {

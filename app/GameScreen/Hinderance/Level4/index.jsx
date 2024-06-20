@@ -11,10 +11,8 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChapterThreeLevelFour() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -41,9 +39,7 @@ function ChapterThreeLevelFour() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    giantTallSystemOne,
-                    longHindSystemOne,
-                    smallSquareSystemOne
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {

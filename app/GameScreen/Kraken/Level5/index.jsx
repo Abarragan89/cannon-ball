@@ -1,25 +1,18 @@
 import { useRef, useState } from "react";
 import GameEngineWrapper from "../../../../Components/GameEngine/GameEngineWrapper";
-import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
+import { StyleSheet, StatusBar, ImageBackground, Dimensions } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
 import TNT from "../../../../Components/GameEngine/TNT";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
-import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import CannonStand from "../../../../Components/GameEngine/Hinderances/CannonStand";
-import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLongHind";
-import extraLongHindSystemOne from "../../../../systems/hinderanceDetection/extraLongHindSystemOne";
 import krakenLevelFiveSystems from "../../../../systems/krakenMovementSystems/krakenLevelFive";
-import cannonStandDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 
 function ChapterFourLevelFive() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -46,11 +39,7 @@ function ChapterFourLevelFive() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    smallSquareSystemOne,
-                    longHindSystemOne,
-                    giantTallSystemOne,
-                    extraLongHindSystemOne,
-                    cannonStandDetectionSystem,
+                    createDetectHinderanceSystem,
                     krakenLevelFiveSystems
                 ]}
                 entities={{
@@ -67,7 +56,9 @@ function ChapterFourLevelFive() {
                     },
                     extraLongHindOne: {
                         position: [-5, -2],
-                        renderer: <ExtraLongHind />
+                        width: screenWidth + 10,
+                        height: 10,
+                        renderer: <Hinderance />
                     },
                     longHindOne: {
                         position: [Math.floor(screenWidth / 2) - 180, screenHeight - 50],
@@ -89,7 +80,10 @@ function ChapterFourLevelFive() {
                     },
                     cannonStand: {
                         position: [screenWidth - 82, 150],
-                        renderer: <CannonStand />
+                        height: 15,
+                        width: 70,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
                     }
                 }}
                 endGameData={endGameData}

@@ -19,10 +19,9 @@ import HatchLid from "../../../../Components/GameEngine/HatchLid";
 import HatchBox from "../../../../Components/GameEngine/HatchBox";
 import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
 import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
-import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import levelFourHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelFour";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChapterFiveLevelFour() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -53,8 +52,7 @@ function ChapterFiveLevelFour() {
                     hatchBoxDetectionSystem,
                     hatchLidDetectionSystem,
                     hitHatchBtn_OpenHatchSystem,
-                    giantTallSystemOne,
-                    smallSquareSystemOne,
+                    createDetectHinderanceSystem,
                     levelFourHatchSystem
                 ]}
                 entities={{

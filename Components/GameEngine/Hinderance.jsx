@@ -1,29 +1,28 @@
 import { View, StyleSheet } from "react-native"
-import colors from "../../../constants/colors";
-import { Dimensions } from "react-native";
-const { width } = Dimensions.get('window')
+import colors from "../../constants/colors";
 
-const ExtraLongHind = ({ position }) => {
+const Hinderance = ({ position, width, height, color }) => {
   return (
     <View 
         style={[styles.root, {
             left: position[0],
             top: position[1],
-            width: width + 10
+            width: width,
+            height: height,
+            backgroundColor: color ? color : colors.hinderanceColor
         }]}
         
     />
   )
 }
 
-export default ExtraLongHind;
+export default Hinderance;
 
 const styles = StyleSheet.create({
     root: {
         position: 'absolute',
         display: 'block',
         height: 10,
-        backgroundColor: colors.hinderanceColor,
         borderRadius: 4,
         borderWidth: 1,
         borderColor: colors.primaryBlack

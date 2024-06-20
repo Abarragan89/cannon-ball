@@ -11,9 +11,8 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChapterThreeLevelSix() {
     const [isGameOver, setIsGameOver] = useState(false);

@@ -35,7 +35,6 @@ const hatchLidDetectionSystem = (entities) => {
     if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
         if (entities.cannonBall.velocity[0] > 0) {
             cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0)
-
         }
     }
 

@@ -11,16 +11,10 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import CannonStand from "../../../../Components/GameEngine/Hinderances/CannonStand";
 import krakenLevelFour from "../../../../systems/krakenMovementSystems/krakenLevelFour";
-import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
-import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
-import longHindSystemThree from "../../../../systems/hinderanceDetection/longHindSystemThree";
-import longHindSystemFour from "../../../../systems/hinderanceDetection/longHindSystemFour";
-import cannonDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import colors from "../../../../constants/colors";
 
 function ChapterFourLevelFour() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -47,14 +41,8 @@ function ChapterFourLevelFour() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    cannonDetectionSystem,
                     krakenLevelFour,
-                    smallSquareSystemOne,
-                    smallSquareSystemTwo,
-                    longHindSystemOne,
-                    longHindSystemTwo,
-                    longHindSystemThree,
-                    longHindSystemFour
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
@@ -70,7 +58,10 @@ function ChapterFourLevelFour() {
                     },
                     cannonStand: {
                         position: [Math.floor(screenWidth / 2) - 35, 75],
-                        renderer: <CannonStand />
+                        width: 70,
+                        height: 15,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
                     },
                     squareHindOne: {
                         position: [0, 100],

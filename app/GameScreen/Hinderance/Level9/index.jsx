@@ -11,11 +11,8 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
-import giantTallSystemTwo from "../../../../systems/hinderanceDetection/giantTallSystemTwo";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChapterThreeLevelNine() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -42,10 +39,7 @@ function ChapterThreeLevelNine() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    longHindSystemTwo,
-                    giantTallSystemOne,
-                    giantTallSystemTwo,
-                    longHindSystemOne
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
