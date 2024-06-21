@@ -47,47 +47,56 @@ function ChapterThreeLevelSix() {
                         upperTravelLimit: Math.floor(screenWidth / 2) - 245,
                     },
                     TNT: {
-                        position: [screenWidth - 170, screenHeight - 100],
+                        position: [screenWidth - 140, screenHeight - 100],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
                     },
+                    //  Big blocking block
                     giantTallOne: {
-                        position: [170, screenHeight - 100],
-                        width: 70,
+                        position: [Math.floor(screenWidth / 2) - 164, screenHeight - 320],
+                        width: 150,
                         height: 300,
                         renderer: <Hinderance />
                     },
-                    giantTallTwo: {
-                        position: [screenWidth - 120, screenHeight - 315],
-                        width: 10,
-                        height: 10,
-                        renderer: <Hinderance />
-                    },
-                    longHindOne: {
-                        position: [Math.floor(screenWidth / 2) - 45, 120],
+                    // Center Point
+                    longHindFive: {
+                        position: [screenWidth - 440, screenHeight - 320],
                         width: 120,
                         height: 30,
                         renderer: <Hinderance />
                     },
-                    longHindTwo: {
-                        position: [Math.floor(screenWidth / 2) - 45, 310],
+                    // Steps going down
+                    longHindSix: {
+                        position: [screenWidth - 380, screenHeight - 260],
                         width: 120,
                         height: 30,
                         renderer: <Hinderance />
                     },
-                    longHindThree: {
-                        position: [Math.floor(screenWidth / 2) - 45, 310],
+                    longHindSeven: {
+                        position: [screenWidth - 320, screenHeight - 200],
                         width: 120,
                         height: 30,
                         renderer: <Hinderance />
                     },
-                    longHindTwoFour: {
-                        position: [Math.floor(screenWidth / 2) - 45, 310],
+                    longHindTwoEight: {
+                        position: [screenWidth - 260, screenHeight - 140],
                         width: 120,
                         height: 30,
                         renderer: <Hinderance />
                     },
+                    smallBlockOne: {
+                        position: [screenWidth - 120, screenHeight - 240],
+                        width: 20,
+                        height: 20,
+                        renderer: <Hinderance />
+                    },
+                    smallBlockTwo: {
+                        position: [screenWidth - 60, screenHeight - 140],
+                        width: 20,
+                        height: 20,
+                        renderer: <Hinderance />
+                    }
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
