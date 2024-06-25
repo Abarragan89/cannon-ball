@@ -24,7 +24,7 @@ function ChapterThreeLevelSix() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Hinderance',
-        nextLevel: 'Kraken/Level1'
+        nextLevel: 'Hinderance/Level7'
     });
 
     return (
@@ -109,7 +109,7 @@ function ChapterThreeLevelSix() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Hinderance'}
-                    levelNumber={5}
+                    levelNumber={6}
                 />
             </GameEngineWrapper>
         </ImageBackground>

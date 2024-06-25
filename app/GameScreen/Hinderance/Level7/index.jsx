@@ -13,6 +13,7 @@ const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+import colors from "../../../../constants/colors";
 
 
 function ChapterThreeLevelSeven() {
@@ -25,9 +26,10 @@ function ChapterThreeLevelSeven() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Hinderance',
-        nextLevel: 'Kraken/Level1'
+        nextLevel: 'Hinderance/Level8'
     });
 
+    const midScreen = Math.floor(screenWidth / 2);
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
@@ -44,39 +46,104 @@ function ChapterThreeLevelSeven() {
                 ]}
                 entities={{
                     cannon: {
-                        position: [40, screenHeight - 100],
-                        upperTravelLimit: Math.floor(screenWidth / 2) - 245,
+                        position: [midScreen - 20, screenHeight - 378],
+                        upperTravelLimit: midScreen + 30,
+                        lowerTravelLimit: midScreen - 75
+                    },
+                    cannonStand: {
+                        position: [midScreen - 85, screenHeight - 300],
+                        width: 200,
+                        height: 20,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 2), 220],
+                        position: [midScreen, screenHeight - 140],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
                     },
-                    giantTallOne: {
-                        position: [Math.floor(screenWidth / 2) - 170, screenHeight - 315],
-                        width: 70,
-                        height: 300,
+                    // LEFT SIDE
+                    smallCircleOne: {
+                        position: [(midScreen - 160) / 4, screenHeight - 300],
+                        width: 10,
+                        height: 10,
                         renderer: <Hinderance />
                     },
-                    giantTallTwo: {
-                        position: [Math.floor(screenWidth / 2) + 120, screenHeight - 315],
-                        width: 70,
-                        height: 300,
+                    smallCircleFour: {
+                        position: [midScreen / 3, screenHeight - 300],
+                        width: 10,
+                        height: 10,
                         renderer: <Hinderance />
                     },
+                    smallCircleTwo: {
+                        position: [midScreen / 2, screenHeight - 300],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    smallCircleThree: {
+                        position: [midScreen - 140, screenHeight - 300],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+
                     longHindOne: {
-                        position: [Math.floor(screenWidth / 2) - 45, 120],
-                        width: 120,
-                        height: 30,
+                        position: [100, screenHeight - 150],
+                        width: 200,
+                        height: 10,
                         renderer: <Hinderance />
                     },
-                    longHindTwo: {
-                        position: [Math.floor(screenWidth / 2) - 45, 310],
-                        width: 120,
-                        height: 30,
+                    // RIGHT SIDE
+                    smallRectOne: {
+                        position: [screenWidth - 100, screenHeight - 260],
+                        width: 30,
+                        height: 10,
                         renderer: <Hinderance />
                     },
+                    smallRectwo: {
+                        position: [Math.floor(screenWidth / 2) + 200, screenHeight - 240],
+                        width: 30,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    smallRecThree: {
+                        position: [Math.floor(screenWidth / 2) + 135, screenHeight - 115],
+                        width: 30,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    smallRecFour: {
+                        position: [Math.floor(screenWidth / 2) + 230, screenHeight - 80],
+                        width: 30,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    smallRecFive: {
+                        position: [Math.floor(screenWidth / 2) + 70, screenHeight - 180],
+                        width: 30,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    lowerDotOne: {
+                        position: [Math.floor(screenWidth / 2) - 50, screenHeight - 250],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    lowerDotTwo: {
+                        position: [Math.floor(screenWidth / 2) - 50, screenHeight - 200],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    tallThinRectOne: {
+                        position: [Math.floor(screenWidth / 2) + 50, screenHeight - 200],
+                        width: 10,
+                        height: 30,
+                        renderer: <Hinderance />
+                    }
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
@@ -89,7 +156,7 @@ function ChapterThreeLevelSeven() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Hinderance'}
-                    levelNumber={5}
+                    levelNumber={7}
                 />
             </GameEngineWrapper>
         </ImageBackground>
