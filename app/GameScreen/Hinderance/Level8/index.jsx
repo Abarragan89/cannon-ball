@@ -47,33 +47,302 @@ function ChapterThreeLevelEight() {
                         upperTravelLimit: Math.floor(screenWidth / 2) - 245,
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 2), 220],
+                        position: [Math.floor(screenWidth / 2) + 20, screenHeight - 70],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
                     },
-                    giantTallOne: {
-                        position: [Math.floor(screenWidth / 2) - 170, screenHeight - 315],
-                        width: 70,
-                        height: 300,
+                    // Row one (starting from left to right)
+                    rowOneColumnOne: {
+                        position: [250, 100],
+                        width: 10,
+                        height: 10,
                         renderer: <Hinderance />
                     },
-                    giantTallTwo: {
-                        position: [Math.floor(screenWidth / 2) + 120, screenHeight - 315],
-                        width: 70,
-                        height: 300,
+                    rowOneColumnTwo: {
+                        position: [300, 100],
+                        width: 10,
+                        height: 10,
                         renderer: <Hinderance />
                     },
-                    longHindOne: {
-                        position: [Math.floor(screenWidth / 2) - 45, 120],
-                        width: 120,
-                        height: 30,
+                    rowOneColumnThree: {
+                        position: [350, 100],
+                        width: 10,
+                        height: 10,
                         renderer: <Hinderance />
                     },
-                    longHindTwo: {
-                        position: [Math.floor(screenWidth / 2) - 45, 310],
-                        width: 120,
-                        height: 30,
+                    rowOneColumnFour: {
+                        position: [400, 100],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowOneColumnFive: {
+                        position: [450, 100],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowOneColumnSix: {
+                        position: [500, 100],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowOneColumnSeven: {
+                        position: [550, 100],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowOneColumnEight: {
+                        position: [600, 100],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowOneColumnNine: {
+                        position: [650, 100],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowOneColumnTen: {
+                        position: [700, 100],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    // Row Two (from left to right)
+                    rwoTwoColumnOne: {
+                        position: [275, 150],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rwoTwoColumnTwo: {
+                        position: [325, 150],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rwoTwoColumnThree: {
+                        position: [375, 150],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rwoTwoColumnFour: {
+                        position: [425, 150],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rwoTwoColumnFive: {
+                        position: [475, 150],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rwoTwoColumnSix: {
+                        position: [525, 150],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rwoTwoColumnSeven: {
+                        position: [575, 150],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rwoTwoColumnEight: {
+                        position: [625, 150],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rwoTwoColumnNine: {
+                        position: [675, 150],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    // Row Three (starting from left to right)
+                    rowThreeColumnOne: {
+                        position: [250, 200],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowThreeColumnTwo: {
+                        position: [300, 200],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowThreeColumnThree: {
+                        position: [350, 200],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowThreeColumnFour: {
+                        position: [400, 200],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowThreeColumnFive: {
+                        position: [450, 200],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowThreeColumnSix: {
+                        position: [500, 200],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowThreeColumnSeven: {
+                        position: [550, 200],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowThreeColumnEight: {
+                        position: [600, 200],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowThreeColumnNine: {
+                        position: [650, 200],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowThreeColumnTen: {
+                        position: [700, 200],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    // Row Four (from left to right)
+                    rowFourColumnOne: {
+                        position: [275, 250],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFourColumnTwo: {
+                        position: [325, 250],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFourColumnThree: {
+                        position: [375, 250],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFourColumnFour: {
+                        position: [425, 250],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFourColumnFive: {
+                        position: [475, 250],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFourColumnSix: {
+                        position: [525, 250],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFourColumnSeven: {
+                        position: [575, 250],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFourColumnEight: {
+                        position: [625, 250],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFourColumnNine: {
+                        position: [675, 250],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    // Row Three (starting from left to right)
+                    rowFiveColumnOne: {
+                        position: [250, 300],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFiveColumnTwo: {
+                        position: [300, 300],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFiveColumnThree: {
+                        position: [350, 300],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFiveColumnFour: {
+                        position: [400, 300],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFiveColumnFive: {
+                        position: [450, 300],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFiveColumnSix: {
+                        position: [500, 300],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFiveColumnSeven: {
+                        position: [550, 300],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFiveColumnEight: {
+                        position: [600, 300],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFiveColumnNine: {
+                        position: [650, 300],
+                        width: 10,
+                        height: 10,
+                        renderer: <Hinderance />
+                    },
+                    rowFiveColumnTen: {
+                        position: [700, 300],
+                        width: 10,
+                        height: 10,
                         renderer: <Hinderance />
                     },
                 }}
