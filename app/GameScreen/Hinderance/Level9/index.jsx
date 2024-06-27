@@ -44,38 +44,65 @@ function ChapterThreeLevelNine() {
                 entities={{
                     cannon: {
                         position: [40, screenHeight - 100],
-                        upperTravelLimit: Math.floor(screenWidth / 2) - 245,
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 2), 220],
+                        position: [screenWidth - 100, 210],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
                     },
-                    giantTallOne: {
-                        position: [Math.floor(screenWidth / 2) - 170, screenHeight - 315],
-                        width: 70,
-                        height: 300,
+                    squareBlockingBlock: {
+                        position: [screenWidth - 170, 190],
+                        display: 'block',
+                        width: 30,
+                        height: 50,
+                        handlePosition: [-22, 0],
                         renderer: <Hinderance />
                     },
-                    giantTallTwo: {
-                        position: [Math.floor(screenWidth / 2) + 120, screenHeight - 315],
-                        width: 70,
-                        height: 300,
-                        renderer: <Hinderance />
-                    },
+                    // These Hinderance start with the left hinderance in the entrance, and moves around the container
                     longHindOne: {
-                        position: [Math.floor(screenWidth / 2) - 45, 120],
-                        width: 120,
-                        height: 30,
+                        position: [200, 50],
+                        width: 20,
+                        height: 220,
                         renderer: <Hinderance />
                     },
                     longHindTwo: {
-                        position: [Math.floor(screenWidth / 2) - 45, 310],
-                        width: 120,
-                        height: 30,
+                        position: [200, 50],
+                        width: screenWidth - 220,
+                        height: 20,
                         renderer: <Hinderance />
                     },
+                    longHindThree: {
+                        position: [screenWidth - 40, 50],
+                        width: 20,
+                        height: 210,
+                        renderer: <Hinderance />
+                    },
+                    longHindTNTBase: {
+                        position: [screenWidth - 240, 240],
+                        width: 200,
+                        height: 20,
+                        renderer: <Hinderance />
+                    },
+                    longHindFour: {
+                        position: [screenWidth - 260, 100],
+                        width: 20,
+                        height: 160,
+                        renderer: <Hinderance />
+                    },
+                    longHindFive: {
+                        position: [280, 100],
+                        width: screenWidth - 520,
+                        height: 20,
+                        renderer: <Hinderance />
+                    },
+                    longHindSix: {
+                        position: [280, 100],
+                        width: 20,
+                        height: 170,
+                        renderer: <Hinderance />
+                    }
+
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
@@ -91,7 +118,7 @@ function ChapterThreeLevelNine() {
                     levelNumber={5}
                 />
             </GameEngineWrapper>
-        </ImageBackground>
+        </ImageBackground >
     );
 }
 
