@@ -13,6 +13,7 @@ const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import colors from "../../../../constants/colors";
 
 function ChapterThreeLevelEight() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -24,7 +25,7 @@ function ChapterThreeLevelEight() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Hinderance',
-        nextLevel: 'Kraken/Level1'
+        nextLevel: 'Hinderance/Level9'
     });
 
     return (
@@ -44,303 +45,365 @@ function ChapterThreeLevelEight() {
                 entities={{
                     cannon: {
                         position: [40, screenHeight - 100],
-                        upperTravelLimit: Math.floor(screenWidth / 2) - 245,
+                        upperTravelLimit: 110,
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 2) + 20, screenHeight - 70],
+                        position: [Math.floor((720 - 240) / 2) + 225, screenHeight - 70],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
                     },
+                    // Left Border 
+                    leftBorder: {
+                        position: [190, 20],
+                        width: 50,
+                        height: screenHeight - 50,
+                        renderer: <Hinderance />
+                    },
+                    // Right Border 
+                    rightBorder: {
+                        position: [720, 20],
+                        width: 50,
+                        height: screenHeight - 50,
+                        renderer: <Hinderance />
+                    },
                     // Row one (starting from left to right)
                     rowOneColumnOne: {
-                        position: [250, 100],
+                        position: [250, 50],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowOneColumnTwo: {
-                        position: [300, 100],
+                        position: [300, 50],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowOneColumnThree: {
-                        position: [350, 100],
+                        position: [350, 50],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowOneColumnFour: {
-                        position: [400, 100],
+                        position: [400, 50],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowOneColumnFive: {
-                        position: [450, 100],
+                        position: [450, 50],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowOneColumnSix: {
-                        position: [500, 100],
+                        position: [500, 50],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowOneColumnSeven: {
-                        position: [550, 100],
+                        position: [550, 50],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowOneColumnEight: {
-                        position: [600, 100],
+                        position: [600, 50],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowOneColumnNine: {
-                        position: [650, 100],
+                        position: [650, 50],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowOneColumnTen: {
-                        position: [700, 100],
+                        position: [700, 50],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     // Row Two (from left to right)
                     rwoTwoColumnOne: {
-                        position: [275, 150],
+                        position: [275, 100],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rwoTwoColumnTwo: {
-                        position: [325, 150],
+                        position: [325, 100],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rwoTwoColumnThree: {
-                        position: [375, 150],
+                        position: [375, 100],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rwoTwoColumnFour: {
-                        position: [425, 150],
+                        position: [425, 100],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rwoTwoColumnFive: {
-                        position: [475, 150],
+                        position: [475, 100],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rwoTwoColumnSix: {
-                        position: [525, 150],
+                        position: [525, 100],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rwoTwoColumnSeven: {
-                        position: [575, 150],
+                        position: [575, 100],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rwoTwoColumnEight: {
-                        position: [625, 150],
+                        position: [625, 100],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rwoTwoColumnNine: {
-                        position: [675, 150],
+                        position: [675, 100],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     // Row Three (starting from left to right)
                     rowThreeColumnOne: {
-                        position: [250, 200],
+                        position: [250, 150],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowThreeColumnTwo: {
-                        position: [300, 200],
+                        position: [300, 150],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowThreeColumnThree: {
-                        position: [350, 200],
+                        position: [350, 150],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowThreeColumnFour: {
-                        position: [400, 200],
+                        position: [400, 150],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowThreeColumnFive: {
-                        position: [450, 200],
+                        position: [450, 150],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowThreeColumnSix: {
-                        position: [500, 200],
+                        position: [500, 150],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowThreeColumnSeven: {
-                        position: [550, 200],
+                        position: [550, 150],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowThreeColumnEight: {
-                        position: [600, 200],
+                        position: [600, 150],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowThreeColumnNine: {
-                        position: [650, 200],
+                        position: [650, 150],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowThreeColumnTen: {
-                        position: [700, 200],
+                        position: [700, 150],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     // Row Four (from left to right)
                     rowFourColumnOne: {
-                        position: [275, 250],
+                        position: [275, 200],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFourColumnTwo: {
-                        position: [325, 250],
+                        position: [325, 200],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFourColumnThree: {
-                        position: [375, 250],
+                        position: [375, 200],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFourColumnFour: {
-                        position: [425, 250],
+                        position: [425, 200],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFourColumnFive: {
-                        position: [475, 250],
+                        position: [475, 200],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFourColumnSix: {
-                        position: [525, 250],
+                        position: [525, 200],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFourColumnSeven: {
-                        position: [575, 250],
+                        position: [575, 200],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFourColumnEight: {
-                        position: [625, 250],
+                        position: [625, 200],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFourColumnNine: {
-                        position: [675, 250],
+                        position: [675, 200],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     // Row Three (starting from left to right)
                     rowFiveColumnOne: {
-                        position: [250, 300],
+                        position: [250, 250],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFiveColumnTwo: {
-                        position: [300, 300],
+                        position: [300, 250],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFiveColumnThree: {
-                        position: [350, 300],
+                        position: [350, 250],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFiveColumnFour: {
-                        position: [400, 300],
+                        position: [400, 250],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFiveColumnFive: {
-                        position: [450, 300],
+                        position: [450, 250],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFiveColumnSix: {
-                        position: [500, 300],
+                        position: [500, 250],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFiveColumnSeven: {
-                        position: [550, 300],
+                        position: [550, 250],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFiveColumnEight: {
-                        position: [600, 300],
+                        position: [600, 250],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFiveColumnNine: {
-                        position: [650, 300],
+                        position: [650, 250],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
                     },
                     rowFiveColumnTen: {
-                        position: [700, 300],
+                        position: [700, 250],
+                        color: colors.sandColor,
                         width: 10,
                         height: 10,
                         renderer: <Hinderance />
@@ -357,7 +420,7 @@ function ChapterThreeLevelEight() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Hinderance'}
-                    levelNumber={5}
+                    levelNumber={10}
                 />
             </GameEngineWrapper>
         </ImageBackground>

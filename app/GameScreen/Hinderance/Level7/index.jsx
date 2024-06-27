@@ -91,7 +91,7 @@ function ChapterThreeLevelSeven() {
 
                     longHindOne: {
                         position: [100, screenHeight - 150],
-                        width: 200,
+                        width: 250,
                         height: 10,
                         renderer: <Hinderance />
                     },

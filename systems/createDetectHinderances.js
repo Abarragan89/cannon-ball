@@ -8,32 +8,62 @@ const createDetectHinderanceSystem = (entities) => {
     function createHinderanceAndDetect(width, height, hinderanceName) {
         // LEFT LINE OF HINDERANCE BOX
         const leftLineX1 = entities[hinderanceName].position[0];
-        const leftLineY1 = entities[hinderanceName].position[1] + 3;
+        const leftLineY1 = entities[hinderanceName].position[1];
         const leftLineX2 = entities[hinderanceName].position[0];
         const leftLineY2 = entities[hinderanceName].position[1] + height;
 
         // RIGHT LINE OF HINDERANCE BOX
-        const rightLineX1 = entities[hinderanceName].position[0] + width - 3;
-        const rightLineY1 = entities[hinderanceName].position[1] + 3;
-        const rightLineX2 = entities[hinderanceName].position[0] + width - 3;
+        const rightLineX1 = entities[hinderanceName].position[0] + width;
+        const rightLineY1 = entities[hinderanceName].position[1]
+        const rightLineX2 = entities[hinderanceName].position[0] + width;
         const rightLineY2 = entities[hinderanceName].position[1] + height;
 
         // BOTTOM LINE OF HINDERANCE BOX
-        const bottomLineX1 = entities[hinderanceName].position[0] + 3;
+        const bottomLineX1 = entities[hinderanceName].position[0];
         const bottomLineY1 = entities[hinderanceName].position[1] + height;
-        const bottomLineX2 = entities[hinderanceName].position[0] + width - 3;
+        const bottomLineX2 = entities[hinderanceName].position[0] + width;
         const bottomLineY2 = entities[hinderanceName].position[1] + height;
 
         // TOP LINE OF HINDERANCE BOX
         const topLineX1 = entities[hinderanceName].position[0];
         const topLineY1 = entities[hinderanceName].position[1];
-        const topLineX2 = entities[hinderanceName].position[0] + width - 3;
+        const topLineX2 = entities[hinderanceName].position[0] + width;
         const topLineY2 = entities[hinderanceName].position[1];
 
         // CIRCLE PROPERTIES
-        const radius = +entities.cannonBall.cannonBallRadius;
+        const radius = +entities.cannonBall.cannonBallRadius - 1;
         const circleX = entities.cannonBall.position[0] + radius;
         const circleY = entities.cannonBall.position[1] + radius;
+
+
+        // // LEFT LINE OF HINDERANCE BOX
+        // const leftLineX1 = entities[hinderanceName].position[0];
+        // const leftLineY1 = entities[hinderanceName].position[1] + 3;
+        // const leftLineX2 = entities[hinderanceName].position[0];
+        // const leftLineY2 = entities[hinderanceName].position[1] + height;
+
+        // // RIGHT LINE OF HINDERANCE BOX
+        // const rightLineX1 = entities[hinderanceName].position[0] + width - 3;
+        // const rightLineY1 = entities[hinderanceName].position[1] + 3;
+        // const rightLineX2 = entities[hinderanceName].position[0] + width - 3;
+        // const rightLineY2 = entities[hinderanceName].position[1] + height;
+
+        // // BOTTOM LINE OF HINDERANCE BOX
+        // const bottomLineX1 = entities[hinderanceName].position[0] + 3;
+        // const bottomLineY1 = entities[hinderanceName].position[1] + height;
+        // const bottomLineX2 = entities[hinderanceName].position[0] + width - 3;
+        // const bottomLineY2 = entities[hinderanceName].position[1] + height;
+
+        // // TOP LINE OF HINDERANCE BOX
+        // const topLineX1 = entities[hinderanceName].position[0];
+        // const topLineY1 = entities[hinderanceName].position[1];
+        // const topLineX2 = entities[hinderanceName].position[0] + width - 3;
+        // const topLineY2 = entities[hinderanceName].position[1];
+
+        // // CIRCLE PROPERTIES
+        // const radius = +entities.cannonBall.cannonBallRadius;
+        // const circleX = entities.cannonBall.position[0] + radius;
+        // const circleY = entities.cannonBall.position[1] + radius;
 
         ///////////// CHECKING FOR LEFT WALL DETECTION ////////////////////////
         if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
