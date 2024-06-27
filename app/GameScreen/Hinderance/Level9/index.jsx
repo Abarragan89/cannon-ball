@@ -13,6 +13,7 @@ const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import colors from "../../../../constants/colors";
 
 function ChapterThreeLevelNine() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -51,12 +52,29 @@ function ChapterThreeLevelNine() {
                         handlePosition: [-22, 0],
                         renderer: <TNT />
                     },
-                    squareBlockingBlock: {
-                        position: [screenWidth - 170, 190],
+                    // Inner Blocking Blocks (starting from bottom -> top)
+                    blockingHindOne: {
+                        position: [screenWidth - 170, 200],
+                        color: colors.sandColor,
                         display: 'block',
-                        width: 30,
-                        height: 50,
-                        handlePosition: [-22, 0],
+                        width: 10,
+                        height: 25,
+                        renderer: <Hinderance />
+                    },
+                    blockingHindTwo: {
+                        position: [screenWidth - 170, 150],
+                        color: colors.sandColor,
+                        display: 'block',
+                        width: 10,
+                        height: 25,
+                        renderer: <Hinderance />
+                    },
+                    blockingHindThree: {
+                        position: [screenWidth - 170, 100],
+                        color: colors.sandColor,
+                        display: 'block',
+                        width: 10,
+                        height: 25,
                         renderer: <Hinderance />
                     },
                     // These Hinderance start with the left hinderance in the entrance, and moves around the container
@@ -79,8 +97,8 @@ function ChapterThreeLevelNine() {
                         renderer: <Hinderance />
                     },
                     longHindTNTBase: {
-                        position: [screenWidth - 240, 240],
-                        width: 200,
+                        position: [screenWidth - 260, 240],
+                        width: 240,
                         height: 20,
                         renderer: <Hinderance />
                     },
