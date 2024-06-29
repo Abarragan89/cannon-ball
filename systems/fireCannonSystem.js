@@ -191,3 +191,4 @@ const fireCannonSystem = (entities, { touches }) => {
 
 
 export default fireCannonSystem;
+

@@ -1,3 +1,4 @@
+// FOR DETECTING THE TNT IN THE TNT HITBOX
 export default function isCircleInRectangle(circleX, circleY, radius, rectX, rectY, rectWidth, rectHeight) {
     // Check if the circle is to the left of the rectangle
     const circleRight = circleX + radius;
