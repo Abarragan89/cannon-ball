@@ -18,6 +18,7 @@ export default cannonBallBounce = (gameData, isSoundOn, sounds, sound, headerSta
         //  only bounce ball if game is not over and it did not hit the sand (hit bottom)
         if (!gameData.isGameOver && sound !== 'cannonBallHitSandSound') headerStats.bounces += 1;
     }, 100);
+    
     cannonBall.velocity[isVertical] = -cannonBall.velocity[isVertical] * gameData.bounceLevel;
 
 };

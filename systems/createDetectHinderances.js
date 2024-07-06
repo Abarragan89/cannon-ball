@@ -1,6 +1,7 @@
 // import lineBallDetection from "../utils/lineBallDetection";
 import cannonBallBounce from "../utils/cannonBallBounce";
 import isCircleInRectangle from "../utils/circleRectangleDetection";
+import isCircleInRectangle from "../utils/circleRectangleDetection";
 
 
 const createDetectHinderanceSystem = (entities) => {
@@ -155,20 +156,20 @@ const createDetectHinderanceSystem = (entities) => {
         }
     }
 
-    // Get array of all it is keys in Entities
-    const entityObjs = Object.keys(entities)
-    // Loop through the keys in entities
-    entityObjs.forEach((hinderanceName, index) => {
-        // Only run if it has a width (implies hinderance)
-        if (entities[hinderanceName].width) {
-            // get the values from the entity
-            const { width, height } = entities[hinderanceName];
-            // create and listen for detection
-            createHinderanceAndDetect(width, height, hinderanceName)
-        }
-    })
+// Get array of all it is keys in Entities
+const entityObjs = Object.keys(entities)
+// Loop through the keys in entities
+entityObjs.forEach((hinderanceName, index) => {
+    // Only run if it has a width (implies hinderance)
+    if (entities[hinderanceName].width) {
+        // get the values from the entity
+        const { width, height } = entities[hinderanceName];
+        // create and listen for detection
+        createHinderanceAndDetect(width, height, hinderanceName)
+    }
+})
 
-    return entities;
+return entities;
 }
 
 export default createDetectHinderanceSystem;
