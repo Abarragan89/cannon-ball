@@ -19,6 +19,9 @@ const fireCannonSystem = (entities, { touches }) => {
     // set the gravity, angle, and power before launch
     const GRAVITY = +entities.cannonBall.cannonBallWeight;
     if (entities.cannonBall.isBallMoving) {
+      // Save the previous position for detection and ball movement/hind detection
+      entities.cannonBall.prevPosition[0] = entities.cannonBall.position[0]
+      entities.cannonBall.prevPosition[1] = entities.cannonBall.position[1]
       // Update the X and Y based on the arc velocity
       entities.cannonBall.position[0] += entities.cannonBall.velocity[0]
       entities.cannonBall.position[1] += entities.cannonBall.velocity[1]
@@ -191,3 +194,4 @@ const fireCannonSystem = (entities, { touches }) => {
 
 
 export default fireCannonSystem;
+

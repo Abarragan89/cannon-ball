@@ -146,6 +146,7 @@ const GameEngineWrapper = ({
                     },
                     cannonBall: {
                         position: [-100, 0],
+                        prevPosition: [],
                         velocity: [1, 1],
                         display: 'block',
                         accuracy: { name: '', float: 0, multiplier: 0 },
