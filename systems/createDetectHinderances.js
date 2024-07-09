@@ -1,7 +1,6 @@
 // import lineBallDetection from "../utils/lineBallDetection";
 import cannonBallBounce from "../utils/cannonBallBounce";
 import isCircleInRectangle from "../utils/circleRectangleDetection";
-import isCircleInRectangle from "../utils/circleRectangleDetection";
 
 
 const createDetectHinderanceSystem = (entities) => {
@@ -15,29 +14,29 @@ const createDetectHinderanceSystem = (entities) => {
         const leftLineX1 = hindXPos;
         const leftLineY1 = hindYPos;
 
-        // const leftLineX2 = entities[hinderanceName].position[0];
-        // const leftLineY2 = entities[hinderanceName].position[1] + height;
+        const leftLineX2 = entities[hinderanceName].position[0];
+        const leftLineY2 = entities[hinderanceName].position[1] + height;
 
-        // // RIGHT LINE OF HINDERANCE BOX
-        // const rightLineX1 = entities[hinderanceName].position[0] + width;
-        // const rightLineY1 = entities[hinderanceName].position[1]
-        // const rightLineX2 = entities[hinderanceName].position[0] + width;
-        // const rightLineY2 = entities[hinderanceName].position[1] + height;
+        // RIGHT LINE OF HINDERANCE BOX
+        const rightLineX1 = entities[hinderanceName].position[0] + width;
+        const rightLineY1 = entities[hinderanceName].position[1]
+        const rightLineX2 = entities[hinderanceName].position[0] + width;
+        const rightLineY2 = entities[hinderanceName].position[1] + height;
 
-        // // BOTTOM LINE OF HINDERANCE BOX
-        // const bottomLineX1 = entities[hinderanceName].position[0];
-        // const bottomLineY1 = entities[hinderanceName].position[1] + height;
-        // const bottomLineX2 = entities[hinderanceName].position[0] + width;
-        // const bottomLineY2 = entities[hinderanceName].position[1] + height;
+        // BOTTOM LINE OF HINDERANCE BOX
+        const bottomLineX1 = entities[hinderanceName].position[0];
+        const bottomLineY1 = entities[hinderanceName].position[1] + height;
+        const bottomLineX2 = entities[hinderanceName].position[0] + width;
+        const bottomLineY2 = entities[hinderanceName].position[1] + height;
 
-        // // TOP LINE OF HINDERANCE BOX
-        // const topLineX1 = entities[hinderanceName].position[0];
-        // const topLineY1 = entities[hinderanceName].position[1];
-        // const topLineX2 = entities[hinderanceName].position[0] + width;
-        // const topLineY2 = entities[hinderanceName].position[1];
+        // TOP LINE OF HINDERANCE BOX
+        const topLineX1 = entities[hinderanceName].position[0];
+        const topLineY1 = entities[hinderanceName].position[1];
+        const topLineX2 = entities[hinderanceName].position[0] + width;
+        const topLineY2 = entities[hinderanceName].position[1];
 
         // CIRCLE PROPERTIES
-        const radius = +entities.cannonBall.cannonBallRadius - 1;
+        const radius = +entities.cannonBall.cannonBallRadius;
         const circleX = entities.cannonBall.position[0] + radius;
         const circleY = entities.cannonBall.position[1] + radius;
 
@@ -45,22 +44,53 @@ const createDetectHinderanceSystem = (entities) => {
         const prevCircleY = entities.cannonBall.prevPosition[1] + radius;
 
 
+        // Need to add more conditional rendering because there are cases where it comes from the bottom lett and it renders as only bottome instead of just left 
 
         function determineEntrySide() {
             // Only if previous position was outisde the X and current is inside the X
-            if ((prevCircleX + radius) <= hindXPos && (circleX + radius) > hindXPos) {
-                entities.cannonBall.lastDirection = 'left'
+            if (
+                // Check to see if the previous position was outside and the current is inside the rect
+                ((prevCircleX + radius) <= hindXPos) &&
+                ((circleX + radius) > hindXPos) &&
+                // Check to see if it is within range of the side
+                (prevCircleY + radius >= leftLineY1) &&
+                (prevCircleY - radius <= leftLineY2)
+            ) {
+                entities.cannonBall.lastDirection = 'left';
                 return 'left';
             }
-            else if ((prevCircleX - radius) >= hindXPos + width && (circleX - radius) < hindXPos + width) {
+
+            else if (
+                // Check to see if the previous position was outside and the current is inside the rect
+                (prevCircleX - radius) >= hindXPos + width &&
+                (circleX - radius) < hindXPos + width &&
+                // Check to see if it is within range of the side
+                (prevCircleY + radius >= leftLineY1) &&
+                (prevCircleY - radius <= leftLineY2)
+            ) {
                 entities.cannonBall.lastDirection = 'right'
                 return 'right';
             }
-            else if ((prevCircleY + radius) <= hindYPos && (circleY + radius) > hindYPos) {
+            else if (
+                // Check to see if the previous position was outside and the current is inside the rect
+                (prevCircleY + radius) <= hindYPos &&
+                (circleY + radius) > hindYPos &&
+                // Check to see if it is within range of the side
+                (prevCircleX + radius < topLineX2) &&
+                (prevCircleX + radius > topLineX1)
+            ) {
                 entities.cannonBall.lastDirection = 'top';
                 return 'top'
             }
-            else if ((prevCircleY - radius) >= hindYPos && (circleY - radius) > hindYPos) {
+            else if (
+                // Check to see if the previous position was outside and the current is inside the rect
+                ((prevCircleY - radius) >= hindYPos &&
+                (circleY - radius) > hindYPos) &&
+                // Check to see if it is within range of the side
+                // Check to see if it is within range of the side
+                (prevCircleX + radius < topLineX2) &&
+                (prevCircleX + radius > topLineX1)
+            ) {
                 entities.cannonBall.lastDirection = 'bottom'
                 return 'bottom';
             }
@@ -114,62 +144,57 @@ const createDetectHinderanceSystem = (entities) => {
         //  This is the LEFT rectange hit box insdie the hinderance
         ////////////////// CHECKING FOR LEFT WALL DETECTION //////////////////
         const isInsideBox = isCircleInRectangle(circleX, circleY, radius, leftLineX1, leftLineY1, width, height)
-        const lastFrame = isCircleInRectangle(prevCircleX, prevCircleY, radius, leftLineX1, leftLineY1, width, height)
         const lastDirection = entities.cannonBall.lastDirection;
         // const lastFrame = determineEntrySide();
+        const lastFrame = isCircleInRectangle(prevCircleX, prevCircleY, radius, leftLineX1, leftLineY1, width, height)
 
         const entrySide = determineEntrySide();
-
-        // console.log('last frame', isLastFrameInsideRect)
 
         // Determine direction of cannonBall
         if (isInsideBox && !lastFrame) {
 
             // console.log('entry', isLastFrameInsideRect)
             console.log('last direction', lastDirection)
-            if (entrySide === 'left' && lastDirection !== 'left') {
-                console.log('hitfrom:', entrySide)
+            if (entrySide === 'left') {
+                console.log('hitfrom left:', entrySide);
+                console.log('hinderace', hinderanceName);
+                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0);
+            }
+            else if (entrySide === 'right') {
+                console.log('hitfrom rightr:', entrySide)
                 console.log('hinderace', hinderanceName)
                 cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0);
             }
-            else if (entrySide === 'right' && lastDirection !== 'right') {
-                console.log('hitfrom:', entrySide)
-                console.log('hinderace', hinderanceName)
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0);
-            }
-            else if (entrySide === 'top' && lastDirection !== 'top') {
-                console.log('hitfrom:', entrySide)
+            else if (entrySide === 'top') {
+                console.log('hitfrom top', entrySide)
                 console.log('hinderace', hinderanceName)
                 cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1);
             }
             // // CannonBall is coming from the bottom
-            else if (entrySide === 'bottom' || lastDirection !== 'bottom') {
-                console.log('hit from', entrySide)
+            else if (entrySide === 'bottom') {
+                console.log('hit from bottom', entrySide)
                 console.log('hinderace', hinderanceName)
                 cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1);
             }
-            // // CannonBall is coming from the top
-            // else if (cannonBallVelocityY < 0) {
-            //     console.log('hit from top')
-            //     cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1);
-            // }
+            // CannonBall is coming from the top
+
         }
     }
 
-// Get array of all it is keys in Entities
-const entityObjs = Object.keys(entities)
-// Loop through the keys in entities
-entityObjs.forEach((hinderanceName, index) => {
-    // Only run if it has a width (implies hinderance)
-    if (entities[hinderanceName].width) {
-        // get the values from the entity
-        const { width, height } = entities[hinderanceName];
-        // create and listen for detection
-        createHinderanceAndDetect(width, height, hinderanceName)
-    }
-})
+    // Get array of all it is keys in Entities
+    const entityObjs = Object.keys(entities)
+    // Loop through the keys in entities
+    entityObjs.forEach((hinderanceName, index) => {
+        // Only run if it has a width (implies hinderance)
+        if (entities[hinderanceName].width) {
+            // get the values from the entity
+            const { width, height } = entities[hinderanceName];
+            // create and listen for detection
+            createHinderanceAndDetect(width, height, hinderanceName)
+        }
+    })
 
-return entities;
+    return entities;
 }
 
 export default createDetectHinderanceSystem;

@@ -55,9 +55,9 @@ function ChapterFourLevelFive() {
                         renderer: <TNT />
                     },
                     extraLongHindOne: {
-                        position: [-5, -2],
+                        position: [-5, -15],
                         width: screenWidth + 10,
-                        height: 10,
+                        height: 30,
                         renderer: <Hinderance />
                     },
                     longHindOne: {

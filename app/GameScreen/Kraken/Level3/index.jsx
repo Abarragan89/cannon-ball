@@ -74,9 +74,11 @@ function ChatperFourLevelThree() {
                         renderer: <Hinderance />
                     },
                     extraLongHindOne: {
-                        position: [-3, -2],
-                        renderer: <ExtraLongHind />
-                    }
+                        position: [-5, -15],
+                        width: screenWidth + 10,
+                        height: 30,
+                        renderer: <Hinderance />
+                    },
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
