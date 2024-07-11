@@ -19,12 +19,18 @@ const fireCannonSystem = (entities, { touches }) => {
     // set the gravity, angle, and power before launch
     const GRAVITY = +entities.cannonBall.cannonBallWeight;
     if (entities.cannonBall.isBallMoving) {
-      // Save the previous position for detection and ball movement/hind detection
-      entities.cannonBall.prevPosition[0] = entities.cannonBall.position[0]
-      entities.cannonBall.prevPosition[1] = entities.cannonBall.position[1]
+      // Save the Previous Position for detection and ball movement/hind detection
+      entities.cannonBall.prevPosition[0] = entities.cannonBall.position[0];
+      entities.cannonBall.prevPosition[1] = entities.cannonBall.position[1];
+
       // Update the X and Y based on the arc velocity
-      entities.cannonBall.position[0] += entities.cannonBall.velocity[0]
-      entities.cannonBall.position[1] += entities.cannonBall.velocity[1]
+      entities.cannonBall.position[0] += entities.cannonBall.velocity[0];
+      entities.cannonBall.position[1] += entities.cannonBall.velocity[1];
+
+      // Check the Next Position for detection and ball movement/hind detection
+      entities.cannonBall.nextPosition[0] = entities.cannonBall.position[0] + entities.cannonBall.velocity[0];
+      entities.cannonBall.nextPosition[1] = entities.cannonBall.position[1] + entities.cannonBall.velocity[1];
+
       // Increase gravity to slowly bring ball back down.
       if (entities.cannonBall.velocity[1] < 8.5) {
         entities.cannonBall.velocity[1] += GRAVITY
