@@ -10,7 +10,7 @@ const CannonBallStats = ({ size, weight, bounce }) => {
 
     useEffect(() => {
         switch (size) {
-            case 4:
+            case 5:
                 setAdjustedSize(1);
                 break;
             case 6:
@@ -27,19 +27,19 @@ const CannonBallStats = ({ size, weight, bounce }) => {
                 break;
         }
         switch (weight) {
-            case 0.05:
+            case 0.10:
                 setAdjustedWeight(1);
                 break;
-            case 0.08:
+            case 0.13:
                 setAdjustedWeight(2);
                 break;
-            case 0.11:
+            case 0.16:
                 setAdjustedWeight(3);
                 break;
-            case 0.14:
+            case 0.19:
                 setAdjustedWeight(4);
                 break;
-            case 0.17:
+            case 0.22:
                 setAdjustedWeight(5);
                 break;
         }

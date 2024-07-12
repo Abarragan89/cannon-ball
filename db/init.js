@@ -115,41 +115,79 @@ export async function initDB() {
             await db.execAsync(`
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, isOwned, cannonBallSetId, size, weight, bounce)
-                VALUES ('Iron', '#a19d94', '#D4D0D0', 0, 1, ${cannonBallSet}, 8, 0.11, 0.65);
+                VALUES ('Iron', '#a19d94', '#D4D0D0', 0, 1, ${cannonBallSet}, 8, 0.16, 0.65);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Copper', '#b87333', '#d89924', 5000, ${cannonBallSet}, 11, 0.14, 0.65);
+                VALUES ('Copper', '#b87333', '#d89924', 5000, ${cannonBallSet}, 11, 0.19, 0.65);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Lead', '#212121', '#4f4d4d', 10000, ${cannonBallSet}, 8, 0.17, 0.55);
+                VALUES ('Lead', '#212121', '#4f4d4d', 10000, ${cannonBallSet}, 8, 0.22, 0.55);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Ruby', '#E0115F', '#ed5252', 30000, ${cannonBallSet}, 6, 0.11, 0.85);
+                VALUES ('Ruby', '#E0115F', '#ed5252', 30000, ${cannonBallSet}, 6, 0.16, 0.85);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Emerald', '#50C878', '#a8f49e', 30000, ${cannonBallSet}, 6, 0.08, 0.75);
+                VALUES ('Emerald', '#50C878', '#a8f49e', 30000, ${cannonBallSet}, 6, 0.13, 0.75);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Ice', '#26afcb', '#f0fbef', 30000, ${cannonBallSet}, 4, 0.08, 0.55);
+                VALUES ('Ice', '#26afcb', '#f0fbef', 30000, ${cannonBallSet}, 5, 0.13, 0.55);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Rubber', '#090808', '#353434', 30000, ${cannonBallSet}, 11, 0.11, 0.95);
+                VALUES ('Rubber', '#090808', '#353434', 30000, ${cannonBallSet}, 11, 0.16, 0.95);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Beach Ball', '#ff0000', '#0560e0', 30000, ${cannonBallSet}, 13, 0.05, 0.85);
+                VALUES ('Beach Ball', '#ff0000', '#0560e0', 30000, ${cannonBallSet}, 13, 0.10, 0.85);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('BB', '#ff7c02', '#faed99', 30000, ${cannonBallSet}, 4, 0.05, 0.75);
+                VALUES ('BB', '#ff7c02', '#faed99', 30000, ${cannonBallSet}, 5, 0.10, 0.75);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Eight Ball', 'black', 'eightBall', 40000, ${cannonBallSet}, 11, 0.08, 0.55);
+                VALUES ('Eight Ball', 'black', 'eightBall', 40000, ${cannonBallSet}, 11, 0.13, 0.55);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Skull', 'black', 'skull', 40000, ${cannonBallSet}, 8, 0.08, 0.65);
+                VALUES ('Skull', 'black', 'skull', 40000, ${cannonBallSet}, 8, 0.13, 0.65);
 
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-                VALUES ('Ghost', '#e0d9d9', 'ghost', 40000, ${cannonBallSet}, 13, 0.08, 0.95);
+                VALUES ('Ghost', '#e0d9d9', 'ghost', 40000, ${cannonBallSet}, 13, 0.13, 0.95);
             `)
+            // await db.execAsync(`
+
+            //     INSERT INTO cannonBalls (name, color, gradientColor, price, isOwned, cannonBallSetId, size, weight, bounce)
+            //     VALUES ('Iron', '#a19d94', '#D4D0D0', 0, 1, ${cannonBallSet}, 8, 0.11, 0.65);
+
+            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+            //     VALUES ('Copper', '#b87333', '#d89924', 5000, ${cannonBallSet}, 11, 0.14, 0.65);
+
+            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+            //     VALUES ('Lead', '#212121', '#4f4d4d', 10000, ${cannonBallSet}, 8, 0.17, 0.55);
+
+            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+            //     VALUES ('Ruby', '#E0115F', '#ed5252', 30000, ${cannonBallSet}, 6, 0.11, 0.85);
+
+            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+            //     VALUES ('Emerald', '#50C878', '#a8f49e', 30000, ${cannonBallSet}, 6, 0.08, 0.75);
+
+            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+            //     VALUES ('Ice', '#26afcb', '#f0fbef', 30000, ${cannonBallSet}, 4, 0.08, 0.55);
+
+            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+            //     VALUES ('Rubber', '#090808', '#353434', 30000, ${cannonBallSet}, 11, 0.11, 0.95);
+
+            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+            //     VALUES ('Beach Ball', '#ff0000', '#0560e0', 30000, ${cannonBallSet}, 13, 0.05, 0.85);
+
+            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+            //     VALUES ('BB', '#ff7c02', '#faed99', 30000, ${cannonBallSet}, 4, 0.05, 0.75);
+
+            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+            //     VALUES ('Eight Ball', 'black', 'eightBall', 40000, ${cannonBallSet}, 11, 0.08, 0.55);
+
+            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+            //     VALUES ('Skull', 'black', 'skull', 40000, ${cannonBallSet}, 8, 0.08, 0.65);
+
+            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
+            //     VALUES ('Ghost', '#e0d9d9', 'ghost', 40000, ${cannonBallSet}, 13, 0.08, 0.95);
+            // `)
 
             // Create Cannon Set
             const { lastInsertRowId: cannonSet } = await db.runAsync(`INSERT INTO cannonSet DEFAULT VALUES`);
@@ -161,24 +199,46 @@ export async function initDB() {
                 VALUES ('Classic', 0, 1, 1, ${cannonSet});
 
                 INSERT INTO cannons (name, price, power, cannonSetId)
-                VALUES ('Pajunga', 5000, 1.3, ${cannonSet});
+                VALUES ('Pajunga', 5000, 1.2, ${cannonSet});
 
                 INSERT INTO cannons (name, price, power, cannonSetId)
-                VALUES ('Bruno', 5000, 1.3, ${cannonSet});
+                VALUES ('Bruno', 5000, 1.2, ${cannonSet});
                 
                 INSERT INTO cannons (name, price, power, cannonSetId)
-                VALUES ('Arbor', 15000, 1.6, ${cannonSet});
+                VALUES ('Arbor', 15000, 1.4, ${cannonSet});
 
                 INSERT INTO cannons (name, price, power, cannonSetId)
-                VALUES ('Gumbo', 15000, 1.6, ${cannonSet});
+                VALUES ('Gumbo', 15000, 1.4, ${cannonSet});
 
                 INSERT INTO cannons (name, price, power, cannonSetId)
-                VALUES ('Tuxedo', 30000, 1.9, ${cannonSet});
+                VALUES ('Tuxedo', 30000, 1.6, ${cannonSet});
 
                 INSERT INTO cannons (name, price, power, cannonSetId)
-                VALUES ('Midnight', 30000, 1.9, ${cannonSet});
-
+                VALUES ('Midnight', 30000, 1.6, ${cannonSet});
             `)
+            // await db.execAsync(`
+
+            //     INSERT INTO cannons (name, price, isOwned, power, cannonSetId)
+            //     VALUES ('Classic', 0, 1, 1, ${cannonSet});
+
+            //     INSERT INTO cannons (name, price, power, cannonSetId)
+            //     VALUES ('Pajunga', 5000, 1.3, ${cannonSet});
+
+            //     INSERT INTO cannons (name, price, power, cannonSetId)
+            //     VALUES ('Bruno', 5000, 1.3, ${cannonSet});
+                
+            //     INSERT INTO cannons (name, price, power, cannonSetId)
+            //     VALUES ('Arbor', 15000, 1.6, ${cannonSet});
+
+            //     INSERT INTO cannons (name, price, power, cannonSetId)
+            //     VALUES ('Gumbo', 15000, 1.6, ${cannonSet});
+
+            //     INSERT INTO cannons (name, price, power, cannonSetId)
+            //     VALUES ('Tuxedo', 30000, 1.9, ${cannonSet});
+
+            //     INSERT INTO cannons (name, price, power, cannonSetId)
+            //     VALUES ('Midnight', 30000, 1.9, ${cannonSet});
+            // `)
 
             // Create User
             const { lastInsertRowId: newUserId } = await db.runAsync(`INSERT INTO users (name, preferenceId, cannonBallSetId, cannonSetId, totalPoints) VALUES ('mike', ${preferenceId}, ${cannonBallSet}, ${cannonSet}, 250000);`);

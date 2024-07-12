@@ -15,6 +15,7 @@ const screenHeight = Dimensions.get('window').height;
 import { getIndividualLevelData } from "../../db/selectQueries";
 import EndGameModal from '../../Components/GameEngine/EndGameModal';
 import { GameEngine } from "react-native-game-engine";
+
 import {
     updateLevelToPass,
     updateLevelHighScore,
@@ -32,6 +33,7 @@ const GameEngineWrapper = ({
     isGameOver,
     setIsGameOver,
 }) => {
+
 
     // Get Router Parameters
     const {
