@@ -10,11 +10,11 @@ import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import krakenLevelFiveSystems from "../../../../systems/krakenMovementSystems/krakenLevelFive";
+import krakenLevelSixSystems from "../../../../systems/krakenMovementSystems/krakenLevelSix";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 
-function ChapterFourLevelFive() {
+function ChapterFourLevelSix() {
     const [isGameOver, setIsGameOver] = useState(false);
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -24,7 +24,7 @@ function ChapterFourLevelFive() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Kraken',
-        nextLevel: 'Kraken/Level6'
+        nextLevel: 'Kraken/Level7'
     });
 
     return (
@@ -40,7 +40,7 @@ function ChapterFourLevelFive() {
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     createDetectHinderanceSystem,
-                    krakenLevelFiveSystems
+                    krakenLevelSixSystems
                 ]}
                 entities={{
                     cannon: {
@@ -53,30 +53,6 @@ function ChapterFourLevelFive() {
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
-                    },
-                    extraLongHindOne: {
-                        position: [-5, -15],
-                        width: screenWidth + 10,
-                        height: 30,
-                        renderer: <Hinderance />
-                    },
-                    longHindOne: {
-                        position: [Math.floor(screenWidth / 2) - 180, screenHeight - 50],
-                        width: 120,
-                        height: 30,
-                        renderer: <Hinderance />
-                    },
-                    squareHindOne: {
-                        position: [Math.floor(screenWidth / 2), screenHeight - 50],
-                        width: 40,
-                        height: 40,
-                        renderer: <Hinderance />
-                    },
-                    giantTallOne: {
-                        position: [Math.floor(screenWidth / 2) + 55, -50],
-                        width: 70,
-                        height: 300,
-                        renderer: <Hinderance />
                     },
                     cannonStand: {
                         position: [screenWidth - 82, 150],
@@ -97,7 +73,7 @@ function ChapterFourLevelFive() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Kraken'}
-                    levelNumber={5}
+                    levelNumber={6}
                 />
             </GameEngineWrapper>
         </ImageBackground>
@@ -115,4 +91,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChapterFourLevelFive;
+export default ChapterFourLevelSix;

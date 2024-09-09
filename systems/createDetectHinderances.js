@@ -1,11 +1,8 @@
-// import lineBallDetection from "../utils/lineBallDetection";
 import cannonBallBounce from "../utils/cannonBallBounce";
 import isCircleInRectangle from "../utils/circleRectangleDetection";
 
 
 const createDetectHinderanceSystem = (entities) => {
-    // Helper function
-
     // Creates Hinderance positioning and listens for detection
     function createHinderanceAndDetect(width, height, hinderanceName) {
         const hindXPos = entities[hinderanceName].position[0];
@@ -43,8 +40,8 @@ const createDetectHinderanceSystem = (entities) => {
         const prevCircleX = entities.cannonBall.prevPosition[0] + radius;
         const prevCircleY = entities.cannonBall.prevPosition[1] + radius;
 
-        const nextCircleX = entities.cannonBall.nextPosition[0];
-        const nextCircleY = entities.cannonBall.nextPosition[1];
+        // const nextCircleX = entities.cannonBall.nextPosition[0];
+        // const nextCircleY = entities.cannonBall.nextPosition[1];
 
 
 
@@ -162,22 +159,18 @@ const createDetectHinderanceSystem = (entities) => {
                 return 'inside'; // Circle is already inside
             }
         }
-        determineEntrySide();
+
         // PRATICING CREATING DETECTION WITH 10px wide rectangle detections on all four sides
         //  This is the LEFT rectange hit box insdie the hinderance
         ////////////////// CHECKING FOR LEFT WALL DETECTION //////////////////
-        const isInsideBox = isCircleInRectangle(circleX, circleY, radius, leftLineX1, leftLineY1, width, height)
-        const lastDirection = entities.cannonBall.lastDirection;
-        // const lastFrame = determineEntrySide();
-        const lastFrame = isCircleInRectangle(prevCircleX, prevCircleY, radius, leftLineX1, leftLineY1, width, height)
-
+        // 1. Check the current ball-rect postition
+        const isInsideBox = isCircleInRectangle(circleX, circleY, radius, leftLineX1, leftLineY1, width, height) 
+        // 2. Check the previous ball-rect position
+        const lastFrame = isCircleInRectangle(prevCircleX, prevCircleY, radius, leftLineX1, leftLineY1, width, height) 
         const entrySide = determineEntrySide();
 
         // Determine direction of cannonBall
         if (isInsideBox && !lastFrame) {
-
-            // console.log('entry', isLastFrameInsideRect)
-            console.log('last direction', lastDirection)
             if (entrySide === 'left') {
                 console.log('hitfrom left:', entrySide);
                 console.log('hinderace', hinderanceName);
@@ -199,8 +192,6 @@ const createDetectHinderanceSystem = (entities) => {
                 console.log('hinderace', hinderanceName)
                 cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1);
             }
-            // CannonBall is coming from the top
-
         }
 
 

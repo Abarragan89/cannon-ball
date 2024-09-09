@@ -10,11 +10,11 @@ import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import krakenLevelFiveSystems from "../../../../systems/krakenMovementSystems/krakenLevelFive";
+import krakenLevelSevenSystems from "../../../../systems/krakenMovementSystems/krakenLevelSeven";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 
-function ChapterFourLevelFive() {
+function ChapterFourLevelSeven() {
     const [isGameOver, setIsGameOver] = useState(false);
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -24,7 +24,7 @@ function ChapterFourLevelFive() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Kraken',
-        nextLevel: 'Kraken/Level6'
+        nextLevel: 'Hatch/Level1'
     });
 
     return (
@@ -40,51 +40,39 @@ function ChapterFourLevelFive() {
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     createDetectHinderanceSystem,
-                    krakenLevelFiveSystems
+                    krakenLevelSevenSystems
                 ]}
                 entities={{
                     cannon: {
-                        position: [screenWidth - 78, 75],
+                        position: [78, 25],
                         upperTravelLimit: -1,
                         lowerTravelLimit: 1000
                     },
                     TNT: {
-                        position: [250, 150],
+                        position: [200, screenHeight - 70],
                         display: 'block',
                         handlePosition: [-22, 0],
                         renderer: <TNT />
                     },
-                    extraLongHindOne: {
-                        position: [-5, -15],
-                        width: screenWidth + 10,
-                        height: 30,
+                    cannonStand: {
+                        position: [75, 100],
+                        height: 15,
+                        width: 70,
+                        color: colors.sandColor, 
                         renderer: <Hinderance />
                     },
                     longHindOne: {
-                        position: [Math.floor(screenWidth / 2) - 180, screenHeight - 50],
-                        width: 120,
-                        height: 30,
+                        position: [screenWidth - 250, 150],
+                        width: 250,
+                        height: 20,
                         renderer: <Hinderance />
                     },
-                    squareHindOne: {
-                        position: [Math.floor(screenWidth / 2), screenHeight - 50],
-                        width: 40,
-                        height: 40,
+                    longHindTwo: {
+                        position: [0, 250],
+                        width: 250,
+                        height: 20,
                         renderer: <Hinderance />
                     },
-                    giantTallOne: {
-                        position: [Math.floor(screenWidth / 2) + 55, -50],
-                        width: 70,
-                        height: 300,
-                        renderer: <Hinderance />
-                    },
-                    cannonStand: {
-                        position: [screenWidth - 82, 150],
-                        height: 15,
-                        width: 70,
-                        color: colors.sandColor,
-                        renderer: <Hinderance />
-                    }
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
@@ -97,7 +85,7 @@ function ChapterFourLevelFive() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Kraken'}
-                    levelNumber={5}
+                    levelNumber={7}
                 />
             </GameEngineWrapper>
         </ImageBackground>
@@ -114,5 +102,5 @@ const styles = StyleSheet.create({
     }
 });
 
+export default ChapterFourLevelSeven;
 
-export default ChapterFourLevelFive;
