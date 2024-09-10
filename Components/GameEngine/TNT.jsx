@@ -4,7 +4,7 @@ function TNT({ position, handlePosition, display }) {
     
     let WIDTH = 30;
     let HEIGHT = 30;
-    
+
     let x = position[0];
     let y = position[1];
 
@@ -41,9 +41,16 @@ const styles = StyleSheet.create({
     },
     tntHandle: {
         position: 'absolute',
-        fontSize: 27,
+
+
+        fontSize: 20,
         // fontWeight: 'bold',
-        left: 6.5,
+        left: 8.5,
+
+
+        // fontSize: 27,
+        // fontWeight: 'bold',
+        // left: 6.5,
     },
     text: {
         color: 'yellow',

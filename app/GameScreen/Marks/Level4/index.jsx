@@ -49,7 +49,7 @@ function ChatperTwoLevelFour() {
                     TNT: {
                         position: [Math.floor(screenWidth / 2), 100],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     }
                 }}

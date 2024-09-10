@@ -46,7 +46,7 @@ function ChatperOneLevelTwo() {
                     TNT: {
                         position: [screenWidth - 31, 60],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     }
                 }}

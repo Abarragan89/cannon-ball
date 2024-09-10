@@ -53,7 +53,7 @@ function ChapterFourLevelFour() {
                     TNT: {
                         position: [250, screenHeight - 40],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     },
                     cannonStand: {

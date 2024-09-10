@@ -44,21 +44,21 @@ function ChapterFourLevelEight() {
                 ]}
                 entities={{
                     cannon: {
-                        position: [10, Math.floor(screenHeight/2)],
+                        position: [10, Math.floor(screenHeight / 2)],
                         upperTravelLimit: -1,
                         lowerTravelLimit: 1000
                     },
                     TNT: {
                         position: [Math.floor(screenWidth / 2) + 50, 225],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     },
                     cannonStand: {
-                        position: [13, Math.floor(screenHeight/2) + 75],
+                        position: [13, Math.floor(screenHeight / 2) + 75],
                         height: 15,
                         width: 70,
-                        color: colors.sandColor, 
+                        color: colors.sandColor,
                         renderer: <Hinderance />
                     },
                     // This will be directly halfway in screen

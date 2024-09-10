@@ -51,7 +51,7 @@ function ChapterFourLevelFive() {
                     TNT: {
                         position: [250, 150],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     },
                     extraLongHindOne: {

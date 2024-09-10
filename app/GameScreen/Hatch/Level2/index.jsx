@@ -59,7 +59,7 @@ function ChapterFiveLevelTwo() {
                     TNT: {
                         position: [screenWidth - 186, 93],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     },
                     hatchBtn: {

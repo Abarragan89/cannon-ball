@@ -48,7 +48,7 @@ function ChatperThreeLevelOne() {
                     TNT: {
                         position: [screenWidth - 100, 100],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     },
                     longHindOne: {

@@ -49,7 +49,7 @@ function ChapterThreeLevelSix() {
                     TNT: {
                         position: [screenWidth - 140, screenHeight - 100],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     },
                     //  Big blocking block

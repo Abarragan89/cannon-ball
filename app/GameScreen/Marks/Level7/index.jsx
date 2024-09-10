@@ -52,7 +52,7 @@ function ChatperTwoLevelSeven() {
                     TNT: {
                         position: [screenWidth - 250, 50],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     }
                 }}

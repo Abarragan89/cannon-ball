@@ -51,14 +51,14 @@ function ChapterFourLevelSeven() {
                     TNT: {
                         position: [200, screenHeight - 70],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     },
                     cannonStand: {
                         position: [75, 100],
                         height: 15,
                         width: 70,
-                        color: colors.sandColor, 
+                        color: colors.sandColor,
                         renderer: <Hinderance />
                     },
                     longHindOne: {

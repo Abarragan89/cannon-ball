@@ -50,7 +50,7 @@ function ChapterThreeLevelEight() {
                     TNT: {
                         position: [Math.floor((720 - 240) / 2) + 225, screenHeight - 70],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     },
                     // Left Border 

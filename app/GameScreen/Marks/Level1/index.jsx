@@ -46,7 +46,7 @@ function ChatperTwoLevelOne() {
                     TNT: {
                         position: [250, 100],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     }
                 }}

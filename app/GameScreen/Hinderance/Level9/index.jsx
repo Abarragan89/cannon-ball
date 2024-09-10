@@ -49,7 +49,7 @@ function ChapterThreeLevelNine() {
                     TNT: {
                         position: [screenWidth - 100, 210],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     },
                     // Inner Blocking Blocks (starting from bottom -> top)

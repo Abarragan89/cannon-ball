@@ -63,7 +63,6 @@ function ChatperOneLevelOne() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    // followCannonBallOnMove
                 ]}
                 entities={{
                     cannon: {
@@ -72,32 +71,33 @@ function ChatperOneLevelOne() {
                     TNT: {
                         position: [250, 100],
                         display: 'block',
-                        handlePosition: [-22, 0],
-                        renderer: <TNT />
-                    }
-                }}
-                endGameData={endGameData}
-                isGameOver={isGameOver}
-                setIsGameOver={setIsGameOver}
-            >
-                <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Basics' }}
-                />
-                <GameLevelInfoHeader
-                    mapName={'Basics'}
-                    levelNumber={1}
-                />
-
-                {tutorialStep < 4 && !hasSeenTutorial && isSettingsLoaded &&
-                    <GameTutorial
-                        tutorialStep={tutorialStep}
-                        increaseTutorialStep={increaseTutorialStep}
-                    />
+                        handlePosition: [-17, 0],
+                    // handlePosition: [-15, 0],
+                    renderer: <TNT />
                 }
-            </GameEngineWrapper>
-        </ImageBackground>
+                }}
+            endGameData={endGameData}
+            isGameOver={isGameOver}
+            setIsGameOver={setIsGameOver}
+            >
+            <StatusBar hidden={true} />
+            <BackArrow
+                route={'/LevelLobbyScreen'}
+                params={{ mapName: 'Basics' }}
+            />
+            <GameLevelInfoHeader
+                mapName={'Basics'}
+                levelNumber={1}
+            />
+
+            {tutorialStep < 4 && !hasSeenTutorial && isSettingsLoaded &&
+                <GameTutorial
+                    tutorialStep={tutorialStep}
+                    increaseTutorialStep={increaseTutorialStep}
+                />
+            }
+        </GameEngineWrapper>
+        </ImageBackground >
     );
 }
 

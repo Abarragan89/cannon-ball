@@ -44,7 +44,7 @@ function ChatperTwoLevelNine() {
                     tntPixelCounter: 2.5,
                     timeStampLastPaused: 0,
                     randomDelayTime: 2000,
-                    
+
                     cannon: {
                         position: [Math.floor(screenWidth / 2) - 30, screenHeight - 120],
                         upperTravelLimit: -1,
@@ -53,7 +53,7 @@ function ChatperTwoLevelNine() {
                     TNT: {
                         position: [screenWidth - 50, 20],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     }
                 }}

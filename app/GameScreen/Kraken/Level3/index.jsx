@@ -51,7 +51,7 @@ function ChatperFourLevelThree() {
                     TNT: {
                         position: [50, screenHeight - 200],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-15, 0],
                         renderer: <TNT />
                     },
                     // This is the cannon Base
