@@ -123,32 +123,35 @@ const TNTDetectionSystem = (entities) => {
     }
 
     // LEFT LINE OF TNT BOX
+    // Corner Coordinate
     const leftLineX1 = entities.TNT.position[0];
     const leftLineY1 = entities.TNT.position[1];
-    const leftLineX2 = entities.TNT.position[0];
+    // const leftLineX2 = entities.TNT.position[0];
+    
+    // Box Width(will be for isCircleInRect function)
     const leftLineY2 = entities.TNT.position[1] + 30;
 
-    // RIGHT LINE OF TNT BOX
-    const rightLineX1 = entities.TNT.position[0] + 30;
-    const rightLineY1 = entities.TNT.position[1];
-    const rightLineX2 = entities.TNT.position[0] + 30;
-    const rightLineY2 = entities.TNT.position[1] + 30;
+    // // RIGHT LINE OF TNT BOX
+    // const rightLineX1 = entities.TNT.position[0] + 30;
+    // const rightLineY1 = entities.TNT.position[1];
+    // const rightLineX2 = entities.TNT.position[0] + 30;
+    // const rightLineY2 = entities.TNT.position[1] + 30;
 
-    // BOTTOM LINE OF TNT BOX
-    const bottomLineX1 = entities.TNT.position[0];
-    const bottomLineY1 = entities.TNT.position[1] + 30;
-    const bottomLineX2 = entities.TNT.position[0] + 30;
-    const bottomLineY2 = entities.TNT.position[1] + 30;
+    // // BOTTOM LINE OF TNT BOX
+    // const bottomLineX1 = entities.TNT.position[0];
+    // const bottomLineY1 = entities.TNT.position[1] + 30;
+    // const bottomLineX2 = entities.TNT.position[0] + 30;
+    // const bottomLineY2 = entities.TNT.position[1] + 30;
 
-    // TOP LINE OF TNT BOX (The TNT TOP)
-    const topLineX1 = entities.TNT.position[0];
-    const topLineY1 = entities.TNT.position[1];
-    const topLineX2 = entities.TNT.position[0] + 30;
-    const topLineY2 = entities.TNT.position[1];
+    // TOP LINE OF TNT BOX (The TNT TOP) This will cause ball to bounce
+    // const topLineX1 = entities.TNT.position[0] - 3;
+    // const topLineY1 = entities.TNT.position[1];
+    // const topLineX2 = entities.TNT.position[0] + 33;
+    // const topLineY2 = entities.TNT.position[1];
 
-    // TOP LINE OF TNT BOX (The Handle)
+    // TOP LINE OF TNT BOX (The Handle) This
     const handleBarX1 = entities.TNT.position[0] + 8;
-    const handleBarY1 = entities.TNT.position[1] - 9;
+    const handleBarY1 = entities.TNT.position[1] - 8;
 
     // CIRCLE PROPERTIES
     const radius = +entities.cannonBall.cannonBallRadius
@@ -170,10 +173,11 @@ const TNTDetectionSystem = (entities) => {
         if (
             // Check to see if the previous position was outside and the current is inside the rect
             ((prevCircleX + radius) <= leftLineX1) &&
-            ((circleX + radius) > leftLineX1) &&
+            ((circleX + radius) > leftLineX1) 
             // Check to see if it is within range of the side
-            (prevCircleY + radius >= leftLineY1) &&
-            (prevCircleY - radius <= leftLineY2)
+            // (prevCircleY + radius >= leftLineY1) &&
+            // (prevCircleY - radius <= leftLineY2)
+
         ) {
             entities.cannonBall.lastDirection = 'left';
             return 'left';
@@ -181,10 +185,10 @@ const TNTDetectionSystem = (entities) => {
         else if (
             // Check to see if the previous position was outside and the current is inside the rect
             (prevCircleX - radius) >= leftLineX1 + 30 &&
-            (circleX - radius) < leftLineX1 + 30 &&
+            (circleX - radius) < leftLineX1 + 30 
             // Check to see if it is within range of the side
-            (prevCircleY + radius >= leftLineY1) &&
-            (prevCircleY - radius <= leftLineY2)
+            // (prevCircleY + radius >= leftLineY1) &&
+            // (prevCircleY - radius <= leftLineY2)
         ) {
             entities.cannonBall.lastDirection = 'right'
             return 'right';
@@ -192,10 +196,10 @@ const TNTDetectionSystem = (entities) => {
         else if (
             // Check to see if the previous position was outside and the current is inside the rect
             (prevCircleY + radius) <= leftLineY1 &&
-            (circleY + radius) > leftLineY1 &&
+            (circleY + radius) > leftLineY1
             // Check to see if it is within range of the side
-            (prevCircleX + radius < topLineX2) &&
-            (prevCircleX + radius > topLineX1)
+            // (prevCircleX < topLineX2) &&
+            // (prevCircleX > topLineX1)
         ) {
             entities.cannonBall.lastDirection = 'top';
             return 'top'
@@ -203,11 +207,11 @@ const TNTDetectionSystem = (entities) => {
         else if (
             // Check to see if the previous position was outside and the current is inside the rect
             ((prevCircleY - radius) >= leftLineY1 &&
-                (circleY - radius) > leftLineY1) &&
+                (circleY - radius) > leftLineY1) 
             // Check to see if it is within range of the side
             // Check to see if it is within range of the side
-            (prevCircleX + radius < topLineX2) &&
-            (prevCircleX + radius > topLineX1)
+            // (prevCircleX - radius < topLineX2) &&
+            // (prevCircleX + radius > topLineX1)
         ) {
             entities.cannonBall.lastDirection = 'bottom'
             return 'bottom';

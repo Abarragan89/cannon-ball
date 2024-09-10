@@ -1,9 +1,10 @@
 import { StyleSheet, View, Text } from "react-native";
 
-let WIDTH = 30;
-let HEIGHT = 30;
-
 function TNT({ position, handlePosition, display }) {
+    
+    let WIDTH = 30;
+    let HEIGHT = 30;
+    
     let x = position[0];
     let y = position[1];
 

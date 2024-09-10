@@ -124,10 +124,10 @@ const createDetectHinderanceSystem = (entities) => {
             else if (
                 // Check to see if the previous position was outside and the current is inside the rect
                 (prevCircleX - radius) >= hindXPos + width &&
-                (circleX - radius) < hindXPos + width &&
+                (circleX - radius) < hindXPos + width 
                 // Check to see if it is within range of the side
-                (prevCircleY + radius >= leftLineY1) &&
-                (prevCircleY - radius <= leftLineY2)
+                // (prevCircleY + radius >= leftLineY1) &&
+                // (prevCircleY - radius <= leftLineY2)
             ) {
                 entities.cannonBall.lastDirection = 'right'
                 return 'right';
@@ -135,10 +135,10 @@ const createDetectHinderanceSystem = (entities) => {
             else if (
                 // Check to see if the previous position was outside and the current is inside the rect
                 (prevCircleY + radius) <= hindYPos &&
-                (circleY + radius) > hindYPos &&
+                (circleY + radius) > hindYPos 
                 // Check to see if it is within range of the side
-                (prevCircleX + radius < topLineX2) &&
-                (prevCircleX + radius > topLineX1)
+                // (prevCircleX + radius < topLineX2) &&
+                // (prevCircleX + radius > topLineX1)
             ) {
                 entities.cannonBall.lastDirection = 'top';
                 return 'top'
@@ -146,11 +146,11 @@ const createDetectHinderanceSystem = (entities) => {
             else if (
                 // Check to see if the previous position was outside and the current is inside the rect
                 ((prevCircleY - radius) >= hindYPos &&
-                    (circleY - radius) > hindYPos) &&
+                    (circleY - radius) > hindYPos)
                 // Check to see if it is within range of the side
                 // Check to see if it is within range of the side
-                (prevCircleX + radius < topLineX2) &&
-                (prevCircleX + radius > topLineX1)
+                // (prevCircleX + radius < topLineX2) &&
+                // (prevCircleX + radius > topLineX1)
             ) {
                 entities.cannonBall.lastDirection = 'bottom'
                 return 'bottom';
@@ -229,11 +229,7 @@ const createDetectHinderanceSystem = (entities) => {
                 cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0)
             }
         }
-
-
     }
-
-
 
     // Get array of all it is keys in Entities
     const entityObjs = Object.keys(entities)

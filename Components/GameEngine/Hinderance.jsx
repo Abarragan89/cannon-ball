@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         display: 'block',
         height: 10,
-        borderRadius: 4,
+        // borderRadius: 4,
         borderWidth: 1,
         borderColor: colors.primaryBlack
     }
