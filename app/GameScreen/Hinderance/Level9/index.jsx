@@ -54,7 +54,7 @@ function ChapterThreeLevelNine() {
                     },
                     // Inner Blocking Blocks (starting from bottom -> top)
                     blockingHindOne: {
-                        position: [screenWidth - 170, 200],
+                        position: [screenWidth - 170, 190],
                         color: colors.sandColor,
                         display: 'block',
                         width: 10,
@@ -62,7 +62,7 @@ function ChapterThreeLevelNine() {
                         renderer: <Hinderance />
                     },
                     blockingHindTwo: {
-                        position: [screenWidth - 170, 150],
+                        position: [screenWidth - 170, 140],
                         color: colors.sandColor,
                         display: 'block',
                         width: 10,
@@ -70,7 +70,7 @@ function ChapterThreeLevelNine() {
                         renderer: <Hinderance />
                     },
                     blockingHindThree: {
-                        position: [screenWidth - 170, 100],
+                        position: [screenWidth - 170, 90],
                         color: colors.sandColor,
                         display: 'block',
                         width: 10,
@@ -81,11 +81,11 @@ function ChapterThreeLevelNine() {
                     longHindOne: {
                         position: [200, 50],
                         width: 20,
-                        height: 220,
+                        height: 210,
                         renderer: <Hinderance />
                     },
                     longHindTwo: {
-                        position: [200, 50],
+                        position: [200, 10],
                         width: screenWidth - 220,
                         height: 20,
                         renderer: <Hinderance />
@@ -103,21 +103,21 @@ function ChapterThreeLevelNine() {
                         renderer: <Hinderance />
                     },
                     longHindFour: {
-                        position: [screenWidth - 260, 100],
+                        position: [screenWidth - 260, 120],
                         width: 20,
-                        height: 160,
+                        height: 140,
                         renderer: <Hinderance />
                     },
                     longHindFive: {
-                        position: [280, 100],
+                        position: [280, 90],
                         width: screenWidth - 520,
                         height: 20,
                         renderer: <Hinderance />
                     },
                     longHindSix: {
-                        position: [280, 100],
+                        position: [280, 120],
                         width: 20,
-                        height: 170,
+                        height: 140,
                         renderer: <Hinderance />
                     }
 

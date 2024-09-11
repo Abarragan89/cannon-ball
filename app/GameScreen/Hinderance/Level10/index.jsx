@@ -13,6 +13,7 @@ const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import colors from "../../../../constants/colors";
 
 function ChapterThreeLevelTen() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -29,7 +30,7 @@ function ChapterThreeLevelTen() {
 
     return (
         <ImageBackground
-            source={require('../../../../assets/images/basics/level1.png')}
+            source={require('../../../../assets/images/basics/shortInvert.png')}
             style={styles.backgroundImg}
         >
             <GameEngineWrapper
@@ -43,37 +44,82 @@ function ChapterThreeLevelTen() {
                 ]}
                 entities={{
                     cannon: {
-                        position: [40, screenHeight - 100],
-                        upperTravelLimit: Math.floor(screenWidth / 2) - 245,
+                        position: [screenWidth - 200, screenHeight - 100],
+                        // upperTravelLimit: screenWidth - 300,
+                        lowerTravelLimit: Math.floor(screenWidth / 2) + 50
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 2), 220],
+                        position: [100, screenHeight - 180],
                         display: 'block',
                         handlePosition: [-15, 0],
                         renderer: <TNT />
                     },
-                    giantTallOne: {
-                        position: [Math.floor(screenWidth / 2) - 170, screenHeight - 315],
-                        width: 70,
-                        height: 300,
+                    TNTRoofHinderance: {
+                        position: [30, 50],
+                        height: 20,
+                        width: 180,
                         renderer: <Hinderance />
                     },
-                    giantTallTwo: {
-                        position: [Math.floor(screenWidth / 2) + 120, screenHeight - 315],
-                        width: 70,
-                        height: 300,
+                    sideBlockingHinderance: {
+                        position: [225, 75],
+                        height: 160,
+                        width: 20,
                         renderer: <Hinderance />
                     },
-                    longHindOne: {
-                        position: [Math.floor(screenWidth / 2) - 45, 120],
-                        width: 120,
-                        height: 30,
+                    // step one is closest to Cannon
+                    stepOne: {
+                        position: [200, screenHeight - 100],
+                        height: 20,
+                        width: 100,
                         renderer: <Hinderance />
                     },
-                    longHindTwo: {
-                        position: [Math.floor(screenWidth / 2) - 45, 310],
-                        width: 120,
-                        height: 30,
+                    TNTBaseFloor: {
+                        position: [50, screenHeight - 150],
+                        height: 20,
+                        width: 150,
+                        renderer: <Hinderance />
+                    },
+                    // Barrier blocks
+                    smallBlockOne: {
+                        position: [380, 0],
+                        height: 20,
+                        width: 20,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
+                    },
+                    smallBlockTwo: {
+                        position: [380, 75],
+                        height: 20,
+                        width: 20,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
+                    },
+                    smallBlockThree: {
+                        position: [380, 150],
+                        height: 20,
+                        width: 20,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
+                    },
+                    smallBlockFour: {
+                        position: [380, 225],
+                        height: 20,
+                        width: 20,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
+                    },
+                    smallBlockFive: {
+                        position: [380, 300],
+                        height: 20,
+                        width: 20,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
+                    },
+                    smallBlockSix: {
+                        position: [380, 375],
+                        height: 20,
+                        width: 20,
+                        color: colors.sandColor,
                         renderer: <Hinderance />
                     },
                 }}

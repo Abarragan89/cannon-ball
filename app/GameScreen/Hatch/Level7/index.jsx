@@ -20,10 +20,10 @@ import HatchBox from "../../../../Components/GameEngine/HatchBox";
 import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
 import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
-import levelFiveHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelFive";
+import levelSevenHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelSeven";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
-function ChapterFiveLevelFive() {
+function ChapterFiveLevelSeven() {
     const [isGameOver, setIsGameOver] = useState(false);
     const endGameData = useRef({
         accuracyFloat: 50,
@@ -33,7 +33,7 @@ function ChapterFiveLevelFive() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Hatch',
-        nextLevel: 'Hatch/Level6'
+        nextLevel: 'Hatch/Level8'
     });
 
     return (
@@ -53,7 +53,7 @@ function ChapterFiveLevelFive() {
                     hatchLidDetectionSystem,
                     hitHatchBtn_OpenHatchSystem,
                     createDetectHinderanceSystem,
-                    levelFiveHatchSystem
+                    levelSevenHatchSystem
                 ]}
                 entities={{
                     cannon: {
@@ -101,7 +101,7 @@ function ChapterFiveLevelFive() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Hatch'}
-                    levelNumber={5}
+                    levelNumber={7}
                 />
             </GameEngineWrapper>
         </ImageBackground>
@@ -118,4 +118,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ChapterFiveLevelFive;
+export default ChapterFiveLevelSeven;

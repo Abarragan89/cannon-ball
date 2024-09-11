@@ -133,7 +133,7 @@ const TNTDetectionSystem = (entities) => {
     const leftLineY1 = entities.TNT.position[1];
 
     // TOP LINE OF TNT BOX (The Handle) This
-    const handleBarX1 = entities.TNT.position[0] + 10;
+    const handleBarX1 = entities.TNT.position[0] + 6;
     const handleBarY1 = entities.TNT.position[1] - 6;
 
     // CIRCLE PROPERTIES
@@ -210,7 +210,7 @@ const TNTDetectionSystem = (entities) => {
 
     // CHECKING FOR HANLDE COLLISION USING A SEPARATE FUNCTION
     // TO HANDLE TELEPORTATION WHEN MOVING AT HIGH VELOCITY 
-    if (isCircleInRectangle(circleX, circleY, radius, handleBarX1, handleBarY1, 10, 6)) {
+    if (isCircleInRectangle(circleX, circleY, radius, handleBarX1, handleBarY1, 18, 6)) {
         if (entities.cannonBall.velocity[1] > 0) {
             endGameHandler();
         }
