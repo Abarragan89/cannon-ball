@@ -15,10 +15,6 @@ import colors from "../../../../constants/colors";
 import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
 import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
-import HatchLid from "../../../../Components/GameEngine/HatchLid";
-import HatchBox from "../../../../Components/GameEngine/HatchBox";
-import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
-import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import levelSixHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelSix";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
@@ -36,6 +32,9 @@ function ChapterFiveLevelSix() {
         nextLevel: 'Hatch/Level7'
     });
 
+    const TNTxPos= 100;
+    const TNTyPos = screenHeight - 100
+
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
@@ -49,46 +48,59 @@ function ChapterFiveLevelSix() {
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     hatchBtnDetectionSystem,
-                    hatchBoxDetectionSystem,
-                    hatchLidDetectionSystem,
                     hitHatchBtn_OpenHatchSystem,
                     createDetectHinderanceSystem,
                     levelSixHatchSystem
                 ]}
                 entities={{
                     cannon: {
-                        position: [Math.floor(screenWidth / 3) + 2, screenHeight - 327],
+                        position: [Math.floor(screenWidth / 2), 20],
                         upperTravelLimit: -1,
                         lowerTravelLimit: 1000,
                     },
+                    cannonStand: {
+                        position: [Math.floor(screenWidth / 2) - 3, 95],
+                        height: 15,
+                        width: 70,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
+                    },
                     TNT: {
-                        position: [Math.floor(screenWidth / 3) - 136, screenHeight - 167],
+                        position: [TNTxPos, TNTyPos],
                         display: 'block',
                         handlePosition: [-15, 0],
                         renderer: <TNT />
                     },
-                    giantTallOne: {
-                        position: [Math.floor(screenWidth / 3), screenHeight - 250],
-                        width: 70,
-                        height: 300,
+                    hatchSideOne: {
+                        position: [TNTxPos - 15, TNTyPos  - 20],
+                        width: 15,
+                        height: 50,
+                        renderer: <Hinderance />,
+                        color: colors.sandColor
+                    },
+                    hatchSideTwo: {
+                        position: [TNTxPos + 30, TNTyPos -20],
+                        width: 15,
+                        height: 50,
+                        renderer: <Hinderance />,
+                        color: colors.sandColor
+                    },
+                    // This HAS to be called hatchLid
+                    hatchLid: {
+                        position: [TNTxPos - 5, TNTyPos -  35 ],
+                        width: 40,
+                        height: 15,
+                        color: colors.sandColor,
                         renderer: <Hinderance />
                     },
                     hatchBtn: {
+                        position: [screenWidth - 50, Math.floor(screenHeight / 2)],
                         isHit: false,
                         topPosition: -8,
                         color: colors.bronzeStar,
                         isTriggerOnTop: true,
-                        position: [screenWidth - 50, screenHeight - 150],
                         renderer: <HatchBtnTop />
                     },
-                    hatchLid: {
-                        position: [Math.floor(screenWidth / 3) - 150, screenHeight - 195],
-                        renderer: <HatchLid />
-                    },
-                    hatchBox: {
-                        position: [Math.floor(screenWidth / 3) - 150, screenHeight - 180],
-                        renderer: <HatchBox />
-                    }
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}

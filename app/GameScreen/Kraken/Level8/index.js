@@ -44,7 +44,7 @@ function ChapterFourLevelEight() {
                 ]}
                 entities={{
                     cannon: {
-                        position: [10, Math.floor(screenHeight / 2)],
+                        position: [53, Math.floor(screenHeight / 2)],
                         upperTravelLimit: -1,
                         lowerTravelLimit: 1000
                     },
@@ -55,7 +55,7 @@ function ChapterFourLevelEight() {
                         renderer: <TNT />
                     },
                     cannonStand: {
-                        position: [13, Math.floor(screenHeight / 2) + 75],
+                        position: [50, Math.floor(screenHeight / 2) + 75],
                         height: 15,
                         width: 70,
                         color: colors.sandColor,

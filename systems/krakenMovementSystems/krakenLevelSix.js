@@ -5,8 +5,8 @@ import moveObstacleLeftToRight from "../../utils/moveObstacles/moveObstacleLeftT
 
 const krakenLevelSixSystems = (entities) => {
     if (!entities.gameData.isGameOver) {
-        moveObstacleLeftToRight(entities.cannon, Math.floor(screenWidth / 2) + 100, 100, 1);
-        moveObstacleLeftToRight(entities.cannonStand, Math.floor(screenWidth / 2) + 100, 100, 1);
+        moveObstacleLeftToRight(entities.cannon, Math.floor(screenWidth / 2) + 100, 97, 1);
+        moveObstacleLeftToRight(entities.cannonStand, Math.floor(screenWidth / 2) + 97, 100, 1);
         moveObstacleLeftToRight(entities.TNT, 0, Math.floor(screenWidth / 2) - 20, 0.5);
     }
     return entities;

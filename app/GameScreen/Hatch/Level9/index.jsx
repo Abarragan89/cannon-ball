@@ -15,10 +15,10 @@ import colors from "../../../../constants/colors";
 import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
 import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
-import HatchLid from "../../../../Components/GameEngine/HatchLid";
-import HatchBox from "../../../../Components/GameEngine/HatchBox";
-import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
-import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
+// import HatchLid from "../../../../Components/GameEngine/HatchLid";
+// import HatchBox from "../../../../Components/GameEngine/HatchBox";
+// import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
+// import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import levelNineHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelNine";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
@@ -49,8 +49,8 @@ function ChapterFiveLevelNine() {
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     hatchBtnDetectionSystem,
-                    hatchBoxDetectionSystem,
-                    hatchLidDetectionSystem,
+                    // hatchBoxDetectionSystem,
+                    // hatchLidDetectionSystem,
                     hitHatchBtn_OpenHatchSystem,
                     createDetectHinderanceSystem,
                     levelNineHatchSystem
@@ -81,14 +81,14 @@ function ChapterFiveLevelNine() {
                         position: [screenWidth - 50, screenHeight - 150],
                         renderer: <HatchBtnTop />
                     },
-                    hatchLid: {
-                        position: [Math.floor(screenWidth / 3) - 150, screenHeight - 195],
-                        renderer: <HatchLid />
-                    },
-                    hatchBox: {
-                        position: [Math.floor(screenWidth / 3) - 150, screenHeight - 180],
-                        renderer: <HatchBox />
-                    }
+                    // hatchLid: {
+                    //     position: [Math.floor(screenWidth / 3) - 150, screenHeight - 195],
+                    //     renderer: <HatchLid />
+                    // },
+                    // hatchBox: {
+                    //     position: [Math.floor(screenWidth / 3) - 150, screenHeight - 180],
+                    //     renderer: <HatchBox />
+                    // }
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}

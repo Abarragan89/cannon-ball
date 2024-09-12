@@ -15,10 +15,6 @@ import colors from "../../../../constants/colors";
 import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
 import HatchBtnLeft from "../../../../Components/GameEngine/HatchButtons/HatchBtnLeft";
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
-import HatchLid from "../../../../Components/GameEngine/HatchLid";
-import HatchBox from "../../../../Components/GameEngine/HatchBox";
-import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
-import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import levelFourHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelFour";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
@@ -36,6 +32,9 @@ function ChapterFiveLevelFour() {
         nextLevel: 'Hatch/Level5'
     });
 
+    const TNTxPos= screenWidth - 336
+    const TNTyPos = 193
+
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
@@ -49,8 +48,6 @@ function ChapterFiveLevelFour() {
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     hatchBtnDetectionSystem,
-                    hatchBoxDetectionSystem,
-                    hatchLidDetectionSystem,
                     hitHatchBtn_OpenHatchSystem,
                     createDetectHinderanceSystem,
                     levelFourHatchSystem
@@ -59,12 +56,6 @@ function ChapterFiveLevelFour() {
                     cannon: {
                         position: [Math.floor(screenWidth / 2), screenHeight - 100],
                         lowerTravelLimit: Math.floor(screenWidth / 4) + 90,
-                    },
-                    TNT: {
-                        position: [screenWidth - 336, 193],
-                        display: 'block',
-                        handlePosition: [-15, 0],
-                        renderer: <TNT />
                     },
                     giantTallOne: {
                         position: [Math.floor(screenWidth / 4), screenHeight - 315],
@@ -86,14 +77,35 @@ function ChapterFiveLevelFour() {
                         position: [Math.floor(screenWidth / 4) - 40, screenHeight - 250],
                         renderer: <HatchBtnLeft />
                     },
-                    hatchLid: {
-                        position: [screenWidth - 350, 165],
-                        renderer: <HatchLid />
+                    // The next four are TNT in a hatch.
+                    TNT: {
+                        position: [TNTxPos, TNTyPos],
+                        display: 'block',
+                        handlePosition: [-15, 0],
+                        renderer: <TNT />
                     },
-                    hatchBox: {
-                        position: [screenWidth - 350, 180],
-                        renderer: <HatchBox />
-                    }
+                    hatchSideOne: {
+                        position: [TNTxPos - 15, TNTyPos - 20],
+                        width: 15,
+                        height: 50,
+                        renderer: <Hinderance />,
+                        color: colors.sandColor
+                    },
+                    hatchSideTwo: {
+                        position: [TNTxPos + 30, TNTyPos - 20],
+                        width: 15,
+                        height: 50,
+                        renderer: <Hinderance />,
+                        color: colors.sandColor
+                    },
+                    // This HAS to be called hatchLid
+                    hatchLid: {
+                        position: [TNTxPos - 5, TNTyPos - 35],
+                        width: 40,
+                        height: 15,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
+                    },
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
