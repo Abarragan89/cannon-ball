@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
         opacity: .75,
         transform: [{ rotate: '-90deg' }],
         position: 'absolute',
-        left: -96,
+        left: -86,
         top: 200,
     },
 
     powerTextWrapper: {
         position: 'absolute',
-        left: 40,
+        left: 50,
         top: 65,
         opacity: .75,
         alignItems: 'center'

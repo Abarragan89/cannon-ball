@@ -12,8 +12,9 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import colors from "../../../../constants/colors";
-import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
+import doubleHatch_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/doubleHatch_OpenHatchSystem";
 import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
+import HatchBtnBottom from '../../../../Components/GameEngine/HatchButtons/HatchBtnBottom'
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import levelSevenHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelSeven";
@@ -49,14 +50,14 @@ function ChapterFiveLevelSeven() {
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     hatchBtnDetectionSystem,
-                    hitHatchBtn_OpenHatchSystem,
+                    doubleHatch_OpenHatchSystem,
                     createDetectHinderanceSystem,
                     levelSevenHatchSystem
                 ]}
                 entities={{
                     cannon: {
                         position: [100, screenHeight - 150],
-                        upperTravelLimit: Math.floor(screenWidth / 3) - 70,
+                        // upperTravelLimit: Math.floor(screenWidth / 3) - 70,
                     },
                     cannonStand: {
                         position: [97, screenHeight - 75],
@@ -101,7 +102,7 @@ function ChapterFiveLevelSeven() {
                         height: 200,
                         renderer: <Hinderance />
                     },
-                    hatchBtn: {
+                    hatchBtnOne: {
                         position: [screenWidth - 50, screenHeight - 150],
                         isHit: false,
                         topPosition: -8,
@@ -109,14 +110,14 @@ function ChapterFiveLevelSeven() {
                         isTriggerOnTop: true,
                         renderer: <HatchBtnTop />
                     },
-                    // hatchLid: {
-                    //     position: [Math.floor(screenWidth / 3) - 150, screenHeight - 195],
-                    //     renderer: <HatchLid />
-                    // },
-                    // hatchBox: {
-                    //     position: [Math.floor(screenWidth / 3) - 150, screenHeight - 180],
-                    //     renderer: <HatchBox />
-                    // }
+                    hatchBtnTwo: {
+                        position: [screenWidth - 150, 50],
+                        isHit: false,
+                        topPosition: 33,
+                        color: colors.bronzeStar,
+                        isTriggerOnBottom: true,
+                        renderer: <HatchBtnBottom />
+                    },
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}

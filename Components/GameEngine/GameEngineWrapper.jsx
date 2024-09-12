@@ -3,7 +3,7 @@ import CannonBall from "./CannonBall";
 import CannonLauncher from "./CannonLauncher";
 import HeaderStats from "./HeaderStats";
 import AngleMeter from "./AngleMeter";
-import PowerMeter from "./ PowerMeter";
+import PowerMeter from "./PowerMeter";
 import FireBtn from "./FireBtn";
 import FollowArrow from "./FollowArrow";
 import Explosion from "./Explosion";

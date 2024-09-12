@@ -6,32 +6,32 @@ import lineBallDetection from "../../utils/lineBallDetection";
 const createDetectHinderanceSystem = (entities) => {
     // Creates Hinderance positioning and listens for detection
     function createHinderanceAndDetect(width, height, hinderanceName) {
-        const hindXPos = entities.hatchBtn.position[0];
-        const hindYPos = entities.hatchBtn.position[1];
+        const hindXPos = entities[hinderanceName].position[0];
+        const hindYPos = entities[hinderanceName].position[1];
         // LEFT LINE OF HINDERANCE BOX
         const leftLineX1 = hindXPos;
         const leftLineY1 = hindYPos;
 
-        const leftLineX2 = entities.hatchBtn.position[0];
-        const leftLineY2 = entities.hatchBtn.position[1] + height;
+        const leftLineX2 = entities[hinderanceName].position[0];
+        const leftLineY2 = entities[hinderanceName].position[1] + height;
 
         // RIGHT LINE OF HINDERANCE BOX
-        const rightLineX1 = entities.hatchBtn.position[0] + width;
-        const rightLineY1 = entities.hatchBtn.position[1]
-        const rightLineX2 = entities.hatchBtn.position[0] + width;
-        const rightLineY2 = entities.hatchBtn.position[1] + height;
+        const rightLineX1 = entities[hinderanceName].position[0] + width;
+        const rightLineY1 = entities[hinderanceName].position[1]
+        const rightLineX2 = entities[hinderanceName].position[0] + width;
+        const rightLineY2 = entities[hinderanceName].position[1] + height;
 
         // BOTTOM LINE OF HINDERANCE BOX
-        const bottomLineX1 = entities.hatchBtn.position[0];
-        const bottomLineY1 = entities.hatchBtn.position[1] + height;
-        const bottomLineX2 = entities.hatchBtn.position[0] + width;
-        const bottomLineY2 = entities.hatchBtn.position[1] + height;
+        const bottomLineX1 = entities[hinderanceName].position[0];
+        const bottomLineY1 = entities[hinderanceName].position[1] + height;
+        const bottomLineX2 = entities[hinderanceName].position[0] + width;
+        const bottomLineY2 = entities[hinderanceName].position[1] + height;
 
         // TOP LINE OF HINDERANCE BOX
-        const topLineX1 = entities.hatchBtn.position[0];
-        const topLineY1 = entities.hatchBtn.position[1];
-        const topLineX2 = entities.hatchBtn.position[0] + width;
-        const topLineY2 = entities.hatchBtn.position[1];
+        const topLineX1 = entities[hinderanceName].position[0];
+        const topLineY1 = entities[hinderanceName].position[1];
+        const topLineX2 = entities[hinderanceName].position[0] + width;
+        const topLineY2 = entities[hinderanceName].position[1];
 
         // CIRCLE PROPERTIES
         const radius = +entities.cannonBall.cannonBallRadius;
@@ -172,8 +172,8 @@ const createDetectHinderanceSystem = (entities) => {
             }
         }
     }
-
-    createHinderanceAndDetect(40, 40, 'hatchBtn')
+    if (entities.hatchBtnOne) createHinderanceAndDetect(40, 40, 'hatchBtnOne')
+    if (entities.hatchBtnTwo) createHinderanceAndDetect(40, 40, 'hatchBtnTwo')
 
     return entities;
 }
