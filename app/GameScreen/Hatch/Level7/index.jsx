@@ -34,8 +34,8 @@ function ChapterFiveLevelSeven() {
     });
 
 
-    const TNTxPos= Math.floor(screenWidth / 3) - 136;
-    const TNTyPos = screenHeight - 167
+    const TNTxPos= Math.floor(screenWidth / 3) + 115;
+    const TNTyPos = screenHeight - 70
 
     return (
         <ImageBackground
@@ -56,17 +56,9 @@ function ChapterFiveLevelSeven() {
                 ]}
                 entities={{
                     cannon: {
-                        position: [100, screenHeight - 150],
-                        // upperTravelLimit: Math.floor(screenWidth / 3) - 70,
+                        position: [100, screenHeight - 100],
+                        upperTravelLimit: Math.floor(screenWidth / 3) - 75,
                     },
-                    cannonStand: {
-                        position: [97, screenHeight - 75],
-                        height: 15,
-                        width: 70,
-                        color: colors.sandColor,
-                        renderer: <Hinderance />
-                    },
-
                     // The next four are TNT in a hatch.
                     TNT: {
                         position: [TNTxPos, TNTyPos],
@@ -103,7 +95,7 @@ function ChapterFiveLevelSeven() {
                         renderer: <Hinderance />
                     },
                     hatchBtnOne: {
-                        position: [screenWidth - 50, screenHeight - 150],
+                        position: [screenWidth - 150, screenHeight - 150],
                         isHit: false,
                         topPosition: -8,
                         color: colors.bronzeStar,
@@ -111,7 +103,7 @@ function ChapterFiveLevelSeven() {
                         renderer: <HatchBtnTop />
                     },
                     hatchBtnTwo: {
-                        position: [screenWidth - 150, 50],
+                        position: [Math.floor(screenWidth / 3) - 50, 50],
                         isHit: false,
                         topPosition: 33,
                         color: colors.bronzeStar,

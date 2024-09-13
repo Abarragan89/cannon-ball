@@ -8,12 +8,13 @@ const doubleHatch_OpenHatchSystem = (entities) => {
     }
     function closeLid() {
         if (entities.hatchLid.position[0] > entities.TNT.position[0] - 5) {
-            entities.hatchBtn.isHit = false;
+            entities.hatchBtnOne.isHit = false;
+            entities.hatchBtnTwo.isHit = false;
             entities.hatchLid.position[0] -= 1
         }
     }
     function turnHatchBtnOn(entityName) {
-        entities.hatchBtn.color = colors.limeGreen;
+        entities[entityName].color = colors.limeGreen;
         // depending on which type of button it is, Lower the switch
         if (entities[entityName].isTriggerOnTop) {
             entities[entityName].topPosition = -3;
@@ -26,6 +27,7 @@ const doubleHatch_OpenHatchSystem = (entities) => {
 
     function turnHatchBtnOff(entityName) {
         entities[entityName].color = colors.bronzeStar;
+        entities[entityName].isHit = false;
         // depending on which type of button it is, Raise the switch
         if(entities[entityName].isTriggerOnTop) {
             entities[entityName].topPosition = -8;
@@ -45,7 +47,7 @@ const doubleHatch_OpenHatchSystem = (entities) => {
         if (entities.hatchBtnOne.isHit) {
             console.log('is hatched hit ', entities.hatchBtnOne.isHit)
             turnHatchBtnOn('hatchBtnOne');
-            openLid();
+            // openLid();
         }
         if (!entities.cannonBall.isBallMoving || !entities.hatchBtnOne.isHit) {
             turnHatchBtnOff('hatchBtnOne');
@@ -54,12 +56,16 @@ const doubleHatch_OpenHatchSystem = (entities) => {
         // Listen for Button Two
         if (entities.hatchBtnTwo.isHit) {
             console.log('is hatched hit ', entities.hatchBtnTwo.isHit)
-            turnHatchBtnOn('hatchBtnOne');
-            openLid();
+            turnHatchBtnOn('hatchBtnTwo');
+            // openLid();
         }
         if (!entities.cannonBall.isBallMoving || !entities.hatchBtnTwo.isHit) {
-            turnHatchBtnOff('hatchBtnOne');
+            turnHatchBtnOff('hatchBtnTwo');
             closeLid();
+        }
+
+        if (entities.hatchBtnOne.isHit && entities.hatchBtnTwo.isHit) {
+            openLid();
         }
     }
     return entities;

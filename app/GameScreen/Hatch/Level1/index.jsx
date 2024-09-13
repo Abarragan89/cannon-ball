@@ -16,6 +16,7 @@ import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSyste
 import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 
 function ChapterFiveLevelOne() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -46,11 +47,20 @@ function ChapterFiveLevelOne() {
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     hatchBtnDetectionSystem,
-                    hitHatchBtn_OpenHatchSystem
+                    hitHatchBtn_OpenHatchSystem,
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
-                        position: [100, screenHeight - 100],
+                        position: [screenWidth - 100, screenHeight - 375],
+                        upperTravelLimit: 0,
+                        lowerTravelLimit: screenWidth - 205
+                    },
+                    cannonPlatform: {
+                        position: [screenWidth - 200, screenHeight - 300],
+                        width: 200,
+                        height: 300,
+                        renderer: <Hinderance />
                     },
                     // The next four are TNT in a hatch.
                     TNT: {
@@ -120,6 +130,3 @@ const styles = StyleSheet.create({
 
 
 export default ChapterFiveLevelOne;
-
-
-

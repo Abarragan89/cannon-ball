@@ -12,13 +12,9 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import colors from "../../../../constants/colors";
-import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
+import doubleHatch_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/doubleHatch_OpenHatchSystem";
 import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
-// import HatchLid from "../../../../Components/GameEngine/HatchLid";
-// import HatchBox from "../../../../Components/GameEngine/HatchBox";
-// import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
-// import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import levelEightHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelEight";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
@@ -33,8 +29,12 @@ function ChapterFiveLevelEight() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Hatch',
-        nextLevel: 'Hatch/Level8'
+        nextLevel: 'Hatch/Level9'
     });
+
+
+    const TNTxPos= Math.floor(screenWidth / 3) + 115;
+    const TNTyPos = screenHeight - 70
 
     return (
         <ImageBackground
@@ -49,46 +49,66 @@ function ChapterFiveLevelEight() {
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     hatchBtnDetectionSystem,
-                    // hatchBoxDetectionSystem,
-                    // hatchLidDetectionSystem,
-                    hitHatchBtn_OpenHatchSystem,
+                    doubleHatch_OpenHatchSystem,
                     createDetectHinderanceSystem,
                     levelEightHatchSystem
                 ]}
                 entities={{
                     cannon: {
-                        position: [Math.floor(screenWidth / 3) + 2, screenHeight - 327],
-                        upperTravelLimit: -1,
-                        lowerTravelLimit: 1000,
+                        position: [screenWidth - 100, screenHeight - 378],
+                        lowerTravelLimit: screenWidth - 245
                     },
+                    // The next four are TNT in a hatch.
                     TNT: {
-                        position: [Math.floor(screenWidth / 3) - 136, screenHeight - 167],
+                        position: [TNTxPos, TNTyPos],
                         display: 'block',
                         handlePosition: [-15, 0],
                         renderer: <TNT />
                     },
+                    hatchSideOne: {
+                        position: [TNTxPos - 15, TNTyPos  - 20],
+                        width: 15,
+                        height: 50,
+                        renderer: <Hinderance />,
+                        color: colors.sandColor
+                    },
+                    hatchSideTwo: {
+                        position: [TNTxPos + 30, TNTyPos - 20],
+                        width: 15,
+                        height: 50,
+                        renderer: <Hinderance />,
+                        color: colors.sandColor
+                    },
+                    // This HAS to be called hatchLid
+                    hatchLid: {
+                        position: [TNTxPos - 5, TNTyPos -  35 ],
+                        width: 40,
+                        height: 15,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
+                    },
                     giantTallOne: {
-                        position: [Math.floor(screenWidth / 3), screenHeight - 250],
-                        width: 70,
+                        position: [screenWidth - 250, screenHeight - 300],
+                        width: 250,
                         height: 300,
                         renderer: <Hinderance />
                     },
-                    hatchBtn: {
+                    hatchBtnOne: {
+                        position: [screenWidth - 300, screenHeight - 200],
                         isHit: false,
                         topPosition: -8,
                         color: colors.bronzeStar,
                         isTriggerOnTop: true,
-                        position: [screenWidth - 50, screenHeight - 150],
                         renderer: <HatchBtnTop />
                     },
-                    // hatchLid: {
-                    //     position: [Math.floor(screenWidth / 3) - 150, screenHeight - 195],
-                    //     renderer: <HatchLid />
-                    // },
-                    // hatchBox: {
-                    //     position: [Math.floor(screenWidth / 3) - 150, screenHeight - 180],
-                    //     renderer: <HatchBox />
-                    // }
+                    hatchBtnTwo: {
+                        position: [50, screenHeight - 350],
+                        isHit: false,
+                        topPosition: -8,
+                        color: colors.bronzeStar,
+                        isTriggerOnTop: true,
+                        renderer: <HatchBtnTop />
+                    },
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
@@ -101,7 +121,7 @@ function ChapterFiveLevelEight() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Hatch'}
-                    levelNumber={7}
+                    levelNumber={8}
                 />
             </GameEngineWrapper>
         </ImageBackground>

@@ -63,12 +63,6 @@ function ChatperTwoLevelThree() {
                     mapName={'Marks'}
                     levelNumber={3}
                 />
-                {isGameOver && nextLevelData &&
-                    <EndGameModal
-                        endGameData={endGameData}
-                        nextLevelData={nextLevelData}
-                    />
-                }
             </GameEngineWrapper>
         </ImageBackground>
     );

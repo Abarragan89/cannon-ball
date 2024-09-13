@@ -20,7 +20,6 @@ const EndGameModal = ({
     cannonPower,
 }) => {
     const finalScore = (endGameData.current.airTime + endGameData.current.bounces) * endGameData.current.multiplier
-
     return (
         <View style={[styles.root,]}>
             <View style={styles.modalMainView}>

@@ -13,11 +13,11 @@ const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import colors from "../../../../constants/colors";
 import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
-import HatchBtnLeft from "../../../../Components/GameEngine/HatchButtons/HatchBtnLeft";
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
 import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import levelFourHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelFour";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
 
 function ChapterFiveLevelFour() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -64,18 +64,24 @@ function ChapterFiveLevelFour() {
                         renderer: <Hinderance />
                     },
                     squareHindOne: {
-                        position: [60, screenHeight - 55],
+                        position: [Math.floor(screenWidth / 4) + 120, TNTyPos - 20],
+                        width: 40,
+                        height: 40,
+                        renderer: <Hinderance />
+                    },
+                    squareHindTwo: {
+                        position: [screenWidth - 80, TNTyPos - 20],
                         width: 40,
                         height: 40,
                         renderer: <Hinderance />
                     },
                     hatchBtn: {
                         isHit: false,
-                        leftPosition: -11,
+                        topPosition: -8,
                         color: colors.bronzeStar,
-                        isTriggerOnLeft: true,
+                        isTriggerOnTop: true,
                         position: [Math.floor(screenWidth / 4) - 40, screenHeight - 250],
-                        renderer: <HatchBtnLeft />
+                        renderer: <HatchBtnTop />
                     },
                     // The next four are TNT in a hatch.
                     TNT: {

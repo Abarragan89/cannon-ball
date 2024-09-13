@@ -17,6 +17,7 @@ import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSyste
 import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
 import levelTwoHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelTwo";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 
 
 function ChapterFiveLevelTwo() {
@@ -49,11 +50,13 @@ function ChapterFiveLevelTwo() {
                     fireCannonSystem,
                     hatchBtnDetectionSystem,
                     hitHatchBtn_OpenHatchSystem,
-                    levelTwoHatchSystem
+                    levelTwoHatchSystem,
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
-                        position: [300, screenHeight - 100],
+                        position: [150, screenHeight - 275],
+                        upperTravelLimit: 170
                     },
                     // The next four are TNT in a hatch.
                     TNT: {
@@ -61,6 +64,12 @@ function ChapterFiveLevelTwo() {
                         display: 'block',
                         handlePosition: [-15, 0],
                         renderer: <TNT />
+                    },
+                    cannonPlatform: {
+                        position: [0, screenHeight - 200],
+                        width: 250,
+                        height: 200,
+                        renderer: <Hinderance />
                     },
                     hatchSideOne: {
                         position: [TNTxPos - 15, TNTyPos - 20],

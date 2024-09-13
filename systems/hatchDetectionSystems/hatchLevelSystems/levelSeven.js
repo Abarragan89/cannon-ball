@@ -4,8 +4,9 @@ import moveObstacleLeftToRight from "../../../utils/moveObstacles/moveObstacleLe
 
 const levelSevenHatchSystem = (entities) => {
     if (!entities.gameData.isGameOver) {
-        const maxLower = Math.floor(width / 3) + 70
-        // moveObstacleLeftToRight(entities.hatchBtn, maxLower, 40, 1)
+        const maxLower = Math.floor(width / 3) + 100
+        moveObstacleLeftToRight(entities.hatchBtnOne, maxLower, 40, 1)
+        // moveObstacleLeftToRight(entities.hatchBtnTwo, 50, maxLower + 150, .3)
     }
     return entities;
 }

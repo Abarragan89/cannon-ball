@@ -279,7 +279,8 @@ const GameEngineWrapper = ({
         getNextLevelData();
     }, [])
 
-
+    const nextLevel = endGameData.current.nextLevel.split('/')[1]; // Get the second part of the split
+    const shouldShowNextBtnInModal = nextLevel.charAt(nextLevel.length - 1) === '1' ? false : true;
     return (
         <>
             {isSoundLoaded &&
@@ -291,7 +292,7 @@ const GameEngineWrapper = ({
                     {isGameOver && nextLevelData &&
                         <EndGameModal
                             endGameData={endGameData}
-                            nextLevelData={levelId === '8' ? null : nextLevelData}
+                            nextLevelData={shouldShowNextBtnInModal ? nextLevelData : null}
                             cannonBallColor={cannonBallColor}
                             cannonBallGradientClr={cannonBallGradientClr}
                             cannonBallBounce={cannonBallBounce}

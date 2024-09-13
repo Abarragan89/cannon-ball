@@ -8,8 +8,6 @@ const levelSixHatchSystem = (entities) => {
         // Move Cannon
         moveObstacleLeftToRight(entities.cannon, 43, 97, .5);
         moveObstacleLeftToRight(entities.cannonStand, 40, 100, .5);
-        // Move TNT HatchBTN
-        moveObstacleLeftToRight(entities.hatchBtn, 40, 40, .2)
         // Move TNT Movement 
         moveObstacleLeftToRight(entities.TNT, TNTBoundaryLeft, TNTBoundaryRight, 1)
         // WIDTH OF THE HATCH WALLS IS 15
