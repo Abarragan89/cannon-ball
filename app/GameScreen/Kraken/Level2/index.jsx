@@ -52,7 +52,7 @@ function ChapterFourLevelTwo() {
                     TNT: {
                         position: [250, screenHeight - 110],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     giantTallOne: {

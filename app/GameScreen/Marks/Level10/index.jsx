@@ -55,7 +55,7 @@ function ChatperTwoLevelTen() {
                         position: [Math.floor(screenWidth / 2) - 15, 100],
                         initialPosition: [Math.floor(screenWidth / 2) - 15, 100],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     }
                 }}

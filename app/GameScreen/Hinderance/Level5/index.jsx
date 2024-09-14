@@ -47,9 +47,9 @@ function ChapterThreeLevelFive() {
                         upperTravelLimit: Math.floor(screenWidth / 2) - 245,
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 2), 220],
+                        position: [Math.floor(screenWidth / 2), 280],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     giantTallOne: {

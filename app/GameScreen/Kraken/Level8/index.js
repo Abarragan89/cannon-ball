@@ -51,7 +51,7 @@ function ChapterFourLevelEight() {
                     TNT: {
                         position: [Math.floor(screenWidth / 2) + 50, 225],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     cannonStand: {

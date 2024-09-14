@@ -49,7 +49,7 @@ function ChapterThreeLevelFour() {
                     TNT: {
                         position: [350, 150],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     giantTallOne: {

@@ -27,6 +27,8 @@ function ChatperThreeLevelOne() {
         nextLevel: 'Hinderance/Level2'
     });
 
+    const TNTxPos = Math.floor(screenWidth / 1.5);
+    const TNTyPos = 200;
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
@@ -43,26 +45,47 @@ function ChatperThreeLevelOne() {
                 ]}
                 entities={{
                     cannon: {
-                        position: [400, screenHeight - 100],
+                        position: [100, screenHeight - 325],
+                        upperTravelLimit: 120,
+                    },
+                    cannonPlatform: {
+                        position: [0, screenHeight - 250],
+                        width: 200,
+                        height: 250,
+                        renderer: <Hinderance />
+
                     },
                     TNT: {
-                        position: [screenWidth - 100, 100],
+                        position: [TNTxPos, TNTyPos],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
-                    longHindOne: {
-                        position: [screenWidth - 210, 60],
-                        width: 120,
-                        height: 30,
+                    TNTRoofHinderance: {
+                        position: [TNTxPos - 50, TNTyPos - 100],
+                        width: 200,
+                        height: 20,
                         renderer: <Hinderance />
                     },
-                    longHindTwo: {
-                        position: [screenWidth - 120, 160],
-                        width: 120,
-                        height: 30,
+                    sideHinderance: {
+                        position: [TNTxPos - 70, TNTyPos - 70],
+                        width: 20,
+                        height: 80,
+                        renderer: <Hinderance />
+                    },
+                    bottomHinderance: {
+                        position: [TNTxPos - 100, TNTyPos + 70],
+                        width: 200,
+                        height: 20,
+                        renderer: <Hinderance />
+                    },
+                    rightSideHelperHinderance: {
+                        position: [TNTxPos + 100, TNTyPos + 10],
+                        width: 100,
+                        height: 20,
                         renderer: <Hinderance />
                     }
+
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}

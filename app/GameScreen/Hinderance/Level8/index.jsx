@@ -50,7 +50,7 @@ function ChapterThreeLevelEight() {
                     TNT: {
                         position: [Math.floor((720 - 240) / 2) + 225, screenHeight - 70],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     // Left Border 
@@ -420,7 +420,7 @@ function ChapterThreeLevelEight() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Hinderance'}
-                    levelNumber={10}
+                    levelNumber={8}
                 />
             </GameEngineWrapper>
         </ImageBackground>

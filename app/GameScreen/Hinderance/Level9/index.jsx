@@ -49,7 +49,7 @@ function ChapterThreeLevelNine() {
                     TNT: {
                         position: [screenWidth - 100, 210],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     // Inner Blocking Blocks (starting from bottom -> top)
@@ -62,21 +62,21 @@ function ChapterThreeLevelNine() {
                         renderer: <Hinderance />
                     },
                     blockingHindTwo: {
-                        position: [screenWidth - 170, 140],
+                        position: [screenWidth - 170, 130],
                         color: colors.sandColor,
                         display: 'block',
                         width: 10,
                         height: 25,
                         renderer: <Hinderance />
                     },
-                    blockingHindThree: {
-                        position: [screenWidth - 170, 90],
-                        color: colors.sandColor,
-                        display: 'block',
-                        width: 10,
-                        height: 25,
-                        renderer: <Hinderance />
-                    },
+                    // blockingHindThree: {
+                    //     position: [screenWidth - 170, 90],
+                    //     color: colors.sandColor,
+                    //     display: 'block',
+                    //     width: 10,
+                    //     height: 25,
+                    //     renderer: <Hinderance />
+                    // },
                     // These Hinderance start with the left hinderance in the entrance, and moves around the container
                     longHindOne: {
                         position: [200, 50],
@@ -133,7 +133,7 @@ function ChapterThreeLevelNine() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Hinderance'}
-                    levelNumber={5}
+                    levelNumber={9}
                 />
             </GameEngineWrapper>
         </ImageBackground >

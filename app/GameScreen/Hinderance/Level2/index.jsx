@@ -52,7 +52,7 @@ function ChapterThreeLevelTwo() {
                     TNT: {
                         position: [screenWidth - 200, 170],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     tallHindOne: {

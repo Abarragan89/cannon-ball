@@ -10,8 +10,9 @@ import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { Dimensions } from "react-native";
 import GameTutorial from "../../../../Components/GameEngine/GameTutorial";
-const screenHeight = Dimensions.get('window').height;
+const { height: screenHeight, width: screenWidth } = Dimensions.get('window')
 import { getHasSeenTutorial } from "../../../../db/selectQueries";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 // import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
 
 function ChatperOneLevelOne() {
@@ -66,37 +67,43 @@ function ChatperOneLevelOne() {
                 ]}
                 entities={{
                     cannon: {
-                        position: [400, screenHeight - 100],
+                        position: [screenWidth - 150, screenHeight - 326],
+                        lowerTravelLimit: screenWidth - 280
+                    },
+                    cannonPlatform: {
+                        position: [screenWidth - 300, screenHeight - 250],
+                        width: 300,
+                        height: 250,
+                        renderer: <Hinderance />
                     },
                     TNT: {
-                        position: [250, 100],
+                        position: [200, 200],
                         display: 'block',
                         handlePosition: [-17, 0],
-                    // handlePosition: [-15, 0],
-                    renderer: <TNT />
-                }
+                        renderer: <TNT />
+                    }
                 }}
-            endGameData={endGameData}
-            isGameOver={isGameOver}
-            setIsGameOver={setIsGameOver}
+                endGameData={endGameData}
+                isGameOver={isGameOver}
+                setIsGameOver={setIsGameOver}
             >
-            <StatusBar hidden={true} />
-            <BackArrow
-                route={'/LevelLobbyScreen'}
-                params={{ mapName: 'Basics' }}
-            />
-            <GameLevelInfoHeader
-                mapName={'Basics'}
-                levelNumber={1}
-            />
-
-            {tutorialStep < 4 && !hasSeenTutorial && isSettingsLoaded &&
-                <GameTutorial
-                    tutorialStep={tutorialStep}
-                    increaseTutorialStep={increaseTutorialStep}
+                <StatusBar hidden={true} />
+                <BackArrow
+                    route={'/LevelLobbyScreen'}
+                    params={{ mapName: 'Basics' }}
                 />
-            }
-        </GameEngineWrapper>
+                <GameLevelInfoHeader
+                    mapName={'Basics'}
+                    levelNumber={1}
+                />
+
+                {tutorialStep < 4 && !hasSeenTutorial && isSettingsLoaded &&
+                    <GameTutorial
+                        tutorialStep={tutorialStep}
+                        increaseTutorialStep={increaseTutorialStep}
+                    />
+                }
+            </GameEngineWrapper>
         </ImageBackground >
     );
 }

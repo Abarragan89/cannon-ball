@@ -50,7 +50,7 @@ function ChatperTwoLevelSix() {
                     TNT: {
                         position: [Math.floor(screenWidth / 3), 50],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     }
                 }}

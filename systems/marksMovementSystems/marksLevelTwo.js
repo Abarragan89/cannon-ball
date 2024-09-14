@@ -1,22 +1,10 @@
-import { Dimensions } from "react-native";
-const screenWidth = Dimensions.get('window').width;
+import moveObstacleLeftToRight from "../../utils/moveObstacles/moveObstacleLeftToRight";
 
-let direction = 'left'
 const moveTNTMarksLevelTwo = (entities) => {
-    let speed = 1
     if (!entities.gameData.isGameOver) {
-        if (entities.TNT.position[0] > screenWidth - 30) {
-            direction = 'left';
-        } 
-        if (entities.TNT.position[0] < 30) {
-            direction = 'right';
-        }
-        if (direction === 'right') {
-            entities.TNT.position[0] += speed;
-        } else if (direction === 'left') {
-            entities.TNT.position[0] -= speed;
-        }
+        moveObstacleLeftToRight(entities.TNT, 0, 130, 1)
     }
+
     return entities;
 }
 

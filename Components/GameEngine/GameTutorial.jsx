@@ -127,9 +127,9 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
 
     // handles the update to the DB to set seen Tutorial
     useEffect(() => {
-      setHasSeenTutorialTrue(1)
+        setHasSeenTutorialTrue(1)
     }, [])
-    
+
     // handles the different animation triggers
     useEffect(() => {
 
@@ -213,8 +213,8 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
                         <Text style={styles.tutorialText}>Drag to move</Text>
                         <Animated.View style={[{
                             position: 'absolute',
-                            top: screenHeight - 250,
-                            left: -10,
+                            bottom: screenHeight - 390,
+                            left: screenWidth - 555,
                             transform: [{ translateX: translateXSecond }]
                         }]}>
                             <FontAwesome
@@ -239,7 +239,7 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
                             {
                                 transform: [
                                     { translateX: moveShootHandXPos },
-                                    { translateY: moveShootHandYPos},
+                                    { translateY: moveShootHandYPos },
                                     { rotate: "140deg" }
                                 ],
                             }]}>

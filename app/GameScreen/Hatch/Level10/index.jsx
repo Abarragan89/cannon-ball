@@ -64,7 +64,7 @@ function ChapterFiveLevelTen() {
                     TNT: {
                         position: [Math.floor(screenWidth / 3) - 136, screenHeight - 167],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     giantTallOne: {

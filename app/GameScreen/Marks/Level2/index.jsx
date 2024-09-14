@@ -9,8 +9,9 @@ import moveTNTMarksLevelTwo from "../../../../systems/marksMovementSystems/marks
 import TNT from "../../../../Components/GameEngine/TNT";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
-const screenHeight = Dimensions.get('window').height
+const { height: screenHeight, width: screenWidth } = Dimensions.get('window')
 import BackArrow from "../../../../Components/UI/BackArrow";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChatperTwoLevelTwo() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -41,12 +42,19 @@ function ChatperTwoLevelTwo() {
                 ]}
                 entities={{
                     cannon: {
-                        position: [400, screenHeight - 100],
+                        position: [screenWidth - 80, screenHeight - 276],
+                        lowerTravelLimit: screenWidth - 80
+                    },
+                    cannonPlatform: {
+                        position: [screenWidth - 100, screenHeight - 200],
+                        width: 100,
+                        height: 200,
+                        renderer: <Hinderance />
                     },
                     TNT: {
-                        position: [250, 100],
+                        position: [150, screenHeight - 150],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     }
                 }}

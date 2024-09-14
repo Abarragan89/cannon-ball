@@ -32,7 +32,7 @@ function ChapterFiveLevelFour() {
         nextLevel: 'Hatch/Level5'
     });
 
-    const TNTxPos= screenWidth - 336
+    const TNTxPos = screenWidth - 336
     const TNTyPos = 193
 
     return (
@@ -87,7 +87,7 @@ function ChapterFiveLevelFour() {
                     TNT: {
                         position: [TNTxPos, TNTyPos],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     hatchSideOne: {

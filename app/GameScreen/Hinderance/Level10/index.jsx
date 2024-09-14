@@ -51,13 +51,13 @@ function ChapterThreeLevelTen() {
                     TNT: {
                         position: [100, screenHeight - 180],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     TNTRoofHinderance: {
-                        position: [30, 50],
+                        position: [60, 50],
                         height: 20,
-                        width: 180,
+                        width: 150,
                         renderer: <Hinderance />
                     },
                     sideBlockingHinderance: {
@@ -74,7 +74,7 @@ function ChapterThreeLevelTen() {
                         renderer: <Hinderance />
                     },
                     TNTBaseFloor: {
-                        position: [50, screenHeight - 150],
+                        position: [20, screenHeight - 150],
                         height: 20,
                         width: 150,
                         renderer: <Hinderance />
@@ -134,7 +134,7 @@ function ChapterThreeLevelTen() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Hinderance'}
-                    levelNumber={5}
+                    levelNumber={10}
                 />
             </GameEngineWrapper>
         </ImageBackground>

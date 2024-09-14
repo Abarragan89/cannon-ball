@@ -66,7 +66,7 @@ function ChapterFiveLevelOne() {
                     TNT: {
                         position: [TNTxPos, TNTyPos],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     hatchSideOne: {

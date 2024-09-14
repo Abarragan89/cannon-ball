@@ -196,7 +196,7 @@ export async function initDB() {
             await db.execAsync(`
 
                 INSERT INTO cannons (name, price, isOwned, power, cannonSetId)
-                VALUES ('Classic', 0, 1, 1, ${cannonSet});
+                VALUES ('Classic', 0, 1, 1.05, ${cannonSet});
 
                 INSERT INTO cannons (name, price, power, cannonSetId)
                 VALUES ('Pajunga', 5000, 1.2, ${cannonSet});

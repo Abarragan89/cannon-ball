@@ -81,12 +81,12 @@ const TNTDetectionSystem = (entities) => {
         const bottomOfCannonBall = entities.cannonBall.position[1] + (+entities.cannonBall.cannonBallRadius * 2)
         const cannonBallTopTNTDistance = bottomOfCannonBall - +entities.TNT.position[1]
         // subtract from 9 because -10px is bottoming out on TNT. Used 9 for a little bit of overlap
-        console.log('bottom of cannon ball ', bottomOfCannonBall)
-        console.log('top of TNT ', entities.TNT.position[1])
-        console.log('cannonBallTopTNTDisatance ', cannonBallTopTNTDistance)
-        console.log('tnt handle position ', Math.floor(cannonBallTopTNTDistance) - 9)
+        // console.log('bottom of cannon ball ', bottomOfCannonBall)
+        // console.log('top of TNT ', entities.TNT.position[1])
+        // console.log('cannonBallTopTNTDisatance ', cannonBallTopTNTDistance)
+        // console.log('tnt handle position ', Math.floor(cannonBallTopTNTDistance) - 9)
 
-        entities.TNT.handlePosition[0] = -12;
+        entities.TNT.handlePosition[0] = -9;
 
         // // pause the cannonBall
         setTimeout(() => {
@@ -133,8 +133,8 @@ const TNTDetectionSystem = (entities) => {
     const leftLineY1 = entities.TNT.position[1];
 
     // TOP LINE OF TNT BOX (The Handle) This
-    const handleBarX1 = entities.TNT.position[0] + 6;
-    const handleBarY1 = entities.TNT.position[1] - 6;
+    const handleBarX1 = entities.TNT.position[0] + 5;
+    const handleBarY1 = entities.TNT.position[1] - 5;
 
     // CIRCLE PROPERTIES
     const radius = +entities.cannonBall.cannonBallRadius
@@ -210,7 +210,7 @@ const TNTDetectionSystem = (entities) => {
 
     // CHECKING FOR HANLDE COLLISION USING A SEPARATE FUNCTION
     // TO HANDLE TELEPORTATION WHEN MOVING AT HIGH VELOCITY 
-    if (isCircleInRectangle(circleX, circleY, radius, handleBarX1, handleBarY1, 18, 6)) {
+    if (isCircleInRectangle(circleX, circleY, radius, handleBarX1, handleBarY1, 20, 8)) {
         if (entities.cannonBall.velocity[1] > 0) {
             endGameHandler();
         }

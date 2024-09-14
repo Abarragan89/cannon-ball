@@ -34,7 +34,7 @@ function ChapterFiveLevelSeven() {
     });
 
 
-    const TNTxPos= Math.floor(screenWidth / 3) + 115;
+    const TNTxPos = Math.floor(screenWidth / 3) + 115;
     const TNTyPos = screenHeight - 70
 
     return (
@@ -63,18 +63,18 @@ function ChapterFiveLevelSeven() {
                     TNT: {
                         position: [TNTxPos, TNTyPos],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     hatchSideOne: {
-                        position: [TNTxPos - 15, TNTyPos  - 20],
+                        position: [TNTxPos - 15, TNTyPos - 20],
                         width: 15,
                         height: 50,
                         renderer: <Hinderance />,
                         color: colors.sandColor
                     },
                     hatchSideTwo: {
-                        position: [TNTxPos + 30, TNTyPos -20],
+                        position: [TNTxPos + 30, TNTyPos - 20],
                         width: 15,
                         height: 50,
                         renderer: <Hinderance />,
@@ -82,7 +82,7 @@ function ChapterFiveLevelSeven() {
                     },
                     // This HAS to be called hatchLid
                     hatchLid: {
-                        position: [TNTxPos - 5, TNTyPos -  35 ],
+                        position: [TNTxPos - 5, TNTyPos - 35],
                         width: 40,
                         height: 15,
                         color: colors.sandColor,

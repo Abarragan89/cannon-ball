@@ -47,7 +47,7 @@ function ChatperOneLevelFive() {
                     TNT: {
                         position: [Math.floor(screenWidth / 2) - 15, 150],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     }
                 }}

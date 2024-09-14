@@ -11,6 +11,7 @@ import { Dimensions } from 'react-native'
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChatperOneLevelTwo() {
 
@@ -41,12 +42,19 @@ function ChatperOneLevelTwo() {
                 ]}
                 entities={{
                     cannon: {
-                        position: [400, screenHeight - 100],
+                        position: [100, screenHeight - 275],
+                        upperTravelLimit: 120,
+                    },
+                    cannonPlatform: {
+                        position: [0, screenHeight - 200],
+                        width: 200,
+                        height: 200,
+                        renderer: <Hinderance />
                     },
                     TNT: {
                         position: [screenWidth - 31, 60],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     }
                 }}

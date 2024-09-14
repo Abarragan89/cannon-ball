@@ -60,7 +60,7 @@ function ChapterThreeLevelSeven() {
                     TNT: {
                         position: [midScreen, screenHeight - 140],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     // LEFT SIDE

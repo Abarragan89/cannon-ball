@@ -51,7 +51,7 @@ function ChapterFourLevelSeven() {
                     TNT: {
                         position: [200, screenHeight - 70],
                         display: 'block',
-                        handlePosition: [-15, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     cannonStand: {
