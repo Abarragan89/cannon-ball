@@ -33,8 +33,11 @@ function ChapterFiveLevelNine() {
     });
 
 
-    const TNTxPos = Math.floor(screenWidth / 3) + 115;
-    const TNTyPos = screenHeight - 70
+    const TNTxPos = Math.floor(screenWidth / 3);
+    const TNTyPos = Math.floor(screenHeight / 2);
+
+    const cannonXPos = screenWidth - 250;
+    const cannonYPos = screenHeight - 278;
 
     return (
         <ImageBackground
@@ -55,8 +58,14 @@ function ChapterFiveLevelNine() {
                 ]}
                 entities={{
                     cannon: {
-                        position: [screenWidth - 100, screenHeight - 378],
-                        lowerTravelLimit: screenWidth - 245
+                        position: [screenWidth - 150, screenHeight - 326],
+                        lowerTravelLimit: screenWidth - 280
+                    },
+                    cannonPlatform: {
+                        position: [screenWidth - 300, screenHeight - 250],
+                        width: 300,
+                        height: 250,
+                        renderer: <Hinderance />
                     },
                     // The next four are TNT in a hatch.
                     TNT: {
@@ -87,14 +96,8 @@ function ChapterFiveLevelNine() {
                         color: colors.sandColor,
                         renderer: <Hinderance />
                     },
-                    giantTallOne: {
-                        position: [screenWidth - 250, screenHeight - 300],
-                        width: 250,
-                        height: 300,
-                        renderer: <Hinderance />
-                    },
                     hatchBtnOne: {
-                        position: [screenWidth - 300, screenHeight - 200],
+                        position: [TNTxPos - 170, TNTyPos],
                         isHit: false,
                         topPosition: -8,
                         color: colors.bronzeStar,
@@ -102,7 +105,7 @@ function ChapterFiveLevelNine() {
                         renderer: <HatchBtnTop />
                     },
                     hatchBtnTwo: {
-                        position: [50, screenHeight - 350],
+                        position: [TNTxPos + 170, TNTyPos],
                         isHit: false,
                         topPosition: -8,
                         color: colors.bronzeStar,
