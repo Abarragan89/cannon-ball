@@ -36,9 +36,6 @@ function ChapterFiveLevelNine() {
     const TNTxPos = Math.floor(screenWidth / 3);
     const TNTyPos = Math.floor(screenHeight / 2);
 
-    const cannonXPos = screenWidth - 250;
-    const cannonYPos = screenHeight - 278;
-
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
