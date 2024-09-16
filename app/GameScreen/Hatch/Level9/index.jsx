@@ -29,7 +29,7 @@ function ChapterFiveLevelNine() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Hatch',
-        nextLevel: 'Hatch/Level9'
+        nextLevel: 'Hatch/Level10'
     });
 
 

@@ -28,7 +28,7 @@ function ChapterFiveLevelOne() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Hatch',
-        nextLevel: 'Hatch/Level3'
+        nextLevel: 'Hatch/Level2'
     });
 
     const TNTxPos = Math.floor(screenWidth / 2)

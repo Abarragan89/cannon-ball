@@ -24,7 +24,7 @@ function ChapterFourLevelSeven() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Kraken',
-        nextLevel: 'Hatch/Level1'
+        nextLevel: 'Kraken/Level8'
     });
 
     return (

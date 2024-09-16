@@ -29,7 +29,7 @@ function ChapterFiveLevelTen() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Hatch',
-        nextLevel: 'Hatch/Level8'
+        nextLevel: 'Hatch/Level1'
     });
 
     const TNTxPos = (screenWidth / 1.35);

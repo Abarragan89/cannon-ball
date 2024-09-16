@@ -24,7 +24,7 @@ function ChapterFourLevelTen() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Kraken',
-        nextLevel: 'Kraken/Level10'
+        nextLevel: 'Hatch/Level1'
     });
 
     return (
@@ -113,7 +113,7 @@ function ChapterFourLevelTen() {
                 />
                 <GameLevelInfoHeader
                     mapName={'Kraken'}
-                    levelNumber={9}
+                    levelNumber={10}
                 />
             </GameEngineWrapper>
         </ImageBackground>
