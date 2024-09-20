@@ -31,7 +31,7 @@ const UserAllTimeNavStats = ({ refresh }) => {
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.statsText}>{totalStars.totalMapStars} /</Text>
-            <Text style={styles.statsText}>75 </Text>
+            <Text style={styles.statsText}>135 </Text>
             <Fontisto name="star" size={15} color={colors.winningStar} />
           </View>
         </View>

@@ -20,7 +20,7 @@ function ChatperTwoLevelFive() {
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
-        winningScore: [250, 500, 1000],
+        winningScore: [100, 250, 1000],
         airTime: 0,
         bounces: 0,
         multiplier: 0,

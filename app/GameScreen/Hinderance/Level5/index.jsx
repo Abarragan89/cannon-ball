@@ -73,8 +73,8 @@ function ChapterThreeLevelFive() {
                         renderer: <Hinderance />
                     },
                     longHindTwo: {
-                        position: [Math.floor(screenWidth / 2) - 45, 310],
-                        width: 120,
+                        position: [Math.floor(screenWidth / 2) - 55, 310],
+                        width: 140,
                         height: 30,
                         renderer: <Hinderance />
                     },

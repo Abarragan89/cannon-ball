@@ -26,6 +26,21 @@ const LevelTile = ({ children, route, params, isLocked, accuracy, highscore, ear
                 case 'Level Five':
                     setPrevLevel('Level Four')
                     break;
+                case 'Level Six':
+                    setPrevLevel('Level Five')
+                    break;
+                case 'Level Seven':
+                    setPrevLevel('Level Six')
+                    break;
+                case 'Level Eight':
+                    setPrevLevel('Level Seven')
+                    break;
+                case 'Level Nine':
+                    setPrevLevel('Level Eight')
+                    break;
+                case 'Level Ten':
+                    setPrevLevel('Level Nine')
+                    break;
             }
         }
     }, [currentLevel])
@@ -73,6 +88,7 @@ const LevelTile = ({ children, route, params, isLocked, accuracy, highscore, ear
                 <View style={styles.levelStatsContainer}>
                     <View style={styles.levelDetailsContainer}>
                         <Text style={[styles.text, styles.detailLabel]}>Accuracy</Text>
+                        {/* 50 accuracy means the level hasn't been won yet */}
                         {accuracy === 50 ?
                             <Text style={styles.text}>N/A</Text>
                             :

@@ -132,7 +132,7 @@ const TNTDetectionSystem = (entities) => {
 
     // TOP LINE OF TNT BOX (The Handle) This
     const handleBarX1 = entities.TNT.position[0] + 10;
-    const handleBarY1 = entities.TNT.position[1] - 10;
+    const handleBarY1 = entities.TNT.position[1] - 8;
 
     // CIRCLE PROPERTIES
     const radius = +entities.cannonBall.cannonBallRadius

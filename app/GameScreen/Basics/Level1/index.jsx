@@ -45,7 +45,7 @@ function ChatperOneLevelOne() {
         // start with impossible accuracy float to compare on first win
         accuracyFloat: 50,
         accuracyName: '',
-        winningScore: [100, 250, 1500],
+        winningScore: [100, 250, 1000],
         airTime: 0,
         bounces: 0,
         multiplier: 0,

@@ -146,7 +146,7 @@ const fireCannonSystem = (entities, { touches }) => {
       locationY <= fireBtnPos.bottomY
 
     ) {
-      if (t.type === 'start') {
+      if (t.type === 'start' && !entities.gameData.isGameOver) {
         // Reset values if ball is already moving
         if (entities.cannonBall.isBallMoving) {
           // Vibrate for feedback if setting is set for On

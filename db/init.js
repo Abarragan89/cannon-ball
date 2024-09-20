@@ -11,7 +11,7 @@ export async function initDB() {
     } catch (error) {
         // Set variable to trigger set up
         const errorMsg = error.message;
-        if (errorMsg.includes('no such table')) { needInitialSetup = true };
+        if (errorMsg.includes('no such table')) needInitialSetup = true ;
         console.log('error in init ', error);
     }
 
@@ -150,44 +150,6 @@ export async function initDB() {
                 INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
                 VALUES ('Ghost', '#e0d9d9', 'ghost', 40000, ${cannonBallSet}, 13, 0.13, 0.95);
             `)
-            // await db.execAsync(`
-
-            //     INSERT INTO cannonBalls (name, color, gradientColor, price, isOwned, cannonBallSetId, size, weight, bounce)
-            //     VALUES ('Iron', '#a19d94', '#D4D0D0', 0, 1, ${cannonBallSet}, 8, 0.11, 0.65);
-
-            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-            //     VALUES ('Copper', '#b87333', '#d89924', 5000, ${cannonBallSet}, 11, 0.14, 0.65);
-
-            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-            //     VALUES ('Lead', '#212121', '#4f4d4d', 10000, ${cannonBallSet}, 8, 0.17, 0.55);
-
-            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-            //     VALUES ('Ruby', '#E0115F', '#ed5252', 30000, ${cannonBallSet}, 6, 0.11, 0.85);
-
-            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-            //     VALUES ('Emerald', '#50C878', '#a8f49e', 30000, ${cannonBallSet}, 6, 0.08, 0.75);
-
-            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-            //     VALUES ('Ice', '#26afcb', '#f0fbef', 30000, ${cannonBallSet}, 4, 0.08, 0.55);
-
-            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-            //     VALUES ('Rubber', '#090808', '#353434', 30000, ${cannonBallSet}, 11, 0.11, 0.95);
-
-            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-            //     VALUES ('Beach Ball', '#ff0000', '#0560e0', 30000, ${cannonBallSet}, 13, 0.05, 0.85);
-
-            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-            //     VALUES ('BB', '#ff7c02', '#faed99', 30000, ${cannonBallSet}, 4, 0.05, 0.75);
-
-            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-            //     VALUES ('Eight Ball', 'black', 'eightBall', 40000, ${cannonBallSet}, 11, 0.08, 0.55);
-
-            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-            //     VALUES ('Skull', 'black', 'skull', 40000, ${cannonBallSet}, 8, 0.08, 0.65);
-
-            //     INSERT INTO cannonBalls (name, color, gradientColor, price, cannonBallSetId, size, weight, bounce)
-            //     VALUES ('Ghost', '#e0d9d9', 'ghost', 40000, ${cannonBallSet}, 13, 0.08, 0.95);
-            // `)
 
             // Create Cannon Set
             const { lastInsertRowId: cannonSet } = await db.runAsync(`INSERT INTO cannonSet DEFAULT VALUES`);
@@ -241,7 +203,7 @@ export async function initDB() {
             // `)
 
             // Create User
-            const { lastInsertRowId: newUserId } = await db.runAsync(`INSERT INTO users (name, preferenceId, cannonBallSetId, cannonSetId, totalPoints) VALUES ('mike', ${preferenceId}, ${cannonBallSet}, ${cannonSet}, 250000);`);
+            const { lastInsertRowId: newUserId } = await db.runAsync(`INSERT INTO users (name, preferenceId, cannonBallSetId, cannonSetId) VALUES ('mike', ${preferenceId}, ${cannonBallSet}, ${cannonSet});`);
 
             // Create Maps
             const { lastInsertRowId: mapOneId } = await db.runAsync(`INSERT INTO maps (mapName, userId) VALUES ('Basics', ${newUserId});`);
@@ -250,98 +212,119 @@ export async function initDB() {
             const { lastInsertRowId: mapFourId } = await db.runAsync(`INSERT INTO maps (mapName, userId) VALUES ('Kraken', ${newUserId});`);
             const { lastInsertRowId: mapFiveId } = await db.runAsync(`INSERT INTO maps (mapName, userId) VALUES ('Hatch', ${newUserId});`);
 
-            // // Create Levels for Map One
-            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapOneId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapOneId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapOneId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapOneId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapOneId});`);
-
-            // // Create Levels for Map Two
-            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapTwoId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapTwoId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapTwoId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapTwoId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapTwoId});`);
-
-            // // Create Levels for Map Three
-            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapThreeId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapThreeId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapThreeId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapThreeId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapThreeId});`);
-
-            // // Create Levels for Map Four
-            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapFourId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapFourId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapFourId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapFourId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapFourId});`);
-
-            // // Create Levels for Map Five
-            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapFiveId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapFiveId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapFiveId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapFiveId});`);
-            // await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapFiveId});`);
-
-
 
             ////////////////////////// ALL LEVELS ARE OPEN ////////////////////////////////
             // Create Levels for Map One
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, earnedStars, mapId) VALUES ('Level One', 'Level1', 1, 47, ${mapOneId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Two', 'Level2', 1, ${mapOneId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Three', 'Level3', 1, ${mapOneId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Four', 'Level4', 1, ${mapOneId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Five', 'Level5', 1, ${mapOneId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, earnedStars, mapId) VALUES ('Level One', 'Level1', 1, 47, ${mapOneId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Two', 'Level2', 1, ${mapOneId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Three', 'Level3', 1, ${mapOneId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Four', 'Level4', 1, ${mapOneId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Five', 'Level5', 1, ${mapOneId});`);
+
+            // // Create Levels for Map Two
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapTwoId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Two', 'Level2', 1, ${mapTwoId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Three', 'Level3', 1, ${mapTwoId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Four', 'Level4', 1, ${mapTwoId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Five', 'Level5', 1, ${mapTwoId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Six', 'Level6', 1, ${mapTwoId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Seven', 'Level7', 1, ${mapTwoId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Eight', 'Level8', 1, ${mapTwoId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Nine', 'Level9', 1, ${mapTwoId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Ten', 'Level10', 1, ${mapTwoId});`);
+
+            // // Create Levels for Map Three
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapThreeId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Two', 'Level2', 1, ${mapThreeId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Three', 'Level3', 1, ${mapThreeId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Four', 'Level4', 1, ${mapThreeId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Five', 'Level5', 1, ${mapThreeId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Six', 'Level6', 1, ${mapThreeId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Seven', 'Level7', 1, ${mapThreeId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Eight', 'Level8', 1, ${mapThreeId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Nine', 'Level9', 1, ${mapThreeId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Ten', 'Level10', 1, ${mapThreeId});`);
+
+            // // Create Levels for Map Four
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapFourId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Two', 'Level2', 1, ${mapFourId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Three', 'Level3', 1, ${mapFourId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Four', 'Level4', 1, ${mapFourId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Five', 'Level5', 1, ${mapFourId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Six', 'Level6', 1, ${mapFourId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Seven', 'Level7', 1, ${mapFourId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Eight', 'Level8', 1, ${mapFourId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Nine', 'Level9', 1, ${mapFourId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Ten', 'Level10', 1, ${mapFourId});`);
+
+            // // Create Levels for Map Five
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapFiveId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Two', 'Level2', 1, ${mapFiveId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOPen, mapId) VALUES ('Level Three', 'Level3', 1, ${mapFiveId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Four', 'Level4', 1, ${mapFiveId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Five', 'Level5', 1, ${mapFiveId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Six', 'Level6', 1, ${mapFiveId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Seven', 'Level7', 1, ${mapFiveId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOPen, mapId) VALUES ('Level Eight', 'Level8', 1, ${mapFiveId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Nine', 'Level9', 1, ${mapFiveId});`);
+            // await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Ten', 'Level10', 1, ${mapFiveId});`);
+
+
+
+            // Create Levels for Map One
+            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapOneId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapOneId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapOneId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapOneId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapOneId});`);
 
             // Create Levels for Map Two
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapTwoId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Two', 'Level2', 1, ${mapTwoId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Three', 'Level3', 1, ${mapTwoId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Four', 'Level4', 1, ${mapTwoId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Five', 'Level5', 1, ${mapTwoId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Six', 'Level6', 1, ${mapTwoId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Seven', 'Level7', 1, ${mapTwoId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Eight', 'Level8', 1, ${mapTwoId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Nine', 'Level9', 1, ${mapTwoId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Ten', 'Level10', 1, ${mapTwoId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level One', 'Level1', ${mapTwoId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapTwoId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapTwoId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapTwoId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapTwoId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Six', 'Level6', ${mapTwoId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Seven', 'Level7', ${mapTwoId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Eight', 'Level8', ${mapTwoId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Nine', 'Level9', ${mapTwoId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Ten', 'Level10', ${mapTwoId});`);
 
             // Create Levels for Map Three
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapThreeId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Two', 'Level2', 1, ${mapThreeId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Three', 'Level3', 1, ${mapThreeId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Four', 'Level4', 1, ${mapThreeId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Five', 'Level5', 1, ${mapThreeId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Six', 'Level6', 1, ${mapThreeId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Seven', 'Level7', 1, ${mapThreeId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Eight', 'Level8', 1, ${mapThreeId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Nine', 'Level9', 1, ${mapThreeId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Ten', 'Level10', 1, ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level One', 'Level1', ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Six', 'Level6', ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Seven', 'Level7', ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Eight', 'Level8', ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Nine', 'Level9', ${mapThreeId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Ten', 'Level10', ${mapThreeId});`);
 
             // Create Levels for Map Four
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapFourId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Two', 'Level2', 1, ${mapFourId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Three', 'Level3', 1, ${mapFourId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Four', 'Level4', 1, ${mapFourId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Five', 'Level5', 1, ${mapFourId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Six', 'Level6', 1, ${mapFourId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Seven', 'Level7', 1, ${mapFourId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Eight', 'Level8', 1, ${mapFourId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Nine', 'Level9', 1, ${mapFourId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Ten', 'Level10', 1, ${mapFourId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level One', 'Level1', ${mapFourId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapFourId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapFourId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapFourId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapFourId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Six', 'Level6', ${mapFourId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Seven', 'Level7', ${mapFourId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Eight', 'Level8', ${mapFourId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Nine', 'Level9', ${mapFourId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Ten', 'Level10', ${mapFourId});`);
 
             // Create Levels for Map Five
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level One', 'Level1', 1, ${mapFiveId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Two', 'Level2', 1, ${mapFiveId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOPen, mapId) VALUES ('Level Three', 'Level3', 1, ${mapFiveId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Four', 'Level4', 1, ${mapFiveId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Five', 'Level5', 1, ${mapFiveId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Six', 'Level6', 1, ${mapFiveId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Seven', 'Level7', 1, ${mapFiveId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOPen, mapId) VALUES ('Level Eight', 'Level8', 1, ${mapFiveId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Nine', 'Level9', 1, ${mapFiveId});`);
-            await db.runAsync(`INSERT INTO levels (level, link, isOpen, mapId) VALUES ('Level Ten', 'Level10', 1, ${mapFiveId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level One', 'Level1', ${mapFiveId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Two', 'Level2', ${mapFiveId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Three', 'Level3', ${mapFiveId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Four', 'Level4', ${mapFiveId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Five', 'Level5', ${mapFiveId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Six', 'Level6', ${mapFiveId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Seven', 'Level7', ${mapFiveId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Eight', 'Level8', ${mapFiveId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Nine', 'Level9', ${mapFiveId});`);
+            await db.runAsync(`INSERT INTO levels (level, link, mapId) VALUES ('Level Ten', 'Level10', ${mapFiveId});`);
 
         } catch (error) {
             console.log('error in Init SQL function', error)

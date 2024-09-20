@@ -61,8 +61,8 @@ function ChapterThreeLevelFour() {
                         renderer: <Hinderance />
                     },
                     longHindOne: {
-                        position: [210, 200],
-                        width: 120,
+                        position: [180, 200],
+                        width: 140,
                         height: 30,
                         renderer: <Hinderance />
                     },

@@ -9,7 +9,7 @@ import moveTNTMarksLevelOne from "../../../../systems/marksMovementSystems/marks
 import TNT from "../../../../Components/GameEngine/TNT";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
-const {height: screenHeight, width: screenWidth} = Dimensions.get('window')
+const { height: screenHeight, width: screenWidth } = Dimensions.get('window')
 import BackArrow from "../../../../Components/UI/BackArrow";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
@@ -20,7 +20,7 @@ function ChatperTwoLevelOne() {
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
-        winningScore: [250, 500, 1000],
+        winningScore: [100, 250, 1000],
         airTime: 0,
         bounces: 0,
         multiplier: 0,

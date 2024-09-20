@@ -113,7 +113,7 @@ const CampaignOverview = () => {
                                                 }}
                                                 imgSrc={mainBtnImgSrc}
                                                 progressBar={<Progress.Bar
-                                                    progress={mapTwoProgress / 15}
+                                                    progress={mapTwoProgress / 30}
                                                     width={100}
                                                     height={5}
                                                     style={[styles.slider]}
@@ -134,7 +134,7 @@ const CampaignOverview = () => {
                                 </View>
                                 {/* Button Number Three */}
                                 <View style={styles.mapBtnThree}>
-                                    {totalStars >= 20 ?
+                                    {totalStars >= 30 ?
                                         <MainButton
                                             route="/LevelLobbyScreen"
                                             params={{
@@ -143,7 +143,7 @@ const CampaignOverview = () => {
                                             imgSrc={mainBtnImgSrc}
 
                                             progressBar={<Progress.Bar
-                                                progress={mapThreeProgress / 15}
+                                                progress={mapThreeProgress / 30}
                                                 width={100}
                                                 height={5}
                                                 style={[styles.slider]}
@@ -157,13 +157,13 @@ const CampaignOverview = () => {
                                         :
                                         <LockedMap
                                             setShowModal={setShowModal}
-                                            setStarsNeeded={() => setStarsNeeded(20)}
+                                            setStarsNeeded={() => setStarsNeeded(30)}
                                             imgSrc={lockedMapBg}
                                         />
                                     }
                                 </View>
                                 <View style={styles.mapBtnFour}>
-                                    {totalStars >= 30 ?
+                                    {totalStars >= 50 ?
                                         <MainButton
                                             route="/LevelLobbyScreen"
                                             params={{
@@ -172,7 +172,7 @@ const CampaignOverview = () => {
                                             imgSrc={mainBtnImgSrc}
 
                                             progressBar={<Progress.Bar
-                                                progress={mapFourProgress / 15}
+                                                progress={mapFourProgress / 30}
                                                 width={100}
                                                 height={5}
                                                 style={[styles.slider]}
@@ -186,14 +186,14 @@ const CampaignOverview = () => {
                                         :
                                         <LockedMap
                                             setShowModal={setShowModal}
-                                            setStarsNeeded={() => setStarsNeeded(30)}
+                                            setStarsNeeded={() => setStarsNeeded(50)}
                                             imgSrc={lockedMapBg}
                                         />
                                     }
                                 </View>
                                 <View style={styles.mapBtnFive}>
                                     {
-                                        totalStars >= 45 ?
+                                        totalStars >= 70 ?
                                             <MainButton
                                                 route="/LevelLobbyScreen"
                                                 params={{
@@ -202,7 +202,7 @@ const CampaignOverview = () => {
                                                 imgSrc={mainBtnImgSrc}
 
                                                 progressBar={<Progress.Bar
-                                                    progress={mapFiveProgress / 15}
+                                                    progress={mapFiveProgress / 30}
                                                     width={100}
                                                     height={5}
                                                     style={[styles.slider]}
@@ -216,7 +216,7 @@ const CampaignOverview = () => {
                                             :
                                             <LockedMap
                                                 setShowModal={setShowModal}
-                                                setStarsNeeded={() => setStarsNeeded(45)}
+                                                setStarsNeeded={() => setStarsNeeded(70)}
                                                 imgSrc={lockedMapBg}
                                             />
                                     }
