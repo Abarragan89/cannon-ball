@@ -9,7 +9,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { Dimensions } from "react-native";
 const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
 const bgImage = require('../assets/images/homeScreenImg.png')
-const { height } = Dimensions.get('screen');
+const { height, width} = Dimensions.get('screen');
 import { initDB } from "../db/init";
 
 SplashScreen.preventAutoHideAsync();
@@ -66,7 +66,7 @@ const Home = () => {
             </MainButton>
           </View>
           <CannonLauncher
-            position={[80, height - 105]}
+            position={[(-width / 2) + 70, 35]}
             rotate={'-50deg'}
             barrelColor={colors.Classic.barrel}
             tipColor={colors.Classic.tip}

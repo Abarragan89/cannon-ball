@@ -9,6 +9,7 @@ import { Entypo } from '@expo/vector-icons';
 const LevelTile = ({ children, route, params, isLocked, accuracy, highscore, earnedStars, currentLevel }) => {
 
     const [prevLevel, setPrevLevel] = useState('')
+    const [levelNumber, setLevelNumber] = useState(0);
 
     useEffect(() => {
         // Determine Previous Level
@@ -16,29 +17,38 @@ const LevelTile = ({ children, route, params, isLocked, accuracy, highscore, ear
             switch (currentLevel) {
                 case 'Level Two':
                     setPrevLevel('Level One')
+                    setLevelNumber(2)
                     break;
                 case 'Level Three':
+                    setLevelNumber(3)
                     setPrevLevel('Level Two')
                     break;
                 case 'Level Four':
+                    setLevelNumber(4)
                     setPrevLevel('Level Three')
                     break;
                 case 'Level Five':
+                    setLevelNumber(5)
                     setPrevLevel('Level Four')
                     break;
                 case 'Level Six':
+                    setLevelNumber(6)
                     setPrevLevel('Level Five')
                     break;
                 case 'Level Seven':
+                    setLevelNumber(7)
                     setPrevLevel('Level Six')
                     break;
                 case 'Level Eight':
+                    setLevelNumber(8)
                     setPrevLevel('Level Seven')
                     break;
                 case 'Level Nine':
+                    setLevelNumber(9)
                     setPrevLevel('Level Eight')
                     break;
                 case 'Level Ten':
+                    setLevelNumber(10)
                     setPrevLevel('Level Nine')
                     break;
             }
@@ -52,7 +62,8 @@ const LevelTile = ({ children, route, params, isLocked, accuracy, highscore, ear
         return (
             <View style={styles.containerLockedLevel}>
                 <Text style={styles.earnMoreStarsText}>Complete {prevLevel} to unlock</Text>
-                <Entypo name="lock" size={35} color="#000000b7" />
+                <Text style={styles.lockedLevelNumberText}>{levelNumber}</Text>
+                <Entypo name="lock" size={40} color="#000000b7" />
             </View>
         )
     }
@@ -109,6 +120,7 @@ export default LevelTile;
 
 const styles = StyleSheet.create({
     containerLockedLevel: {
+        position: 'relative',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#b59a57c3',
@@ -119,6 +131,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         borderWidth: 1,
         borderColor: colors.primaryBlack,
+    },
+    lockedLevelNumberText: {
+        color: colors.offWhite,
+        position: 'absolute',
+        zIndex: 50,
+        bottom: 18
     },
     earnMoreStarsText: {
         fontFamily: 'textFont',
