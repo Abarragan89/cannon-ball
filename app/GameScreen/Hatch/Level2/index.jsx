@@ -22,6 +22,8 @@ import createDetectHinderanceSystem from "../../../../systems/createDetectHinder
 
 function ChapterFiveLevelTwo() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -105,12 +107,15 @@ function ChapterFiveLevelTwo() {
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Hatch' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Hatch' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Hatch'}
                     levelNumber={2}

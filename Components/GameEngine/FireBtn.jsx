@@ -6,6 +6,7 @@ import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
 const FireBtn = ({ isShooting }) => {
+
     return (
         <View style={styles.root}>
             <View>

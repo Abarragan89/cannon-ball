@@ -13,10 +13,11 @@ import GameTutorial from "../../../../Components/GameEngine/GameTutorial";
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window')
 import { getHasSeenTutorial } from "../../../../db/selectQueries";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
-// import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
+import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
 
 function ChatperOneLevelOne() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
     const [tutorialStep, setTutorialStep] = useState(0);
     const [hasSeenTutorial, setHasSeenTutorial] = useState(false);
     const [isSettingsLoaded, setIsSettingsLoaded] = useState(false);
@@ -44,7 +45,7 @@ function ChatperOneLevelOne() {
         // start with impossible accuracy float to compare on first win
         accuracyFloat: 50,
         accuracyName: '',
-        winningScore: [100, 2000, 4000],
+        winningScore: [100, 250, 1500],
         airTime: 0,
         bounces: 0,
         multiplier: 0,
@@ -64,6 +65,7 @@ function ChatperOneLevelOne() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
+                    // followCannonBallOnMove
                 ]}
                 entities={{
                     cannon: {
@@ -86,12 +88,15 @@ function ChatperOneLevelOne() {
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Basics' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Basics' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Basics'}
                     levelNumber={1}

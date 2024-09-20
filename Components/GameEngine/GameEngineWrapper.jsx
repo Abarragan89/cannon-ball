@@ -32,6 +32,7 @@ const GameEngineWrapper = ({
     endGameData,
     isGameOver,
     setIsGameOver,
+    setIsGameOverNoDelay,
 }) => {
 
 
@@ -142,6 +143,7 @@ const GameEngineWrapper = ({
                         setPlayBgMusic: setPlayBgMusic,
                         isGameOver: false,
                         setIsGameOver: setIsGameOver,
+                        setIsGameOverNoDelay: setIsGameOverNoDelay,
                         bounceLevel: cannonBallBounce,
                         isSoundEffectsOn: isSoundEffectsOn,
                         isHapticsOn: isHapticsOn,

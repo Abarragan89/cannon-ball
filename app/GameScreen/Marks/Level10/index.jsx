@@ -15,6 +15,8 @@ import BackArrow from "../../../../Components/UI/BackArrow";
 
 function ChatperTwoLevelTen() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -62,12 +64,15 @@ function ChatperTwoLevelTen() {
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Marks' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Marks' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Marks'}
                     levelNumber={10}

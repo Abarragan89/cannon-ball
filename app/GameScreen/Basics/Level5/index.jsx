@@ -14,10 +14,12 @@ import BackArrow from "../../../../Components/UI/BackArrow";
 
 function ChatperOneLevelFive() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
-        winningScore: [100, 2000, 4000],
+        winningScore: [100, 250, 1500],
         airTime: 0,
         bounces: 0,
         multiplier: 0,
@@ -54,12 +56,15 @@ function ChatperOneLevelFive() {
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Basics' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Basics' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Basics'}
                     levelNumber={5}

@@ -73,20 +73,18 @@ const TNTDetectionSystem = (entities) => {
         };
 
         //trigger the boolean to let the air-time counter stop and game aspects
-        //this is different than the useState is gameover that sets the modal
+        //this is different than the useState is gameover that sets the modal (used for airtime and stops game immediately)
         entities.gameData.isGameOver = true;
+        // This is state that triggers immediately so the back button disappears on contact
+        entities.gameData.setIsGameOverNoDelay(true);
         entities.cannonBall.velocity[1] = 0
         entities.cannonBall.velocity[0] = 0
         // Lower TNT handle
         const bottomOfCannonBall = entities.cannonBall.position[1] + (+entities.cannonBall.cannonBallRadius * 2)
         const cannonBallTopTNTDistance = bottomOfCannonBall - +entities.TNT.position[1]
-        // subtract from 9 because -10px is bottoming out on TNT. Used 9 for a little bit of overlap
-        // console.log('bottom of cannon ball ', bottomOfCannonBall)
-        // console.log('top of TNT ', entities.TNT.position[1])
-        // console.log('cannonBallTopTNTDisatance ', cannonBallTopTNTDistance)
-        // console.log('tnt handle position ', Math.floor(cannonBallTopTNTDistance) - 9)
-
-        entities.TNT.handlePosition[0] = -9;
+        // -17 is where the handle starts, then I add the distance of the bottom of the cannonball
+        // to 11 (10px tall is where the hit box starts, so 1px for some overlap) and set the handle to that position
+        entities.TNT.handlePosition[0] = -17 + (cannonBallTopTNTDistance + 11)
 
         // // pause the cannonBall
         setTimeout(() => {
@@ -133,8 +131,8 @@ const TNTDetectionSystem = (entities) => {
     const leftLineY1 = entities.TNT.position[1];
 
     // TOP LINE OF TNT BOX (The Handle) This
-    const handleBarX1 = entities.TNT.position[0] + 5;
-    const handleBarY1 = entities.TNT.position[1] - 5;
+    const handleBarX1 = entities.TNT.position[0] + 10;
+    const handleBarY1 = entities.TNT.position[1] - 10;
 
     // CIRCLE PROPERTIES
     const radius = +entities.cannonBall.cannonBallRadius
@@ -210,7 +208,7 @@ const TNTDetectionSystem = (entities) => {
 
     // CHECKING FOR HANLDE COLLISION USING A SEPARATE FUNCTION
     // TO HANDLE TELEPORTATION WHEN MOVING AT HIGH VELOCITY 
-    if (isCircleInRectangle(circleX, circleY, radius, handleBarX1, handleBarY1, 20, 8)) {
+    if (isCircleInRectangle(circleX, circleY, radius, handleBarX1, handleBarY1, 10, 10)) {
         if (entities.cannonBall.velocity[1] > 0) {
             endGameHandler();
         }

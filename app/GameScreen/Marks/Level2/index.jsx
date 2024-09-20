@@ -14,7 +14,9 @@ import BackArrow from "../../../../Components/UI/BackArrow";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChatperTwoLevelTwo() {
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
     const [isGameOver, setIsGameOver] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -60,13 +62,16 @@ function ChatperTwoLevelTwo() {
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
                 setIsGameOver={setIsGameOver}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Marks' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Marks' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Marks'}
                     levelNumber={2}
