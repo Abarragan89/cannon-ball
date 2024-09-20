@@ -13,6 +13,7 @@ import GameTutorial from "../../../../Components/GameEngine/GameTutorial";
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window')
 import { getHasSeenTutorial } from "../../../../db/selectQueries";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
 
 function ChatperOneLevelOne() {
@@ -65,6 +66,7 @@ function ChatperOneLevelOne() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
+                    createDetectHinderanceSystem
                     // followCannonBallOnMove
                 ]}
                 entities={{

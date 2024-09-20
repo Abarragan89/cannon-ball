@@ -12,6 +12,7 @@ const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 
 function ChatperOneLevelTwo() {
 
@@ -42,6 +43,7 @@ function ChatperOneLevelTwo() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {

@@ -203,7 +203,7 @@ export async function initDB() {
             // `)
 
             // Create User
-            const { lastInsertRowId: newUserId } = await db.runAsync(`INSERT INTO users (name, preferenceId, cannonBallSetId, cannonSetId) VALUES ('mike', ${preferenceId}, ${cannonBallSet}, ${cannonSet});`);
+            const { lastInsertRowId: newUserId } = await db.runAsync(`INSERT INTO users (name, preferenceId, cannonBallSetId, cannonSetId, totalPoints) VALUES ('mike', ${preferenceId}, ${cannonBallSet}, ${cannonSet}, 250000);`);
 
             // Create Maps
             const { lastInsertRowId: mapOneId } = await db.runAsync(`INSERT INTO maps (mapName, userId) VALUES ('Basics', ${newUserId});`);
