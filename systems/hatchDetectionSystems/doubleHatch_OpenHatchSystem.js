@@ -45,7 +45,6 @@ const doubleHatch_OpenHatchSystem = (entities) => {
         // I can loop through keys and make this dynamic if I want to add many more buttons
         // Listen for Button One 
         if (entities.hatchBtnOne.isHit) {
-            console.log('is hatched hit ', entities.hatchBtnOne.isHit)
             turnHatchBtnOn('hatchBtnOne');
             // openLid();
         }
@@ -55,7 +54,6 @@ const doubleHatch_OpenHatchSystem = (entities) => {
         }
         // Listen for Button Two
         if (entities.hatchBtnTwo.isHit) {
-            console.log('is hatched hit ', entities.hatchBtnTwo.isHit)
             turnHatchBtnOn('hatchBtnTwo');
             // openLid();
         }

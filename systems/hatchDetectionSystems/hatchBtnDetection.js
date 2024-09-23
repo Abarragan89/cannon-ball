@@ -97,34 +97,26 @@ const createDetectHinderanceSystem = (entities) => {
         // Determine direction of cannonBall
         if (isInsideBox && !lastFrame) {
             if (entrySide === 'left') {
-                console.log('hitfrom left:', entrySide);
-                console.log('hinderace', hinderanceName);
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0);
+                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, 'hatchLeft');
                 if (entities[hinderanceName].isTriggerOnLeft) {
                     entities[hinderanceName].isHit = true;
                 }
             }
             else if (entrySide === 'right') {
-                console.log('hitfrom right:', entrySide)
-                console.log('hinderace', hinderanceName)
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0);
+                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, 'hatchRight');
                 if (entities[hinderanceName].isTriggerOnRight) {
                     entities[hinderanceName].isHit = true;
                 }
             }
             else if (entrySide === 'top') {
-                console.log('hitfrom top', entrySide)
-                console.log('hinderace', hinderanceName)
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1);
+                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, 'hatchTop');
                 if (entities[hinderanceName].isTriggerOnTop) {
                     entities[hinderanceName].isHit = true;
                 }
             }
             // // CannonBall is coming from the bottom
             else if (entrySide === 'bottom') {
-                console.log('hit from bottom', entrySide)
-                console.log('hinderace', hinderanceName)
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1);
+                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, 'hatchBottom');
                 if (entities[hinderanceName].isTriggerOnBottom) {
                     entities[hinderanceName].isHit = true;
                 }
@@ -136,7 +128,7 @@ const createDetectHinderanceSystem = (entities) => {
         ///// CHECKING FOR LEFT WALL DETECTION ////////////////////////
         if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
             if (entities.cannonBall.velocity[0] > 0) {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0);
+                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, 'hatchLeft');
                 if (entities[hinderanceName].isTriggerOnLeft) {
                     entities[hinderanceName].isHit = true;
                 }
@@ -145,7 +137,7 @@ const createDetectHinderanceSystem = (entities) => {
         ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
         if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
             if (entities.cannonBall.velocity[0] < 0) {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0)
+                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, 'hatchRight')
                 if (entities[hinderanceName].isTriggerOnRight) {
                     entities[hinderanceName].isHit = true;
                 }
@@ -155,7 +147,7 @@ const createDetectHinderanceSystem = (entities) => {
         ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
         if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
             if (entities.cannonBall.velocity[1] < 0) {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1)
+                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, 'hatchBottom')
                 if (entities[hinderanceName].isTriggerOnBottom) {
                     entities[hinderanceName].isHit = true;
                 }
@@ -165,7 +157,7 @@ const createDetectHinderanceSystem = (entities) => {
         ////////////////// CHECKING FOR TOP WALL DETECTION /////////////////
         if (lineBallDetection(topLineX1, topLineY1, topLineX2, topLineY2, circleX, circleY, radius)) {
             if (entities.cannonBall.velocity[1] > 0) {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1);
+                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, 'hatchTop');
                 if (entities[hinderanceName].isTriggerOnTop) {
                     entities[hinderanceName].isHit = true;
                 }

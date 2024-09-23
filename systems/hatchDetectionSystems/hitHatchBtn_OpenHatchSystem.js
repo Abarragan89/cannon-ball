@@ -39,7 +39,6 @@ const hitHatchBtn_OpenHatchSystem = (entities) => {
     // Listeners
     if (!entities.gameData.isGameOver) {
         if (entities.hatchBtn.isHit) {
-            console.log('is hatched hit ', entities.hatchBtn.isHit)
             turnHatchBtnOn();
             openLid();
         }

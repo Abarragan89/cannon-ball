@@ -147,6 +147,7 @@ const GameEngineWrapper = ({
                         bounceLevel: cannonBallBounce,
                         isSoundEffectsOn: isSoundEffectsOn,
                         isHapticsOn: isHapticsOn,
+                        lastHinderanceHit: ''
                     },
                     cannonBall: {
                         position: [-100, 0],

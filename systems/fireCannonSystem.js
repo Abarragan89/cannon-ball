@@ -43,7 +43,7 @@ const fireCannonSystem = (entities, { touches }) => {
       // if hits bottom
       if (entities.cannonBall.position[1] > height - 34) {
         // only play sound once when isBallMoving is still true
-        cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallHitSandSound', entities.headerStats, entities.cannonBall, 0)
+        cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallHitSandSound', entities.headerStats, entities.cannonBall, 0, 'sandWall')
         // End the Game and reset critical variables
         entities.cannonBall.isBallMoving = false;
         entities.headerStats.bounces = 0;
@@ -53,14 +53,14 @@ const fireCannonSystem = (entities, { touches }) => {
       // if hits right wall
       if (entities.cannonBall.position[0] > width - 14) {
         if (entities.cannonBall.velocity[0] > 0) {
-          cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallBounceSound', entities.headerStats, entities.cannonBall, 0)
+          cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallBounceSound', entities.headerStats, entities.cannonBall, 0, 'rightWall')
         }
       }
       // if hits left wall
       // I need to also make sure it is not -100 because that is the starting position off screen
       if (entities.cannonBall.position[0] < 0 && entities.cannonBall.position[0] !== -100) {
         if (entities.cannonBall.velocity[0] < 0) {
-          cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallBounceSound', entities.headerStats, entities.cannonBall, 0)
+          cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallBounceSound', entities.headerStats, entities.cannonBall, 0, 'leftWall')
         }
       }
     }
