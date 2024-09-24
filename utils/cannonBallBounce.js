@@ -3,8 +3,6 @@ let debounceTimeout;
 export default cannonBallBounce = async (gameData, isSoundOn, sounds, sound, headerStats, cannonBall, isVertical, hinderanceName='None') => {
 
         if (gameData.lastHinderanceHit === hinderanceName) {
-            console.log('hindernace', hinderanceName)
-            console.log('last hit ', gameData.lastHinderanceHit)
             // Debounce the sound playback to prevent rapid successive calls
             clearTimeout(debounceTimeout);
             debounceTimeout = setTimeout(async () => {
@@ -23,7 +21,6 @@ export default cannonBallBounce = async (gameData, isSoundOn, sounds, sound, hea
                 if (!gameData.isGameOver && sound !== 'cannonBallHitSandSound') headerStats.bounces += 1;
             }, 150);
         } else {
-            console.log('not the same hinderance')
             gameData.lastHinderanceHit = hinderanceName
             if (isSoundOn > 0) {
                 // only play sound if it is not already playing. 

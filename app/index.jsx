@@ -1,15 +1,10 @@
 import { View, StyleSheet, ImageBackground, StatusBar } from "react-native";
 import { useCallback } from "react";
-import Title from "../Components/UI/Title";
 import MainButton from "../Components/UI/MainButton";
-import colors from "../constants/colors";
 import { useFonts } from 'expo-font';
-import CannonLauncher from "../Components/GameEngine/CannonLauncher";
 import * as SplashScreen from 'expo-splash-screen';
-import { Dimensions } from "react-native";
 const mainBtnImgSrc = require('../assets/images/btnWoodBg.png')
 const bgImage = require('../assets/images/homeScreenImg.png')
-const { height, width} = Dimensions.get('screen');
 import { initDB } from "../db/init";
 
 SplashScreen.preventAutoHideAsync();
@@ -43,7 +38,6 @@ const Home = () => {
           ]}
           onLayout={onLayoutRootView}
         >
-          <Title color={colors.offWhite} size={45}>Cannon Ball!</Title>
           <View style={styles.buttonContainer}>
             <MainButton
               route="/CampaignOverviewScreen"
@@ -65,17 +59,6 @@ const Home = () => {
               Settings
             </MainButton>
           </View>
-          <CannonLauncher
-            position={[(-width / 2) + 70, 35]}
-            rotate={'-50deg'}
-            barrelColor={colors.Classic.barrel}
-            tipColor={colors.Classic.tip}
-            cannonBaseColor={colors.Classic.cannonBase}
-            cannonBallBolt={colors.Classic.cannonBallBolt}
-            cannonBallBoltHighlight={colors.Classic.cannonBallBoltHighlight}
-            wheelColor={colors.Classic.wheelColor}
-            wheelColorHighlight={colors.Classic.wheelColorHighlight}
-          />
         </ImageBackground>
       }
     </>
@@ -96,9 +79,10 @@ const styles = StyleSheet.create({
     left: 0
   },
   buttonContainer: {
+    position: 'absolute',
+    bottom: 50,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 25
   }
 })
