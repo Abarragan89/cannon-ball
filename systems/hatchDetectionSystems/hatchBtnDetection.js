@@ -109,7 +109,7 @@ const createDetectHinderanceSystem = (entities) => {
                 }
             }
             else if (entrySide === 'top') {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, 'hatchTop');
+                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'hitHatchBtn', entities.headerStats, entities.cannonBall, 1, 'hatchTop');
                 if (entities[hinderanceName].isTriggerOnTop) {
                     entities[hinderanceName].isHit = true;
                 }
@@ -126,43 +126,43 @@ const createDetectHinderanceSystem = (entities) => {
 
         //////////////    THESE IF STATEMENTS WORK UNTIL IT REACTES VERY HIGH VELOCITY. THE OG OF ALGORITHMS //////////////////////
         ///// CHECKING FOR LEFT WALL DETECTION ////////////////////////
-        if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
-            if (entities.cannonBall.velocity[0] > 0) {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, 'hatchLeft');
-                if (entities[hinderanceName].isTriggerOnLeft) {
-                    entities[hinderanceName].isHit = true;
-                }
-            }
-        }
-        ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
-        if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
-            if (entities.cannonBall.velocity[0] < 0) {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, 'hatchRight')
-                if (entities[hinderanceName].isTriggerOnRight) {
-                    entities[hinderanceName].isHit = true;
-                }
-            }
-        }
+        // if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
+        //     if (entities.cannonBall.velocity[0] > 0) {
+        //         cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, 'hatchLeft');
+        //         if (entities[hinderanceName].isTriggerOnLeft) {
+        //             entities[hinderanceName].isHit = true;
+        //         }
+        //     }
+        // }
+        // ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
+        // if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
+        //     if (entities.cannonBall.velocity[0] < 0) {
+        //         cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, 'hatchRight')
+        //         if (entities[hinderanceName].isTriggerOnRight) {
+        //             entities[hinderanceName].isHit = true;
+        //         }
+        //     }
+        // }
 
-        ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
-        if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
-            if (entities.cannonBall.velocity[1] < 0) {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, 'hatchBottom')
-                if (entities[hinderanceName].isTriggerOnBottom) {
-                    entities[hinderanceName].isHit = true;
-                }
-            }
-        }
+        // ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
+        // if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
+        //     if (entities.cannonBall.velocity[1] < 0) {
+        //         cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, 'hatchBottom')
+        //         if (entities[hinderanceName].isTriggerOnBottom) {
+        //             entities[hinderanceName].isHit = true;
+        //         }
+        //     }
+        // }
 
-        ////////////////// CHECKING FOR TOP WALL DETECTION /////////////////
-        if (lineBallDetection(topLineX1, topLineY1, topLineX2, topLineY2, circleX, circleY, radius)) {
-            if (entities.cannonBall.velocity[1] > 0) {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, 'hatchTop');
-                if (entities[hinderanceName].isTriggerOnTop) {
-                    entities[hinderanceName].isHit = true;
-                }
-            }
-        }
+        // ////////////////// CHECKING FOR TOP WALL DETECTION /////////////////
+        // if (lineBallDetection(topLineX1, topLineY1, topLineX2, topLineY2, circleX, circleY, radius)) {
+        //     if (entities.cannonBall.velocity[1] > 0) {
+        //         cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, 'hatchTop');
+        //         if (entities[hinderanceName].isTriggerOnTop) {
+        //             entities[hinderanceName].isHit = true;
+        //         }
+        //     }
+        // }
     }
     if (entities.hatchBtnOne) createHinderanceAndDetect(40, 40, 'hatchBtnOne')
     if (entities.hatchBtnTwo) createHinderanceAndDetect(40, 40, 'hatchBtnTwo')

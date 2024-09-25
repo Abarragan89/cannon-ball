@@ -51,14 +51,14 @@ const fireCannonSystem = (entities, { touches }) => {
         entities.fireBtn.isShooting = false;
       }
       // if hits right wall
-      if (entities.cannonBall.position[0] > width - 14) {
+      if (entities.cannonBall.position[0] > width - entities.cannonBall.cannonBallRadius) {
         if (entities.cannonBall.velocity[0] > 0) {
           cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallBounceSound', entities.headerStats, entities.cannonBall, 0, 'rightWall')
         }
       }
       // if hits left wall
       // I need to also make sure it is not -100 because that is the starting position off screen
-      if (entities.cannonBall.position[0] < 0 && entities.cannonBall.position[0] !== -100) {
+      if (entities.cannonBall.position[0] <= 0 && entities.cannonBall.position[0] !== -100) {
         if (entities.cannonBall.velocity[0] < 0) {
           cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallBounceSound', entities.headerStats, entities.cannonBall, 0, 'leftWall')
         }

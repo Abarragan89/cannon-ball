@@ -95,56 +95,62 @@ const createDetectHinderanceSystem = (entities) => {
 
         // Determine direction of cannonBall
         if (isInsideBox && !lastFrame) {
-            if (entrySide === 'left') {
+            if (entrySide === 'left' || (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius) && entities.cannonBall.velocity[0] > 0)) {
                 cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, hinderanceName);
+                return;
             }
-            else if (entrySide === 'right') {
+            else if (entrySide === 'right' || (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius) && entities.cannonBall.velocity[0] < 0)) {
                 cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, hinderanceName);
+                return;
             }
-            else if (entrySide === 'top') {
+            else if (entrySide === 'top' || (lineBallDetection(topLineX1, topLineY1, topLineX2, topLineY2, circleX, circleY, radius) && entities.cannonBall.velocity[1] > 0)) {
+                console.log('top in one algo')
                 cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, hinderanceName);
+                return;
             }
             // // CannonBall is coming from the bottom
-            else if (entrySide === 'bottom') {
+            else if (entrySide === 'bottom' || (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius) && entities.cannonBall.velocity[1] < 0)) {
                 cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, hinderanceName);
+                return;
             }
         }
 
 
         //////////////    THESE IF STATEMENTS WORK UNTIL IT REACTES VERY HIGH VELOCITY. THE OG OF ALGORITHMS //////////////////////
         ///// CHECKING FOR LEFT WALL DETECTION ////////////////////////
-        if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
-            if (entities.cannonBall.velocity[0] > 0) {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, hinderanceName)
-            }
-        }
-        ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
-        if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
-            if (entities.cannonBall.velocity[0] < 0) {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, hinderanceName)
-            }
-        }
+        // if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
+        //     if (entities.cannonBall.velocity[0] > 0) {
+        //         cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, hinderanceName)
+        //     }
+        // }
+        // ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
+        // if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
+        //     if (entities.cannonBall.velocity[0] < 0) {
+        //         cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, hinderanceName)
+        //     }
+        // }
 
-        ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
-        if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
+        // ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
+        // if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
 
-            if (entities.cannonBall.velocity[1] < 0) {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, hinderanceName)
-            }
-        }
+        //     if (entities.cannonBall.velocity[1] < 0) {
+        //         cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, hinderanceName)
+        //     }
+        // }
 
-        ////////////////// CHECKING FOR TOP WALL DETECTION /////////////////
-        if (lineBallDetection(topLineX1, topLineY1, topLineX2, topLineY2, circleX, circleY, radius)) {
-            if (entities.cannonBall.velocity[1] > 0) {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, hinderanceName)
-            }
-        }
+        // ////////////////// CHECKING FOR TOP WALL DETECTION /////////////////
+        // if (lineBallDetection(topLineX1, topLineY1, topLineX2, topLineY2, circleX, circleY, radius)) {
+        //     if (entities.cannonBall.velocity[1] > 0) {
+        //         console.log('top in two algo')
+        //         cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, hinderanceName)
+        //     }
+        // }
 
-        if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
-            if (entities.cannonBall.velocity[0] > 0) {
-                cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, hinderanceName)
-            }
-        }
+        // if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
+        //     if (entities.cannonBall.velocity[0] > 0) {
+        //         cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, hinderanceName)
+        //     }
+        // }
     }
 
     // Get array of all it is keys in Entities

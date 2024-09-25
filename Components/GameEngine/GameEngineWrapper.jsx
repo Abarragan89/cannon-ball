@@ -119,6 +119,7 @@ const GameEngineWrapper = ({
                 const { sound: cannonBallBounceSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonBallBounce.wav'));
                 const { sound: tntCannonBallHitSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/woodHit.wav'));
                 const { sound: cannonBallHitSandSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonBallHitsBottom.wav'));
+                const { sound: hitHatchBtn } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/hitHatchBtn.wav'));
                 const { sound: backgroundMusicSound } = await Audio.Sound.createAsync(require('../../assets/sounds/backgroundMusic.mp3'), { volume: 0.1 });
                 const { sound: backgroundWaveSound } = await Audio.Sound.createAsync(require('../../assets/sounds/backgroundWaves.wav'), { volume: 0.1 });
 
@@ -132,6 +133,7 @@ const GameEngineWrapper = ({
                     cannonBallBounceSound,
                     cannonBallHitSandSound,
                     backgroundWaveSound,
+                    hitHatchBtn
                 }
 
                 // add the sounds and game Data
