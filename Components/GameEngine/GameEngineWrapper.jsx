@@ -276,10 +276,15 @@ const GameEngineWrapper = ({
     // next level button in the end of game modal
     useEffect(() => {
         async function getNextLevelData() {
-            const mapName = endGameData.current.nextLevel.split('/')[0];
-            const link = endGameData.current.nextLevel.split('/')[1];
-            const [nextLevel] = await getIndividualLevelData(mapName, link)
-            setNextLevelData(nextLevel)
+            try {
+                const mapName = endGameData.current.nextLevel.split('/')[0];
+                const link = endGameData.current.nextLevel.split('/')[1];
+                const [nextLevel] = await getIndividualLevelData(mapName, link)
+                console.log('next level', nextLevel)
+                setNextLevelData(nextLevel)
+            } catch (error) {   
+                console.log('error in getNextLevelData ', error)
+            }
         }
         getNextLevelData();
     }, [])

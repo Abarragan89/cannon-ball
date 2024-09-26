@@ -32,7 +32,7 @@ function ChapterThreeLevelTen() {
 
     return (
         <ImageBackground
-            source={require('../../../../assets/images/basics/shortInvert.png')}
+            source={require('../../../../assets/images/basics/short.png')}
             style={styles.backgroundImg}
         >
             <GameEngineWrapper
@@ -47,8 +47,7 @@ function ChapterThreeLevelTen() {
                 entities={{
                     cannon: {
                         position: [screenWidth - 200, screenHeight - 100],
-                        // upperTravelLimit: screenWidth - 300,
-                        lowerTravelLimit: Math.floor(screenWidth / 2) + 50
+                        lowerTravelLimit: screenWidth - 230
                     },
                     TNT: {
                         position: [100, screenHeight - 180],
@@ -78,7 +77,7 @@ function ChapterThreeLevelTen() {
                     TNTBaseFloor: {
                         position: [20, screenHeight - 150],
                         height: 20,
-                        width: 150,
+                        width: 220,
                         renderer: <Hinderance />
                     },
                     // Barrier blocks
@@ -149,7 +148,7 @@ function ChapterThreeLevelTen() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

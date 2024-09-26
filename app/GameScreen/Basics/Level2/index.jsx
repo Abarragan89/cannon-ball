@@ -47,17 +47,17 @@ function ChatperOneLevelTwo() {
                 ]}
                 entities={{
                     cannon: {
-                        position: [100, screenHeight - 275],
-                        upperTravelLimit: 120,
+                        position: [100, screenHeight - 175],
+                        upperTravelLimit: 110,
                     },
                     cannonPlatform: {
-                        position: [0, screenHeight - 200],
+                        position: [0, screenHeight - 100],
                         width: 200,
-                        height: 200,
+                        height: 20,
                         renderer: <Hinderance />
                     },
                     TNT: {
-                        position: [screenWidth - 31, 60],
+                        position: [screenWidth - 70, 60],
                         display: 'block',
                         handlePosition: [-17, 0],
                         renderer: <TNT />
@@ -87,7 +87,7 @@ function ChatperOneLevelTwo() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

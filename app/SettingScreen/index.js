@@ -13,7 +13,6 @@ import BackArrow from "../../Components/UI/BackArrow";
 import Title from "../../Components/UI/Title";
 import colors from "../../constants/colors";
 import Card from "../../Components/UI/Card";
-import CannonBallDisplay from "../../Components/UI/CannonBallDisplay";
 import { getUserDataPreferences } from "../../db/selectQueries";
 import {
     updateUserMusicPref,
@@ -85,7 +84,7 @@ const SettingScreen = () => {
                 >
                     <StatusBar hidden={true} />
                     <View style={styles.backIcon}>
-                        <BackArrow />
+                        <BackArrow color='white' />
                     </View>
                     <Title color={colors.offWhite} size={45}>Settings</Title>
                     <View style={styles.cardContainer}>

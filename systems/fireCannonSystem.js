@@ -41,7 +41,7 @@ const fireCannonSystem = (entities, { touches }) => {
   function wallDetection() {
     if (entities.cannonBall.isBallMoving) {
       // if hits bottom
-      if (entities.cannonBall.position[1] > height - 34) {
+      if (entities.cannonBall.position[1] > height - 15) {
         // only play sound once when isBallMoving is still true
         cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallHitSandSound', entities.headerStats, entities.cannonBall, 0, 'sandWall')
         // End the Game and reset critical variables

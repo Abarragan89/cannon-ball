@@ -51,7 +51,7 @@ function ChapterFourLevelFive() {
                         lowerTravelLimit: 1000
                     },
                     TNT: {
-                        position: [250, 150],
+                        position: [250, 250],
                         display: 'block',
                         handlePosition: [-17, 0],
                         renderer: <TNT />
@@ -112,7 +112,7 @@ function ChapterFourLevelFive() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

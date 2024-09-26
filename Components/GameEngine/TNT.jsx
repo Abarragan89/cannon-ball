@@ -31,23 +31,19 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'black',
         borderRadius: 2,
-        elevation: 4,
+        elevation: 2,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 0 },
-        shadowRadius: 3,
+        shadowRadius: 2,
         shadowOpacity: .5,
-        backgroundColor: '#940f0f',
+        backgroundColor: '#c40e0e',
         zIndex: 2
     },
     tntHandle: {
         position: 'absolute',
-
-
         fontSize: 20,
-        // fontWeight: 'bold',
+        fontWeight: 'bold',
         left: 8.5,
-
-
         // fontSize: 27,
         // fontWeight: 'bold',
         // left: 6.5,

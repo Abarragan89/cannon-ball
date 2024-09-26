@@ -49,7 +49,7 @@ function ChapterFourLevelTwo() {
                 entities={{
                     cannon: {
                         position: [screenWidth - 200, screenHeight - 100],
-                        lowerTravelLimit: Math.floor(screenWidth / 2) + 80,
+                        lowerTravelLimit: Math.floor(screenWidth / 2) + 90,
                     },
                     TNT: {
                         position: [250, screenHeight - 110],
@@ -106,7 +106,7 @@ function ChapterFourLevelTwo() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

@@ -17,7 +17,7 @@ function PowerMeter({ displayPower }) {
                 // borderColor={displayPower > 80 ? 'red' :  displayPower > 43 ? '#ac7207': 'green'}
                 borderColor={'black'}
 
-                color={displayPower > 53 ? '#ff1c1c' :  displayPower > 26 ? '#ffcc00': '#00ff08'}
+                color={displayPower > 53 ? '#ff1c1c' :  displayPower > 26 ? '#faef0c': '#00ff08'}
             />
             <View style={styles.powerTextWrapper}>
                 <Text style={styles.powerText}>_</Text>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     //     opacity: .8
     // },
     slider: {
-        opacity: .75,
+        opacity: .85,
         transform: [{ rotate: '-90deg' }],
         position: 'absolute',
         left: -86,

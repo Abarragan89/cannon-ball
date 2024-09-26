@@ -82,6 +82,7 @@ const LevelLobbyScreen = () => {
                 <View style={styles.backIcon}>
                     <BackArrow
                         route='CampaignOverviewScreen'
+                        color='white'
                     />
                 </View>
                 <ScrollView>

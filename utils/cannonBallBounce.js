@@ -24,7 +24,7 @@ export default cannonBallBounce = async (gameData, isSoundOn, sounds, sound, hea
         return;
     }
     
-    if (hinderanceName === 'rightWall' || hinderanceName === 'leftWall') {
+    if (hinderanceName === 'rightWall' || hinderanceName === 'leftWall' || hinderanceName === 'sandWall') {
         cannonBall.velocity[isVertical] = -cannonBall.velocity[isVertical] * gameData.bounceLevel;
         bounceSoundAndScore();
         return;

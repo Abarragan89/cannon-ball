@@ -12,6 +12,8 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChatperTwoLevelFive() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -30,7 +32,7 @@ function ChatperTwoLevelFive() {
 
     return (
         <ImageBackground
-            source={require('../../../../assets/images/basics/stuck.png')}
+            source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
             <GameEngineWrapper
@@ -40,11 +42,18 @@ function ChatperTwoLevelFive() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    moveTNTMarksLevelFive
+                    moveTNTMarksLevelFive,
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     tntMovementCount: {
                         tntPixelCounter: 0
+                    },
+                    cannonPlatform: {
+                        position: [Math.floor(screenWidth / 2) - 38, screenHeight - 45],
+                        width: 80,
+                        height: 50,
+                        renderer: <Hinderance />
                     },
                     cannon: {
                         position: [Math.floor(screenWidth / 2) - 30, screenHeight - 120],
@@ -82,7 +91,7 @@ function ChatperTwoLevelFive() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

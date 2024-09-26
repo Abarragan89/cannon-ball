@@ -12,7 +12,7 @@ const FireBtn = ({ isShooting }) => {
             <View>
                 {
                     isShooting ?
-                        <FontAwesome name="undo" size={55} color='#b7b1b1c7' />
+                        <FontAwesome name="undo" size={55} color='white' />
                         :
                         <Feather name="crosshair" size={55} color='#32cd32b4' />
                 }

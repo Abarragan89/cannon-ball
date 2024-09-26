@@ -204,12 +204,20 @@ export async function updateUserCannonSet(cannonId) {
 export async function updateUserCoins(userId, purchaseAmount) {
     const db = await openDatabaseConnection();
     try {
-        const myData = await db.runAsync(`
+        await db.runAsync(`
             UPDATE users 
             SET totalPoints = totalPoints - ?
             WHERE id = ?;
         `, [purchaseAmount, userId])
-        return myData;
+        
+        // Fetch the updated user data
+        const updatedUserData = await db.getFirstAsync(`
+            SELECT id, totalPoints 
+            FROM users 
+            WHERE id = ?;
+        `, [userId]);
+
+        return updatedUserData;
     } catch (error) {
         console.log('error in updating current cannonBall ', error)
     }

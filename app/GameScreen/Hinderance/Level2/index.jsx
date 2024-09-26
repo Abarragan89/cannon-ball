@@ -48,7 +48,7 @@ function ChapterThreeLevelTwo() {
                 entities={{
                     cannon: {
                         position: [180, screenHeight - 100],
-                        upperTravelLimit: Math.floor(screenWidth / 3.3),
+                        upperTravelLimit: Math.floor(screenWidth / 5.5),
                         lowerTravelLimit: 5,
                     },
                     TNT: {
@@ -79,7 +79,7 @@ function ChapterThreeLevelTwo() {
                 {!isGameOverNoDelay &&
                     <BackArrow
                         route={'/LevelLobbyScreen'}
-                        params={{ mapName: 'Hatch' }}
+                        params={{ mapName: 'Hinderance' }}
                     />
                 }
                 <GameLevelInfoHeader
@@ -94,7 +94,7 @@ function ChapterThreeLevelTwo() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

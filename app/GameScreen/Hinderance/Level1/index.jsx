@@ -53,7 +53,7 @@ function ChatperThreeLevelOne() {
                     cannonPlatform: {
                         position: [0, screenHeight - 250],
                         width: 200,
-                        height: 250,
+                        height: 20,
                         renderer: <Hinderance />
 
                     },
@@ -113,7 +113,7 @@ function ChatperThreeLevelOne() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

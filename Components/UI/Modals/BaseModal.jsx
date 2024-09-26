@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         right: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.424)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
         zIndex: 5
     },
     modalContainer: {

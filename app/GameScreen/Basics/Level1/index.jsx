@@ -71,13 +71,13 @@ function ChatperOneLevelOne() {
                 ]}
                 entities={{
                     cannon: {
-                        position: [screenWidth - 150, screenHeight - 326],
-                        lowerTravelLimit: screenWidth - 280
+                        position: [screenWidth - 130, screenHeight - 326],
+                        lowerTravelLimit: screenWidth - 130
                     },
                     cannonPlatform: {
-                        position: [screenWidth - 300, screenHeight - 250],
-                        width: 300,
-                        height: 250,
+                        position: [screenWidth - 150, screenHeight - 250],
+                        width: 150,
+                        height: 20,
                         renderer: <Hinderance />
                     },
                     TNT: {
@@ -118,7 +118,7 @@ function ChatperOneLevelOne() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

@@ -12,6 +12,8 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 
 function ChatperTwoLevelEight() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -30,7 +32,7 @@ function ChatperTwoLevelEight() {
 
     return (
         <ImageBackground
-            source={require('../../../../assets/images/basics/stuck.png')}
+            source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
             <GameEngineWrapper
@@ -40,7 +42,8 @@ function ChatperTwoLevelEight() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    moveTNTMarksLevelEight
+                    moveTNTMarksLevelEight,
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     tntMovementCounter: {
@@ -50,6 +53,12 @@ function ChatperTwoLevelEight() {
                         position: [Math.floor(screenWidth / 2) - 30, screenHeight - 120],
                         upperTravelLimit: -1,
                         lowerTravelLimit: 1000,
+                    },
+                    cannonPlatform: {
+                        position: [Math.floor(screenWidth / 2) - 38, screenHeight - 45],
+                        width: 80,
+                        height: 50,
+                        renderer: <Hinderance />
                     },
                     TNT: {
                         position: [Math.floor(screenWidth / 2) - 15, 150],
@@ -82,7 +91,7 @@ function ChatperTwoLevelEight() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

@@ -94,22 +94,22 @@ const TNTDetectionSystem = (entities) => {
             // set the firework explosion coordinate
             entities.explosion.position[0] = entities.TNT.position[0] + 15
             entities.explosion.position[1] = entities.TNT.position[1] + 15
-            // Play Explosion Sound only once. Using startAnimation as a trigger
-            if (!entities.explosion.startAnimation && entities.gameData.isSoundEffectsOn > 0) {
-                try {
-                    entities.sounds.tntExplosionSound.replayAsync();
-                } catch (error) {
-                    console.log('error with explosion sound ', error)
-                }
-            }
             // trigger explosion animation
             entities.explosion.startAnimation = true;
             // make tnt box and cannonBall disappear with a slight delay
             setTimeout(() => {
+                // Play Explosion Sound only once. Using TNT display as a trigger
+                if (entities.TNT.display === 'block' && entities.gameData.isSoundEffectsOn > 0) {
+                    try {
+                        entities.sounds.tntExplosionSound.replayAsync();
+                    } catch (error) {
+                        console.log('error with explosion sound ', error)
+                    }
+                }
                 entities.TNT.display = 'none';
                 entities.cannonBall.display = 'none'
             }, 200);
-        }, 1000)
+        }, 1200)
         setTimeout(() => {
             entities.gameData.setIsGameOver(true)
         }, 3500);
@@ -131,7 +131,7 @@ const TNTDetectionSystem = (entities) => {
     const leftLineY1 = entities.TNT.position[1];
 
     // TOP LINE OF TNT BOX (The Handle) This
-    const handleBarX1 = entities.TNT.position[0] + 10;
+    const handleBarX1 = entities.TNT.position[0] + 8;
     const handleBarY1 = entities.TNT.position[1] - 8;
 
     // CIRCLE PROPERTIES
@@ -208,7 +208,7 @@ const TNTDetectionSystem = (entities) => {
 
     // CHECKING FOR HANLDE COLLISION USING A SEPARATE FUNCTION
     // TO HANDLE TELEPORTATION WHEN MOVING AT HIGH VELOCITY 
-    if (isCircleInRectangle(circleX, circleY, radius, handleBarX1, handleBarY1, 10, 10)) {
+    if (isCircleInRectangle(circleX, circleY, radius, handleBarX1, handleBarY1, 14, 10)) {
         if (entities.cannonBall.velocity[1] > 0) {
             endGameHandler();
         }

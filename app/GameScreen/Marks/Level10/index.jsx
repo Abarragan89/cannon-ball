@@ -51,7 +51,7 @@ function ChatperTwoLevelTen() {
                     },
                     randomDelayTime: 2000,
                     cannon: {
-                        position: [Math.floor(screenWidth / 2) - 30, screenHeight - 120]
+                        position: [Math.floor(screenWidth / 2) - 30, screenHeight - 100]
                     },
                     TNT: {
                         position: [Math.floor(screenWidth / 2) - 15, 100],
@@ -85,7 +85,7 @@ function ChatperTwoLevelTen() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

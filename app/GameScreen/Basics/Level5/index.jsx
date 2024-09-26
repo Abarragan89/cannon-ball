@@ -11,6 +11,8 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 
 function ChatperOneLevelFive() {
     const [isGameOver, setIsGameOver] = useState(false);
@@ -24,12 +26,12 @@ function ChatperOneLevelFive() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Basics',
-        nextLevel: 'Marks/Level1'
+        nextLevel: 'Marks/LevelOne'
     });
 
     return (
         <ImageBackground
-            source={require('../../../../assets/images/basics/stuck.png')}
+            source={require('../../../../assets/images/basics/level1.png')}
             style={styles.backgroundImg}
         >
             <GameEngineWrapper
@@ -39,6 +41,7 @@ function ChatperOneLevelFive() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
@@ -51,6 +54,12 @@ function ChatperOneLevelFive() {
                         display: 'block',
                         handlePosition: [-17, 0],
                         renderer: <TNT />
+                    },
+                    cannonPlatform: {
+                        position: [Math.floor(screenWidth / 2) - 38, screenHeight - 45],
+                        width: 80,
+                        height: 50,
+                        renderer: <Hinderance />
                     }
                 }}
                 endGameData={endGameData}
@@ -77,7 +86,7 @@ function ChatperOneLevelFive() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

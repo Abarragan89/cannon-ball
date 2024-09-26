@@ -63,7 +63,7 @@ function ChapterFiveLevelNine() {
                     cannonPlatform: {
                         position: [screenWidth - 300, screenHeight - 250],
                         width: 300,
-                        height: 250,
+                        height: 20,
                         renderer: <Hinderance />
                     },
                     // The next four are TNT in a hatch.
@@ -136,7 +136,7 @@ function ChapterFiveLevelNine() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

@@ -2,14 +2,17 @@ import { View, Text, StyleSheet } from "react-native"
 
 
 const HeaderStats = (entity) => {
-  return (
-    <View style={styles.root}>
-        <View style={styles.flexRowRoot}>
-        <Text style={styles.text}>Air Time: {entity.airTime}</Text>
-        <Text style={styles.text}>Bounces: {entity.bounces}</Text>
+    return (
+        <View style={styles.root}>
+                    <Text style={styles.text}>Air Time:</Text>
+            <View style={styles.flexRowRoot}>
+                {/* <View style={styles.airTimeView}> */}
+                    <Text style={styles.text}> {entity.airTime}</Text>
+                {/* </View> */}
+                <Text style={styles.text}>Bounces: {entity.bounces}</Text>
+            </View>
         </View>
-    </View>
-  )
+    )
 }
 
 export default HeaderStats;
@@ -33,6 +36,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         letterSpacing: 2,
         fontSize: 20,
-        fontFamily:'textFont'
+        fontFamily: 'textFont'
+    },
+    airTimeView: {
+        flexDirection: 'row'
     }
 })

@@ -4,7 +4,7 @@ import colors from "../../constants/colors";
 import { router } from 'expo-router';
 
 
-const BackArrow = ({ route, params }) => {
+const BackArrow = ({ route, params, color='dark' }) => {
 
     // if you need to return to a specifc route, or just go back in history 
     // if route is not provided.
@@ -12,7 +12,7 @@ const BackArrow = ({ route, params }) => {
 
     return (
         <Pressable onPress={onPressHandler} style={styles.root}>
-                <Ionicons name='arrow-back' size={40} color={colors.offWhite} />
+                <Ionicons name='arrow-back' size={40} color={color === 'dark' ? colors.primaryBlack : colors.offWhite} />
         </Pressable>
     )
 }

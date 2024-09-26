@@ -12,6 +12,7 @@ import { Dimensions } from 'react-native'
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window')
 import BackArrow from "../../../../Components/UI/BackArrow";
 import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 
 function ChatperTwoLevelTwo() {
     const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
@@ -40,17 +41,18 @@ function ChatperTwoLevelTwo() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    moveTNTMarksLevelTwo
+                    moveTNTMarksLevelTwo,
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
-                        position: [screenWidth - 80, screenHeight - 276],
+                        position: [screenWidth - 80, screenHeight - 351],
                         lowerTravelLimit: screenWidth - 80
                     },
                     cannonPlatform: {
-                        position: [screenWidth - 100, screenHeight - 200],
+                        position: [screenWidth - 100, screenHeight - 275],
                         width: 100,
-                        height: 200,
+                        height: 20,
                         renderer: <Hinderance />
                     },
                     TNT: {
@@ -84,7 +86,7 @@ function ChatperTwoLevelTwo() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0,

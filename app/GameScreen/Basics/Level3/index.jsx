@@ -16,7 +16,7 @@ function ChatperOneLevelThree() {
     const [isGameOver, setIsGameOver] = useState(false);
     const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
 
-    
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -76,7 +76,7 @@ function ChatperOneLevelThree() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0
