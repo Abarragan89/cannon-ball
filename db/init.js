@@ -26,7 +26,8 @@ export async function initDB() {
                     isHapticsOn INTEGER DEFAULT 1,
                     hasSeenTutorial INTEGER DEFAULT 0,
                     currentCannonBallName VARCHAR(50) DEFAULT 'Iron',
-                    currentCannonName VARCHAR(50) DEFAULT 'Classic'
+                    currentCannonName VARCHAR(50) DEFAULT 'Classic',
+                    currentCannonSound VARCHAR(50) DEFAULT 'cannonShotL1'
                 );  
 
                 CREATE TABLE IF NOT EXISTS cannonBallSet (
@@ -54,6 +55,7 @@ export async function initDB() {
                 CREATE TABLE IF NOT EXISTS cannons (
                     id INTEGER PRIMARY KEY NOT NULL,
                     name VARCHAR(50),
+                    sound VARCHAR (50),
                     price INTEGER,
                     power FLOAT,
                     isOwned INTEGER,
@@ -157,26 +159,26 @@ export async function initDB() {
             // Fill up the cannon set with cannon entries
             await db.execAsync(`
 
-                INSERT INTO cannons (name, price, isOwned, power, cannonSetId)
-                VALUES ('Classic', 0, 1, 1.05, ${cannonSet});
+                INSERT INTO cannons (name, sound, price, isOwned, power, cannonSetId)
+                VALUES ('Classic', 'cannonShotL1', 0, 1, 1.05, ${cannonSet});
 
-                INSERT INTO cannons (name, price, power, cannonSetId)
-                VALUES ('Pajunga', 5000, 1.2, ${cannonSet});
+                INSERT INTO cannons (name, sound, price, power, cannonSetId)
+                VALUES ('Pajunga', 'cannonShotL2', 5000, 1.2, ${cannonSet});
 
-                INSERT INTO cannons (name, price, power, cannonSetId)
-                VALUES ('Bruno', 5000, 1.2, ${cannonSet});
+                INSERT INTO cannons (name, sound, price, power, cannonSetId)
+                VALUES ('Bruno', 'cannonShotL2', 5000, 1.2, ${cannonSet});
                 
-                INSERT INTO cannons (name, price, power, cannonSetId)
-                VALUES ('Arbor', 15000, 1.4, ${cannonSet});
+                INSERT INTO cannons (name, sound, price, power, cannonSetId)
+                VALUES ('Arbor', 'cannonShotL3', 15000, 1.4, ${cannonSet});
 
-                INSERT INTO cannons (name, price, power, cannonSetId)
-                VALUES ('Gumbo', 15000, 1.4, ${cannonSet});
+                INSERT INTO cannons (name, sound, price, power, cannonSetId)
+                VALUES ('Gumbo', 'cannonShotL3', 15000, 1.4, ${cannonSet});
 
-                INSERT INTO cannons (name, price, power, cannonSetId)
-                VALUES ('Tuxedo', 30000, 1.6, ${cannonSet});
+                INSERT INTO cannons (name, sound, price, power, cannonSetId)
+                VALUES ('Tuxedo', 'cannonShotL4', 30000, 1.6, ${cannonSet});
 
-                INSERT INTO cannons (name, price, power, cannonSetId)
-                VALUES ('Midnight', 30000, 1.6, ${cannonSet});
+                INSERT INTO cannons (name, sound, price, power, cannonSetId)
+                VALUES ('Midnight', 'cannonShotL4', 30000, 1.6, ${cannonSet});
             `)
             // await db.execAsync(`
 
@@ -333,7 +335,7 @@ export async function initDB() {
 
     // // DROP ALL TABLES TO RESET GAME
     // try {
-    //     // await db.runAsync(`DROP TABLE IF EXISTS cannons;`, []);
+    //     await db.runAsync(`DROP TABLE IF EXISTS cannons;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS users;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS preferences;`, []);
     //     await db.runAsync(`DROP TABLE IF EXISTS maps;`, []);

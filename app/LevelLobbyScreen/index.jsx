@@ -111,7 +111,8 @@ const LevelLobbyScreen = () => {
                                                 cannonBallWeight: currentCannonBall.weight,
                                                 cannonBallSize: currentCannonBall.size,
                                                 cannonColor: currentCannon.name,
-                                                cannonPower: currentCannon.power
+                                                cannonPower: currentCannon.power,
+                                                cannonSound: currentCannon.sound
                                             }}
                                             isLocked={item.isOpen}
                                             accuracy={item.accuracy}

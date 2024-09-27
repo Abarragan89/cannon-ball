@@ -52,6 +52,7 @@ const GameEngineWrapper = ({
         cannonBallSize,
         cannonColor,
         cannonPower,
+        cannonSound
     } = useLocalSearchParams();
 
     const [playBgMusic, setPlayBgMusic] = useState(true);
@@ -69,7 +70,10 @@ const GameEngineWrapper = ({
     // const powerLevelRef = useRef(56.5)
 
     const sounds = useRef({
-        shootCannonSound: null,
+        shootCannonSoundL1: null,
+        shootCannonSoundL2: null,
+        shootCannonSoundL3: null,
+        shootCannonSoundL4: null,
         tntCannonBallHitSound: null,
         backgroundMusicSound: null,
         tntExplosionSound: null,
@@ -113,7 +117,10 @@ const GameEngineWrapper = ({
         const loadSoundsAndEntities = async () => {
             try {
                 //  DOWNLOAD ALL AUDIO FILES
-                const { sound: shootCannonSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonShot.mp3'));
+                const { sound: shootCannonSoundL1 } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonShotL1.mp3'));
+                const { sound: shootCannonSoundL2 } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonShotL2.wav'));
+                const { sound: shootCannonSoundL3 } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonShotL3.wav'));
+                const { sound: shootCannonSoundL4 } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonShotL4.wav'));
                 const { sound: tntExplosionSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/hugeExplosion.wav'));
                 const { sound: tntHandleClickSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/tntHandleClick.wav'));
                 const { sound: cannonBallBounceSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonBallBounce.wav'));
@@ -125,7 +132,10 @@ const GameEngineWrapper = ({
 
                 // SET AUDIO FILES IN REF VARIABLES
                 sounds.current = {
-                    shootCannonSound,
+                    shootCannonSoundL1,
+                    shootCannonSoundL2,
+                    shootCannonSoundL3,
+                    shootCannonSoundL4,
                     tntCannonBallHitSound,
                     tntExplosionSound,
                     backgroundMusicSound,
@@ -184,6 +194,7 @@ const GameEngineWrapper = ({
                         wheelColor: colors[cannonColor].wheelColor,
                         wheelColorHighlight: colors[cannonColor].wheelColorHighlight,
                         cannonPower: cannonPower,
+                        cannonSound: cannonSound,
                         renderer: <CannonLauncher />
                     },
                     followArrow: {
@@ -218,7 +229,10 @@ const GameEngineWrapper = ({
 
 
         return () => {
-            sounds.current.shootCannonSound.unloadAsync();
+            sounds.current.shootCannonSoundL1.unloadAsync();
+            sounds.current.shootCannonSoundL2.unloadAsync();
+            sounds.current.shootCannonSoundL3.unloadAsync();
+            sounds.current.shootCannonSoundL4.unloadAsync();
             sounds.current.tntCannonBallHitSound.unloadAsync();
             sounds.current.tntExplosionSound.unloadAsync();
             sounds.current.backgroundMusicSound.unloadAsync();

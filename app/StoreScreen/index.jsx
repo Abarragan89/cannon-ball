@@ -79,6 +79,7 @@ const StoreScreen = () => {
     getStoreData();
   }, [])
 
+
   const displayModal = (itemInfo, isCannonItem) => {
     // this variable is used to conditionally render the Purchase Modal
     // depending on what type of item the user is buying (cannon or cannonBalls)

@@ -164,7 +164,20 @@ const fireCannonSystem = (entities, { touches }) => {
         // Play Cannon Sound
         if (entities.gameData.isSoundEffectsOn > 0) {
           try {
-            entities.sounds.shootCannonSound.replayAsync();
+            switch (entities.cannon.cannonSound) {
+              case 'cannonShotL1':
+                entities.sounds.shootCannonSoundL1.replayAsync();
+                break;
+              case 'cannonShotL2':
+                entities.sounds.shootCannonSoundL2.replayAsync();
+                break;
+              case 'cannonShotL3':
+                entities.sounds.shootCannonSoundL3.replayAsync();
+                break;
+              case 'cannonShotL4':
+                entities.sounds.shootCannonSoundL4.replayAsync();
+                break;
+            }
           } catch (error) {
             console.log('error in shoot cannon sound ', error)
           }
