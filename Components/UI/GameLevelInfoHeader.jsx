@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
+import colors from "../../constants/colors";
 
 const GameLevelInfoHeader = ({ mapName, levelNumber}) => {
   return (
@@ -21,11 +22,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     text: {
-        color: 'white',
+        color: colors.offWhite,
         fontFamily: 'textFont',
         fontSize: 20,
         letterSpacing: 2,
         marginHorizontal: 10,
-        opacity: .5
     }
 })

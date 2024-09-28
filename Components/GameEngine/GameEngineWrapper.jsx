@@ -64,11 +64,6 @@ const GameEngineWrapper = ({
     // Power Data
     const powerLevelRef = useRef(30)
 
-    // works with ruby cannonBall
-    // const angleLevelRef = useRef(95)
-    // // Power Data
-    // const powerLevelRef = useRef(56.5)
-
     const sounds = useRef({
         shootCannonSoundL1: null,
         shootCannonSoundL2: null,
@@ -242,7 +237,7 @@ const GameEngineWrapper = ({
             sounds.current.cannonBallHitSandSound.unloadAsync();
             sounds.current.tntHandleClickSound.unloadAsync();
         }
-    }, [levelId]);
+    }, [levelId, cannonSound]);
 
     //////////// BACKEND UPDATE /////////////////////
     useEffect(() => {
@@ -294,7 +289,6 @@ const GameEngineWrapper = ({
                 const mapName = endGameData.current.nextLevel.split('/')[0];
                 const link = endGameData.current.nextLevel.split('/')[1];
                 const [nextLevel] = await getIndividualLevelData(mapName, link)
-                console.log('next level', nextLevel)
                 setNextLevelData(nextLevel)
             } catch (error) {   
                 console.log('error in getNextLevelData ', error)
@@ -327,6 +321,7 @@ const GameEngineWrapper = ({
                             isHapticsOn={isHapticsOn}
                             cannonColor={cannonColor}
                             cannonPower={cannonPower}
+                            cannonSound={cannonSound}
                         />
                     }
                     {children}

@@ -179,6 +179,7 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
                             />
                         </Animated.View>
                         <Text style={styles.tutorialText}>Adjust angle</Text>
+                        <Text style={[styles.tutorialText, styles.tutorialSubText]}>(swipe anywhere)</Text>
                         <ModalBtn
                             text='Next'
                             handler={increaseTutorialStep}
@@ -200,6 +201,7 @@ const GameTutorial = ({ tutorialStep, increaseTutorialStep }) => {
                             />
                         </Animated.View>
                         <Text style={styles.tutorialText}>Adjust power</Text>
+                        <Text style={[styles.tutorialText, styles.tutorialSubText]}>(swipe anywhere)</Text>
                         <ModalBtn
                             text='Next'
                             handler={increaseTutorialStep}
@@ -282,6 +284,9 @@ const styles = StyleSheet.create({
         fontFamily: 'textFont',
         color: colors.offWhite,
         fontSize: 20
+    },
+    tutorialSubText: {
+        fontSize: 16
     },
     moveCannonPointer: {
         position: 'absolute',

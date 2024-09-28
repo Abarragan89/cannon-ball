@@ -44,7 +44,6 @@ const CampaignOverview = () => {
                 setMapThreeProgress(hinderanceProgress[0].totalMapStars);
                 setMapFourProgress(krakenProgress[0].totalMapStars);
                 setMapFiveProgress(hatchProgress[0].totalMapStars);
-
                 setTotalStars(totalStars[0].totalMapStars);
                 setIsDataLoaded(true)
 
@@ -97,7 +96,7 @@ const CampaignOverview = () => {
                                             style={[styles.slider]}
                                             borderWidth={1}
                                             borderColor={'#2c1717'}
-                                            color={'#00ff08'}
+                                            color={mapOneProgress < 15 ? colors.primaryYellow : '#00ff08'}
                                         />}
                                     >Basics
                                     </MainButton>
@@ -105,7 +104,7 @@ const CampaignOverview = () => {
 
                                 <View style={styles.mapBtnTwo}>
                                     {
-                                        totalStars >= 7 ?
+                                        totalStars >= 5 ?
                                             <MainButton
                                                 route="/LevelLobbyScreen"
                                                 params={{
@@ -119,7 +118,7 @@ const CampaignOverview = () => {
                                                     style={[styles.slider]}
                                                     borderWidth={1}
                                                     borderColor={'#2c1717'}
-                                                    color={'#00ff08'}
+                                                    color={mapTwoProgress < 30 ? colors.primaryYellow : '#00ff08'}
                                                 />}
                                             >
                                                 Marks
@@ -149,7 +148,7 @@ const CampaignOverview = () => {
                                                 style={[styles.slider]}
                                                 borderWidth={1}
                                                 borderColor={'#2c1717'}
-                                                color={'#00ff08'}
+                                                color={mapThreeProgress < 30 ? colors.primaryYellow : '#00ff08'}
                                             />}
                                         >
                                             Hinderance
@@ -178,7 +177,7 @@ const CampaignOverview = () => {
                                                 style={[styles.slider]}
                                                 borderWidth={1}
                                                 borderColor={'#2c1717'}
-                                                color={'#00ff08'}
+                                                color={mapFourProgress < 30 ? colors.primaryYellow : '#00ff08'}
                                             />}
                                         >
                                             Kraken
@@ -193,7 +192,7 @@ const CampaignOverview = () => {
                                 </View>
                                 <View style={styles.mapBtnFive}>
                                     {
-                                        totalStars >= 70 ?
+                                        totalStars >= 75 ?
                                             <MainButton
                                                 route="/LevelLobbyScreen"
                                                 params={{
@@ -208,7 +207,7 @@ const CampaignOverview = () => {
                                                     style={[styles.slider]}
                                                     borderWidth={1}
                                                     borderColor={'#2c1717'}
-                                                    color={'#00ff08'}
+                                                    color={mapFiveProgress < 30 ? colors.primaryYellow : '#00ff08'}
                                                 />}
                                             >
                                                 Hatch
@@ -216,7 +215,7 @@ const CampaignOverview = () => {
                                             :
                                             <LockedMap
                                                 setShowModal={setShowModal}
-                                                setStarsNeeded={() => setStarsNeeded(70)}
+                                                setStarsNeeded={() => setStarsNeeded(75)}
                                                 imgSrc={lockedMapBg}
                                             />
                                     }

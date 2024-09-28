@@ -92,8 +92,6 @@ export async function getHasSeenTutorial(userId) {
 
 // GET INDIVIDUAL LEVEL DATA
 export async function getIndividualLevelData(mapName, level) {
-    console.log('mapName', mapName)
-    console.log('level ', level)
     const db = await openDatabaseConnection();
     try {
         const myData = await db.getAllAsync(`

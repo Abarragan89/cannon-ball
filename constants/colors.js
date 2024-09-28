@@ -1,6 +1,5 @@
 export default colors = {
     sandColor: '#e3be64',
-    // sandColor: '#b59a57',
     skyColor: '#2a4787ff',
     winningStar: '#fbff00c2',
     offWhite: '#f6f2f2',
@@ -8,7 +7,6 @@ export default colors = {
     primaryYellow: '#faef0c',
     primaryOrange: '#ffa500',
     primaryBrown: '#5e2a0e',
-    // hinderanceColor: '#5e2a0e',
     hinderanceColor: '#ab4b18',
     primaryBlack: '#000000',
     bronzeStar: '#d94a4a',

@@ -35,7 +35,12 @@
           "READ_PHONE_STATE",
           "DETECT_SCREEN_CAPTURE"
         ]
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ],
+      "package": "com.ant_dev.cannonBall"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -58,6 +63,11 @@
         }
       ],
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "5d0fb9de-7ec0-4dc9-aa8f-8014b90a39c0"
+      }
+    }
   }
 }
