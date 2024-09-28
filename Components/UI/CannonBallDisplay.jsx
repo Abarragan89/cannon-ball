@@ -17,7 +17,7 @@ const CannonBallDisplay = ({
 
     useEffect(() => {
         switch (size) {
-            case 4:
+            case 5:
                 setAdjustedCannonBallSize(8);
                 setAdjustedContainerSize(65);
                 break;

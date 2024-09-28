@@ -1,28 +1,23 @@
 import { useRef, useState } from "react";
 import GameEngineWrapper from "../../../../Components/GameEngine/GameEngineWrapper";
-import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
+import { StyleSheet, StatusBar, ImageBackground, Dimensions } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
 import TNT from "../../../../Components/GameEngine/TNT";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
-import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import CannonStand from "../../../../Components/GameEngine/Hinderances/CannonStand";
-import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLongHind";
-import extraLongHindSystemOne from "../../../../systems/hinderanceDetection/extraLongHindSystemOne";
 import krakenLevelFiveSystems from "../../../../systems/krakenMovementSystems/krakenLevelFive";
-import cannonStandDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 
 function ChapterFourLevelFive() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -31,7 +26,7 @@ function ChapterFourLevelFive() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Kraken',
-        nextLevel: 'Hatch/Level1'
+        nextLevel: 'Kraken/Level6'
     });
 
     return (
@@ -46,11 +41,7 @@ function ChapterFourLevelFive() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    smallSquareSystemOne,
-                    longHindSystemOne,
-                    giantTallSystemOne,
-                    extraLongHindSystemOne,
-                    cannonStandDetectionSystem,
+                    createDetectHinderanceSystem,
                     krakenLevelFiveSystems
                 ]}
                 entities={{
@@ -60,14 +51,16 @@ function ChapterFourLevelFive() {
                         lowerTravelLimit: 1000
                     },
                     TNT: {
-                        position: [250, 150],
+                        position: [250, 250],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     extraLongHindOne: {
-                        position: [-5, -2],
-                        renderer: <ExtraLongHind />
+                        position: [-5, -15],
+                        width: screenWidth + 10,
+                        height: 30,
+                        renderer: <Hinderance />
                     },
                     longHindOne: {
                         position: [Math.floor(screenWidth / 2) - 180, screenHeight - 50],
@@ -89,18 +82,24 @@ function ChapterFourLevelFive() {
                     },
                     cannonStand: {
                         position: [screenWidth - 82, 150],
-                        renderer: <CannonStand />
+                        height: 15,
+                        width: 70,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
                     }
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Kraken' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Kraken' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Kraken'}
                     levelNumber={5}
@@ -113,7 +112,7 @@ function ChapterFourLevelFive() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

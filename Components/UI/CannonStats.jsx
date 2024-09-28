@@ -11,13 +11,13 @@ const CannonStats = ({ power }) => {
             case 1:
                 setAdjustedPower(1);
                 break;
-            case 1.3:
+            case 1.2:
                 setAdjustedPower(2);
                 break;
-            case 1.6:
+            case 1.4:
                 setAdjustedPower(3);
                 break;
-            case 1.9:
+            case 1.6:
                 setAdjustedPower(4);
                 break;
         }

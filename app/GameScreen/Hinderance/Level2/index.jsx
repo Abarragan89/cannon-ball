@@ -4,27 +4,21 @@ import { StyleSheet, StatusBar, ImageBackground } from 'react-native';
 import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
-import CannonBall from "../../../../Components/GameEngine/CannonBall";
-import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
 import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
-import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-import FireBtn from "../../../../Components/GameEngine/FireBtn";
-import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
-import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
-import Explosion from "../../../../Components/GameEngine/Explosion";
-import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import tallHindSystemOne from "../../../../systems/hinderanceDetection/tallHindSystemOne";
-import tallHindSystemTwo from "../../../../systems/hinderanceDetection/tallHindSystemTwo";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChapterThreeLevelTwo() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -49,19 +43,18 @@ function ChapterThreeLevelTwo() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    tallHindSystemOne,
-                    tallHindSystemTwo
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
                         position: [180, screenHeight - 100],
-                        upperTravelLimit: Math.floor(screenWidth / 3.3),
+                        upperTravelLimit: Math.floor(screenWidth / 5.5),
                         lowerTravelLimit: 5,
                     },
                     TNT: {
                         position: [screenWidth - 200, 170],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     tallHindOne: {
@@ -80,12 +73,15 @@ function ChapterThreeLevelTwo() {
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Hinderance' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Hinderance' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Hinderance'}
                     levelNumber={2}
@@ -98,7 +94,7 @@ function ChapterThreeLevelTwo() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

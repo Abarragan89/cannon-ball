@@ -11,16 +11,14 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
-import ExtraLongHind from "../../../../Components/GameEngine/Hinderances/ExtraLongHind";
-import extraLongHindSystemOne from "../../../../systems/hinderanceDetection/extraLongHindSystemOne";
-import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import krakenLevelThree from "../../../../systems/krakenMovementSystems/krakenLevelThree";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChatperFourLevelThree() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -44,10 +42,7 @@ function ChatperFourLevelThree() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    longHindSystemOne,
-                    longHindSystemTwo,
-                    extraLongHindSystemOne,
-                    smallSquareSystemOne,
+                    createDetectHinderanceSystem,
                     krakenLevelThree
                 ]}
                 entities={{
@@ -58,7 +53,7 @@ function ChatperFourLevelThree() {
                     TNT: {
                         position: [50, screenHeight - 200],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     // This is the cannon Base
@@ -81,19 +76,24 @@ function ChatperFourLevelThree() {
                         renderer: <Hinderance />
                     },
                     extraLongHindOne: {
-                        position: [-3, -2],
-                        renderer: <ExtraLongHind />
-                    }
+                        position: [-5, -15],
+                        width: screenWidth + 10,
+                        height: 30,
+                        renderer: <Hinderance />
+                    },
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Kraken' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Kraken' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Kraken'}
                     levelNumber={3}
@@ -106,7 +106,7 @@ function ChatperFourLevelThree() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

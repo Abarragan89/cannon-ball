@@ -11,19 +11,15 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import CannonStand from "../../../../Components/GameEngine/Hinderances/CannonStand";
 import krakenLevelFour from "../../../../systems/krakenMovementSystems/krakenLevelFour";
-import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
-import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
-import longHindSystemThree from "../../../../systems/hinderanceDetection/longHindSystemThree";
-import longHindSystemFour from "../../../../systems/hinderanceDetection/longHindSystemFour";
-import cannonDetectionSystem from "../../../../systems/hinderanceDetection/cannonStandDetection";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import colors from "../../../../constants/colors";
 
 function ChapterFourLevelFour() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -47,14 +43,8 @@ function ChapterFourLevelFour() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    cannonDetectionSystem,
                     krakenLevelFour,
-                    smallSquareSystemOne,
-                    smallSquareSystemTwo,
-                    longHindSystemOne,
-                    longHindSystemTwo,
-                    longHindSystemThree,
-                    longHindSystemFour
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
@@ -65,12 +55,15 @@ function ChapterFourLevelFour() {
                     TNT: {
                         position: [250, screenHeight - 40],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     cannonStand: {
                         position: [Math.floor(screenWidth / 2) - 35, 75],
-                        renderer: <CannonStand />
+                        width: 70,
+                        height: 15,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
                     },
                     squareHindOne: {
                         position: [0, 100],
@@ -112,12 +105,15 @@ function ChapterFourLevelFour() {
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Kraken' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Kraken' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Kraken'}
                     levelNumber={4}
@@ -130,7 +126,7 @@ function ChapterFourLevelFour() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

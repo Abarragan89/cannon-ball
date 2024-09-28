@@ -5,26 +5,19 @@ import cannonControlSystem from "../../../../systems/cannonControlSystem";
 import fireCannonSystem from "../../../../systems/fireCannonSystem";
 import TNTDetectionSystem from "../../../../systems/TNTDetectionSystem";
 import GameLevelInfoHeader from "../../../../Components/UI/GameLevelInfoHeader";
-import CannonBall from "../../../../Components/GameEngine/CannonBall";
-import PowerMeter from "../../../../Components/GameEngine/ PowerMeter";
-import CannonLauncher from "../../../../Components/GameEngine/CannonLauncher";
-import FireBtn from "../../../../Components/GameEngine/FireBtn";
-import AngleMeter from "../../../../Components/GameEngine/AngleMeter";
-import HeaderStats from "../../../../Components/GameEngine/HeaderStats";
 import TNT from "../../../../Components/GameEngine/TNT";
-import Explosion from "../../../../Components/GameEngine/Explosion";
-import FollowArrow from "../../../../Components/GameEngine/FollowArrow";
 import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChatperThreeLevelOne() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -36,6 +29,8 @@ function ChatperThreeLevelOne() {
         nextLevel: 'Hinderance/Level2'
     });
 
+    const TNTxPos = Math.floor(screenWidth / 1.5);
+    const TNTyPos = 200;
     return (
         <ImageBackground
             source={require('../../../../assets/images/basics/level1.png')}
@@ -48,41 +43,64 @@ function ChatperThreeLevelOne() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    longHindSystemOne,
-                    longHindSystemTwo
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
-                        position: [400, screenHeight - 100],
+                        position: [100, screenHeight - 325],
+                        upperTravelLimit: 120,
+                    },
+                    cannonPlatform: {
+                        position: [0, screenHeight - 250],
+                        width: 200,
+                        height: 20,
+                        renderer: <Hinderance />
+
                     },
                     TNT: {
-                        position: [screenWidth - 100, 100],
+                        position: [TNTxPos, TNTyPos],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
-                    longHindOne: {
-                        position: [screenWidth - 210, 60],
-                        width: 120,
-                        height: 30,
+                    TNTRoofHinderance: {
+                        position: [TNTxPos - 50, TNTyPos - 100],
+                        width: 200,
+                        height: 20,
                         renderer: <Hinderance />
                     },
-                    longHindTwo: {
-                        position: [screenWidth - 120, 160],
-                        width: 120,
-                        height: 30,
+                    sideHinderance: {
+                        position: [TNTxPos - 70, TNTyPos - 70],
+                        width: 20,
+                        height: 80,
+                        renderer: <Hinderance />
+                    },
+                    bottomHinderance: {
+                        position: [TNTxPos - 100, TNTyPos + 70],
+                        width: 200,
+                        height: 20,
+                        renderer: <Hinderance />
+                    },
+                    rightSideHelperHinderance: {
+                        position: [TNTxPos + 100, TNTyPos + 10],
+                        width: 100,
+                        height: 20,
                         renderer: <Hinderance />
                     }
+
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Hinderance' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Hinderance' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Hinderance'}
                     levelNumber={1}
@@ -95,7 +113,7 @@ function ChatperThreeLevelOne() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

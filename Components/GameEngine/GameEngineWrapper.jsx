@@ -3,11 +3,11 @@ import CannonBall from "./CannonBall";
 import CannonLauncher from "./CannonLauncher";
 import HeaderStats from "./HeaderStats";
 import AngleMeter from "./AngleMeter";
-import PowerMeter from "./ PowerMeter";
+import PowerMeter from "./PowerMeter";
 import FireBtn from "./FireBtn";
 import FollowArrow from "./FollowArrow";
 import Explosion from "./Explosion";
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import colors from "../../constants/colors";
 import { useLocalSearchParams } from 'expo-router';
 import { Audio } from 'expo-av';
@@ -15,6 +15,7 @@ const screenHeight = Dimensions.get('window').height;
 import { getIndividualLevelData } from "../../db/selectQueries";
 import EndGameModal from '../../Components/GameEngine/EndGameModal';
 import { GameEngine } from "react-native-game-engine";
+
 import {
     updateLevelToPass,
     updateLevelHighScore,
@@ -31,7 +32,9 @@ const GameEngineWrapper = ({
     endGameData,
     isGameOver,
     setIsGameOver,
+    setIsGameOverNoDelay,
 }) => {
+
 
     // Get Router Parameters
     const {
@@ -48,7 +51,8 @@ const GameEngineWrapper = ({
         cannonBallWeight,
         cannonBallSize,
         cannonColor,
-        cannonPower
+        cannonPower,
+        cannonSound
     } = useLocalSearchParams();
 
     const [playBgMusic, setPlayBgMusic] = useState(true);
@@ -60,13 +64,11 @@ const GameEngineWrapper = ({
     // Power Data
     const powerLevelRef = useRef(30)
 
-    // works with ruby cannonBall
-    // const angleLevelRef = useRef(95)
-    // // Power Data
-    // const powerLevelRef = useRef(56.5)
-
     const sounds = useRef({
-        shootCannonSound: null,
+        shootCannonSoundL1: null,
+        shootCannonSoundL2: null,
+        shootCannonSoundL3: null,
+        shootCannonSoundL4: null,
         tntCannonBallHitSound: null,
         backgroundMusicSound: null,
         tntExplosionSound: null,
@@ -106,22 +108,29 @@ const GameEngineWrapper = ({
     }, [playBgMusic, isSoundLoaded, isSoundOn]);
 
     ////////////////// DOWNLOAD ALL GAME SOUNDS AND SAVE THEM IN REF /////////////////
-    useEffect(() => {
-        const loadSound = async () => {
+    useLayoutEffect(() => {
+        const loadSoundsAndEntities = async () => {
             try {
                 //  DOWNLOAD ALL AUDIO FILES
-                const { sound: shootCannonSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonShot.mp3'));
+                const { sound: shootCannonSoundL1 } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonShotL1.mp3'));
+                const { sound: shootCannonSoundL2 } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonShotL2.wav'));
+                const { sound: shootCannonSoundL3 } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonShotL3.wav'));
+                const { sound: shootCannonSoundL4 } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonShotL4.wav'));
                 const { sound: tntExplosionSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/hugeExplosion.wav'));
                 const { sound: tntHandleClickSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/tntHandleClick.wav'));
                 const { sound: cannonBallBounceSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonBallBounce.wav'));
                 const { sound: tntCannonBallHitSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/woodHit.wav'));
                 const { sound: cannonBallHitSandSound } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/cannonBallHitsBottom.wav'));
+                const { sound: hitHatchBtn } = await Audio.Sound.createAsync(require('../../assets/sounds/soundEffects/hitHatchBtn.wav'));
                 const { sound: backgroundMusicSound } = await Audio.Sound.createAsync(require('../../assets/sounds/backgroundMusic.mp3'), { volume: 0.1 });
                 const { sound: backgroundWaveSound } = await Audio.Sound.createAsync(require('../../assets/sounds/backgroundWaves.wav'), { volume: 0.1 });
 
                 // SET AUDIO FILES IN REF VARIABLES
                 sounds.current = {
-                    shootCannonSound,
+                    shootCannonSoundL1,
+                    shootCannonSoundL2,
+                    shootCannonSoundL3,
+                    shootCannonSoundL4,
                     tntCannonBallHitSound,
                     tntExplosionSound,
                     backgroundMusicSound,
@@ -129,6 +138,7 @@ const GameEngineWrapper = ({
                     cannonBallBounceSound,
                     cannonBallHitSandSound,
                     backgroundWaveSound,
+                    hitHatchBtn
                 }
 
                 // add the sounds and game Data
@@ -140,12 +150,17 @@ const GameEngineWrapper = ({
                         setPlayBgMusic: setPlayBgMusic,
                         isGameOver: false,
                         setIsGameOver: setIsGameOver,
+                        setIsGameOverNoDelay: setIsGameOverNoDelay,
                         bounceLevel: cannonBallBounce,
                         isSoundEffectsOn: isSoundEffectsOn,
                         isHapticsOn: isHapticsOn,
+                        lastHinderanceHit: ''
                     },
                     cannonBall: {
                         position: [-100, 0],
+                        // prev and next position are set in the fireCannonSystem.js
+                        prevPosition: [],
+                        nextPosition: [],
                         velocity: [1, 1],
                         display: 'block',
                         accuracy: { name: '', float: 0, multiplier: 0 },
@@ -174,6 +189,7 @@ const GameEngineWrapper = ({
                         wheelColor: colors[cannonColor].wheelColor,
                         wheelColorHighlight: colors[cannonColor].wheelColorHighlight,
                         cannonPower: cannonPower,
+                        cannonSound: cannonSound,
                         renderer: <CannonLauncher />
                     },
                     followArrow: {
@@ -204,10 +220,14 @@ const GameEngineWrapper = ({
                 console.log('error downloading  music files  ', e)
             }
         }
-        loadSound();
+        loadSoundsAndEntities();
+
 
         return () => {
-            sounds.current.shootCannonSound.unloadAsync();
+            sounds.current.shootCannonSoundL1.unloadAsync();
+            sounds.current.shootCannonSoundL2.unloadAsync();
+            sounds.current.shootCannonSoundL3.unloadAsync();
+            sounds.current.shootCannonSoundL4.unloadAsync();
             sounds.current.tntCannonBallHitSound.unloadAsync();
             sounds.current.tntExplosionSound.unloadAsync();
             sounds.current.backgroundMusicSound.unloadAsync();
@@ -217,7 +237,7 @@ const GameEngineWrapper = ({
             sounds.current.cannonBallHitSandSound.unloadAsync();
             sounds.current.tntHandleClickSound.unloadAsync();
         }
-    }, []);
+    }, [levelId, cannonSound]);
 
     //////////// BACKEND UPDATE /////////////////////
     useEffect(() => {
@@ -265,15 +285,20 @@ const GameEngineWrapper = ({
     // next level button in the end of game modal
     useEffect(() => {
         async function getNextLevelData() {
-            const mapName = endGameData.current.nextLevel.split('/')[0];
-            const link = endGameData.current.nextLevel.split('/')[1];
-            const nextLevel = await getIndividualLevelData(mapName, link)
-            setNextLevelData(nextLevel[0])
+            try {
+                const mapName = endGameData.current.nextLevel.split('/')[0];
+                const link = endGameData.current.nextLevel.split('/')[1];
+                const [nextLevel] = await getIndividualLevelData(mapName, link)
+                setNextLevelData(nextLevel)
+            } catch (error) {   
+                console.log('error in getNextLevelData ', error)
+            }
         }
         getNextLevelData();
     }, [])
 
-
+    const nextLevel = endGameData.current.nextLevel.split('/')[1]; // Get the second part of the split
+    const shouldShowNextBtnInModal = nextLevel.charAt(nextLevel.length - 1) === '1' ? false : true;
     return (
         <>
             {isSoundLoaded &&
@@ -285,7 +310,7 @@ const GameEngineWrapper = ({
                     {isGameOver && nextLevelData &&
                         <EndGameModal
                             endGameData={endGameData}
-                            nextLevelData={levelId === '5' ? null : nextLevelData}
+                            nextLevelData={shouldShowNextBtnInModal ? nextLevelData : null}
                             cannonBallColor={cannonBallColor}
                             cannonBallGradientClr={cannonBallGradientClr}
                             cannonBallBounce={cannonBallBounce}
@@ -296,6 +321,7 @@ const GameEngineWrapper = ({
                             isHapticsOn={isHapticsOn}
                             cannonColor={cannonColor}
                             cannonPower={cannonPower}
+                            cannonSound={cannonSound}
                         />
                     }
                     {children}
@@ -316,4 +342,4 @@ const styles = StyleSheet.create({
         height: screenHeight,
         zIndex: 16
     },
-})
+});

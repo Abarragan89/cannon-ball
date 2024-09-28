@@ -10,11 +10,13 @@ import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChatperThreeLevelThree() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -38,7 +40,7 @@ function ChatperThreeLevelThree() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    giantTallSystemOne
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
@@ -48,7 +50,7 @@ function ChatperThreeLevelThree() {
                     TNT: {
                         position: [322, screenHeight - 50],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     giantTallOne: {
@@ -61,12 +63,15 @@ function ChatperThreeLevelThree() {
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Hinderance' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Hinderance' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Hinderance'}
                     levelNumber={3}
@@ -79,7 +84,7 @@ function ChatperThreeLevelThree() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

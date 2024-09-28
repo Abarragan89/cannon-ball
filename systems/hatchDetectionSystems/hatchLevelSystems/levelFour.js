@@ -3,10 +3,11 @@ const screenWidth = Dimensions.get('window').width;
 import moveObstacleLeftToRight from "../../../utils/moveObstacles/moveObstacleLeftToRight";
 
 const levelFourHatchSystem = (entities) => {
+    const TNTxPos = entities.TNT.position[0]
+    const HindXPos = entities.giantTallOne.position[0]
     if (!entities.gameData.isGameOver) {
-        // MaxRight is calculated based on the position of the Giant Tall Hind
-        maxRight = (screenWidth - Math.floor(screenWidth / 4) + 40)
-        moveObstacleLeftToRight(entities.squareHindOne, 0, maxRight, 1)
+        moveObstacleLeftToRight(entities.squareHindOne, HindXPos + 70, screenWidth - TNTxPos + 55, .8)
+        moveObstacleLeftToRight(entities.squareHindTwo, TNTxPos + 45, 50, .5)
     }
     return entities;
 }

@@ -1,4 +1,3 @@
-import lineBallDetection from "../utils/lineBallDetection";
 import cannonBallBounce from '../utils/cannonBallBounce';
 import isCircleInRectangle from "../utils/circleRectangleDetection";
 
@@ -20,7 +19,7 @@ const TNTDetectionSystem = (entities) => {
                 float: accuracyAmount,
                 multiplier: 10,
             }
-        // Less than 3 px
+            // Less than 3 px
         } else if (accuracyAmount < 3) {
             entities.cannonBall.accuracy =
             {
@@ -28,7 +27,7 @@ const TNTDetectionSystem = (entities) => {
                 float: accuracyAmount,
                 multiplier: 5,
             }
-        // Less than 5 px
+            // Less than 5 px
         } else if (accuracyAmount < 5) {
             entities.cannonBall.accuracy =
             {
@@ -36,7 +35,7 @@ const TNTDetectionSystem = (entities) => {
                 float: accuracyAmount,
                 multiplier: 3,
             }
-        // Less than 10px
+            // Less than 10px
         } else if (accuracyAmount < 10) {
             entities.cannonBall.accuracy =
             {
@@ -74,15 +73,18 @@ const TNTDetectionSystem = (entities) => {
         };
 
         //trigger the boolean to let the air-time counter stop and game aspects
-        //this is different than the useState is gameover that sets the modal
+        //this is different than the useState is gameover that sets the modal (used for airtime and stops game immediately)
         entities.gameData.isGameOver = true;
+        // This is state that triggers immediately so the back button disappears on contact
+        entities.gameData.setIsGameOverNoDelay(true);
         entities.cannonBall.velocity[1] = 0
         entities.cannonBall.velocity[0] = 0
         // Lower TNT handle
         const bottomOfCannonBall = entities.cannonBall.position[1] + (+entities.cannonBall.cannonBallRadius * 2)
         const cannonBallTopTNTDistance = bottomOfCannonBall - +entities.TNT.position[1]
-        // subtract from 9 because -10px is bottoming out on TNT. Used 9 for a little bit of overlap
-        entities.TNT.handlePosition[0] = Math.round(cannonBallTopTNTDistance) - 9;
+        // -17 is where the handle starts, then I add the distance of the bottom of the cannonball
+        // to 11 (10px tall is where the hit box starts, so 1px for some overlap) and set the handle to that position
+        entities.TNT.handlePosition[0] = -17 + (cannonBallTopTNTDistance + 11)
 
         // // pause the cannonBall
         setTimeout(() => {
@@ -92,22 +94,22 @@ const TNTDetectionSystem = (entities) => {
             // set the firework explosion coordinate
             entities.explosion.position[0] = entities.TNT.position[0] + 15
             entities.explosion.position[1] = entities.TNT.position[1] + 15
-            // Play Explosion Sound only once. Using startAnimation as a trigger
-            if (!entities.explosion.startAnimation && entities.gameData.isSoundEffectsOn > 0) {
-                try {
-                    entities.sounds.tntExplosionSound.replayAsync();
-                } catch (error) {
-                    console.log('error with explosion sound ', error)
-                }
-            }
             // trigger explosion animation
             entities.explosion.startAnimation = true;
             // make tnt box and cannonBall disappear with a slight delay
             setTimeout(() => {
+                // Play Explosion Sound only once. Using TNT display as a trigger
+                if (entities.TNT.display === 'block' && entities.gameData.isSoundEffectsOn > 0) {
+                    try {
+                        entities.sounds.tntExplosionSound.replayAsync();
+                    } catch (error) {
+                        console.log('error with explosion sound ', error)
+                    }
+                }
                 entities.TNT.display = 'none';
                 entities.cannonBall.display = 'none'
             }, 200);
-        }, 1000)
+        }, 1200)
         setTimeout(() => {
             entities.gameData.setIsGameOver(true)
         }, 3500);
@@ -124,69 +126,89 @@ const TNTDetectionSystem = (entities) => {
     }
 
     // LEFT LINE OF TNT BOX
+    // Corner Coordinate
     const leftLineX1 = entities.TNT.position[0];
     const leftLineY1 = entities.TNT.position[1];
-    const leftLineX2 = entities.TNT.position[0];
-    const leftLineY2 = entities.TNT.position[1] + 30;
 
-    // RIGHT LINE OF TNT BOX
-    const rightLineX1 = entities.TNT.position[0] + 30;
-    const rightLineY1 = entities.TNT.position[1];
-    const rightLineX2 = entities.TNT.position[0] + 30;
-    const rightLineY2 = entities.TNT.position[1] + 30;
-
-    // BOTTOM LINE OF TNT BOX
-    const bottomLineX1 = entities.TNT.position[0];
-    const bottomLineY1 = entities.TNT.position[1] + 30;
-    const bottomLineX2 = entities.TNT.position[0] + 30;
-    const bottomLineY2 = entities.TNT.position[1] + 30;
-
-    // TOP LINE OF TNT BOX (The TNT TOP)
-    const topLineX1 = entities.TNT.position[0];
-    const topLineY1 = entities.TNT.position[1];
-    const topLineX2 = entities.TNT.position[0] + 30;
-    const topLineY2 = entities.TNT.position[1];
-
-    // TOP LINE OF TNT BOX (The Handle)
+    // TOP LINE OF TNT BOX (The Handle) This
     const handleBarX1 = entities.TNT.position[0] + 8;
-    const handleBarY1 = entities.TNT.position[1] - 9;
+    const handleBarY1 = entities.TNT.position[1] - 8;
 
     // CIRCLE PROPERTIES
     const radius = +entities.cannonBall.cannonBallRadius
     const circleX = entities.cannonBall.position[0] + radius;
     const circleY = entities.cannonBall.position[1] + radius;
 
-    ///////////// CHECKING FOR LEFT WALL DETECTION ////////////////////////
-    if (lineBallDetection(leftLineX1, leftLineY1, leftLineX2, leftLineY2, circleX, circleY, radius)) {
-        if (entities.cannonBall.velocity[0] > 0) {
-            cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0)
+    const prevCircleX = entities.cannonBall.prevPosition[0] + radius;
+    const prevCircleY = entities.cannonBall.prevPosition[1] + radius;
+
+
+    // 1) check if ball is in rectangle //
+    // 2) check is hind line is within the ball
+    const isInsideBox = isCircleInRectangle(circleX, circleY, radius, leftLineX1, leftLineY1, 30, 30) // last two parameters are width and height of TNT
+    const lastFrame = isCircleInRectangle(prevCircleX, prevCircleY, radius, leftLineX1, leftLineY1, 30, 30) // last two parameters are width and height of TNT
+    const entrySide = determineEntrySide();
+
+    function determineEntrySide() {
+        // Only if previous position was outisde the X and current is inside the X
+        if (
+            // Check to see if the previous position was outside and the current is inside the rect
+            ((prevCircleX + radius) <= leftLineX1) &&
+            ((circleX + radius) > leftLineX1) 
+
+        ) {
+            entities.cannonBall.lastDirection = 'left';
+            return 'left';
+        }
+        else if (
+            // Check to see if the previous position was outside and the current is inside the rect
+            (prevCircleX - radius) >= leftLineX1 + 30 &&
+            (circleX - radius) < leftLineX1 + 30 
+        ) {
+            entities.cannonBall.lastDirection = 'right'
+            return 'right';
+        }
+        else if (
+            // Check to see if the previous position was outside and the current is inside the rect
+            (prevCircleY + radius) <= leftLineY1 &&
+            (circleY + radius) > leftLineY1
+        ) {
+            entities.cannonBall.lastDirection = 'top';
+            return 'top'
+        }
+        else if (
+            // Check to see if the previous position was outside and the current is inside the rect
+            ((prevCircleY - radius) >= leftLineY1 &&
+                (circleY - radius) > leftLineY1) 
+        ) {
+            entities.cannonBall.lastDirection = 'bottom'
+            return 'bottom';
+        }
+        else {
+            return 'inside'; // Circle is already inside
         }
     }
 
-    ////////////////// CHECKING FOR RIGHT WALL DETECTION //////////////////
-    if (lineBallDetection(rightLineX1, rightLineY1, rightLineX2, rightLineY2, circleX, circleY, radius)) {
-        if (entities.cannonBall.velocity[0] < 0) {
-            cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0)
+    // Determine direction of cannonBall
+    if (isInsideBox && !lastFrame) {
+        if (entrySide === 'left') {
+            cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, 'leftTNT');
         }
-    }
-
-    ////////////////// CHECKING FOR BOTTOM WALL DETECTION /////////////////
-    if (lineBallDetection(bottomLineX1, bottomLineY1, bottomLineX2, bottomLineY2, circleX, circleY, radius)) {
-        if (entities.cannonBall.velocity[1] < 0) {
-            cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1)
+        else if (entrySide === 'right') {
+            cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, 'rightTNT');
         }
-    };
-
-    ////////////////// CHECKING FOR TOP (TNT) WALL DETECTION /////////////////
-    if (lineBallDetection(topLineX1, topLineY1, topLineX2, topLineY2, circleX, circleY, radius)) {
-        if (entities.cannonBall.velocity[1] > 0) {
-            cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1)
+        else if (entrySide === 'top') {
+            cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, 'topTNT');
+        }
+        // // CannonBall is coming from the bottom
+        else if (entrySide === 'bottom') {
+            cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, 'bottomTNT');
         }
     }
 
     // CHECKING FOR HANLDE COLLISION USING A SEPARATE FUNCTION
     // TO HANDLE TELEPORTATION WHEN MOVING AT HIGH VELOCITY 
-    if (isCircleInRectangle(circleX, circleY, radius, handleBarX1, handleBarY1, 14, 9)) {
+    if (isCircleInRectangle(circleX, circleY, radius, handleBarX1, handleBarY1, 14, 10)) {
         if (entities.cannonBall.velocity[1] > 0) {
             endGameHandler();
         }

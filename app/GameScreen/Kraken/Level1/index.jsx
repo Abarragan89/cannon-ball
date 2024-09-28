@@ -11,12 +11,14 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import krakenLevelOne from "../../../../systems/krakenMovementSystems/krakenLevelOne";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChapterFourLevelOne() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -41,19 +43,19 @@ function ChapterFourLevelOne() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    smallSquareSystemOne,
+                    createDetectHinderanceSystem,
                     krakenLevelOne
                 ]}
                 entities={{
                     cannon: {
                         position: [180, screenHeight - 100],
-                        upperTravelLimit: Math.floor(screenWidth / 3.3),
+                        upperTravelLimit: Math.floor(screenWidth / 5.5),
                         lowerTravelLimit: 5,
                     },
                     TNT: {
                         position: [screenWidth / 2 + 170, screenHeight / 2 - 20],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     squareHindOne: {
@@ -66,12 +68,15 @@ function ChapterFourLevelOne() {
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Kraken' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Kraken' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Kraken'}
                     levelNumber={1}
@@ -84,7 +89,7 @@ function ChapterFourLevelOne() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

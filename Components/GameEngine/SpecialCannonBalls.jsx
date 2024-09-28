@@ -11,7 +11,7 @@ function SpecialCannonBall({
 }) {
     const x = position[0];
     const y = position[1];
-
+    
     return (
         <>
             {/* Eight Ball */}

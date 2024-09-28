@@ -11,14 +11,13 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import longHindSystemTwo from "../../../../systems/hinderanceDetection/longHindSystemTwo";
-import giantTallSystemTwo from "../../../../systems/hinderanceDetection/giantTallSystemTwo";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChapterThreeLevelFive() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -27,7 +26,7 @@ function ChapterThreeLevelFive() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Hinderance',
-        nextLevel: 'Kraken/Level1'
+        nextLevel: 'Hinderance/Level6'
     });
 
     return (
@@ -42,10 +41,7 @@ function ChapterThreeLevelFive() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    longHindSystemTwo,
-                    giantTallSystemOne,
-                    giantTallSystemTwo,
-                    longHindSystemOne
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
@@ -53,9 +49,9 @@ function ChapterThreeLevelFive() {
                         upperTravelLimit: Math.floor(screenWidth / 2) - 245,
                     },
                     TNT: {
-                        position: [Math.floor(screenWidth / 2), 220],
+                        position: [Math.floor(screenWidth / 2), 280],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     giantTallOne: {
@@ -77,8 +73,8 @@ function ChapterThreeLevelFive() {
                         renderer: <Hinderance />
                     },
                     longHindTwo: {
-                        position: [Math.floor(screenWidth / 2) - 45, 310],
-                        width: 120,
+                        position: [Math.floor(screenWidth / 2) - 55, 310],
+                        width: 140,
                         height: 30,
                         renderer: <Hinderance />
                     },
@@ -86,12 +82,15 @@ function ChapterThreeLevelFive() {
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Hinderance' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Hinderance' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Hinderance'}
                     levelNumber={5}
@@ -104,7 +103,7 @@ function ChapterThreeLevelFive() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

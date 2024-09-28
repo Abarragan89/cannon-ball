@@ -10,12 +10,15 @@ import scoreCalculatorSystem from "../../../../systems/scoreCalculatorSystem";
 import BackArrow from "../../../../Components/UI/BackArrow";
 import { Dimensions } from "react-native";
 import GameTutorial from "../../../../Components/GameEngine/GameTutorial";
-const screenHeight = Dimensions.get('window').height;
+const { height: screenHeight, width: screenWidth } = Dimensions.get('window')
 import { getHasSeenTutorial } from "../../../../db/selectQueries";
-// import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+import followCannonBallOnMove from "../../../../systems/followCannonBallOnMove";
 
 function ChatperOneLevelOne() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
     const [tutorialStep, setTutorialStep] = useState(0);
     const [hasSeenTutorial, setHasSeenTutorial] = useState(false);
     const [isSettingsLoaded, setIsSettingsLoaded] = useState(false);
@@ -43,7 +46,7 @@ function ChatperOneLevelOne() {
         // start with impossible accuracy float to compare on first win
         accuracyFloat: 50,
         accuracyName: '',
-        winningScore: [100, 2000, 4000],
+        winningScore: [100, 250, 1000],
         airTime: 0,
         bounces: 0,
         multiplier: 0,
@@ -63,28 +66,39 @@ function ChatperOneLevelOne() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
+                    createDetectHinderanceSystem
                     // followCannonBallOnMove
                 ]}
                 entities={{
                     cannon: {
-                        position: [400, screenHeight - 100],
+                        position: [screenWidth - 130, screenHeight - 326],
+                        lowerTravelLimit: screenWidth - 130
+                    },
+                    cannonPlatform: {
+                        position: [screenWidth - 150, screenHeight - 250],
+                        width: 150,
+                        height: 20,
+                        renderer: <Hinderance />
                     },
                     TNT: {
-                        position: [250, 100],
+                        position: [200, 200],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     }
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Basics' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Basics' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Basics'}
                     levelNumber={1}
@@ -97,14 +111,14 @@ function ChatperOneLevelOne() {
                     />
                 }
             </GameEngineWrapper>
-        </ImageBackground>
+        </ImageBackground >
     );
 }
 
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

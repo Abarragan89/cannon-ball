@@ -6,8 +6,8 @@ const WinningScoresDisplay = ({winningLimits}) => {
     return (
         <View style={styles.root}>
             <View style={[styles.singleWinScoreContainer, styles.bootLimitTitle]}>
-                <Text style={[styles.text, styles.starPoints]}>Booty</Text>
-                <Text style={[styles.text, styles.starPoints]}>Caps</Text>
+                <Text style={[styles.text, styles.starPoints]}>Star</Text>
+                <Text style={[styles.text, styles.starPoints]}>Ratings</Text>
             </View>
             <View style={styles.singleWinScoreContainer}>
                 <View style={styles.starContainer}>

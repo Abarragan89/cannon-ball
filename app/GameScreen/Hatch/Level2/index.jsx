@@ -12,17 +12,18 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
 import colors from "../../../../constants/colors";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
 import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
-import HatchLid from "../../../../Components/GameEngine/HatchLid";
-import HatchBox from "../../../../Components/GameEngine/HatchBox";
-import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
 import levelTwoHatchSystem from "../../../../systems/hatchDetectionSystems/hatchLevelSystems/levelTwo";
-import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+
 
 function ChapterFiveLevelTwo() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -33,6 +34,9 @@ function ChapterFiveLevelTwo() {
         currentLevel: 'Hatch',
         nextLevel: 'Hatch/Level3'
     });
+
+    const TNTxPos = screenWidth - 186
+    const TNTyPos = 93
 
     return (
         <ImageBackground
@@ -47,20 +51,50 @@ function ChapterFiveLevelTwo() {
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     hatchBtnDetectionSystem,
-                    hatchBoxDetectionSystem,
-                    hatchLidDetectionSystem,
                     hitHatchBtn_OpenHatchSystem,
-                    levelTwoHatchSystem
+                    levelTwoHatchSystem,
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
-                        position: [300, screenHeight - 100],
+                        position: [150, screenHeight - 275],
+                        upperTravelLimit: 170
                     },
+                    // The next four are TNT in a hatch.
                     TNT: {
-                        position: [screenWidth - 186, 93],
+                        position: [TNTxPos, TNTyPos],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
+                    },
+                    cannonPlatform: {
+                        position: [0, screenHeight - 200],
+                        width: 250,
+                        height: 20,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
+                    },
+                    hatchSideOne: {
+                        position: [TNTxPos - 15, TNTyPos - 20],
+                        width: 15,
+                        height: 50,
+                        renderer: <Hinderance />,
+                        color: colors.sandColor
+                    },
+                    hatchSideTwo: {
+                        position: [TNTxPos + 30, TNTyPos - 20],
+                        width: 15,
+                        height: 50,
+                        renderer: <Hinderance />,
+                        color: colors.sandColor
+                    },
+                    // This HAS to be called hatchLid
+                    hatchLid: {
+                        position: [TNTxPos - 5, TNTyPos - 35],
+                        width: 40,
+                        height: 15,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
                     },
                     hatchBtn: {
                         isHit: false,
@@ -70,24 +104,19 @@ function ChapterFiveLevelTwo() {
                         position: [Math.floor(screenWidth / 2), 120],
                         renderer: <HatchBtnTop />
                     },
-                    hatchLid: {
-                        position: [screenWidth - 200, 65],
-                        renderer: <HatchLid />
-                    },
-                    hatchBox: {
-                        position: [screenWidth - 200, 80],
-                        renderer: <HatchBox />
-                    }
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Hatch' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Hatch' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Hatch'}
                     levelNumber={2}
@@ -100,7 +129,7 @@ function ChapterFiveLevelTwo() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

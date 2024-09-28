@@ -6,14 +6,15 @@ import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
 const FireBtn = ({ isShooting }) => {
+
     return (
         <View style={styles.root}>
             <View>
                 {
                     isShooting ?
-                        <FontAwesome name="undo" size={55} color='#b7b1b1c7' />
+                        <FontAwesome name="undo" size={55} color='white' />
                         :
-                        <Feather name="crosshair" size={55} color='#32cd32b4' />
+                        <Feather name="crosshair" size={55} color={colors.limeGreen} />
                 }
             </View>
         </View>

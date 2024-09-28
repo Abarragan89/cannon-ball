@@ -15,13 +15,13 @@ import colors from "../../../../constants/colors";
 import hitHatchBtn_OpenHatchSystem from "../../../../systems/hatchDetectionSystems/hitHatchBtn_OpenHatchSystem";
 import HatchBtnTop from "../../../../Components/GameEngine/HatchButtons/HatchBtnTop";
 import hatchBtnDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBtnDetection";
-import HatchLid from "../../../../Components/GameEngine/HatchLid";
-import HatchBox from "../../../../Components/GameEngine/HatchBox";
-import hatchBoxDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchBox.Detection";
-import hatchLidDetectionSystem from "../../../../systems/hatchDetectionSystems/hatchLid.Detection";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 
 function ChapterFiveLevelOne() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -30,8 +30,11 @@ function ChapterFiveLevelOne() {
         bounces: 0,
         multiplier: 0,
         currentLevel: 'Hatch',
-        nextLevel: 'Hatch/Level3'
+        nextLevel: 'Hatch/Level2'
     });
+
+    const TNTxPos = Math.floor(screenWidth / 2)
+    const TNTyPos = screenHeight - 160
 
     return (
         <ImageBackground
@@ -46,19 +49,49 @@ function ChapterFiveLevelOne() {
                     scoreCalculatorSystem,
                     fireCannonSystem,
                     hatchBtnDetectionSystem,
-                    hatchBoxDetectionSystem,
-                    hatchLidDetectionSystem,
-                    hitHatchBtn_OpenHatchSystem
+                    hitHatchBtn_OpenHatchSystem,
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
-                        position: [100, screenHeight - 100],
+                        position: [screenWidth - 100, screenHeight - 375],
+                        upperTravelLimit: 0,
+                        lowerTravelLimit: screenWidth - 180
                     },
+                    cannonPlatform: {
+                        position: [screenWidth - 200, screenHeight - 300],
+                        width: 200,
+                        height: 20,
+                        renderer: <Hinderance />
+                    },
+                    // The next four are TNT in a hatch.
                     TNT: {
-                        position: [Math.floor(screenWidth / 2), screenHeight - 160],
+                        position: [TNTxPos, TNTyPos],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
+                    },
+                    hatchSideOne: {
+                        position: [TNTxPos - 15, TNTyPos - 20],
+                        width: 15,
+                        height: 50,
+                        renderer: <Hinderance />,
+                        color: colors.sandColor
+                    },
+                    hatchSideTwo: {
+                        position: [TNTxPos + 30, TNTyPos - 20],
+                        width: 15,
+                        height: 50,
+                        renderer: <Hinderance />,
+                        color: colors.sandColor
+                    },
+                    // This HAS to be called hatchLid
+                    hatchLid: {
+                        position: [TNTxPos - 5, TNTyPos - 35],
+                        width: 40,
+                        height: 15,
+                        color: colors.sandColor,
+                        renderer: <Hinderance />
                     },
                     hatchBtn: {
                         isHit: false,
@@ -68,24 +101,19 @@ function ChapterFiveLevelOne() {
                         position: [150, 120],
                         renderer: <HatchBtnTop />
                     },
-                    hatchLid: {
-                        position: [Math.floor(screenWidth / 2) - 14, screenHeight - 188],
-                        renderer: <HatchLid />
-                    },
-                    hatchBox: {
-                        position: [Math.floor(screenWidth / 2) - 14, screenHeight - 173],
-                        renderer: <HatchBox />
-                    }
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Hatch' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Hatch' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Hatch'}
                     levelNumber={1}
@@ -98,7 +126,7 @@ function ChapterFiveLevelOne() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0
@@ -107,6 +135,3 @@ const styles = StyleSheet.create({
 
 
 export default ChapterFiveLevelOne;
-
-
-

@@ -26,10 +26,8 @@ const LevelLobbyScreen = () => {
         function setWinningStars() {
             switch (mapName) {
                 case 'Basics':
-                    setWinningStarLimits([100, 2000, 4000]);
-                    break;
                 case 'Marks':
-                    setWinningStarLimits([250, 500, 1000]);
+                    setWinningStarLimits([100, 250, 1000]);
                     break;
                 case 'Hinderance':
                     setWinningStarLimits([1000, 2500, 5000]);
@@ -84,6 +82,7 @@ const LevelLobbyScreen = () => {
                 <View style={styles.backIcon}>
                     <BackArrow
                         route='CampaignOverviewScreen'
+                        color='white'
                     />
                 </View>
                 <ScrollView>
@@ -112,7 +111,8 @@ const LevelLobbyScreen = () => {
                                                 cannonBallWeight: currentCannonBall.weight,
                                                 cannonBallSize: currentCannonBall.size,
                                                 cannonColor: currentCannon.name,
-                                                cannonPower: currentCannon.power
+                                                cannonPower: currentCannon.power,
+                                                cannonSound: currentCannon.sound
                                             }}
                                             isLocked={item.isOpen}
                                             accuracy={item.accuracy}

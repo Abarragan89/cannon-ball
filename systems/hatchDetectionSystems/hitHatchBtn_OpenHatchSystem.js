@@ -2,12 +2,12 @@ import colors from "../../constants/colors";
 
 const hitHatchBtn_OpenHatchSystem = (entities) => {
     function openLid() {
-        if (entities.hatchLid.position[0] <= entities.hatchBox.position[0] + 57 && entities.cannonBall.isBallMoving) {
+        if (entities.hatchLid.position[0] <= entities.TNT.position[0] +30 && entities.cannonBall.isBallMoving) {
             entities.hatchLid.position[0] += 1
         }
     }
     function closeLid() {
-        if (entities.hatchLid.position[0] > entities.hatchBox.position[0]) {
+        if (entities.hatchLid.position[0] > entities.TNT.position[0] - 5) {
             entities.hatchBtn.isHit = false;
             entities.hatchLid.position[0] -= 1
         }
@@ -35,6 +35,8 @@ const hitHatchBtn_OpenHatchSystem = (entities) => {
             entities.hatchBtn.leftPosition = -11
         }
     }
+
+    // Listeners
     if (!entities.gameData.isGameOver) {
         if (entities.hatchBtn.isHit) {
             turnHatchBtnOn();

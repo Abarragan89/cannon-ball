@@ -1,9 +1,9 @@
 import { StyleSheet, ImageBackground, Pressable } from 'react-native';
 
-const LockedMap = ({ imgSrc, setShowModal, setStarsNeeded, starsNeeded }) => {
+const LockedMap = ({ imgSrc, setShowModal, setStarsNeeded }) => {
     
     function presentModal() {
-        setStarsNeeded(starsNeeded)
+        setStarsNeeded()
         setShowModal(true)
     }
 

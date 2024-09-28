@@ -13,11 +13,13 @@ const screenHeight = Dimensions.get('window').height
 import BackArrow from "../../../../Components/UI/BackArrow";
 
 function ChatperTwoLevelThree() {
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
     const [isGameOver, setIsGameOver] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
-        winningScore: [250, 500, 1000],
+        winningScore: [100, 250, 1000],
         airTime: 0,
         bounces: 0,
         multiplier: 0,
@@ -46,29 +48,26 @@ function ChatperTwoLevelThree() {
                     TNT: {
                         position: [50, 100],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     }
                 }}
                 endGameData={endGameData}
                 isGameOver={isGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
                 setIsGameOver={setIsGameOver}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Marks' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Marks' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Marks'}
                     levelNumber={3}
                 />
-                {isGameOver && nextLevelData &&
-                    <EndGameModal
-                        endGameData={endGameData}
-                        nextLevelData={nextLevelData}
-                    />
-                }
             </GameEngineWrapper>
         </ImageBackground>
     );
@@ -77,7 +76,7 @@ function ChatperTwoLevelThree() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0,

@@ -1,7 +1,7 @@
 {
   "expo": {
     "scheme": "cannonBall",
-    "name": "cannonBall",
+    "name": "Cannon Ball",
     "slug": "cannonBall",
     "version": "1.0.0",
     "orientation": "landscape",
@@ -10,19 +10,21 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
+      "buildNumber": "1.0.0",
       "supportsTablet": true,
       "infoPlist": {
         "NSMicrophoneUsageDescription": "This app does not require access to your microphone."
       }
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
@@ -33,7 +35,12 @@
           "READ_PHONE_STATE",
           "DETECT_SCREEN_CAPTURE"
         ]
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ],
+      "package": "com.ant_dev.cannonBall"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -56,6 +63,11 @@
         }
       ],
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "5d0fb9de-7ec0-4dc9-aa8f-8014b90a39c0"
+      }
+    }
   }
 }

@@ -79,6 +79,7 @@ const StoreScreen = () => {
     getStoreData();
   }, [])
 
+
   const displayModal = (itemInfo, isCannonItem) => {
     // this variable is used to conditionally render the Purchase Modal
     // depending on what type of item the user is buying (cannon or cannonBalls)
@@ -104,7 +105,7 @@ const StoreScreen = () => {
     try {
       await itemSQLUpdateFn(itemInfo.id);
       // deduct coins from the user for purchase
-      await updateUserCoins(1, itemInfo.price);
+      const userData = await updateUserCoins(1, itemInfo.price);
       // Update the itemArray so it will rerender on screen
       setItemArray(singleItem => singleItem.map((item) => {
         if (item.name === itemInfo.name) {
@@ -116,6 +117,7 @@ const StoreScreen = () => {
           return item
         }
       }))
+      setUserCoins(userData.totalPoints);
       setRefreshCoins([prev => !prev])
       closeModal();
     } catch (error) {
@@ -145,7 +147,7 @@ const StoreScreen = () => {
           />
         }
         <View style={styles.backIcon}>
-          <BackArrow />
+          <BackArrow color='white' />
         </View>
 
         {currentCannonBall && currentCannon &&

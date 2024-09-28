@@ -11,15 +11,14 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
-import smallSquareSystemTwo from "../../../../systems/hinderanceDetection/smallSquareSystemTwo";
-import smallSquareSystemThree from "../../../../systems/hinderanceDetection/smallSquareSystemThree";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
 import krakenLevelTwo from "../../../../systems/krakenMovementSystems/krakenLevelTwo";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChapterFourLevelTwo() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -44,21 +43,18 @@ function ChapterFourLevelTwo() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    giantTallSystemOne,
-                    smallSquareSystemOne,
-                    smallSquareSystemTwo,
-                    smallSquareSystemThree,
+                    createDetectHinderanceSystem,
                     krakenLevelTwo
                 ]}
                 entities={{
                     cannon: {
                         position: [screenWidth - 200, screenHeight - 100],
-                        lowerTravelLimit: Math.floor(screenWidth / 2) + 80,
+                        lowerTravelLimit: Math.floor(screenWidth / 2) + 90,
                     },
                     TNT: {
                         position: [250, screenHeight - 110],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     giantTallOne: {
@@ -89,12 +85,15 @@ function ChapterFourLevelTwo() {
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Kraken' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Kraken' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Kraken'}
                     levelNumber={2}
@@ -107,7 +106,7 @@ function ChapterFourLevelTwo() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

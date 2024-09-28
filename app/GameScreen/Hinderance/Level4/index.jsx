@@ -11,13 +11,13 @@ import { Dimensions } from 'react-native'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import BackArrow from "../../../../Components/UI/BackArrow";
-import giantTallSystemOne from "../../../../systems/hinderanceDetection/giantTallSystemOne";
-import longHindSystemOne from "../../../../systems/hinderanceDetection/longHindSystemOne";
-import smallSquareSystemOne from "../../../../systems/hinderanceDetection/smallSquareSystemOne";
-import Hinderance from "../../../../Components/GameEngine/Hinderances/Hinderance";
+import createDetectHinderanceSystem from "../../../../systems/createDetectHinderances";
+import Hinderance from "../../../../Components/GameEngine/Hinderance";
 
 function ChapterThreeLevelFour() {
     const [isGameOver, setIsGameOver] = useState(false);
+    const [isGameOverNoDelay, setIsGameOverNoDelay] = useState(false);
+
     const endGameData = useRef({
         accuracyFloat: 50,
         accuracyName: '',
@@ -41,9 +41,7 @@ function ChapterThreeLevelFour() {
                     TNTDetectionSystem,
                     scoreCalculatorSystem,
                     fireCannonSystem,
-                    giantTallSystemOne,
-                    longHindSystemOne,
-                    smallSquareSystemOne
+                    createDetectHinderanceSystem
                 ]}
                 entities={{
                     cannon: {
@@ -53,7 +51,7 @@ function ChapterThreeLevelFour() {
                     TNT: {
                         position: [350, 150],
                         display: 'block',
-                        handlePosition: [-22, 0],
+                        handlePosition: [-17, 0],
                         renderer: <TNT />
                     },
                     giantTallOne: {
@@ -63,8 +61,8 @@ function ChapterThreeLevelFour() {
                         renderer: <Hinderance />
                     },
                     longHindOne: {
-                        position: [210, 200],
-                        width: 120,
+                        position: [180, 200],
+                        width: 140,
                         height: 30,
                         renderer: <Hinderance />
                     },
@@ -78,12 +76,15 @@ function ChapterThreeLevelFour() {
                 endGameData={endGameData}
                 isGameOver={isGameOver}
                 setIsGameOver={setIsGameOver}
+                setIsGameOverNoDelay={setIsGameOverNoDelay}
             >
                 <StatusBar hidden={true} />
-                <BackArrow
-                    route={'/LevelLobbyScreen'}
-                    params={{ mapName: 'Hinderance' }}
-                />
+                {!isGameOverNoDelay &&
+                    <BackArrow
+                        route={'/LevelLobbyScreen'}
+                        params={{ mapName: 'Hinderance' }}
+                    />
+                }
                 <GameLevelInfoHeader
                     mapName={'Hinderance'}
                     levelNumber={4}
@@ -96,7 +97,7 @@ function ChapterThreeLevelFour() {
 const styles = StyleSheet.create({
     backgroundImg: {
         position: 'absolute',
-        top: -85,
+        top: -5,
         bottom: 0,
         left: 0,
         right: 0

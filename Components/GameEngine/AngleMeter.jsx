@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
     },
     angleText: {
         position: 'absolute',
-        fontSize: 14,
+        fontSize: 13,
         top: -128,
-        right: 38
+        right: 37
     }
 })
 

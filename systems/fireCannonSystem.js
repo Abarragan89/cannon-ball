@@ -19,9 +19,18 @@ const fireCannonSystem = (entities, { touches }) => {
     // set the gravity, angle, and power before launch
     const GRAVITY = +entities.cannonBall.cannonBallWeight;
     if (entities.cannonBall.isBallMoving) {
+      // Save the Previous Position for detection and ball movement/hind detection
+      entities.cannonBall.prevPosition[0] = entities.cannonBall.position[0];
+      entities.cannonBall.prevPosition[1] = entities.cannonBall.position[1];
+
       // Update the X and Y based on the arc velocity
-      entities.cannonBall.position[0] += entities.cannonBall.velocity[0]
-      entities.cannonBall.position[1] += entities.cannonBall.velocity[1]
+      entities.cannonBall.position[0] += entities.cannonBall.velocity[0];
+      entities.cannonBall.position[1] += entities.cannonBall.velocity[1];
+
+      // Check the Next Position for detection and ball movement/hind detection
+      entities.cannonBall.nextPosition[0] = entities.cannonBall.position[0] + entities.cannonBall.velocity[0];
+      entities.cannonBall.nextPosition[1] = entities.cannonBall.position[1] + entities.cannonBall.velocity[1];
+
       // Increase gravity to slowly bring ball back down.
       if (entities.cannonBall.velocity[1] < 8.5) {
         entities.cannonBall.velocity[1] += GRAVITY
@@ -32,9 +41,9 @@ const fireCannonSystem = (entities, { touches }) => {
   function wallDetection() {
     if (entities.cannonBall.isBallMoving) {
       // if hits bottom
-      if (entities.cannonBall.position[1] > height - 34) {
+      if (entities.cannonBall.position[1] > height - 15) {
         // only play sound once when isBallMoving is still true
-        cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallHitSandSound', entities.headerStats, entities.cannonBall, 0)
+        cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallHitSandSound', entities.headerStats, entities.cannonBall, 0, 'sandWall')
         // End the Game and reset critical variables
         entities.cannonBall.isBallMoving = false;
         entities.headerStats.bounces = 0;
@@ -42,16 +51,16 @@ const fireCannonSystem = (entities, { touches }) => {
         entities.fireBtn.isShooting = false;
       }
       // if hits right wall
-      if (entities.cannonBall.position[0] > width - 14) {
+      if (entities.cannonBall.position[0] > width - entities.cannonBall.cannonBallRadius) {
         if (entities.cannonBall.velocity[0] > 0) {
-          cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallBounceSound', entities.headerStats, entities.cannonBall, 0)
+          cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallBounceSound', entities.headerStats, entities.cannonBall, 0, 'rightWall')
         }
       }
       // if hits left wall
       // I need to also make sure it is not -100 because that is the starting position off screen
-      if (entities.cannonBall.position[0] < 0 && entities.cannonBall.position[0] !== -100) {
+      if (entities.cannonBall.position[0] <= 0 && entities.cannonBall.position[0] !== -100) {
         if (entities.cannonBall.velocity[0] < 0) {
-          cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallBounceSound', entities.headerStats, entities.cannonBall, 0)
+          cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'cannonBallBounceSound', entities.headerStats, entities.cannonBall, 0, 'leftWall')
         }
       }
     }
@@ -137,7 +146,7 @@ const fireCannonSystem = (entities, { touches }) => {
       locationY <= fireBtnPos.bottomY
 
     ) {
-      if (t.type === 'start') {
+      if (t.type === 'start' && !entities.gameData.isGameOver) {
         // Reset values if ball is already moving
         if (entities.cannonBall.isBallMoving) {
           // Vibrate for feedback if setting is set for On
@@ -155,7 +164,20 @@ const fireCannonSystem = (entities, { touches }) => {
         // Play Cannon Sound
         if (entities.gameData.isSoundEffectsOn > 0) {
           try {
-            entities.sounds.shootCannonSound.replayAsync();
+            switch (entities.cannon.cannonSound) {
+              case 'cannonShotL1':
+                entities.sounds.shootCannonSoundL1.replayAsync();
+                break;
+              case 'cannonShotL2':
+                entities.sounds.shootCannonSoundL2.replayAsync();
+                break;
+              case 'cannonShotL3':
+                entities.sounds.shootCannonSoundL3.replayAsync();
+                break;
+              case 'cannonShotL4':
+                entities.sounds.shootCannonSoundL4.replayAsync();
+                break;
+            }
           } catch (error) {
             console.log('error in shoot cannon sound ', error)
           }
@@ -191,3 +213,4 @@ const fireCannonSystem = (entities, { touches }) => {
 
 
 export default fireCannonSystem;
+

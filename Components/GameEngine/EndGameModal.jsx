@@ -18,9 +18,9 @@ const EndGameModal = ({
     isHapticsOn,
     cannonColor,
     cannonPower,
+    cannonSound
 }) => {
     const finalScore = (endGameData.current.airTime + endGameData.current.bounces) * endGameData.current.multiplier
-
     return (
         <View style={[styles.root,]}>
             <View style={styles.modalMainView}>
@@ -85,7 +85,8 @@ const EndGameModal = ({
                                 isSoundEffectsOn,
                                 isHapticsOn,
                                 cannonColor,
-                                cannonPower
+                                cannonPower,
+                                cannonSound
                             }}
                         >Next Level</SecondaryButton>
                     }
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         right: 0,
         left: 0,
-        backgroundColor: '#00000083',
+        backgroundColor: '#00000099',
         zIndex: 99,
         justifyContent: 'center',
         alignItems: 'center'
