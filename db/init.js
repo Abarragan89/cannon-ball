@@ -11,7 +11,7 @@ export async function initDB() {
     } catch (error) {
         // Set variable to trigger set up
         const errorMsg = error.message;
-        if (errorMsg.includes('no such table')) needInitialSetup = true ;
+        if (errorMsg.includes('no such table')) needInitialSetup = true;
         console.log('error in init ', error);
     }
 

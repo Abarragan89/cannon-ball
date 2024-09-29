@@ -21,7 +21,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSMicrophoneUsageDescription": "This app does not require access to your microphone."
-      }
+      },
+      "bundleIdentifier": "com.antdev.cannonball"
     },
     "android": {
       "versionCode": 1,

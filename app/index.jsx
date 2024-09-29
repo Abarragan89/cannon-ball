@@ -17,7 +17,7 @@ const Home = () => {
 
   const onLayoutRootView = useCallback(async () => {
     if ((fontsLoaded || fontError) && bgImage && mainBtnImgSrc) {
-      await initDB();
+      // await initDB();
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
