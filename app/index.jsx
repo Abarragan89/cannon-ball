@@ -10,17 +10,19 @@ import { initDB } from "../db/init";
 SplashScreen.preventAutoHideAsync();
 
 const Home = () => {
-  const [fontsLoaded, fontError] = useFonts({
-    'titleFont': require('../assets/fonts/titleFont.ttf'),
-    'textFont': require('../assets/fonts/textFont.ttf'),
-  });
+  // const [fontsLoaded, fontError] = useFonts({
+  //   'titleFont': require('../assets/fonts/titleFont.ttf'),
+  //   'textFont': require('../assets/fonts/textFont.ttf'),
+  // });
 
   const onLayoutRootView = useCallback(async () => {
-    if ((fontsLoaded || fontError)) {
-      await initDB();
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded, fontError]);
+    // if ((fontsLoaded || fontError)) {
+    //   await initDB();
+    await SplashScreen.hideAsync();
+    // }
+  },
+    // [fontsLoaded, fontError]
+    []);
 
   // if ((!fontsLoaded)) {
   //   return null;
