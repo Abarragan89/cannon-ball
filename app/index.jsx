@@ -16,15 +16,15 @@ const Home = () => {
   });
 
   const onLayoutRootView = useCallback(async () => {
-    if ((fontsLoaded || fontError) && bgImage && mainBtnImgSrc) {
-      // await initDB();
+    if ((fontsLoaded || fontError)) {
+      await initDB();
       await SplashScreen.hideAsync();
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded, fontError]);
 
-  if ((!fontsLoaded)) {
-    return null;
-  }
+  // if ((!fontsLoaded)) {
+  //   return null;
+  // }
 
   return (
     <>
