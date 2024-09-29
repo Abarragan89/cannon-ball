@@ -1,6 +1,6 @@
 {
   "expo": {
-    "scheme": ["cannonball"],
+    "scheme": "cannonball",
     "name": "Cannon Ball",
     "slug": "cannonBall",
     "version": "1.0.0",
@@ -21,7 +21,7 @@
       "infoPlist": {
         "NSMicrophoneUsageDescription": "This app does not require access to your microphone."
       },
-      "bundleIdentifier": "com.antdev.cannonball"
+      "bundleIdentifier": "com.mathfactmissions.cannonball"
     },
     "android": {
       "versionCode": 1,
@@ -29,11 +29,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": [
-        "android.permission.RECORD_AUDIO",
-        "android.permission.MODIFY_AUDIO_SETTINGS"
-      ],
-      "package": "com.ant_dev.cannonBall"
+      "package": "com.mathfactmissions.cannonBall"
     },
     "web": {
       "favicon": "./assets/favicon.png",
