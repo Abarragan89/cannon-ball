@@ -26,7 +26,8 @@
     "react-native-particles": "^0.0.8",
     "react-native-progress": "^5.0.1",
     "react-native-screens": "3.31.1",
-    "expo-system-ui": "~3.0.7"
+    "expo-system-ui": "~3.0.7",
+    "expo-dev-client": "~4.0.27"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
