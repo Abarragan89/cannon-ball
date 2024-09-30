@@ -2,7 +2,7 @@
   "expo": {
     "scheme": "cannonball",
     "name": "Cannon Ball",
-    "slug": "cannon-ball",
+    "slug": "cannonBall",
     "version": "1.0.0",
     "orientation": "landscape",
     "backgroundColor": "#b59a57",
@@ -21,7 +21,7 @@
       "infoPlist": {
         "NSMicrophoneUsageDescription": "This app does not require access to your microphone."
       },
-      "bundleIdentifier": "com.mathfactmissions.cannonball"
+      "bundleIdentifier": "com.mathfactmissions.cannonBall"
     },
     "android": {
       "versionCode": 1,
