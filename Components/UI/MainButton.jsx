@@ -42,11 +42,6 @@ const styles = StyleSheet.create({
     backgroundImage: {
         paddingVertical: 8,
         paddingHorizontal: 40,
-        elevation: 5,
-        shadowColor: 'black',
-        shadowOffset: { width: 1, height: 1 },
-        shadowOpacity: .7,
-        shadowRadius: 4,
     },
     text: {
         fontSize: 28,
