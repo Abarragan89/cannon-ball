@@ -1,5 +1,5 @@
 import { View, StyleSheet, ImageBackground, StatusBar } from "react-native";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import MainButton from "../Components/UI/MainButton";
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -15,12 +15,29 @@ const Home = () => {
     'textFont': require('../assets/fonts/textFont.ttf'),
   });
 
-  const onLayoutRootView = useCallback(async () => {
-    if ((fontsLoaded || fontError)) {
-      await initDB();
+  // const onLayoutRootView = useCallback(async () => {
+  //   if ((fontsLoaded)) {
+  //     await initDB();
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [fontsLoaded]);
+
+  // No need for useCallback here
+  const hideSplashScreen = async () => {
+    if (fontsLoaded) {
+      await initDB(); // Initialize the database
       await SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, fontError]);
+  };
+
+  // Trigger the function on render and font loading completion
+  useEffect(() => {
+    hideSplashScreen();
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null
+  }
 
 
   return (
@@ -33,7 +50,6 @@ const Home = () => {
             !mainBtnImgSrc || !bgImage ? { display: 'none ' } : {},
             styles.rootContainer
           ]}
-          onLayout={onLayoutRootView}
         >
           <View style={styles.buttonContainer}>
             <MainButton
