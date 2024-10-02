@@ -18,9 +18,6 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "infoPlist": {
-        "NSMicrophoneUsageDescription": "This app does not require access to your microphone."
-      },
       "bundleIdentifier": "com.mathfactmissions.cannonBall"
     },
     "android": {
