@@ -1,8 +1,8 @@
 {
   "expo": {
-    "scheme": "cannonball",
-    "name": "Cannon Ball",
-    "slug": "cannonBall",
+    "scheme": "cannonballsea",
+    "name": "Cannon Ball Sea",
+    "slug": "cannonBallSea",
     "version": "1.0.0",
     "orientation": "landscape",
     "backgroundColor": "#b59a57",
@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mathfactmissions.cannonBall"
+      "bundleIdentifier": "com.mathfactmissions.cannonBallSea"
     },
     "android": {
       "versionCode": 1,
@@ -26,7 +26,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mathfactmissions.cannonBall"
+      "package": "com.mathfactmissions.cannonBallSea"
     },
     "web": {
       "bundler": "metro"
@@ -42,10 +42,7 @@
         }
       ],
       [
-        "expo-av",
-        {
-          "microphonePermission": "Allow Cannon Ball to access your microphone."
-        }
+        "expo-av"
       ],
       "expo-router"
     ],
