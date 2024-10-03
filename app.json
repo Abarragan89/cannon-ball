@@ -2,7 +2,7 @@
   "expo": {
     "scheme": "cannonballsea",
     "name": "Cannon Ball Sea",
-    "slug": "cannonBallSea",
+    "slug": "cannon-ball-sea",
     "version": "1.0.0",
     "orientation": "landscape",
     "backgroundColor": "#b59a57",
@@ -26,7 +26,11 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mathfactmissions.cannonBallSea"
+      "package": "com.mathfactmissions.cannonBallSea",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ]
     },
     "web": {
       "bundler": "metro"
@@ -48,8 +52,9 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "5d0fb9de-7ec0-4dc9-aa8f-8014b90a39c0"
+        "projectId": "0d70880e-9d83-40dd-ba0f-885797423b1d"
       }
-    }
+    },
+    "owner": "ant_dev"
   }
 }
