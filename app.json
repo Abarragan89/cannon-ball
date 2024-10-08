@@ -3,7 +3,7 @@
     "scheme": "cannonballsea",
     "name": "Cannon Ball Sea",
     "slug": "cannon-ball-sea",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "landscape",
     "backgroundColor": "#b59a57",
     "icon": "./assets/icon.png",
