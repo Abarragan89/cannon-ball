@@ -154,7 +154,7 @@ const TNTDetectionSystem = (entities) => {
         if (
             // Check to see if the previous position was outside and the current is inside the rect
             ((prevCircleX + radius) <= leftLineX1) &&
-            ((circleX + radius) > leftLineX1) 
+            ((circleX + radius) > leftLineX1)
 
         ) {
             entities.cannonBall.lastDirection = 'left';
@@ -163,7 +163,7 @@ const TNTDetectionSystem = (entities) => {
         else if (
             // Check to see if the previous position was outside and the current is inside the rect
             (prevCircleX - radius) >= leftLineX1 + 30 &&
-            (circleX - radius) < leftLineX1 + 30 
+            (circleX - radius) < leftLineX1 + 30
         ) {
             entities.cannonBall.lastDirection = 'right'
             return 'right';
@@ -179,7 +179,7 @@ const TNTDetectionSystem = (entities) => {
         else if (
             // Check to see if the previous position was outside and the current is inside the rect
             ((prevCircleY - radius) >= leftLineY1 &&
-                (circleY - radius) > leftLineY1) 
+                (circleY - radius) > leftLineY1)
         ) {
             entities.cannonBall.lastDirection = 'bottom'
             return 'bottom';
@@ -193,16 +193,22 @@ const TNTDetectionSystem = (entities) => {
     if (isInsideBox && !lastFrame) {
         if (entrySide === 'left') {
             cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, 'leftTNT');
+            // console.log('hit left')
+
         }
         else if (entrySide === 'right') {
             cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 0, 'rightTNT');
+            // console.log('hit left')
+
         }
         else if (entrySide === 'top') {
             cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, 'topTNT');
+            // console.log('hit left')
         }
         // // CannonBall is coming from the bottom
         else if (entrySide === 'bottom') {
             cannonBallBounce(entities.gameData, entities.gameData.isSoundEffectsOn, entities.sounds, 'tntCannonBallHitSound', entities.headerStats, entities.cannonBall, 1, 'bottomTNT');
+            // console.log('tnt bottom')
         }
     }
 
